@@ -111,7 +111,7 @@ export const Skin = ({ data }: ISkinProps) => {
               >
                 <ArrowLeft className="w-full" />
               </button>
-              <div className="mt-auto mb-auto flex h-fit w-fit items-center justify-center rounded-[6px] bg-[url('/images/profile/skin/hair-bg.webp')] bg-cover bg-center p-[10px]">
+              <div className={styles.headIconWrapper}>
                 {<SelectedIcon value={selectedHead} name="head" className="h-auto w-[80%]" />}
               </div>
               <button
@@ -136,7 +136,7 @@ export const Skin = ({ data }: ISkinProps) => {
               >
                 <ArrowLeft className="w-full" />
               </button>
-              <div className="mt-auto mb-auto flex h-fit w-fit items-center justify-center rounded-[6px] bg-[url('/images/profile/skin/suit-bg.webp')] bg-cover bg-center p-[20px]">
+              <div className={styles.suitIconWrapper}>
                 {<SelectedIcon value={selectedCostum} name="suit" className="h-auto w-[100%]" />}
               </div>
               <button

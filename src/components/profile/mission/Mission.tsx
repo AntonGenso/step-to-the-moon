@@ -125,7 +125,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
           </button>
         </div>
         <div
-          className={`${mission?.gameLink ? "bg-[url('/images/profile/mission/game_bg.webp')]" : 'bg-black'} relative h-full w-[50%] rounded-[20px] bg-[url('/images/profile/mission/game_bg.webp')] bg-cover bg-center`}
+          className={`${mission?.gameLink ? "bg-[url('/images/profile/mission/game_bg.webp')]" : 'bg-black'} relative h-full w-[50%] rounded-[20px] bg-cover bg-center`}
         >
           <button
             type="button"

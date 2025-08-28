@@ -6,6 +6,7 @@ import { Card } from '@/src/uikit/card/Card';
 import { useCallback, useEffect, useState } from 'react';
 import { Mission } from '../mission/Mission';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Heading } from '@/src/uikit/heading/Heading';
 
 interface IMissionProps {
   setIsGameOpen: (value: boolean) => void;
@@ -44,18 +45,14 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
   }, [mission, handleActiveMision]);
 
   return (
-    <div className={styles.contenWrapper}>
+    <div className={`${styles.contenWrapper} custom-scroll`}>
       {activeMission === null && !mission ? (
         <>
-          <div className={styles.titleWrapper}>
-            <h2 className={styles.title}>Missions</h2>
-          </div>
+          <Heading title="Missions" />
           <ul className={`${styles.tabletList} custom-scroll`}>
             {sortedMissions.map((item) => (
               <li key={item.id} className={styles.tabletItem}>
                 <Card
-                  gameLink={item.gameLink}
-                  onClick={() => setIsGameOpen(true)}
                   status={item.isAtive}
                   image={item.icon}
                   title={item.title}
