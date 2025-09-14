@@ -11,9 +11,10 @@ interface ICardProps {
   level: number;
   status: boolean;
   setActiveMission: (level: number) => void;
+  label: string;
 }
 
-export const Card = ({ image, title, level, status, setActiveMission }: ICardProps) => {
+export const Card = ({ image, title, level, status, setActiveMission, label = "level" }: ICardProps) => {
   const Icon = image;
 
   return (
@@ -29,7 +30,7 @@ export const Card = ({ image, title, level, status, setActiveMission }: ICardPro
       </div>
       <div className={styles.contentWrapper}>
         <h3 className={styles.title}>{title}</h3>
-        <span className={styles.level}>level: {level}</span>
+        <span className={styles.level}>{label}: {level}</span>
       </div>
     </button>
   );

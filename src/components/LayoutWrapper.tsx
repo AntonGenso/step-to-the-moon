@@ -10,11 +10,14 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   const hideLayout =
     pathname.startsWith("/login");
 
+  const hideFooter = 
+    pathname.startsWith("/profile");
+
   return (
     <>
       {!hideLayout && <Header />}
       <main>{children}</main>
-      {!hideLayout && <Footer />}
+      {!hideLayout || hideFooter && <Footer />}
     </>
   );
 }

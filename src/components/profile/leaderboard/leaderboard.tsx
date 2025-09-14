@@ -113,12 +113,12 @@ export default function Leaderboard() {
 
             <div className={styles.points}>
               <div className={styles.pointItem}>
-                <img src="/images/profile/leaderboard/star-score.svg" className="w-6 h-6 rounded-full" />
+                <img src="/images/profile/leaderboard/star-score.svg" className="rounded-full" />
                 <div>{getPoints(p)}</div>
               </div>
 
               <div className={`${styles.pointItem} ${styles.categoryPoints}`}>
-                <img src="/images/profile/leaderboard/donetest.svg" className="w-6 h-6 rounded-full" />
+                <img src="/images/profile/leaderboard/donetest.svg" className="rounded-full" />
                 <div>{getPoints(p)}</div>
               </div>
 
