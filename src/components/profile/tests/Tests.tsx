@@ -26,7 +26,7 @@ export default function Tests() {
           if (currentQuestion + 1 < total) {
             setCurrentQuestion((prev) => prev + 1);
           } else {
-            setActiveTest(null); // go back to list after finishing
+            setActiveTest(null); 
             setCurrentQuestion(0);
           }
         }}
@@ -50,6 +50,7 @@ export default function Tests() {
                 level={i + 1}
                 status={i === 0}
                 setActiveMission={setActiveTest}
+                label='test'
               />
             </li>
           ))}

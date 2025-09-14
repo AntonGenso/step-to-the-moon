@@ -58,6 +58,7 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
                   title={item.title}
                   level={item.level}
                   setActiveMission={() => handleActiveMision(item.id)}
+                  label='level'
                 />
               </li>
             ))}

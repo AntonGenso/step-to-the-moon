@@ -22,13 +22,12 @@ export default function LoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // ✅ Hardcoded credentials
-    const validUser = 'uztash2267B-Spaceship';
-    const validPass = 'ewtq2';
+    const validUser = "uztash2267B-Spaceship";
+    const validPass = "ewtq2";
 
     if (username === validUser && password === validPass) {
-      login(); // from AuthContext
-      router.push('/profile');
+      login(); 
+      router.push("/profile");
     } else {
       setError('Invalid username or password ❌');
     }
@@ -41,7 +40,6 @@ export default function LoginPage() {
       <form onSubmit={handleSubmit} className={styles.loginForm}>
         <h1 className={styles.loginTitle}>Login</h1>
 
-        {/* Username */}
         <div className={styles.inputGroup}>
           <input
             type="text"
@@ -53,7 +51,6 @@ export default function LoginPage() {
           <PersonIcon />
         </div>
 
-        {/* Password */}
         <div className={styles.inputGroup}>
           <input
             type={showPassword ? 'text' : 'password'}
@@ -72,7 +69,6 @@ export default function LoginPage() {
           )}
         </div>
 
-        {/* Error */}
         {error && <p className={styles.error}>{error}</p>}
 
         <button type="submit" className={styles.loginBtn}>
