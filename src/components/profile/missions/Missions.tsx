@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Mission } from '../mission/Mission';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Heading } from '@/src/uikit/heading/Heading';
+import BackIcon from '@/public/images/svg/back.svg';
 
 interface IMissionProps {
   setIsGameOpen: (value: boolean) => void;
@@ -58,14 +59,23 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
                   title={item.title}
                   level={item.level}
                   setActiveMission={() => handleActiveMision(item.id)}
-                  label='level'
+                  label="level"
                 />
               </li>
             ))}
           </ul>
         </>
       ) : activeMission ? (
-        <Mission setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
+        <div className="relative h-full w-full">
+          <button
+            type="button"
+            onClick={() => router.push('/profile?activeTab=mission')}
+            className={`${styles.backButton} absolute top-0 left-0 z-10 w-[5%]`}
+          >
+            <BackIcon className="z-10" />
+          </button>
+          <Mission setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
+        </div>
       ) : null}
     </div>
   );

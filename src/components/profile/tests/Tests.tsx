@@ -26,7 +26,7 @@ export default function Tests() {
           if (currentQuestion + 1 < total) {
             setCurrentQuestion((prev) => prev + 1);
           } else {
-            setActiveTest(null); 
+            setActiveTest(null);
             setCurrentQuestion(0);
           }
         }}
@@ -36,11 +36,9 @@ export default function Tests() {
 
   return (
     <div className={`${styles.container} relative flex h-[500px] w-full flex-col`}>
-      <h2 className={`${styles.title} text-[48px] font-bold`}>
-        Tests
-      </h2>
+      <h2 className={`${styles.title} text-[48px] font-bold`}>Tests</h2>
 
-      <div className="mt-[20px] flex-1 overflow-auto custom-scroll">
+      <div className="custom-scroll mt-[20px] flex-1 overflow-auto">
         <ul className="grid grid-cols-4 gap-[20px] p-[10px]">
           {testData.map((test, i) => (
             <li key={test.id}>
@@ -50,7 +48,7 @@ export default function Tests() {
                 level={i + 1}
                 status={i === 0}
                 setActiveMission={setActiveTest}
-                label='test'
+                label="test"
               />
             </li>
           ))}

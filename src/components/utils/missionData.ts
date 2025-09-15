@@ -1,11 +1,10 @@
 import EarthIcon from '@/public/images/svg/earth.svg';
 import SunhIcon from '@/public/images/svg/sun.svg';
-import Star from '@/public/images/svg/mssion/stars.svg';
 import Rockety from '@/public/images/svg/mssion/rocketry.svg';
-import Spacesuit from '@/public/images/svg/mssion/spacesuit.svg';
 import Atmosphere from '@/public/images/svg/mssion/atmosphere.svg';
-import Moon from '@/public/images/svg/mssion/moon.svg';
-import Saturt from '@/public/images/svg/mssion/saturn.svg';
+import CanyonFlight from '@/public/images/svg/mssion/canyon_flight.svg';
+import SolarSystem from '@/public/images/svg/mssion/solar_system.svg';
+import MoonRover from '@/public/images/svg/mssion/moon_rover.svg';
 
 import core from '@/public/images/profile/mission/land.webp';
 import land from '@/public/images/profile/mission/crust.webp';
@@ -33,10 +32,10 @@ export interface IMissionData {
 
 export const missionData: IMissionData[] = [
   {
-    id: 2,
-    icon: Rockety,
-    title: 'Rockety',
-    level: 3,
+    id: 0,
+    icon: SolarSystem,
+    title: 'Solar System',
+    level: 1,
     isAtive: true,
     gameLink: 'https://allelf.github.io/PuzzleWebGL/',
     description:
@@ -45,10 +44,10 @@ export const missionData: IMissionData[] = [
     facts: [],
   },
   {
-    id: 0,
+    id: 1,
     icon: EarthIcon,
-    title: 'The Earth',
-    level: 1,
+    title: 'Earth',
+    level: 2,
     isAtive: true,
     gameLink: 'https://allelf.github.io/MMOArcade/',
     description:
@@ -86,11 +85,11 @@ export const missionData: IMissionData[] = [
     ],
   },
   {
-    id: 4,
-    icon: SunhIcon,
-    title: 'Mission earth',
-    level: 5,
-    isAtive: false,
+    id: 2,
+    icon: EarthIcon,
+    title: 'Earth (Bonus)',
+    level: 3,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 3. It provides additional context and details about the mission.',
@@ -98,11 +97,11 @@ export const missionData: IMissionData[] = [
     facts: [],
   },
   {
-    id: 5,
-    icon: Star,
-    title: 'Mission sun',
-    level: 6,
-    isAtive: false,
+    id: 3,
+    icon: CanyonFlight,
+    title: 'Canyon Flight',
+    level: 4,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 4. It provides additional context and details about the mission.',
@@ -110,10 +109,10 @@ export const missionData: IMissionData[] = [
     facts: [],
   },
   {
-    id: 3,
-    icon: Spacesuit,
-    title: 'Rockety model',
-    level: 4,
+    id: 4,
+    icon: Rockety,
+    title: 'Rocketry',
+    level: 5,
     isAtive: true,
     gameLink: '',
     description:
@@ -123,10 +122,10 @@ export const missionData: IMissionData[] = [
     facts: [],
   },
   {
-    id: 1,
-    icon: Atmosphere,
-    title: 'Earth model',
-    level: 2,
+    id: 5,
+    icon: Rockety,
+    title: 'Rocketry (Bonus)',
+    level: 6,
     isAtive: true,
     gameLink: '',
     description:
@@ -137,10 +136,10 @@ export const missionData: IMissionData[] = [
   },
   {
     id: 6,
-    icon: Moon,
-    title: 'Mission sun',
+    icon: SunhIcon,
+    title: 'Sun',
     level: 7,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
@@ -149,10 +148,34 @@ export const missionData: IMissionData[] = [
   },
   {
     id: 7,
-    icon: Saturt,
-    title: 'Mission sun',
+    icon: MoonRover,
+    title: 'Moon Rover',
     level: 8,
-    isAtive: false,
+    isAtive: true,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+  },
+  {
+    id: 8,
+    icon: MoonRover,
+    title: 'Moon Rover (Bonus)',
+    level: 9,
+    isAtive: true,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+  },
+  {
+    id: 9,
+    icon: Atmosphere,
+    title: 'Atmosphere Game',
+    level: 10,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',

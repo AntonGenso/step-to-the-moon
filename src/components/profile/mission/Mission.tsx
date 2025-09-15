@@ -4,7 +4,7 @@ import HandsIcon from '@/public/images/profile/mission/svg/hands.svg';
 import AddIcon from '@/public/images/profile/mission/svg/plus_icon.svg';
 import { useRef, useEffect } from 'react';
 import { missionData } from '../../utils/missionData';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import styles from './Mission.module.scss';
 import Image from 'next/image';
 import defaultImage from '@/public/images/default_image.png';
@@ -24,7 +24,6 @@ interface IMissionProps {
 export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const mission = missionData.find((item) => item.id === Number(searchParams.get('missionId')));
 
@@ -112,28 +111,39 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
               controls={false}
             />
           )}
-          <button
-            type="button"
-            className="absolute top-1/2 left-1/2 w-[20%] -translate-x-1/2 -translate-y-1/2"
-            onClick={mission?.videoLink ? handlePlay : handleGame}
+          <div className="absolute top-1/2 left-1/2 flex w-[20%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center">
+            <button
+              type="button"
+              className={`flex w-full flex-col items-center justify-center gap-[5px] ${styles.videoButton}`}
+              onClick={mission?.videoLink ? handlePlay : handleGame}
+            >
+              {mission?.gameLink ? (
+                <>
+                  <PlayIcon className="cursor-pointer" />
+                </>
+              ) : (
+                <HandsIcon className="cursor-pointer" />
+              )}
+            </button>
+          </div>
+          <span
+            className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
           >
-            {mission?.gameLink ? (
-              <PlayIcon className="cursor-pointer" />
-            ) : (
-              <HandsIcon className="cursor-pointer" />
-            )}
-          </button>
+            {mission?.gameLink ? 'Video' : 'File'}
+          </span>
         </div>
         <div
           className={`${mission?.gameLink ? "bg-[url('/images/profile/mission/game_bg.webp')]" : 'bg-black'} relative h-full w-[50%] rounded-[20px] bg-cover bg-center`}
         >
           <button
             type="button"
-            className="absolute top-1/2 left-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-[20px]"
+            className="absolute top-1/2 left-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-[5px]"
             onClick={handleGame}
           >
             {mission?.gameLink ? (
-              <JoystikIcon className="w-[30%] cursor-pointer" />
+              <>
+                <JoystikIcon className="w-[30%] cursor-pointer" />
+              </>
             ) : (
               <>
                 <AddIcon className="w-[15%] cursor-pointer" />
@@ -143,6 +153,13 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
               </>
             )}
           </button>
+          {mission?.gameLink && (
+            <span
+              className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
+            >
+              Game
+            </span>
+          )}
         </div>
       </div>
       <h2
@@ -180,13 +197,6 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
           ))}
         </ul>
       </div>
-      <button
-        type="button"
-        onClick={() => router.push('/profile?activeTab=mission')}
-        className={styles.backButton}
-      >
-        {'\u2190'}
-      </button>
     </div>
   );
 };
