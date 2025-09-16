@@ -1,33 +1,40 @@
+:root {
+  --font-alumni-regular: 'AlumniSans-Regular';
+  --font-alumni-medium: 'AlumniSans-Medium';
+  --font-alumni-bold: 'AlumniSans-Bold';
+  --font-alumni-light: 'AlumniSans-Light';
+}
+
 .title {
   font-family: var(--font-alumni), sans-serif;
   font-weight: 400;
-  font-size: 48px;
-  line-height: 1;
+  font-size: clamp(1.8rem, 4vw, 3rem); // responsive title
+  line-height: 1.1;
   text-align: center;
   color: white;
-  margin-bottom: 10px; 
+  margin-bottom: 0.5rem;
 }
 
 .container {
-  padding: 20px;
+  padding: clamp(10px, 2vw, 20px);
 }
 
-
 .options {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px; 
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
 }
 
 .option {
-  padding: 15px;
-  border-radius: 15px;
+  padding: clamp(0.8rem, 2vw, 1.2rem);
+  border-radius: 0.75rem;
   border: 2px solid rgba(163, 163, 163, 0.7);
   background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(44,41,103,0.3));
   text-align: left;
-  font-size: 18px;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 .option:hover {
@@ -46,12 +53,13 @@
 
 .backButton {
   @extend .option;
-  width: 48px;
-  min-height: 48px;
+  width: clamp(2.5rem, 5vw, 3rem);
+  min-height: clamp(2.5rem, 5vw, 3rem);
   border-radius: 8px;
-  font-size: 24px;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
   font-weight: 700;
   background-color: #2a9ac9;
+  text-align: center;
 }
 
 .nextButton {
@@ -60,4 +68,84 @@
   background: #2a9ac9;
   border: none;
   color: white;
+}
+
+.resultWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.resultCard {
+  max-width: 600px;
+  width: 100%;
+}
+
+.resultHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.starIcon {
+  width: clamp(2rem, 6vw, 3rem);
+  height: auto;
+  color: gold;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+}
+
+.resultScore {
+  font-family: var(--font-alumni-light), sans-serif;
+  font-size: clamp(3.5rem, 3vw, 2rem);
+  color: #ffffff;
+  text-shadow: 
+    0 0 4px rgba(255, 255, 255, 0.8),
+    0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.resultText {
+  font-family: var(--font-alumni-light), sans-serif;
+  font-size: clamp(3.5rem, 2vw, 1.5rem);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-shadow: 
+    0 0 3px rgba(255, 255, 255, 0.7),
+    0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+.resultButtons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.iconButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.iconButton:hover {
+  transform: scale(1.1);
+}
+
+.iconButton svg {
+  width: clamp(2rem, 6vw, 3rem);
+  height: clamp(2rem, 6vw, 3rem);
 }

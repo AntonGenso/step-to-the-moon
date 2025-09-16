@@ -8,7 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-import styles from './logIn.module.scss';
+import styles from "./logIn.module.scss";
 
 export default function LoginPage() {
   const { login } = useAuth();

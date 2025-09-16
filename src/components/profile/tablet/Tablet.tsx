@@ -70,7 +70,7 @@ export const Tablet = () => {
             <Content value="diary" className={`h-full w-full ${styles.diary}`}>
               <Book />
             </Content>
-            <Content value="test">
+            <Content value="test" className="relative h-full w-full">
               <Test />
             </Content>
             <Content value="leader">
