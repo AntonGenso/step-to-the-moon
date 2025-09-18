@@ -11,6 +11,17 @@ import land from '@/public/images/profile/mission/crust.webp';
 import outerCore from '@/public/images/profile/mission/outercore.webp';
 import mantle from '@/public/images/profile/mission/mantel.webp';
 import { ElementType } from 'react';
+import { StaticImageData } from 'next/image';
+import {
+  atmosphereFacts,
+  canyonFlightFacts,
+  moonRoverBonusFacts,
+  moonRoverFacts,
+  rocketryFacts,
+  rocketyBonusFacts,
+  solarSystemFacts,
+  sunFacts,
+} from './factsData';
 
 export interface IMissionData {
   id: number;
@@ -26,8 +37,9 @@ export interface IMissionData {
     id: number;
     title: string;
     description: string;
-    image: string;
+    image: string | StaticImageData;
   }[];
+  type: 'current' | 'bonus';
 }
 
 export const missionData: IMissionData[] = [
@@ -41,7 +53,8 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 2. It provides additional context and details about the mission.',
     videoLink: '',
-    facts: [],
+    facts: solarSystemFacts.facts,
+    type: 'current',
   },
   {
     id: 1,
@@ -83,6 +96,7 @@ export const missionData: IMissionData[] = [
         image: land.src,
       },
     ],
+    type: 'current',
   },
   {
     id: 2,
@@ -95,6 +109,7 @@ export const missionData: IMissionData[] = [
       'This is a description for mission sun at level 3. It provides additional context and details about the mission.',
     videoLink: '',
     facts: [],
+    type: 'bonus',
   },
   {
     id: 3,
@@ -106,7 +121,8 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 4. It provides additional context and details about the mission.',
     videoLink: '',
-    facts: [],
+    facts: canyonFlightFacts.facts,
+    type: 'current',
   },
   {
     id: 4,
@@ -119,7 +135,8 @@ export const missionData: IMissionData[] = [
       'This is a description for mission sun at level 5. It provides additional context and details about the mission.',
     videoLink: '',
     fileLink: '/files/mission/rocket_instruction.pdf',
-    facts: [],
+    facts: rocketryFacts.facts,
+    type: 'current',
   },
   {
     id: 5,
@@ -132,7 +149,8 @@ export const missionData: IMissionData[] = [
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',
     fileLink: '/files/mission/earth_model.pdf',
-    facts: [],
+    facts: rocketyBonusFacts.facts,
+    type: 'bonus',
   },
   {
     id: 6,
@@ -144,7 +162,8 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',
-    facts: [],
+    facts: sunFacts.facts,
+    type: 'current',
   },
   {
     id: 7,
@@ -156,7 +175,8 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',
-    facts: [],
+    facts: moonRoverFacts.facts,
+    type: 'current',
   },
   {
     id: 8,
@@ -168,7 +188,8 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',
-    facts: [],
+    facts: moonRoverBonusFacts.facts,
+    type: 'bonus',
   },
   {
     id: 9,
@@ -180,6 +201,7 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',
-    facts: [],
+    facts: atmosphereFacts.facts,
+    type: 'current',
   },
 ];

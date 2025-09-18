@@ -1,13 +1,11 @@
-import PlayIcon from '@/public/images/profile/mission/svg/play.svg';
-import JoystikIcon from '@/public/images/profile/mission/svg/joystick.svg';
-import HandsIcon from '@/public/images/profile/mission/svg/hands.svg';
-import AddIcon from '@/public/images/profile/mission/svg/plus_icon.svg';
 import { useRef, useEffect } from 'react';
 import { missionData } from '../../utils/missionData';
 import { useSearchParams } from 'next/navigation';
 import styles from './Mission.module.scss';
 import Image from 'next/image';
 import defaultImage from '@/public/images/default_image.png';
+import { CurrentMissionView } from './missionType/CurrentMissioView';
+import { BonuseMissionView } from './missionType/BonuseMissionView';
 
 declare global {
   interface HTMLVideoElement {
@@ -89,6 +87,10 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
     }
   };
 
+  const handleUpload = () => {
+    console.log('Файл загружен!');
+  };
+
   const handleGame = () => {
     if (mission?.gameLink) {
       setIsGameOpen(true);
@@ -101,7 +103,17 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
   return (
     <div className="custom-scroll relative flex h-full w-full flex-col gap-[20px] overflow-auto p-[20px_0]">
       <div className="flex gap-[10px]">
-        <div className="relative h-[200px] w-[50%] overflow-hidden rounded-[20px] bg-[url('/images/profile/mission/video_bg.webp')] bg-cover bg-center">
+        {mission?.type === 'current' ? (
+          <CurrentMissionView
+            mission={mission}
+            videoRef={videoRef}
+            handlePlay={handlePlay}
+            handleGame={handleGame}
+          />
+        ) : (
+          <BonuseMissionView handleDownload={handleDownload} handleUpload={handleUpload} />
+        )}
+        {/* <div className="relative h-[200px] w-[50%] overflow-hidden rounded-[20px] bg-[url('/images/profile/mission/video_bg.webp')] bg-cover bg-center">
           {mission?.videoLink && (
             <video
               ref={videoRef || ''}
@@ -160,7 +172,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
               Game
             </span>
           )}
-        </div>
+        </div> */}
       </div>
       <h2
         className={`${styles.title} flex items-center justify-center text-[48px] font-bold lowercase`}

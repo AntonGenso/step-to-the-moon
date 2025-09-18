@@ -3,6 +3,9 @@ import MoonIcon from '@/public/images/svg/mssion/moon.svg';
 import BoyIcon from '@/public/images/profile/skin/svg/boy_light.svg';
 import styles from './MoonProgressBar.module.scss';
 
+// import ProgressbarMoon from '@/public/images/svg/progressbar_moon.svg';
+// import ProgressbarEarth from '@/public/images/svg/progressbar_earth.svg';
+
 interface IMoonProgressBarProps {
   progress: number;
   distance: number;
