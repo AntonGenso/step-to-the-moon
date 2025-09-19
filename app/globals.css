@@ -2,6 +2,13 @@
 @import 'tailwindcss/preflight';
 @import 'tailwindcss/utilities';
 
+:root {
+  --font-alumni-regular: 'AlumniSans-Regular';
+  --font-alumni-medium: 'AlumniSans-Medium';
+  --font-alumni-bold: 'AlumniSans-Bold';
+  --font-alumni-light: 'AlumniSans-Light';
+}
+
 @font-face {
   font-family: 'AlumniSans-Bold';
   src: url('/fonts/AlumniSans-Bold.ttf') format('truetype');
