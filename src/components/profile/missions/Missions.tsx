@@ -70,7 +70,7 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
           <button
             type="button"
             onClick={() => router.push('/profile?activeTab=mission')}
-            className={`${styles.backButton} absolute top-0 left-0 z-10 w-[5%]`}
+            className={`${styles.backButton} absolute top-0 left-0 z-10 w-[5%] cursor-pointer`}
           >
             <BackIcon className="z-10" />
           </button>

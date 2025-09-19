@@ -102,7 +102,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
 
   return (
     <div className="custom-scroll relative flex h-full w-full flex-col gap-[20px] overflow-auto p-[20px_0]">
-      <div className="flex gap-[10px]">
+      <div className="flex h-full gap-[10px]">
         {mission?.type === 'current' ? (
           <CurrentMissionView
             mission={mission}
@@ -113,102 +113,46 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
         ) : (
           <BonuseMissionView handleDownload={handleDownload} handleUpload={handleUpload} />
         )}
-        {/* <div className="relative h-[200px] w-[50%] overflow-hidden rounded-[20px] bg-[url('/images/profile/mission/video_bg.webp')] bg-cover bg-center">
-          {mission?.videoLink && (
-            <video
-              ref={videoRef || ''}
-              src={mission.videoLink}
-              className="w-full max-w-3xl"
-              preload="metadata"
-              controls={false}
-            />
-          )}
-          <div className="absolute top-1/2 left-1/2 flex w-[20%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center">
-            <button
-              type="button"
-              className={`flex w-full flex-col items-center justify-center gap-[5px] ${styles.videoButton}`}
-              onClick={mission?.videoLink ? handlePlay : handleGame}
-            >
-              {mission?.gameLink ? (
-                <>
-                  <PlayIcon className="cursor-pointer" />
-                </>
-              ) : (
-                <HandsIcon className="cursor-pointer" />
-              )}
-            </button>
-          </div>
-          <span
-            className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
-          >
-            {mission?.gameLink ? 'Video' : 'File'}
-          </span>
-        </div>
-        <div
-          className={`${mission?.gameLink ? "bg-[url('/images/profile/mission/game_bg.webp')]" : 'bg-black'} relative h-full w-[50%] rounded-[20px] bg-cover bg-center`}
+      </div>
+      {!!mission?.facts.length && (
+        <h2
+          className={`${styles.title} flex items-center justify-center text-[48px] font-bold lowercase`}
         >
-          <button
-            type="button"
-            className="absolute top-1/2 left-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-[5px]"
-            onClick={handleGame}
-          >
-            {mission?.gameLink ? (
-              <>
-                <JoystikIcon className="w-[30%] cursor-pointer" />
-              </>
-            ) : (
-              <>
-                <AddIcon className="w-[15%] cursor-pointer" />
-                <span className={`${styles.subtitle} block w-[100%] uppercase`}>
-                  add your file png/jpeg
-                </span>
-              </>
-            )}
-          </button>
-          {mission?.gameLink && (
-            <span
-              className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
-            >
-              Game
-            </span>
-          )}
-        </div> */}
-      </div>
-      <h2
-        className={`${styles.title} flex items-center justify-center text-[48px] font-bold lowercase`}
-      >
-        Facts
-      </h2>
-      <div className="h-full w-full">
-        <ul className="grid h-full grid-cols-3 gap-[20px]">
-          {mission?.facts.map((fact) => (
-            <li
-              key={fact.id}
-              className={`${styles.factItem} rounded-[75px] border-[2px] border-[#2f8e86] bg-gradient-to-b from-[rgba(41,140,99,0.2)] to-[rgba(41,140,99,1)]`}
-            >
-              <div
-                className={`${styles.imageWrapper} relative aspect-[1/1] w-full flex-1 overflow-hidden rounded-[75px] border-[2px] border-[#2f8e86]`}
+          Facts
+        </h2>
+      )}
+      {!!mission?.facts.length && (
+        <div className="h-full w-full">
+          <ul className="grid h-full grid-cols-3 gap-[20px]">
+            {mission?.facts.map((fact) => (
+              <li
+                key={fact.id}
+                className={`${styles.factItem} rounded-[75px] border-[2px] border-[#2f8e86] bg-gradient-to-b from-[rgba(41,140,99,0.2)] to-[rgba(41,140,99,1)]`}
               >
-                <Image
-                  src={fact?.image || defaultImage}
-                  alt={fact.title}
-                  width={500}
-                  height={500}
-                  quality={90}
-                  className={styles.factImage}
-                />
-              </div>
-              <div className={styles.descriptionWrapper}>
-                <p
-                  className={`${styles.description} p-[10px_10px_15px_10px] text-center text-[24px] leading-[1] text-white`}
+                <div
+                  className={`${styles.imageWrapper} relative aspect-[1/1] w-full flex-1 overflow-hidden rounded-[75px] border-[2px] border-[#2f8e86]`}
                 >
-                  {fact.description}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+                  <Image
+                    src={fact?.image || defaultImage}
+                    alt={fact.title}
+                    width={500}
+                    height={500}
+                    quality={90}
+                    className={styles.factImage}
+                  />
+                </div>
+                <div className={styles.descriptionWrapper}>
+                  <p
+                    className={`${styles.description} p-[10px_10px_15px_10px] text-center text-[24px] leading-[1] text-white`}
+                  >
+                    {fact.description}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

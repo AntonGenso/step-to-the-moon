@@ -53,10 +53,10 @@ body {
 }
 
 .custom-scroll::-webkit-scrollbar-track {
+  margin: 40px 0;
+  padding: 20px 0;
   border-radius: 10px;
   border: 3px solid #acc5d0;
-  margin: 2px;
-  padding: 2px;
   background: none;
 }
 
@@ -71,6 +71,6 @@ body {
 }
 
 .custom-scroll {
-  scrollbar-width: 12px;
-  padding: 6px;
+  scrollbar-width: 8px;
+  padding: 0 8px;
 }

@@ -43,21 +43,19 @@ export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissio
 
   return (
     <div className="grid h-full w-full grid-cols-2 gap-[20px]">
-      <div className="relative col-span-1 row-span-2 h-full w-full overflow-hidden rounded-[20px] bg-[url('/images/profile/mission/video_bg.webp')] bg-cover bg-center">
-        <div className="absolute top-1/2 left-1/2 flex w-[60%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center">
+      <div className="relative col-span-1 row-span-2 flex w-full items-center justify-center overflow-hidden rounded-[20px] bg-[url('/images/profile/mission/video_bg.webp')] bg-cover bg-center">
+        <div
+          className={`flex w-full flex-col items-center justify-center ${styles.interactionWrapper}`}
+        >
           <button
             type="button"
-            className={`flex w-full flex-col items-center justify-center gap-[5px] ${styles.videoButton}`}
+            className={`flex w-full flex-col items-center justify-center gap-[30px] leading-[1] ${styles.videoButton}`}
             onClick={handleDownload}
           >
-            <HandsIcon className="cursor-pointer" />
+            <HandsIcon className="w-[80%] cursor-pointer" />
+            <span className={`mx-auto flex text-center text-4xl font-semibold`}>Interaction</span>
           </button>
         </div>
-        <span
-          className={`absolute bottom-[10%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl font-semibold ${styles.btnText}`}
-        >
-          Interaction
-        </span>
       </div>
       <div ref={containerRef} className={`col-span-1 row-span-1 ${styles.bonuseMissionText}`}>
         <p className="font-regular text-2xl leading-[2]">
