@@ -6,7 +6,7 @@
 }
 
 .title {
-  font-family: var(--font-alumni), sans-serif;
+  font-family: var(--font-alumni-regular), sans-serif;
   font-weight: 400;
   font-size: clamp(1.8rem, 4vw, 3rem); // responsive title
   line-height: 1.1;
@@ -30,7 +30,7 @@
   padding: clamp(0.8rem, 2vw, 1.2rem);
   border-radius: 0.75rem;
   border: 2px solid rgba(163, 163, 163, 0.7);
-  background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(44,41,103,0.3));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(44, 41, 103, 0.3));
   text-align: left;
   font-size: clamp(0.9rem, 2vw, 1.1rem);
   cursor: pointer;
@@ -107,7 +107,7 @@
   font-family: var(--font-alumni-light), sans-serif;
   font-size: clamp(3.5rem, 3vw, 2rem);
   color: #ffffff;
-  text-shadow: 
+  text-shadow:
     0 0 4px rgba(255, 255, 255, 0.8),
     0 0 8px rgba(255, 255, 255, 0.6);
 }
@@ -118,7 +118,7 @@
   margin-bottom: 1.5rem;
   font-weight: 500;
   color: #ffffff;
-  text-shadow: 
+  text-shadow:
     0 0 3px rgba(255, 255, 255, 0.7),
     0 0 6px rgba(255, 255, 255, 0.5);
 }
