@@ -1,64 +1,86 @@
 .wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 100%;
+  width: 100%;
   color: white;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .container {
   position: relative;
   width: 100%;
-  max-width: 900px; 
-  padding: 2rem;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   margin: 0 auto;
+  padding: clamp(0.8rem, 2vw, 1.2rem);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .questionBorder {
-  background: linear-gradient(to bottom left,  #006c8400, #2B95C8, #006c8400);
+  background: linear-gradient(to bottom left, #006c8400, #2B95C8, #006c8400);
   padding: 5px;
   border-radius: 15px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .questionBox {
   background: linear-gradient(270deg, #2B95C8, #2b96c800 80%);
   border-radius: 13px;
-  padding: 1.2rem;
+  padding: clamp(1rem, 2vw, 3rem);   
   text-align: center;
   box-shadow: 0 4px 15px rgba(0, 229, 255, 0.2);
 
   p {
     margin-bottom: 0.5rem;
-    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-size: clamp(1rem, 2vw, 2.2rem); 
+    word-wrap: break-word;
   }
 
   span {
-    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    font-size: clamp(0.9rem, 1.8vw, 1.6rem);
     font-weight: bold;
   }
 }
 
-.optionsGrid {
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  gap: 1.5rem;
 
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
+.optionsGrid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
 }
 
 .optionCard {
   background: linear-gradient(to bottom left, #999EA0, #999ea000);
   border: 3px solid #999EA0;
   border-radius: 12px;
-  padding: 1rem;
-  text-align: left;
+  padding: clamp(0.6rem, 1.5vw, 1.2rem);
+  text-align: center;
   color: white;
   font-weight: 500;
   transition: 0.3s ease;
   cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+
+  height: 100%;
 
   &:hover:not(:disabled) {
     background: rgba(0, 229, 255, 0.2);
@@ -66,9 +88,10 @@
   }
 }
 
+
 .optionLetter {
   display: block;
-  font-size: 2.6rem;
+  font-size: clamp(1.2rem, 2vw, 2rem);
   font-weight: bold;
   margin-bottom: 0.5rem;
   text-align: center;
@@ -80,16 +103,12 @@
   color: transparent;
 }
 
-
-
 .correct {
   background: linear-gradient(to bottom left, #03AF8C, #999ea000);
   border-color: #03AF8C;
-  color: #fff;
 }
 
 .wrong {
   background: linear-gradient(to bottom left, #D28080, #999ea000);
   border-color: #D28080;
-  color: #fff;
 }

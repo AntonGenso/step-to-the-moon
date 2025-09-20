@@ -10,13 +10,29 @@ interface IQuestion {
 }
 
 interface TestProps {
-  question: IQuestion;
-  current: number;
-  total: number;
-  onAnswer: (option: string) => void;
+  question?: IQuestion;
+  current?: number;
+  total?: number;
+  onAnswer?: (option: string) => void;
 }
 
-const Test: React.FC<TestProps> = ({ question, current, total, onAnswer }) => {
+const sampleQuestion: IQuestion = {
+  question: 'На Меркурии год короче... чего?',
+  options: {
+    A: 'Ночи',
+    B: 'Солнца',
+    C: 'Дня',
+    D: 'Месяца',
+  },
+  answer: 'C',
+};
+
+const Test: React.FC<TestProps> = ({
+  question = sampleQuestion,
+  current = 1,
+  total = 8,
+  onAnswer = () => {},
+}) => {
   const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
@@ -35,7 +51,6 @@ const Test: React.FC<TestProps> = ({ question, current, total, onAnswer }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        {/* gradient border wrapper */}
         <div className={styles.questionBorder}>
           <div className={styles.questionBox}>
             <p>{question.question}</p>

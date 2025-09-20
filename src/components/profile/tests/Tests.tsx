@@ -104,7 +104,7 @@ export default function Tests() {
                 image={test.icon}
                 title={test.title}
                 level={i + 1}
-                status={i === 0}
+                status={true}
                 setActiveMission={() => setActiveTest(test.id)}
                 label="test"
               />
