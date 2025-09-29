@@ -52,7 +52,7 @@ export const missionData: IMissionData[] = [
     gameLink: 'https://allelf.github.io/PuzzleWebGL/',
     description:
       'This is a description for mission sun at level 2. It provides additional context and details about the mission.',
-    videoLink: '',
+    videoLink: '/video/mission/earth/earth.mp4',
     facts: solarSystemFacts.facts,
     type: 'current',
   },
@@ -108,6 +108,7 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 3. It provides additional context and details about the mission.',
     videoLink: '',
+    fileLink: '/files/mission/earth_model.pdf',
     facts: [],
     type: 'bonus',
   },
@@ -117,7 +118,7 @@ export const missionData: IMissionData[] = [
     title: 'Canyon Flight',
     level: 4,
     isAtive: true,
-    gameLink: '',
+    gameLink: 'https://allelf.github.io/FlyPlane/',
     description:
       'This is a description for mission sun at level 4. It provides additional context and details about the mission.',
     videoLink: '',
@@ -130,11 +131,11 @@ export const missionData: IMissionData[] = [
     title: 'Rocketry',
     level: 5,
     isAtive: true,
-    gameLink: '',
+    gameLink: 'https://allelf.github.io/PuzzleWebGL/',
     description:
       'This is a description for mission sun at level 5. It provides additional context and details about the mission.',
     videoLink: '',
-    fileLink: '/files/mission/rocket_instruction.pdf',
+    fileLink: '',
     facts: rocketryFacts.facts,
     type: 'current',
   },
@@ -148,7 +149,7 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',
-    fileLink: '/files/mission/earth_model.pdf',
+    fileLink: '/files/mission/rocket_instruction.pdf',
     facts: rocketyBonusFacts.facts,
     type: 'bonus',
   },
@@ -197,7 +198,7 @@ export const missionData: IMissionData[] = [
     title: 'Atmosphere Game',
     level: 10,
     isAtive: true,
-    gameLink: '',
+    gameLink: 'https://allelf.github.io/Cosmo2D/',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',

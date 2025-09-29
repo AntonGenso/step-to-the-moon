@@ -1,5 +1,6 @@
 import PlayIcon from '@/public/images/profile/mission/svg/play.svg';
 import JoystikIcon from '@/public/images/profile/mission/svg/joystick.svg';
+import LockIcon from '@/public/images/profile/mission/svg/lock.svg';
 
 import styles from './MissionType.module.scss';
 
@@ -35,9 +36,13 @@ export const CurrentMissionView = ({
           <button
             type="button"
             className={`flex w-full flex-col items-center justify-center gap-[5px] ${styles.videoButton}`}
-            onClick={mission?.videoLink ? handlePlay : handleGame}
+            onClick={mission?.videoLink ? handlePlay : undefined}
           >
-            <PlayIcon className="cursor-pointer" />
+            {mission?.videoLink ? (
+              <PlayIcon className="cursor-pointer" />
+            ) : (
+              <LockIcon className="cursor-pointer" />
+            )}
           </button>
         </div>
         <span
@@ -51,18 +56,20 @@ export const CurrentMissionView = ({
       >
         <button
           type="button"
-          className="absolute top-1/2 left-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-[5px]"
-          onClick={handleGame}
+          className="absolute top-1/2 left-1/2 flex w-[20%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-[5px]"
+          onClick={mission?.gameLink ? handleGame : undefined}
         >
-          <JoystikIcon className="w-[30%] cursor-pointer" />
+          {mission?.gameLink ? (
+            <JoystikIcon className="cursor-pointer" />
+          ) : (
+            <LockIcon className="cursor-pointer" />
+          )}
         </button>
-        {mission?.gameLink && (
-          <span
-            className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
-          >
-            Game
-          </span>
-        )}
+        <span
+          className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
+        >
+          Game
+        </span>
       </div>
     </>
   );

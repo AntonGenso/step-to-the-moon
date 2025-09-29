@@ -49,8 +49,8 @@
       margin-top: auto;
       margin-bottom: auto;
       display: flex;
-      height: fit-content;
-      width: fit-content;
+      min-width: 150px;
+      min-height: 150px;
       align-items: center;
       justify-content: center;
       border-radius: 6px;

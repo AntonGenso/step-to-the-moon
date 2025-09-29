@@ -44,7 +44,7 @@ export const Tablet = () => {
   return (
     <>
       {isGameOpen ? (
-        <div className="ml-auto h-[683px] w-[1100px] p-[20px]">
+        <div className="m-auto h-[700px] w-[1100px] p-[20px]">
           <button
             type="button"
             className="absolute top-[20px] right-[60px]"

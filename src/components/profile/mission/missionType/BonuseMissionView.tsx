@@ -19,16 +19,12 @@ export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissio
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Проверяем тип файла
     if (!file.type.startsWith('image/')) {
       alert('Пожалуйста, выберите изображение (PNG/JPEG)');
       return;
     }
 
     setIsUploading(true);
-
-    // Симуляция загрузки
-    // await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const imageUrl = URL.createObjectURL(file);
     setUploadedImage(imageUrl);

@@ -101,7 +101,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
   };
 
   return (
-    <div className="custom-scroll relative flex h-full w-full flex-col gap-[20px] overflow-auto p-[20px_0]">
+    <div className="custom-scroll relative flex h-full w-full flex-col gap-[20px] overflow-auto">
       <div className="flex h-full gap-[10px]">
         {mission?.type === 'current' ? (
           <CurrentMissionView
@@ -130,7 +130,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
                 className={`${styles.factItem} rounded-[75px] border-[2px] border-[#2f8e86] bg-gradient-to-b from-[rgba(41,140,99,0.2)] to-[rgba(41,140,99,1)]`}
               >
                 <div
-                  className={`${styles.imageWrapper} relative aspect-[1/1] w-full flex-1 overflow-hidden rounded-[75px] border-[2px] border-[#2f8e86]`}
+                  className={`${styles.imageWrapper} relative aspect-[1/1] w-full flex-1 overflow-hidden rounded-[100px] border-[2px] border-[#2f8e86]`}
                 >
                   <Image
                     src={fact?.image || defaultImage}
