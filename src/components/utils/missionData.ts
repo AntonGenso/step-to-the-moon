@@ -49,7 +49,7 @@ export const missionData: IMissionData[] = [
     title: 'Solar System',
     level: 1,
     isAtive: true,
-    gameLink: 'https://allelf.github.io/PuzzleWebGL/',
+    gameLink: 'https://allelf.github.io/CosmoTourist2DGame/',
     description:
       'This is a description for mission sun at level 2. It provides additional context and details about the mission.',
     videoLink: '/video/mission/earth/earth.mp4',
