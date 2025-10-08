@@ -9,6 +9,7 @@ import styles from './Tests.module.scss';
 import { Card } from '@/src/uikit/card/Card';
 import Test from '../test/Test';
 import { testData } from '../../utils/testData';
+import { Heading } from '@/src/uikit/heading/Heading';
 
 export default function Tests() {
   const [activeTest, setActiveTest] = useState<number | null>(null);
@@ -64,7 +65,6 @@ export default function Tests() {
                 <Home />
               </button>
             </div>
-
           </div>
         </div>
       );
@@ -93,25 +93,22 @@ export default function Tests() {
   }
 
   return (
-    <div className={`${styles.container} relative flex h-[500px] w-full flex-col`}>
-      <h2 className={`${styles.title} text-[48px] font-bold`}>Tests</h2>
-
-      <div className="custom-scroll mt-[20px] flex-1 overflow-auto">
-        <ul className="grid grid-cols-4 gap-[20px] p-[10px]">
-          {testData.map((test, i) => (
-            <li key={test.id}>
-              <Card
-                image={test.icon}
-                title={test.title}
-                level={i + 1}
-                status={true}
-                setActiveMission={() => setActiveTest(test.id)}
-                label="test"
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className={`${styles.contentWrapper} custom-scroll`}>
+      <Heading title="Tests" />
+      <ul className={`${styles.tabletList} custom-scroll`}>
+        {testData.map((test, i) => (
+          <li key={test.id} className={styles.tabletItem}>
+            <Card
+              image={test.icon}
+              title={test.title}
+              level={i + 1}
+              status={true}
+              setActiveMission={() => setActiveTest(test.id)}
+              label="test"
+            />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

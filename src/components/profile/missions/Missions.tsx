@@ -46,7 +46,7 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
   }, [mission, handleActiveMision]);
 
   return (
-    <div className={`${styles.contenWrapper} custom-scroll`}>
+    <div className={`${styles.contentWrapper} custom-scroll`}>
       {activeMission === null && !mission ? (
         <>
           <Heading title="Missions" />
