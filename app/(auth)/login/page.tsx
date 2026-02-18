@@ -19,17 +19,26 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
 
-    const validUser = "uztash2267B-Spaceship";
-    const validPass = "ewtq2";
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
 
-    if (username === validUser && password === validPass) {
-      login(); 
-      router.push("/profile");
-    } else {
-      setError('Invalid username or password ❌');
+      if (!res.ok) {
+        setError('Invalid username or password ❌');
+        return;
+      }
+
+      login();
+      router.push('/profile');
+    } catch {
+      setError('Something went wrong. Please try again.');
     }
   };
 

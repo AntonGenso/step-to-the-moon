@@ -15,6 +15,8 @@
     "@mui/material": "^7.1.1",
     "@radix-ui/react-tabs": "^1.1.12",
     "@tailwindcss/postcss": "^4.1.10",
+    "@tanstack/react-query": "^5.90.14",
+    "axios": "^1.13.2",
     "classnames": "^2.5.1",
     "icons": "^1.0.0",
     "next": "^15.4.10",

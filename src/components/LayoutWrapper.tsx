@@ -1,23 +1,21 @@
-"use client";
+'use client';
 
-import { usePathname } from "next/navigation";
-import Header from "@/src/components/header/header";
-import Footer from "@/src/components/footer/footer";
+import { usePathname } from 'next/navigation';
+import Header from '@/src/components/header/header';
+import Footer from '@/src/components/footer/footer';
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  const hideLayout =
-    pathname.startsWith("/login");
+  const hideLayout = pathname.startsWith('/login') || pathname.startsWith('/signup');
 
-  const hideFooter = 
-    pathname.startsWith("/profile");
+  const hideFooter = pathname.startsWith('/profile');
 
   return (
     <>
       {!hideLayout && <Header />}
       <main>{children}</main>
-      {!hideLayout || hideFooter && <Footer />}
+      {!hideLayout || (hideFooter && <Footer />)}
     </>
   );
 }

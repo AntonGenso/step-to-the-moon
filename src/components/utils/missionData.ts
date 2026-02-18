@@ -159,7 +159,7 @@ export const missionData: IMissionData[] = [
     title: 'Sun',
     level: 7,
     isAtive: true,
-    gameLink: '',
+    gameLink: 'https://ziyoda-1995.github.io/Game_jame/Rus%20ideal%20game/index.html',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',

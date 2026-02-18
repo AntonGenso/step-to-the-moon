@@ -39,7 +39,7 @@
 }
 
 body {
-  background: url(../public/images/main-bg.webp);
+  /* background: url(../public/images/main-bg.webp); */
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 0;
