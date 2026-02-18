@@ -1,0 +1,54 @@
+[    1452ms] [WARNING] Image with src "/_next/static/media/tablet_view.10298b80.webp" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.
+Read more: https://nextjs.org/docs/api-reference/next/image#priority @ http://localhost:3002/_next/static/chunks/node_modules_next_dist_445d8acf._.js:874
+[    1455ms] [WARNING] Image with src "/_next/static/media/tablet_view.10298b80.webp" has "fill" and parent element with invalid "position". Provided "static" should be one of absolute,fixed,relative. @ http://localhost:3002/_next/static/chunks/node_modules_next_dist_445d8acf._.js:874
+[  182237ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3002/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_61dcf9ba._.js:32
+[  184615ms] ReferenceError: Astronaut is not defined
+    at [project]/src/components/utils/testData.ts [app-client] (ecmascript) (http://localhost:3002/_next/static/chunks/src_118ec3bb._.js:1041:15)
+    at http://localhost:3002/_next/static/chunks/_01f48b92._.js:766:13
+    at runModuleExecutionHooks (http://localhost:3002/_next/static/chunks/_01f48b92._.js:811:13)
+    at instantiateModule (http://localhost:3002/_next/static/chunks/_01f48b92._.js:764:9)
+    at getOrInstantiateModuleFromParent (http://localhost:3002/_next/static/chunks/_01f48b92._.js:696:12)
+    at esmImport (http://localhost:3002/_next/static/chunks/_01f48b92._.js:173:20)
+    at [project]/src/components/profile/tests/Tests.tsx [app-client] (ecmascript) (http://localhost:3002/_next/static/chunks/src_118ec3bb._.js:1147:167)
+    at http://localhost:3002/_next/static/chunks/_01f48b92._.js:766:13
+    at runModuleExecutionHooks (http://localhost:3002/_next/static/chunks/_01f48b92._.js:811:13)
+    at instantiateModule (http://localhost:3002/_next/static/chunks/_01f48b92._.js:764:9)
+    at getOrInstantiateModuleFromParent (http://localhost:3002/_next/static/chunks/_01f48b92._.js:696:12)
+    at esmImport (http://localhost:3002/_next/static/chunks/_01f48b92._.js:173:20)
+    at [project]/src/components/profile/tablet/Tablet.tsx [app-client] (ecmascript) (http://localhost:3002/_next/static/chunks/src_118ec3bb._.js:3628:176)
+    at http://localhost:3002/_next/static/chunks/_01f48b92._.js:766:13
+    at runModuleExecutionHooks (http://localhost:3002/_next/static/chunks/_01f48b92._.js:811:13)
+    at instantiateModule (http://localhost:3002/_next/static/chunks/_01f48b92._.js:764:9)
+    at getOrInstantiateModuleFromParent (http://localhost:3002/_next/static/chunks/_01f48b92._.js:696:12)
+    at commonJsRequire (http://localhost:3002/_next/static/chunks/_01f48b92._.js:188:20)
+    at requireModule (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_0f1b9fd4._.js:2896:86)
+    at initializeModuleChunk (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_0f1b9fd4._.js:3500:25)
+    at readChunk (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_0f1b9fd4._.js:3362:17)
+    at Object.react_stack_bottom_frame (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc06._.js:13078:20)
+    at beginWork (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc06._.js:6001:77)
+    at runWithFiberInDEV (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc06._.js:890:74)
+    at performUnitOfWork (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc06._.js:8236:97)
+    at workLoopSync (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc06._.js:8128:40)
+    at renderRootSync (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc06._.js:8111:13)
+    at performWorkOnRoot (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc06._.js:7846:212)
+    at performWorkOnRootViaSchedulerTask (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_react-dom_1f56dc06._.js:8820:9)
+    at MessagePort.performWorkUntilDeadline (http://localhost:3002/_next/static/chunks/node_modules_next_dist_compiled_0f1b9fd4._.js:2588:64)
+[  190408ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ http://localhost:3002/_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_61dcf9ba._.js:32
+[  190410ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ http://localhost:3002/_next/static/chunks/node_modules_next_dist_client_20b209c9._.js:6026
+[  191645ms] [WARNING] Image with src "/_next/static/media/tablet_view.10298b80.webp" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.
+Read more: https://nextjs.org/docs/api-reference/next/image#priority @ http://localhost:3002/_next/static/chunks/node_modules_next_dist_445d8acf._.js:874
+[  191660ms] [WARNING] Image with src "/_next/static/media/tablet_view.10298b80.webp" has "fill" and parent element with invalid "position". Provided "static" should be one of absolute,fixed,relative. @ http://localhost:3002/_next/static/chunks/node_modules_next_dist_445d8acf._.js:874

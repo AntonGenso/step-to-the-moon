@@ -21,6 +21,7 @@ export default function Tests() {
   if (activeTest !== null) {
     const test = testData.find((t) => t.id === activeTest);
     if (!test) return null;
+
     const total = test.questions.length;
     const question = test.questions[currentQuestion];
 
