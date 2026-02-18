@@ -15,7 +15,7 @@ export const Book = () => {
 
   const nextPage = () => {
     if (bookRef.current) {
-      if (page >= 1) return;
+      if (page >= 2) return;
       setPage((prev) => (prev += 1));
       bookRef.current.pageFlip().flipNext();
     }
@@ -59,20 +59,20 @@ export const Book = () => {
         clickEventForward={false}
         useMouseEvents={false}
         showPageCorners={false}
-        disableFlipByClick={true}
+        disableFlipByClick={false}
       >
-        <div className="">
-          <Image src={cover} fill alt="cover" className="" />
+        <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+          <Image src={cover} fill alt="cover" style={{ objectFit: 'cover' }} />
         </div>
-        <div>
-          <Image src={page1} fill alt="page 1" className="" />
+        <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+          <Image src={page1} fill alt="page 1" style={{ objectFit: 'cover' }} />
         </div>
-        <div>
-          <Image src={page2} fill alt="page 2" className="" />
+        <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+          <Image src={page2} fill alt="page 2" style={{ objectFit: 'cover' }} />
         </div>
       </HTMLFlipBook>
       <button onClick={nextPage} className={styles.arrowBtn}>
-        {page < 1 ? <ArrowRight className={styles.arrow} /> : ''}
+        {page < 2 ? <ArrowRight className={styles.arrow} /> : ''}
       </button>
     </Container>
   );

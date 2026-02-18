@@ -1,0 +1,4 @@
+[    1029ms] [WARNING] Image with src "/_next/static/media/tablet_view.10298b80.webp" was detected as the Largest Contentful Paint (LCP). Please add the "priority" property if this image is above the fold.
+Read more: https://nextjs.org/docs/api-reference/next/image#priority @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_445d8acf._.js:874
+[    1034ms] [WARNING] Image with src "/_next/static/media/tablet_view.10298b80.webp" has "fill" and parent element with invalid "position". Provided "static" should be one of absolute,fixed,relative. @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_445d8acf._.js:874
+[    1073ms] [WARNING] Image with src "/_next/static/media/cover.50fc2248.webp" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_445d8acf._.js:874

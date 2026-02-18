@@ -1,0 +1,1 @@
+[   76541ms] [WARNING] Image with src "/_next/static/media/tablet_view.10298b80.webp" has "fill" and parent element with invalid "position". Provided "static" should be one of absolute,fixed,relative. @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_445d8acf._.js:874
