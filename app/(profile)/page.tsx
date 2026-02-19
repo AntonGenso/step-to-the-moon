@@ -7,7 +7,13 @@ export default function Home() {
         className="relative flex min-h-screen flex-col items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: 'url("/images/home-page/s1-bg.svg")' }}
       >
-        <div className="absolute bottom-0 left-0 h-40 w-full bg-gradient-to-b from-transparent to-[#0B1120] backdrop-blur-md"></div>
+        <div
+          className="absolute bottom-0 left-0 h-40 w-full bg-gradient-to-b from-transparent to-[#0B1120] backdrop-blur-md"
+          style={{
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent, black)',
+            maskImage: 'linear-gradient(to bottom, transparent, black)',
+          }}
+        ></div>
       </section>
 
       <section className="aboutUs relative overflow-hidden bg-[#0B1120] py-[120px]">

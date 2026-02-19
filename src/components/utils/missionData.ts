@@ -189,6 +189,7 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',
+    fileLink: '/files/mission/Instrukciya_lunohoda.pdf',
     facts: moonRoverBonusFacts.facts,
     type: 'bonus',
   },

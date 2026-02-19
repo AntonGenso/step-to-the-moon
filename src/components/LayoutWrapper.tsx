@@ -14,7 +14,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   return (
     <>
       {!hideLayout && <Header />}
-      <main>{children}</main>
+      <main className="pt-30">{children}</main>
       {!hideLayout || (hideFooter && <Footer />)}
     </>
   );

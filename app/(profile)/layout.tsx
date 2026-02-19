@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function ProfileLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = await cookies();
-  const defaultClose = cookieStore.get('sidebar:state')?.value === 'false';
+  // const defaultClose = cookieStore.get('sidebar:state')?.value === 'false';
 
   const token = cookieStore.get('accessToken');
 
