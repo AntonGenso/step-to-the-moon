@@ -37,20 +37,20 @@ export const Book = () => {
 
       <HTMLFlipBook
         ref={bookRef}
-        width={300}
-        height={500}
-        minWidth={300}
-        maxWidth={500}
+        width={290}
+        height={480}
+        minWidth={250}
+        maxWidth={340}
         minHeight={400}
-        maxHeight={600}
-        size="stretch"
+        maxHeight={560}
+        size="fixed"
         startPage={0}
         style={{ margin: '0 auto' }}
         showCover={true}
         drawShadow={true}
         maxShadowOpacity={0.5}
         mobileScrollSupport={true}
-        className="mx-auto p-[20px]"
+        className="mx-auto"
         flippingTime={1000}
         usePortrait={true}
         startZIndex={0}
