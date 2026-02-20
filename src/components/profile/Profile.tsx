@@ -8,7 +8,7 @@ export const Profile = () => {
   return (
     <div
       className={styles.mainContainer}
-      style={{ backgroundImage: `url(${banner.src})`, zIndex: 0 }}
+      style={{ backgroundImage: `url(${banner.src})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }}
     >
       <Container className={styles.container}>
         <Suspense>
