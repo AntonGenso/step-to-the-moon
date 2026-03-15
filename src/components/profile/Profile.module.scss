@@ -7,6 +7,12 @@
   height: 100%;
   overflow: hidden;
 
+  @media (max-width: 768px) {
+    padding: 0;
+    min-height: 100vh;
+    height: 100vh;
+  }
+
   .container {
     display: flex;
     align-items: center;

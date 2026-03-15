@@ -1,0 +1,126 @@
+.mobileProfile {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: url('/images/bg-main.webp') center center / cover no-repeat;
+}
+
+/* ── Progress Header ── */
+.progressHeader {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 14px 16px 10px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.avatarCircle {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  border-radius: 50%;
+  background: #0b1a2e;
+  border: 2px solid #0a4d6b;
+  z-index: 2;
+  position: relative;
+}
+
+.progressBarContainer {
+  flex: 1;
+  margin-left: -12px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 32px;
+  border: 2px solid #0a4d6b;
+  border-radius: 20px;
+  padding: 4px;
+  background: rgba(5, 15, 30, 0.6);
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #064d5e, #0a8aaa, #4ec8ff);
+  border-radius: 16px;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px rgba(78, 200, 255, 0.3);
+}
+
+.progressBadge {
+  margin-left: -2px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #0a3d5c, #0b5a78);
+  border: 2px solid #0a4d6b;
+  border-radius: 20px;
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+/* ── Content Area ── */
+.contentArea {
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.swiper {
+  height: 100%;
+  width: 100%;
+}
+
+.slide {
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* ── Bottom Navigation ── */
+.bottomNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 6px 0;
+  padding-bottom: env(safe-area-inset-bottom, 6px);
+  background: linear-gradient(180deg, rgba(6, 30, 50, 0.95), rgba(4, 20, 35, 0.98));
+  border-top: 1px solid rgba(78, 200, 255, 0.15);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 24px;
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+
+.navItemActive {
+  opacity: 1;
+}
+
+.navIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.navLabel {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

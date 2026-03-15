@@ -1,0 +1,42 @@
+.mobileSkin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.characterArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+}
+
+.characterWrapper {
+  position: relative;
+  width: 200px;
+  height: 300px;
+
+  .headIcon {
+    height: 35%;
+    width: auto;
+    position: absolute;
+    top: 10%;
+    left: 53%;
+    z-index: 20;
+    transform: translateX(-50%);
+  }
+
+  .costumIcon {
+    height: 60%;
+    width: auto;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+}
