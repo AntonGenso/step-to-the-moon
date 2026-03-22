@@ -2,9 +2,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: 100%;
   width: 100%;
+  padding-top: 8px;
+}
+
+.title {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.subtitle {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 2px 0 0;
 }
 
 .characterArea {
@@ -13,30 +31,77 @@
   justify-content: center;
   width: 100%;
   flex: 1;
+  position: relative;
+  padding: 0 12px;
 }
 
-.characterWrapper {
-  position: relative;
-  width: 200px;
-  height: 300px;
+.characterColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .headIcon {
-    height: 35%;
-    width: auto;
-    position: absolute;
-    top: 10%;
-    left: 53%;
-    z-index: 20;
-    transform: translateX(-50%);
-  }
+/* Head row: arrows + head */
+.headRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -20px;
+  z-index: 20;
+}
 
-  .costumIcon {
-    height: 60%;
-    width: auto;
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
+/* Costume row: arrows + body */
+.costumRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Shared arrow button base */
+.arrowLeft,
+.arrowRight {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+
+  &:active {
+    transform: scale(0.9);
   }
+}
+
+.arrowLeft {
+  transform: scaleX(-1);
+
+  &:active {
+    transform: scaleX(-1) scale(0.9);
+  }
+}
+
+/* Large arrows for costume */
+.arrowIcon {
+  width: auto;
+  height: 100px;
+}
+
+/* Smaller arrows for head */
+.arrowIconSmall {
+  width: auto;
+  height: 50px;
+}
+
+.headIcon {
+  height: 110px;
+  width: auto;
+}
+
+.costumIcon {
+  height: 200px;
+  width: auto;
 }

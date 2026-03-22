@@ -1,26 +1,18 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import styles from './MobileLeaderboard.module.scss';
-
-interface Player {
-  rank: number;
-  name: string;
-  stars: number;
-  score: number;
-  total: number;
-}
-
-const players: Player[] = [
-  { rank: 1, name: 'YOU', stars: 444, score: 321, total: 765 },
-  { rank: 2, name: 'YOU', stars: 444, score: 321, total: 765 },
-  { rank: 3, name: 'YOU', stars: 444, score: 321, total: 765 },
-  { rank: 4, name: 'YOU', stars: 444, score: 321, total: 765 },
-  { rank: 5, name: 'YOU', stars: 444, score: 321, total: 765 },
-  { rank: 6, name: 'YOU', stars: 444, score: 321, total: 765 },
-  { rank: 7, name: 'YOU', stars: 444, score: 321, total: 765 },
-];
+import { getTopUsers, type LeaderboardEntry } from '@/src/services/userService';
+import { useAuth } from '@/src/context/AuthContext';
 
 export const MobileLeaderboard = () => {
+  const [players, setPlayers] = useState<LeaderboardEntry[]>([]);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    getTopUsers(10).then(setPlayers);
+  }, []);
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>LEADERBOARD</h2>
@@ -31,23 +23,22 @@ export const MobileLeaderboard = () => {
         <div className={styles.headerRow}>
           <span className={styles.colHash}>#</span>
           <span className={styles.colName}>Name</span>
-          <span className={styles.colStars}>Stars</span>
-          <span className={styles.colScore}>Score</span>
-          <span className={styles.colTotal}>Total</span>
+          <span className={styles.colTotal}>Score</span>
         </div>
 
         {/* Player rows */}
         <div className={styles.rowsList}>
-          {players.map((p) => (
-            <div key={p.rank} className={styles.playerRow}>
-              <span className={styles.colHash}>{p.rank}</span>
+          {players.map((p, i) => (
+            <div
+              key={p.uid}
+              className={`${styles.playerRow} ${p.uid === user?.uid ? styles.highlight : ''}`}
+            >
+              <span className={styles.colHash}>{i + 1}</span>
               <div className={styles.colName}>
                 <div className={styles.avatar} />
-                <span>{p.name}</span>
+                <span>{p.nickname}</span>
               </div>
-              <span className={styles.colStars}>{p.stars}</span>
-              <span className={styles.colScore}>{p.score}</span>
-              <span className={styles.colTotalValue}>{p.total}</span>
+              <span className={styles.colTotalValue}>{p.score}</span>
             </div>
           ))}
         </div>
