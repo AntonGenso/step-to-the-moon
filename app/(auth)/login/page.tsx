@@ -2,43 +2,76 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/src/context/AuthContext';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/src/services/firebase';
+import {
+  nicknameToEmail,
+  pinToPassword,
+  validateNickname,
+  validatePin,
+} from '@/src/services/authHelpers';
+import Link from 'next/link';
 import Image from 'next/image';
 
 import styles from './logIn.module.scss';
 
 export default function LoginPage() {
-  const { login } = useAuth();
   const router = useRouter();
 
-  const [name, setName] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [pin, setPin] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    if (!name.trim()) {
-      setError('Please enter your name');
+    const nicknameError = validateNickname(nickname);
+    if (nicknameError) {
+      setError(nicknameError);
       return;
     }
 
+    const pinError = validatePin(pin);
+    if (pinError) {
+      setError(pinError);
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      const res = await fetch('/api/auth/login', {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        nicknameToEmail(nickname),
+        pinToPassword(pin),
+      );
+
+      const token = await userCredential.user.getIdToken();
+      await fetch('/api/auth/session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: name.trim() }),
+        body: JSON.stringify({ token }),
       });
 
-      if (!res.ok) {
-        setError('Something went wrong. Please try again.');
-        return;
-      }
-
-      login();
       router.push('/profile');
-    } catch {
-      setError('Something went wrong. Please try again.');
+    } catch (err: unknown) {
+      const firebaseError = err as { code?: string };
+      switch (firebaseError.code) {
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+        case 'auth/invalid-credential':
+          setError('Invalid nickname or PIN');
+          break;
+        case 'auth/too-many-requests':
+          setError('Too many attempts. Please try again later.');
+          break;
+        default:
+          setError('Something went wrong. Please try again.');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,24 +96,54 @@ export default function LoginPage() {
 
       <form onSubmit={handleSubmit} className={styles.loginForm}>
         <h1 className={styles.title}>STEP TO THE MOON</h1>
-        <p className={styles.subtitle}>Enter your name to start the mission</p>
+        <p className={styles.subtitle}>
+          Enter your credentials to start the mission
+        </p>
 
-        <label className={styles.label}>//Your name</label>
+        <label className={styles.label}>//Nickname</label>
         <div className={styles.inputGroup}>
           <input
             type="text"
-            placeholder="Your name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            autoComplete="off"
+            placeholder="Nickname"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            autoComplete="username"
+            maxLength={16}
+          />
+        </div>
+
+        <label className={styles.label}>//PIN</label>
+        <div className={styles.inputGroup}>
+          <input
+            type="password"
+            inputMode="numeric"
+            placeholder="4-digit PIN"
+            value={pin}
+            onChange={(e) => {
+              const v = e.target.value.replace(/\D/g, '').slice(0, 4);
+              setPin(v);
+            }}
+            autoComplete="current-password"
+            maxLength={4}
           />
         </div>
 
         {error && <p className={styles.error}>{error}</p>}
 
-        <button type="submit" className={styles.startBtn}>
-          Start
+        <button
+          type="submit"
+          className={styles.startBtn}
+          disabled={loading}
+        >
+          {loading ? 'Signing in...' : 'Start'}
         </button>
+
+        <p className={styles.subtitle} style={{ marginTop: '1rem', marginBottom: 0 }}>
+          Don&apos;t have an account?{' '}
+          <Link href="/signup" style={{ color: '#00e3ff', textDecoration: 'underline' }}>
+            Sign Up
+          </Link>
+        </p>
       </form>
     </div>
   );

@@ -1,17 +1,7 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Alumni_Sans } from 'next/font/google';
+import { Alumni_Sans } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/src/context/AuthContext';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 const alumni = Alumni_Sans({
   subsets: ['latin'],
@@ -31,7 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${alumni.variable}`}>
+      <body className={alumni.variable}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

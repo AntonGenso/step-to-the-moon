@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import styles from './MobileProfile.module.scss';
 import { MobileSkin } from './MobileSkin';
 import { MobileMission } from './MobileMission';
-import { MobileTests } from './MobileTests';
+// import { MobileTests } from './MobileTests';
 import { MobileLeaderboard } from './MobileLeaderboard';
 import { useAuth } from '@/src/context/AuthContext';
 
@@ -26,20 +27,42 @@ const tabs = [
   { id: 'leader', label: 'Leader', icon: StarMoveIcon },
 ];
 
+const SLIDE_IDS = tabs.map((t) => t.id);
+
 export const MobileProfile = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const initialSlide = Math.max(0, SLIDE_IDS.indexOf(searchParams.get('activeSlide') ?? ''));
+  const [activeIndex, setActiveIndex] = useState(initialSlide);
   const swiperRef = useRef<SwiperType | null>(null);
   const { profile } = useAuth();
 
-  const points = profile?.score ?? 0;
+  const total = profile?.total ?? 0;
   const nickname = profile?.nickname ?? '';
+
+  const updateURL = useCallback(
+    (index: number) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set('activeSlide', SLIDE_IDS[index]);
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    },
+    [searchParams, router, pathname]
+  );
+
+  const handleSlideChange = (swiper: SwiperType) => {
+    setActiveIndex(swiper.activeIndex);
+    updateURL(swiper.activeIndex);
+  };
 
   const handleTabClick = (index: number) => {
     setActiveIndex(index);
     swiperRef.current?.slideTo(index);
+    updateURL(index);
   };
 
-  const progress = Math.min((points / TOTAL_POINTS) * 100, 100);
+  const progress = Math.min((total / TOTAL_POINTS) * 100, 100);
 
   return (
     <div className={styles.mobileProfile}>
@@ -56,7 +79,7 @@ export const MobileProfile = () => {
             <div className={styles.progressFill} style={{ width: `${progress}%` }} />
           </div>
           <span className={styles.scoreText}>
-            {points}/{TOTAL_POINTS}
+            {total}/{TOTAL_POINTS}
           </span>
         </div>
       </div>
@@ -65,28 +88,21 @@ export const MobileProfile = () => {
       <div className={styles.contentArea}>
         <Swiper
           onSwiper={(swiper) => (swiperRef.current = swiper)}
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+          onSlideChange={handleSlideChange}
+          initialSlide={initialSlide}
           spaceBetween={0}
           slidesPerView={1}
           className={styles.swiper}
         >
           <SwiperSlide className={styles.slide}>
-            <MobileSkin
-              data={{
-                name: nickname,
-                skin: {
-                  hair: '/images/profile/hair.png',
-                  costum: '/images/profile/costum.png',
-                },
-              }}
-            />
+            <MobileSkin />
           </SwiperSlide>
           <SwiperSlide className={styles.slide}>
             <MobileMission />
           </SwiperSlide>
-          <SwiperSlide className={styles.slide}>
+          {/* <SwiperSlide className={styles.slide}>
             <MobileTests />
-          </SwiperSlide>
+          </SwiperSlide> */}
           <SwiperSlide className={styles.slide}>
             <MobileLeaderboard />
           </SwiperSlide>

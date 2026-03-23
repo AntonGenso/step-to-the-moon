@@ -1,14 +1,11 @@
+// Login is now handled directly via Firebase Auth on the client.
+// This route is kept as a placeholder — remove if not needed.
+
 import { NextResponse } from 'next/server';
 
 export const POST = async () => {
-  const response = NextResponse.json({ ok: true });
-
-  response.cookies.set('accessToken', 'mock_token', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    path: '/',
-  });
-
-  return response;
+  return NextResponse.json(
+    { message: 'Login is handled via Firebase Auth on the client' },
+    { status: 410 },
+  );
 };

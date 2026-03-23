@@ -1,23 +1,11 @@
-import { instance } from '@/src/services/api';
-import { NextRequest, NextResponse } from 'next/server';
+// Signup is now handled directly via Firebase Auth on the client.
+// This route is kept as a placeholder — remove if not needed.
 
-export const POST = async (req: NextRequest) => {
-  try {
-    const body = await req.json();
-    const { data } = await instance.post('/student/register', body);
-    const response = NextResponse.json(data);
+import { NextResponse } from 'next/server';
 
-    if (data.bearer_token) {
-      response.cookies.set('accessToken', data.bearer_token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: '/',
-      });
-    }
-
-    return response;
-  } catch (error) {
-    return NextResponse.json({ message: error }, { status: 401 });
-  }
+export const POST = async () => {
+  return NextResponse.json(
+    { message: 'Signup is handled via Firebase Auth on the client' },
+    { status: 410 },
+  );
 };

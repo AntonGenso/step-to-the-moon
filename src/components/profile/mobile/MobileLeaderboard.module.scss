@@ -28,54 +28,51 @@
   width: 100%;
   flex: 1;
   min-height: 0;
-  border: 1.5px solid rgba(78, 200, 255, 0.3);
-  border-radius: 16px;
-  padding: 10px 12px;
-  background: rgba(10, 30, 50, 0.5);
-  box-shadow:
-    0 0 15px rgba(78, 200, 255, 0.08),
-    inset 0 0 20px rgba(78, 200, 255, 0.03);
-  display: flex;
-  flex-direction: column;
 }
 
+/* ── Header ── */
 .headerRow {
   display: flex;
   align-items: center;
-  padding: 0 4px 8px;
+  padding: 6px 15px;
   border-bottom: 1px solid rgba(78, 200, 255, 0.15);
   margin-bottom: 4px;
 
   span {
     font-family: var(--font-alumni), sans-serif;
-    font-size: 12px;
+    font-size: 20px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.35);
+    // color: rgba(255, 255, 255, 0.35);
+    color: #2fe4d3;
     text-transform: capitalize;
   }
 }
 
-.rowsList {
-  flex: 1;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(78, 200, 255, 0.3) transparent;
+/* ── Scrollable list ── */
+// .rowsList {
+//   flex: 1;
+//   overflow-y: auto;
+//   scrollbar-width: thin;
+//   scrollbar-color: rgba(78, 200, 255, 0.3) transparent;
 
-  &::-webkit-scrollbar {
-    width: 3px;
-  }
+//   &::-webkit-scrollbar {
+//     width: 3px;
+//   }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(78, 200, 255, 0.3);
-    border-radius: 3px;
-  }
-}
+//   &::-webkit-scrollbar-thumb {
+//     background-color: rgba(78, 200, 255, 0.3);
+//     border-radius: 3px;
+//   }
+// }
 
+/* ── Player row ── */
 .playerRow {
   display: flex;
   align-items: center;
-  padding: 8px 4px;
-  border-bottom: 1px solid rgba(78, 200, 255, 0.07);
+  padding: 10px 6px;
+  border-bottom: 1px solid rgba(78, 200, 255, 0.1);
+  border-radius: 10px;
+  margin-bottom: 2px;
 
   &:last-child {
     border-bottom: none;
@@ -90,20 +87,22 @@
 }
 
 .highlight {
-  background: rgba(78, 200, 255, 0.1);
-  border-radius: 8px;
+  border: 1.5px solid rgba(255, 180, 50, 0.7);
+  background: rgba(255, 180, 50, 0.06);
 }
 
-/* Column widths */
+/* ── # column ── */
 .colHash {
-  width: 28px;
-  min-width: 28px;
+  width: 24px;
+  min-width: 24px;
   text-align: center;
-  font-size: 16px !important;
+  font-size: 18px !important;
   font-weight: 700 !important;
 }
 
+/* ── Name column ── */
 .colName {
+  margin-left: 20px;
   flex: 1;
   display: flex;
   align-items: center;
@@ -111,45 +110,77 @@
   min-width: 0;
 
   span {
-    font-size: 14px;
-    font-weight: 600 !important;
+    font-size: 15px;
+    font-weight: 700 !important;
     letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
 .avatar {
-  width: 28px;
-  height: 28px;
-  min-width: 28px;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0a3d5c, #0282ad);
-  border: 1.5px solid rgba(78, 200, 255, 0.4);
+  border: 2px solid rgba(47, 228, 211, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.starIcon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Stars / Score / Total header cells ── */
 .colStars,
-.colScore {
-  width: 44px;
-  min-width: 44px;
-  text-align: center;
-  font-size: 13px !important;
-  color: rgba(255, 255, 255, 0.7) !important;
-}
-
+.colScore,
 .colTotal {
-  width: 50px;
-  min-width: 50px;
+  width: 52px;
+  min-width: 52px;
   text-align: center;
+  margin-right: 5px;
 }
 
-.colTotalValue {
-  width: 50px;
-  min-width: 50px;
+/* ── Stars / Score value cells ── */
+.colStarsValue,
+.colScoreValue {
+  width: 52px;
+  min-width: 52px;
   text-align: center;
-  font-size: 13px !important;
-  font-weight: 700 !important;
+  font-size: 27px;
+  // font-weight: 500 !important;
   color: #fff !important;
-  background: linear-gradient(135deg, #0a5d6e, #0282ad);
-  border: 1px solid rgba(78, 200, 255, 0.3);
-  border-radius: 6px;
-  padding: 3px 0;
+}
+
+/* ── Total badge ── */
+.colTotalValue {
+  width: 52px;
+  min-width: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // background: linear-gradient(135deg, #0a5d6e, #0282ad);
+  // border: 1px solid rgba(78, 200, 255, 0.3);
+  background: rgba(47, 228, 211, 0.08);
+  border-radius: 8px;
+  padding: 4px 24px;
+  line-height: 1;
+}
+
+.totalLabel {
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: rgba(47, 228, 211, 0.6);
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+}
+
+.totalNumber {
+  font-size: 27px !important;
+  font-weight: 700 !important;
+  color: rgba(47, 228, 211, 1);
 }

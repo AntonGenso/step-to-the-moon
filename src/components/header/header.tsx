@@ -17,8 +17,8 @@ const Header = () => {
   const router = useRouter();
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     router.push('/');
     setShowConfirm(false);
   };

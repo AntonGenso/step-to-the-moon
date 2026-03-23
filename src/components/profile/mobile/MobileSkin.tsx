@@ -1,54 +1,60 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { headSkin, suit } from '@/src/utils/skinData';
+import { useAuth } from '@/src/context/AuthContext';
+import { updateUserSkin } from '@/src/services/userService';
 import styles from './MobileSkin.module.scss';
 import ArrowIcon from '@/public/images/svg/mobile/other/arrow.svg';
 
-interface IMobileSkinProps {
-  data: {
-    name: string;
-    skin: {
-      hair: string;
-      costum: string;
-    };
-  };
-}
+export const MobileSkin = () => {
+  const { user, profile } = useAuth();
 
-export const MobileSkin = ({ data }: IMobileSkinProps) => {
-  const { skin } = data;
-  const [selectedHead, setSelectedHead] = useState(0);
-  const [selectedCostum, setSelectedCostum] = useState(0);
-  const [hair, setHair] = useState(skin.hair);
-  const [costum, setCostum] = useState(skin.costum);
+  const [selectedHead, setSelectedHead] = useState(profile?.skin?.headId ?? 0);
+  const [selectedCostum, setSelectedCostum] = useState(profile?.skin?.suitId ?? 0);
 
-  useEffect(() => {
-    const currentHead = headSkin.find((item) => item.id === selectedHead);
-    const currentCostum = suit.find((item) => item.id === selectedCostum);
-    setHair(currentHead?.name || '');
-    setCostum(currentCostum?.name || '');
-  }, [selectedHead, selectedCostum]);
+  const saveSkin = useCallback(
+    (headId: number, suitId: number) => {
+      if (user) {
+        updateUserSkin(user.uid, { headId, suitId });
+      }
+    },
+    [user],
+  );
 
-  const mainSuit = suit.find((item) => item.name === costum) || suit[0];
-  const mainHead = headSkin.find((item) => item.name === hair) || headSkin[0];
-
-  const SuitIcon = mainSuit.icon;
-  const HeadIcon = mainHead.icon;
-
-  const handlePrevCostum = () => {
-    setSelectedCostum((prev) => (prev <= 0 ? suit.length - 1 : prev - 1));
-  };
-
-  const handleNextCostum = () => {
-    setSelectedCostum((prev) => (prev >= suit.length - 1 ? 0 : prev + 1));
-  };
+  const HeadIcon = (headSkin.find((h) => h.id === selectedHead) ?? headSkin[0]).icon;
+  const SuitIcon = (suit.find((s) => s.id === selectedCostum) ?? suit[0]).icon;
 
   const handlePrevHead = () => {
-    setSelectedHead((prev) => (prev <= 0 ? headSkin.length - 1 : prev - 1));
+    setSelectedHead((prev) => {
+      const next = prev <= 0 ? headSkin.length - 1 : prev - 1;
+      saveSkin(next, selectedCostum);
+      return next;
+    });
   };
 
   const handleNextHead = () => {
-    setSelectedHead((prev) => (prev >= headSkin.length - 1 ? 0 : prev + 1));
+    setSelectedHead((prev) => {
+      const next = prev >= headSkin.length - 1 ? 0 : prev + 1;
+      saveSkin(next, selectedCostum);
+      return next;
+    });
+  };
+
+  const handlePrevCostum = () => {
+    setSelectedCostum((prev) => {
+      const next = prev <= 0 ? suit.length - 1 : prev - 1;
+      saveSkin(selectedHead, next);
+      return next;
+    });
+  };
+
+  const handleNextCostum = () => {
+    setSelectedCostum((prev) => {
+      const next = prev >= suit.length - 1 ? 0 : prev + 1;
+      saveSkin(selectedHead, next);
+      return next;
+    });
   };
 
   return (
@@ -61,11 +67,13 @@ export const MobileSkin = ({ data }: IMobileSkinProps) => {
           {/* Head with arrows */}
           <div className={styles.headRow}>
             <button className={styles.arrowLeft} onClick={handlePrevHead}>
-              <ArrowIcon className={styles.arrowIconSmall} />
+              <ArrowIcon className={styles.arrowIcon} />
             </button>
-            <HeadIcon className={styles.headIcon} />
+            <div className="flex w-[123px] items-center justify-end">
+              <HeadIcon className={styles.headIcon} />
+            </div>
             <button className={styles.arrowRight} onClick={handleNextHead}>
-              <ArrowIcon className={styles.arrowIconSmall} />
+              <ArrowIcon className={styles.arrowIcon} />
             </button>
           </div>
 
