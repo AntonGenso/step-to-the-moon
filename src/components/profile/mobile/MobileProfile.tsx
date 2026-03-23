@@ -8,7 +8,7 @@ import 'swiper/css';
 import styles from './MobileProfile.module.scss';
 import { MobileSkin } from './MobileSkin';
 import { MobileMission } from './MobileMission';
-// import { MobileTests } from './MobileTests';
+import { MobileTests } from './MobileTests';
 import { MobileLeaderboard } from './MobileLeaderboard';
 import { useAuth } from '@/src/context/AuthContext';
 
@@ -100,9 +100,9 @@ export const MobileProfile = () => {
           <SwiperSlide className={styles.slide}>
             <MobileMission />
           </SwiperSlide>
-          {/* <SwiperSlide className={styles.slide}>
+          <SwiperSlide className={styles.slide}>
             <MobileTests />
-          </SwiperSlide> */}
+          </SwiperSlide>
           <SwiperSlide className={styles.slide}>
             <MobileLeaderboard />
           </SwiperSlide>

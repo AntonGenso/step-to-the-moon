@@ -49,9 +49,9 @@
   border: 1.5px solid rgba(0, 200, 200, 0.35);
   border-radius: 16px;
   background: linear-gradient(135deg, rgba(5, 20, 30, 0.9), rgba(15, 45, 55, 0.85));
-  padding: 14px;
+  padding: 20px 30px;
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   gap: 10px;
   box-shadow:
     0 0 12px rgba(0, 200, 200, 0.08),
@@ -66,9 +66,10 @@
 
 /* Circular icon with cyan ring */
 .iconRing {
-  flex-shrink: 0;
-  width: 64px;
-  height: 64px;
+  // flex-shrink: 0;
+  aspect-ratio: 1/1;
+  width: 50%;
+  height: auto;
   border-radius: 50%;
   border: 2.5px solid #00d4c8;
   background: radial-gradient(circle, rgba(10, 30, 50, 0.9), rgba(5, 15, 25, 1));
@@ -80,8 +81,8 @@
 }
 
 .iconSvg {
-  width: 44px;
-  height: 44px;
+  width: 100%;
+  height: auto;
 }
 
 /* Mission label + title */
@@ -173,4 +174,43 @@
   background: rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Game overlay */
+.gameOverlay {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+
+.closeBtn {
+  flex-shrink: 0;
+  align-self: flex-end;
+  padding: 6px 20px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(0, 200, 200, 0.4);
+  background: rgba(0, 200, 200, 0.1);
+  color: #00d4c8;
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:active {
+    background: rgba(0, 200, 200, 0.25);
+  }
+}
+
+.gameIframe {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  border: 1.5px solid rgba(0, 200, 200, 0.35);
+  border-radius: 16px;
+  background: #000;
 }
