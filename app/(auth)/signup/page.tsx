@@ -2,21 +2,18 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '@/src/services/firebase';
-import { createUserProfile } from '@/src/services/userService';
+import { useAuth } from '@/src/context/AuthContext';
 import {
-  nicknameToEmail,
-  pinToPassword,
   validateNickname,
   validatePin,
-} from '@/src/services/authHelpers';
+} from '@/src/services/validators';
 import Image from 'next/image';
 
 import styles from '../login/logIn.module.scss';
 
 export default function SignupPage() {
   const router = useRouter();
+  const { signup } = useAuth();
 
   const [nickname, setNickname] = useState('');
   const [pin, setPin] = useState('');
@@ -48,35 +45,14 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        nicknameToEmail(nickname),
-        pinToPassword(pin),
-      );
-
-      await updateProfile(userCredential.user, {
-        displayName: nickname.trim(),
-      });
-
-      await createUserProfile(userCredential.user.uid, nickname.trim());
-
-      const token = await userCredential.user.getIdToken();
-      await fetch('/api/auth/session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token }),
-      });
-
-      router.push('/profile');
-    } catch (err: unknown) {
-      const firebaseError = err as { code?: string };
-      switch (firebaseError.code) {
-        case 'auth/email-already-in-use':
-          setError('This nickname is already taken');
-          break;
-        default:
-          setError('Something went wrong. Please try again.');
+      const err = await signup(nickname, pin);
+      if (err) {
+        setError(err);
+      } else {
+        router.push('/profile');
       }
+    } catch {
+      setError('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }

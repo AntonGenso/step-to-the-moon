@@ -2,14 +2,11 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/src/services/firebase';
+import { useAuth } from '@/src/context/AuthContext';
 import {
-  nicknameToEmail,
-  pinToPassword,
   validateNickname,
   validatePin,
-} from '@/src/services/authHelpers';
+} from '@/src/services/validators';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -17,6 +14,7 @@ import styles from './logIn.module.scss';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login } = useAuth();
 
   const [nickname, setNickname] = useState('');
   const [pin, setPin] = useState('');
@@ -42,34 +40,14 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        nicknameToEmail(nickname),
-        pinToPassword(pin),
-      );
-
-      const token = await userCredential.user.getIdToken();
-      await fetch('/api/auth/session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token }),
-      });
-
-      router.push('/profile');
-    } catch (err: unknown) {
-      const firebaseError = err as { code?: string };
-      switch (firebaseError.code) {
-        case 'auth/user-not-found':
-        case 'auth/wrong-password':
-        case 'auth/invalid-credential':
-          setError('Invalid nickname or PIN');
-          break;
-        case 'auth/too-many-requests':
-          setError('Too many attempts. Please try again later.');
-          break;
-        default:
-          setError('Something went wrong. Please try again.');
+      const err = await login(nickname, pin);
+      if (err) {
+        setError(err);
+      } else {
+        router.push('/profile');
       }
+    } catch {
+      setError('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }

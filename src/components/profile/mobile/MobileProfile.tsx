@@ -18,7 +18,7 @@ import MoonFlagIcon from '@/public/images/svg/mobile/navBar/moon-flag.svg';
 import RocketIcon from '@/public/images/svg/mobile/navBar/rocket.svg';
 import StarMoveIcon from '@/public/images/svg/mobile/navBar/star-move.svg';
 
-const TOTAL_POINTS = 500;
+import { MAX_XP } from '@/src/config/gameConfig';
 
 const tabs = [
   { id: 'profile', label: 'Profile', icon: CosmonautIcon },
@@ -37,10 +37,10 @@ export const MobileProfile = () => {
   const initialSlide = Math.max(0, SLIDE_IDS.indexOf(searchParams.get('activeSlide') ?? ''));
   const [activeIndex, setActiveIndex] = useState(initialSlide);
   const swiperRef = useRef<SwiperType | null>(null);
-  const { profile } = useAuth();
+  const { profile, nickname: authNickname } = useAuth();
 
-  const total = profile?.total ?? 0;
-  const nickname = profile?.nickname ?? '';
+  const total = profile?.leaderboard?.total ?? 0;
+  const nickname = authNickname ?? '';
 
   const updateURL = useCallback(
     (index: number) => {
@@ -62,7 +62,7 @@ export const MobileProfile = () => {
     updateURL(index);
   };
 
-  const progress = Math.min((total / TOTAL_POINTS) * 100, 100);
+  const progress = MAX_XP > 0 ? Math.min((total / MAX_XP) * 100, 100) : 0;
 
   return (
     <div className={styles.mobileProfile}>
@@ -79,7 +79,7 @@ export const MobileProfile = () => {
             <div className={styles.progressFill} style={{ width: `${progress}%` }} />
           </div>
           <span className={styles.scoreText}>
-            {total}/{TOTAL_POINTS}
+            {total}/{MAX_XP} XP
           </span>
         </div>
       </div>

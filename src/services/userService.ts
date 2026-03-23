@@ -3,16 +3,24 @@ import {
   getDoc,
   setDoc,
   updateDoc,
-  arrayUnion,
-  increment,
+  writeBatch,
   serverTimestamp,
   collection,
   query,
   orderBy,
   limit,
-  getDocs,
+  onSnapshot,
+  type Unsubscribe,
 } from 'firebase/firestore';
 import { db } from './firebase';
+import { MISSION_IDS, TEST_IDS } from '@/src/config/gameConfig';
+
+/* ───── Types ───── */
+
+export interface MissionEntry {
+  score: number;
+  status: 'open' | 'done';
+}
 
 export interface UserSkin {
   headId: number;
@@ -20,89 +28,187 @@ export interface UserSkin {
 }
 
 export interface UserProfile {
-  nickname: string;
-  score: number;
-  stars: number;
-  total: number;
-  completedMissions: number[];
-  createdAt: unknown;
-  skin?: UserSkin;
+  pin: string;
+  skin: UserSkin;
+  missions: Record<string, MissionEntry>;
+  tests: Record<string, MissionEntry>;
+  leaderboard: { stars: number; score: number; total: number };
+  created_at: unknown;
 }
 
-/** Create profile on signup */
-export const createUserProfile = async (uid: string, nickname: string) => {
-  await setDoc(doc(db, 'users', uid), {
-    nickname,
-    score: 0,
-    stars: 0,
-    total: 0,
-    completedMissions: [],
+export interface LeaderboardEntry {
+  nickname: string;
+  skin: UserSkin;
+  stars: number;
+  score: number;
+  total: number;
+}
+
+/* ───── Helpers ───── */
+
+const userRef = (nickname: string) => doc(db, 'users', nickname.toLowerCase());
+
+function buildDefaultMissions(): Record<string, MissionEntry> {
+  const m: Record<string, MissionEntry> = {};
+  for (const id of MISSION_IDS) {
+    m[id] = { score: 0, status: 'open' };
+  }
+  return m;
+}
+
+function buildDefaultTests(): Record<string, MissionEntry> {
+  const t: Record<string, MissionEntry> = {};
+  for (const id of TEST_IDS) {
+    t[id] = { score: 0, status: 'open' };
+  }
+  return t;
+}
+
+/* ───── CRUD ───── */
+
+/** Create profile on signup. Document ID = nickname (lowercase). */
+export const createUserProfile = async (nickname: string, pin: string) => {
+  await setDoc(userRef(nickname), {
+    pin,
     skin: { headId: 0, suitId: 0 },
-    createdAt: serverTimestamp(),
+    missions: buildDefaultMissions(),
+    tests: buildDefaultTests(),
+    leaderboard: { stars: 0, score: 0, total: 0 },
+    created_at: serverTimestamp(),
   });
 };
 
-/** Get user profile */
+/** Get user profile by nickname */
 export const getUserProfile = async (
-  uid: string,
+  nickname: string,
 ): Promise<UserProfile | null> => {
-  const snap = await getDoc(doc(db, 'users', uid));
+  const snap = await getDoc(userRef(nickname));
   return snap.exists() ? (snap.data() as UserProfile) : null;
 };
 
-/** Add score points */
-export const addScore = async (uid: string, points: number) => {
-  await updateDoc(doc(db, 'users', uid), {
-    score: increment(points),
-    total: increment(points),
+/** Check if nickname already exists */
+export const nicknameExists = async (nickname: string): Promise<boolean> => {
+  const snap = await getDoc(userRef(nickname));
+  return snap.exists();
+};
+
+/* ───── Score submission (compare-and-keep-higher, atomic batch) ───── */
+
+/**
+ * Submit a mission score. Only updates if newScore > current score.
+ * Recalculates leaderboard.stars and leaderboard.total in a single batch.
+ */
+export const submitMissionScore = async (
+  nickname: string,
+  missionKey: string,
+  newScore: number,
+): Promise<UserProfile | null> => {
+  const ref = userRef(nickname);
+  const snap = await getDoc(ref);
+  if (!snap.exists()) return null;
+
+  const data = snap.data() as UserProfile;
+  const current = data.missions[missionKey]?.score ?? 0;
+
+  if (newScore <= current) return data;
+
+  // Recalculate stars with the new value
+  const updatedMissions = { ...data.missions };
+  updatedMissions[missionKey] = { score: newScore, status: 'done' };
+
+  const stars = Object.values(updatedMissions).reduce((sum, m) => sum + m.score, 0);
+  const total = stars + data.leaderboard.score;
+
+  const batch = writeBatch(db);
+  batch.update(ref, {
+    [`missions.${missionKey}.score`]: newScore,
+    [`missions.${missionKey}.status`]: 'done',
+    'leaderboard.stars': stars,
+    'leaderboard.total': total,
   });
+  await batch.commit();
+
+  return {
+    ...data,
+    missions: updatedMissions,
+    leaderboard: { ...data.leaderboard, stars, total },
+  };
 };
 
-/** Add stars */
-export const addStars = async (uid: string, points: number) => {
-  await updateDoc(doc(db, 'users', uid), {
-    stars: increment(points),
-    total: increment(points),
+/**
+ * Submit a test score. Only updates if newScore > current score.
+ * Recalculates leaderboard.score and leaderboard.total in a single batch.
+ */
+export const submitTestScore = async (
+  nickname: string,
+  testKey: string,
+  newScore: number,
+): Promise<UserProfile | null> => {
+  const ref = userRef(nickname);
+  const snap = await getDoc(ref);
+  if (!snap.exists()) return null;
+
+  const data = snap.data() as UserProfile;
+  const current = data.tests[testKey]?.score ?? 0;
+
+  if (newScore <= current) return data;
+
+  // Recalculate score with the new value
+  const updatedTests = { ...data.tests };
+  updatedTests[testKey] = { score: newScore, status: 'done' };
+
+  const score = Object.values(updatedTests).reduce((sum, t) => sum + t.score, 0);
+  const total = data.leaderboard.stars + score;
+
+  const batch = writeBatch(db);
+  batch.update(ref, {
+    [`tests.${testKey}.score`]: newScore,
+    [`tests.${testKey}.status`]: 'done',
+    'leaderboard.score': score,
+    'leaderboard.total': total,
   });
+  await batch.commit();
+
+  return {
+    ...data,
+    tests: updatedTests,
+    leaderboard: { ...data.leaderboard, score, total },
+  };
 };
 
-/** Mark mission as completed and add score */
-export const completeMission = async (
-  uid: string,
-  missionId: number,
-  points: number = 0,
-) => {
-  await updateDoc(doc(db, 'users', uid), {
-    completedMissions: arrayUnion(missionId),
-    ...(points > 0 && { score: increment(points), total: increment(points) }),
-  });
+/* ───── Skin ───── */
+
+export const updateUserSkin = async (nickname: string, skin: UserSkin) => {
+  await updateDoc(userRef(nickname), { skin });
 };
 
-/** Update user skin selection */
-export const updateUserSkin = async (uid: string, skin: UserSkin) => {
-  await updateDoc(doc(db, 'users', uid), { skin });
-};
+/* ───── Leaderboard (real-time) ───── */
 
-export interface LeaderboardEntry {
-  uid: string;
-  nickname: string;
-  score: number;
-  stars: number;
-  total: number;
-}
+/**
+ * Subscribe to the top N users, ordered by total descending.
+ * Returns an unsubscribe function.
+ */
+export const subscribeTopUsers = (
+  count: number,
+  callback: (entries: LeaderboardEntry[]) => void,
+): Unsubscribe => {
+  const q = query(
+    collection(db, 'users'),
+    orderBy('leaderboard.total', 'desc'),
+    limit(count),
+  );
 
-/** Get top users by total points */
-export const getTopUsers = async (count: number = 10): Promise<LeaderboardEntry[]> => {
-  const q = query(collection(db, 'users'), orderBy('total', 'desc'), limit(count));
-  const snap = await getDocs(q);
-  return snap.docs.map((d) => {
-    const data = d.data() as UserProfile;
-    return {
-      uid: d.id,
-      nickname: data.nickname,
-      score: data.score,
-      stars: data.stars ?? 0,
-      total: data.total ?? 0,
-    };
+  return onSnapshot(q, (snap) => {
+    const entries: LeaderboardEntry[] = snap.docs.map((d) => {
+      const data = d.data() as UserProfile;
+      return {
+        nickname: d.id,
+        skin: data.skin ?? { headId: 0, suitId: 0 },
+        stars: data.leaderboard?.stars ?? 0,
+        score: data.leaderboard?.score ?? 0,
+        total: data.leaderboard?.total ?? 0,
+      };
+    });
+    callback(entries);
   });
 };

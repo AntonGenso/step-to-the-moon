@@ -1,11 +1,3 @@
-const EMAIL_DOMAIN = 'sttm.local';
-const PIN_PREFIX = 'sttm__';
-
-export const nicknameToEmail = (nickname: string) =>
-  `${nickname.toLowerCase()}@${EMAIL_DOMAIN}`;
-
-export const pinToPassword = (pin: string) => `${PIN_PREFIX}${pin}`;
-
 export const NICKNAME_REGEX = /^[a-zA-Z0-9_]{2,16}$/;
 export const PIN_REGEX = /^\d{4}$/;
 

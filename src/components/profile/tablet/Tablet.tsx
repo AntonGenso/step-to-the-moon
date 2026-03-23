@@ -13,19 +13,24 @@ import Leaderboard from '../leaderboard/leaderboard';
 import Missions from '../missions/Missions';
 import CloseBtn from '@/public/images/svg/closeBtn.svg';
 import { Skin } from '../../skin/Skin';
-
-const personData = {
-  name: 'laborlis',
-  points: 160400,
-  place: 221,
-  avatar: '/images/profile/avatar.png',
-  skin: {
-    hair: '/images/profile/hair.png',
-    costum: '/images/profile/costum.png',
-  },
-};
+import { useAuth } from '@/src/context/AuthContext';
+import { headSkin, suit } from '@/src/utils/skinData';
 
 export const Tablet = () => {
+  const { nickname, profile } = useAuth();
+
+  const skinHeadId = profile?.skin?.headId ?? 0;
+  const skinSuitId = profile?.skin?.suitId ?? 0;
+  const personData = {
+    name: nickname ?? '',
+    points: profile?.leaderboard?.total ?? 0,
+    place: 0,
+    avatar: '',
+    skin: {
+      hair: headSkin.find((h) => h.id === skinHeadId)?.name ?? headSkin[0].name,
+      costum: suit.find((s) => s.id === skinSuitId)?.name ?? suit[0].name,
+    },
+  };
   const router = useRouter();
   const searchParams = useSearchParams();
   const activeTabParam = searchParams.get('activeTab');

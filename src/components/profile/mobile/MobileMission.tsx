@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { missionData } from '@/src/components/utils/missionData';
 import styles from './MobileMission.module.scss';
 import { GlassFrame } from '@/src/uikit/glass-frame/GlassFrame';
+import { useAuth } from '@/src/context/AuthContext';
 
 const XP_PER_LEVEL = 500;
 
 export const MobileMission = () => {
+  const { profile } = useAuth();
   const [activeGame, setActiveGame] = useState<string | null>(null);
 
   return (
@@ -32,7 +34,7 @@ export const MobileMission = () => {
               {missionData.map((mission) => {
                 const Icon = mission.icon;
                 const xp = mission.level * XP_PER_LEVEL;
-                const isDone = false; // TODO: track completion state
+                const isDone = profile?.missions?.[`mission_${mission.id}`]?.status === 'done';
 
                 return (
                   <div key={mission.id} className={styles.card}>
@@ -59,7 +61,7 @@ export const MobileMission = () => {
                         onClick={() => mission.gameLink && setActiveGame(mission.gameLink)}
                         className={`${styles.actionBtn} ${isDone ? styles.actionBtnDone : styles.actionBtnPlay}`}
                       >
-                        {isDone ? 'DONE' : 'PLAY'}
+                        {isDone ? 'DONE' : 'START'}
                       </button>
                     </div>
                   </div>

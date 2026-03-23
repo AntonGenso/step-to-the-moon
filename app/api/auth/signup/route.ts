@@ -1,11 +1,49 @@
-// Signup is now handled directly via Firebase Auth on the client.
-// This route is kept as a placeholder — remove if not needed.
+import { NextRequest, NextResponse } from 'next/server';
+import {
+  nicknameExists,
+  createUserProfile,
+} from '@/src/services/userService';
+import { validateNickname, validatePin } from '@/src/services/validators';
 
-import { NextResponse } from 'next/server';
+export const POST = async (req: NextRequest) => {
+  try {
+    const { nickname, pin } = await req.json();
 
-export const POST = async () => {
-  return NextResponse.json(
-    { message: 'Signup is handled via Firebase Auth on the client' },
-    { status: 410 },
-  );
+    const nickErr = validateNickname(nickname ?? '');
+    if (nickErr) {
+      return NextResponse.json({ error: nickErr }, { status: 400 });
+    }
+
+    const pinErr = validatePin(pin ?? '');
+    if (pinErr) {
+      return NextResponse.json({ error: pinErr }, { status: 400 });
+    }
+
+    const exists = await nicknameExists(nickname);
+    if (exists) {
+      return NextResponse.json(
+        { error: 'This nickname is already taken' },
+        { status: 409 },
+      );
+    }
+
+    await createUserProfile(nickname, pin);
+
+    const response = NextResponse.json({
+      ok: true,
+      nickname: nickname.toLowerCase(),
+    });
+
+    response.cookies.set('session', nickname.toLowerCase(), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+
+    return response;
+  } catch {
+    return NextResponse.json({ error: 'Something went wrong' }, { status: 500 });
+  }
 };

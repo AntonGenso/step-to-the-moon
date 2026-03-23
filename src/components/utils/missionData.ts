@@ -43,24 +43,12 @@ export interface IMissionData {
 }
 
 export const missionData: IMissionData[] = [
+  /* ── Active missions (demo) ── */
   {
     id: 0,
-    icon: SolarSystem,
-    title: 'Solar System',
-    level: 1,
-    isAtive: true,
-    gameLink: 'https://allelf.github.io/CosmoTourist2DGame/',
-    description:
-      'This is a description for mission sun at level 2. It provides additional context and details about the mission.',
-    videoLink: '/video/mission/earth/earth.mp4',
-    facts: solarSystemFacts.facts,
-    type: 'current',
-  },
-  {
-    id: 1,
     icon: EarthIcon,
     title: 'Earth',
-    level: 2,
+    level: 1,
     isAtive: true,
     gameLink: 'https://allelf.github.io/MMOArcade/',
     description:
@@ -99,37 +87,10 @@ export const missionData: IMissionData[] = [
     type: 'current',
   },
   {
-    id: 2,
-    icon: EarthIcon,
-    title: 'Earth (Bonus)',
-    level: 3,
-    isAtive: true,
-    gameLink: '',
-    description:
-      'This is a description for mission sun at level 3. It provides additional context and details about the mission.',
-    videoLink: '',
-    fileLink: '/files/mission/earth_model.pdf',
-    facts: [],
-    type: 'bonus',
-  },
-  {
-    id: 3,
-    icon: CanyonFlight,
-    title: 'Canyon Flight',
-    level: 4,
-    isAtive: true,
-    gameLink: 'https://allelf.github.io/FlyPlane/',
-    description:
-      'This is a description for mission sun at level 4. It provides additional context and details about the mission.',
-    videoLink: '',
-    facts: canyonFlightFacts.facts,
-    type: 'current',
-  },
-  {
-    id: 4,
+    id: 1,
     icon: Rockety,
     title: 'Rocketry',
-    level: 5,
+    level: 2,
     isAtive: true,
     gameLink: 'https://allelf.github.io/PuzzleWebGL/',
     description:
@@ -140,11 +101,66 @@ export const missionData: IMissionData[] = [
     type: 'current',
   },
   {
+    id: 2,
+    icon: MoonRover,
+    title: 'Moon Rover',
+    level: 3,
+    isAtive: true,
+    gameLink: '/games/void-breakers/Void%20Breakers.html',
+    description:
+      'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: moonRoverFacts.facts,
+    type: 'current',
+  },
+
+  /* ── Inactive missions ── */
+  {
+    id: 3,
+    icon: SolarSystem,
+    title: 'Solar System',
+    level: 4,
+    isAtive: false,
+    gameLink: 'https://allelf.github.io/CosmoTourist2DGame/',
+    description:
+      'This is a description for mission sun at level 2. It provides additional context and details about the mission.',
+    videoLink: '/video/mission/earth/earth.mp4',
+    facts: solarSystemFacts.facts,
+    type: 'current',
+  },
+  {
+    id: 4,
+    icon: EarthIcon,
+    title: 'Earth (Bonus)',
+    level: 5,
+    isAtive: false,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 3. It provides additional context and details about the mission.',
+    videoLink: '',
+    fileLink: '/files/mission/earth_model.pdf',
+    facts: [],
+    type: 'bonus',
+  },
+  {
     id: 5,
+    icon: CanyonFlight,
+    title: 'Canyon Flight',
+    level: 6,
+    isAtive: false,
+    gameLink: 'https://allelf.github.io/FlyPlane/',
+    description:
+      'This is a description for mission sun at level 4. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: canyonFlightFacts.facts,
+    type: 'current',
+  },
+  {
+    id: 6,
     icon: Rockety,
     title: 'Rocketry (Bonus)',
-    level: 6,
-    isAtive: true,
+    level: 7,
+    isAtive: false,
     gameLink: '',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
@@ -154,11 +170,11 @@ export const missionData: IMissionData[] = [
     type: 'bonus',
   },
   {
-    id: 6,
+    id: 7,
     icon: SunhIcon,
     title: 'Sun',
-    level: 7,
-    isAtive: true,
+    level: 8,
+    isAtive: false,
     gameLink: 'https://ziyoda-1995.github.io/Game_jame/Rus%20ideal%20game/index.html',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
@@ -167,24 +183,11 @@ export const missionData: IMissionData[] = [
     type: 'current',
   },
   {
-    id: 7,
-    icon: MoonRover,
-    title: 'Moon Rover',
-    level: 8,
-    isAtive: true,
-    gameLink: '/games/void-breakers/Void%20Breakers.html',
-    description:
-      'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
-    videoLink: '',
-    facts: moonRoverFacts.facts,
-    type: 'current',
-  },
-  {
     id: 8,
     icon: MoonRover,
     title: 'Moon Rover (Bonus)',
     level: 9,
-    isAtive: true,
+    isAtive: false,
     gameLink: '',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
@@ -198,7 +201,7 @@ export const missionData: IMissionData[] = [
     icon: Atmosphere,
     title: 'Atmosphere Game',
     level: 10,
-    isAtive: true,
+    isAtive: false,
     gameLink: 'https://allelf.github.io/Cosmo2D/',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',

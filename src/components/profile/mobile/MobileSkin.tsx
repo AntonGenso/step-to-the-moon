@@ -8,18 +8,18 @@ import styles from './MobileSkin.module.scss';
 import ArrowIcon from '@/public/images/svg/mobile/other/arrow.svg';
 
 export const MobileSkin = () => {
-  const { user, profile } = useAuth();
+  const { nickname, profile } = useAuth();
 
   const [selectedHead, setSelectedHead] = useState(profile?.skin?.headId ?? 0);
   const [selectedCostum, setSelectedCostum] = useState(profile?.skin?.suitId ?? 0);
 
   const saveSkin = useCallback(
     (headId: number, suitId: number) => {
-      if (user) {
-        updateUserSkin(user.uid, { headId, suitId });
+      if (nickname) {
+        updateUserSkin(nickname, { headId, suitId });
       }
     },
-    [user],
+    [nickname],
   );
 
   const HeadIcon = (headSkin.find((h) => h.id === selectedHead) ?? headSkin[0]).icon;

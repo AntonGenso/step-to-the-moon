@@ -1,25 +1,21 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './leaderboard.module.scss';
-import { getTopUsers, type LeaderboardEntry } from '@/src/services/userService';
 import { useAuth } from '@/src/context/AuthContext';
+import { useLeaderboard } from '@/src/hooks/useLeaderboard';
 
 export default function Leaderboard() {
-  const [players, setPlayers] = useState<LeaderboardEntry[]>([]);
-  const { user } = useAuth();
-
-  useEffect(() => {
-    getTopUsers(10).then(setPlayers);
-  }, []);
+  const players = useLeaderboard(10);
+  const { nickname } = useAuth();
 
   return (
     <div className={styles.leaderboard}>
       <ul className={styles.playerList}>
         {players.map((p, i) => (
           <li
-            key={p.uid}
-            className={`${styles.playerRow} ${p.uid === user?.uid ? styles.highlight : ''}`}
+            key={p.nickname}
+            className={`${styles.playerRow} ${p.nickname === nickname ? styles.highlight : ''}`}
           >
             <div className={styles.rank}>{i + 1}</div>
             <img
@@ -32,7 +28,7 @@ export default function Leaderboard() {
             <div className={styles.points}>
               <div className={`${styles.pointItem} ${styles.total}`}>
                 <div>SCORE</div>
-                <div>{p.score}</div>
+                <div>{p.total}</div>
               </div>
             </div>
           </li>

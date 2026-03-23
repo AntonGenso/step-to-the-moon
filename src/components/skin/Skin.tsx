@@ -5,6 +5,7 @@ import ArrowRight from '@/public/images/profile/skin/svg/arrow-right.svg';
 import styles from './Skin.module.scss';
 import { useEffect, useState } from 'react';
 import { MoonProgressBar } from '@/src/uikit/MoonProgressBar/MoonProgressBar';
+import { MAX_XP } from '@/src/config/gameConfig';
 
 interface ISuitProps {
   hair: string;
@@ -88,7 +89,7 @@ export const Skin = ({ data }: ISkinProps) => {
           </div>
         </div>
         <div className={styles.progressBarWrapper}>
-          <MoonProgressBar progress={points} distance={384400} />
+          <MoonProgressBar progress={points} distance={MAX_XP} />
         </div>
       </div>
       <div className="mt-auto flex h-full w-full">
@@ -97,7 +98,7 @@ export const Skin = ({ data }: ISkinProps) => {
         </div>
         <div className={`flex h-full w-[50%] flex-col items-center ${styles.rightSide}`}>
           <p className={styles.points}>
-            {points}/{384400}
+            {points}/{MAX_XP} XP
           </p>
           <div className={styles.rightSideContent}>
             <div className="flex">

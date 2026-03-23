@@ -4,19 +4,24 @@ import StarScore from "@/public/images/profile/tests/star_score.svg";
 import Home from "@/public/images/profile/tests/home.svg";
 import Retry from "@/public/images/profile/tests/retry.svg";
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styles from './Tests.module.scss';
 import { Card } from '@/src/uikit/card/Card';
 import Test from '../test/Test';
 import { testData } from '../../utils/testData';
 import { Heading } from '@/src/uikit/heading/Heading';
+import { useAuth } from '@/src/context/AuthContext';
+import { submitTestScore } from '@/src/services/userService';
+import { POINTS_PER_QUESTION } from '@/src/config/gameConfig';
 
 export default function Tests() {
+  const { nickname, profile, refreshProfile } = useAuth();
   const [activeTest, setActiveTest] = useState<number | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [showResult, setShowResult] = useState(false);
+  const scoreSaved = useRef(false);
 
   if (activeTest !== null) {
     const test = testData.find((t) => t.id === activeTest);
@@ -26,6 +31,14 @@ export default function Tests() {
     const question = test.questions[currentQuestion];
 
     if (showResult) {
+      // Persist score once when result is shown
+      if (!scoreSaved.current && nickname && score > 0) {
+        scoreSaved.current = true;
+        submitTestScore(nickname, `test_${activeTest}`, score).then(() => {
+          refreshProfile();
+        });
+      }
+
       return (
         <div className={styles.resultWrapper}>
           <div className={styles.resultCard}>
@@ -48,6 +61,7 @@ export default function Tests() {
                   setCurrentQuestion(0);
                   setScore(0);
                   setCorrectCount(0);
+                  scoreSaved.current = false;
                 }}
               >
                 <Retry />
@@ -61,6 +75,7 @@ export default function Tests() {
                   setScore(0);
                   setCorrectCount(0);
                   setShowResult(false);
+                  scoreSaved.current = false;
                 }}
               >
                 <Home />
@@ -79,7 +94,7 @@ export default function Tests() {
         onAnswer={(option) => {
           const isCorrect = option === question.answer;
           if (isCorrect) {
-            setScore((prev) => prev + 10);
+            setScore((prev) => prev + POINTS_PER_QUESTION);
             setCorrectCount((prev) => prev + 1);
           }
 
@@ -97,18 +112,22 @@ export default function Tests() {
     <div className={`${styles.contentWrapper} custom-scroll`}>
       <Heading title="Tests" />
       <ul className={`${styles.tabletList} custom-scroll`}>
-        {testData.map((test, i) => (
-          <li key={test.id} className={styles.tabletItem}>
-            <Card
-              image={test.icon}
-              title={test.title}
-              level={i + 1}
-              status={true}
-              setActiveMission={() => setActiveTest(test.id)}
-              label="test"
-            />
-          </li>
-        ))}
+        {testData.map((test, i) => {
+          const testKey = `test_${test.id}`;
+          const isDone = profile?.tests?.[testKey]?.status === 'done';
+          return (
+            <li key={test.id} className={styles.tabletItem}>
+              <Card
+                image={test.icon}
+                title={test.title}
+                level={i + 1}
+                status={!isDone}
+                setActiveMission={() => setActiveTest(test.id)}
+                label="test"
+              />
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

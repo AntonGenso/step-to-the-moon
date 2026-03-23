@@ -1,19 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import styles from './MobileLeaderboard.module.scss';
-import { getTopUsers, type LeaderboardEntry } from '@/src/services/userService';
 import { useAuth } from '@/src/context/AuthContext';
+import { useLeaderboard } from '@/src/hooks/useLeaderboard';
 import StarIcon from '@/public/images/svg/mobile/other/star.svg';
 import { GlassFrame } from '@/src/uikit/glass-frame/GlassFrame';
 
 export const MobileLeaderboard = () => {
-  const [players, setPlayers] = useState<LeaderboardEntry[]>([]);
-  const { user } = useAuth();
-
-  useEffect(() => {
-    getTopUsers(10).then(setPlayers);
-  }, []);
+  const players = useLeaderboard(10);
+  const { nickname } = useAuth();
 
   return (
     <div className={styles.container}>
@@ -33,10 +28,10 @@ export const MobileLeaderboard = () => {
         {/* Player rows */}
         <div className={`mt-6 flex flex-col gap-5`}>
           {players.map((p, i) => {
-            const isMe = p.uid === user?.uid;
+            const isMe = p.nickname === nickname;
             return (
               <div
-                key={p.uid}
+                key={p.nickname}
                 className={`flex items-center rounded-[23px] bg-gradient-to-r ${isMe ? 'from-[#FF7B1D] to-[#FFCB78] shadow-[0px_0px_50px_0px_#FF7B1D80,0px_0px_5px_0px_#FF7B1D]' : 'from-[#006D86] to-[#2FE4D3]'} p-[2px]`}
               >
                 <div className="flex h-full w-full items-center rounded-[23px] bg-[#0a1f26] p-[13px_18px]">

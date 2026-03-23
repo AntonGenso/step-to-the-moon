@@ -16,9 +16,9 @@ export default async function ProfileLayout({ children }: { children: React.Reac
   const cookieStore = await cookies();
   // const defaultClose = cookieStore.get('sidebar:state')?.value === 'false';
 
-  const token = cookieStore.get('accessToken');
+  const session = cookieStore.get('session');
 
-  if (!token) {
+  if (!session) {
     redirect('/login');
   }
 
