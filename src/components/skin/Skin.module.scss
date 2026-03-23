@@ -1,237 +1,113 @@
 .skinContainer {
   width: 100%;
   height: 100%;
+  display: flex;
+  gap: 24px;
   padding: 20px 0;
+
+  .progressBarWrapper {
+    width: 100%;
+    margin-top: 16px;
+  }
+}
+
+/* ── Left Side: Character Preview ── */
+
+.leftSide {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  border: 1.5px solid rgba(0, 200, 200, 0.15);
+  background: radial-gradient(ellipse at center, rgba(10, 40, 60, 0.6), rgba(3, 10, 16, 0.95));
+  overflow: hidden;
+  min-height: 400px;
+}
+
+/* ── Right Side: Controls ── */
+
+.rightSide {
+  width: 320px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 20px;
+}
 
-  .progressBarWrapper {
-    width: 50%;
+.title {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #fff;
+  text-align: center;
+}
+
+.points {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+/* ── Selectors ── */
+
+.selectorsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.selectorRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.arrowBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 200, 200, 0.25);
+  background: rgba(0, 200, 200, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+
+  &:hover {
+    border-color: rgba(0, 200, 200, 0.5);
+    background: rgba(0, 200, 200, 0.1);
+    box-shadow: 0 0 10px rgba(0, 200, 200, 0.1);
   }
 
-  .titleWrapper {
-    padding: 0 5%;
-    gap: 60px;
-  }
-
-  .title {
-    width: fit-content;
-    font-size: 60px;
-    font-family: var(--font-alumni), sans-serif;
-    font-weight: 500;
-    text-transform: uppercase;
-    line-height: 1;
-  }
-
-  .place {
-    font-size: 48px;
-    font-family: var(--font-alumni), sans-serif;
-    font-weight: 400;
-    line-height: 1;
-  }
-
-  .points {
-    width: 100%;
-    text-align: center;
-    font-size: 32px;
-    font-family: var(--font-alumni), sans-serif;
-    font-weight: 400;
-    line-height: 1;
-  }
-
-  .rightSideContent {
-    padding: 5% 0;
-    margin: auto 0;
-
-    .headIconWrapper {
-      margin-top: auto;
-      margin-bottom: auto;
-      display: flex;
-      min-width: 150px;
-      min-height: 150px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 6px;
-      background: url(../../../public/images/profile/skin/hair-bg.webp);
-      background-position: center;
-      background-size: cover;
-      padding: 15px;
-    }
-
-    .suitIconWrapper {
-      margin-top: auto;
-      margin-bottom: auto;
-      display: flex;
-      height: fit-content;
-      width: fit-content;
-      align-items: center;
-      justify-content: center;
-      border-radius: 6px;
-      background: url(../../../public/images/profile/skin/suit-bg.webp);
-      background-position: center;
-      background-size: cover;
-      padding: 30px;
-    }
-  }
-
-  .skinContent {
-    width: 100%;
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-
-    .hairContainer {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      .hairTitle {
-        padding: 10px 30px;
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: url(../../../public/images/profile/skin/titleContainer.webp);
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        font-size: 14px;
-        text-align: left;
-        text-transform: uppercase;
-
-        @media (min-width: 1280px) {
-          font-size: 16px;
-        }
-      }
-
-      .hairList {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 13px;
-        .hairItem {
-          .hairBtn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            width: 80px;
-            height: 80px;
-            background: url(../../../public/images/profile/skin/hairBg.webp);
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: contain;
-
-            @media (min-width: 1280px) {
-              width: 90px;
-              height: 90px;
-            }
-            @media (min-width: 1440px) {
-              width: 104px;
-              height: 104px;
-            }
-            .iconHead {
-              width: 80px;
-              height: auto;
-
-              @media (min-width: 1280px) {
-                width: 90px;
-              }
-              @media (min-width: 1440px) {
-                width: 100px;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .costumContainer {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-
-      .costumTitle {
-        padding: 10px 30px;
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: url(../../../public/images/profile/skin/titleContainer.webp);
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        font-size: 14px;
-        text-align: left;
-        text-transform: uppercase;
-        @media (min-width: 1280px) {
-          font-size: 16px;
-        }
-      }
-
-      .costumList {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        column-gap: 16px;
-        row-gap: 16px;
-        .costumItem {
-          .costumBtn {
-            width: 80px;
-            height: 110px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: url(../../../public/images/profile/skin/costumBg.webp);
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: contain;
-
-            @media (min-width: 1280px) {
-              width: 90px;
-              height: 120px;
-            }
-            @media (min-width: 1440px) {
-              width: 104px;
-              height: 137px;
-            }
-            .ikonSkin {
-              width: 90px;
-              height: auto;
-
-              @media (min-width: 1280px) {
-                width: 100px;
-              }
-              @media (min-width: 1440px) {
-                width: 104px;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .continueBtnWrapper {
-    margin-top: 10px;
-    padding: 10px 32px;
-    background: url(../../../public/images/profile/skin/titleContainer.webp);
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    @media (min-width: 1280px) {
-      margin-top: 20px;
-    }
-
-    .submitBtn {
-      font-size: 14px;
-      text-transform: uppercase;
-      @media (min-width: 1280px) {
-        font-size: 16px;
-      }
-    }
+  svg {
+    width: 16px;
+    height: 16px;
   }
 }
+
+.iconDisplay {
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(0, 200, 200, 0.2);
+  background: linear-gradient(135deg, rgba(5, 20, 30, 0.9), rgba(15, 45, 55, 0.85));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Character Display ── */
 
 .skinWrapper {
   position: relative;

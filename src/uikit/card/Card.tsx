@@ -20,17 +20,20 @@ export const Card = ({ image, title, level, status, setActiveMission, label = "l
   return (
     <button
       type="button"
-      className={cn(styles.btn, { [styles.activeBtn]: status })}
+      className={cn(styles.card, { [styles.cardActive]: status, [styles.cardLocked]: !status })}
       onClick={() => setActiveMission(level)}
       disabled={!status}
     >
-      <div className={cn(styles.imgWapper, { [styles.activeImgWrapper]: status })}>
-        <Icon className={cn(styles.icon, styles.active)} />
-        {!status && <LockIcon className="absolute h-auto w-[40%]" />}
+      <div className={cn(styles.iconRing, { [styles.iconRingActive]: status })}>
+        <Icon className={cn(styles.icon, { [styles.iconLocked]: !status })} />
+        {!status && <LockIcon className={styles.lockOverlay} />}
       </div>
-      <div className={styles.contentWrapper}>
+      <div className={styles.info}>
+        <span className={styles.label}>{label} {String(level).padStart(2, '0')}</span>
         <h3 className={styles.title}>{title}</h3>
-        <span className={styles.level}>{label}: {level}</span>
+      </div>
+      <div className={cn(styles.action, { [styles.actionLocked]: !status })}>
+        {status ? 'START' : 'LOCKED'}
       </div>
     </button>
   );

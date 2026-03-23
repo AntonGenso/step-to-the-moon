@@ -1,92 +1,44 @@
-.title {
-  font-family: var(--font-alumni-regular), sans-serif;
-  font-weight: 400;
-  font-size: clamp(1.8rem, 4vw, 3rem); 
-  line-height: 1.1;
-  text-align: center;
-  color: white;
-  margin-bottom: 0.5rem;
-}
-
 .contentWrapper {
-  position: relative;
-  padding: 40px;
-  box-sizing: border-box;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  gap: 20px;
   overflow: auto;
 
-  .tabletList {
-    width: 100%;
-    height: 100%;
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 20px;
-    row-gap: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 200, 200, 0.2) transparent;
 
-    .tabletItem {
-      width: 100%;
-      z-index: 999;
-    }
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 200, 200, 0.2);
+    border-radius: 3px;
   }
 }
 
-
-.options {
+.tabletList {
+  width: 100%;
+  list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-  margin-top: 1.25rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+
+  .tabletItem {
+    width: 100%;
+  }
 }
 
-.option {
-  padding: clamp(0.8rem, 2vw, 1.2rem);
-  border-radius: 0.75rem;
-  border: 2px solid rgba(163, 163, 163, 0.7);
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(44, 41, 103, 0.3));
-  text-align: left;
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
-  cursor: pointer;
-  transition: background 0.3s;
+@media (min-width: 1440px) {
+  .tabletList {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-.option:hover {
-  background: rgba(42, 154, 201, 0.2);
-}
-
-.correct {
-  background: rgba(42, 201, 100, 0.3);
-  border-color: rgba(42, 201, 100, 1);
-}
-
-.wrong {
-  background: rgba(201, 42, 42, 0.3);
-  border-color: rgba(201, 42, 42, 1);
-}
-
-.backButton {
-  @extend .option;
-  width: clamp(2.5rem, 5vw, 3rem);
-  min-height: clamp(2.5rem, 5vw, 3rem);
-  border-radius: 8px;
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  font-weight: 700;
-  background-color: #2a9ac9;
-  text-align: center;
-}
-
-.nextButton {
-  @extend .option;
-  font-weight: bold;
-  background: #2a9ac9;
-  border: none;
-  color: white;
-}
+/* ── Result Screen ── */
 
 .resultWrapper {
   display: flex;
@@ -94,15 +46,18 @@
   justify-content: center;
   height: 100%;
   width: 100%;
-  position: absolute;
   color: white;
-  padding: 1rem;
   text-align: center;
 }
 
 .resultCard {
-  max-width: 600px;
+  max-width: 500px;
   width: 100%;
+  padding: 40px;
+  border-radius: 24px;
+  border: 1.5px solid rgba(0, 200, 200, 0.2);
+  background: linear-gradient(135deg, rgba(5, 20, 30, 0.95), rgba(15, 45, 55, 0.9));
+  box-shadow: 0 0 30px rgba(0, 200, 200, 0.06);
 }
 
 .resultHeader {
@@ -111,19 +66,18 @@
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1rem;
-  flex-wrap: wrap;
 }
 
 .starIcon {
-  width: clamp(2rem, 6vw, 3rem);
+  width: 3rem;
   height: auto;
   color: gold;
   filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
 }
 
 .resultScore {
-  font-family: var(--font-alumni-light), sans-serif;
-  font-size: clamp(3.5rem, 3vw, 2rem);
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 2.5rem;
   color: #ffffff;
   text-shadow:
     0 0 4px rgba(255, 255, 255, 0.8),
@@ -131,21 +85,17 @@
 }
 
 .resultText {
-  font-family: var(--font-alumni-light), sans-serif;
-  font-size: clamp(3.5rem, 2vw, 1.5rem);
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 1.8rem;
   margin-bottom: 1.5rem;
   font-weight: 500;
-  color: #ffffff;
-  text-shadow:
-    0 0 3px rgba(255, 255, 255, 0.7),
-    0 0 6px rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .resultButtons {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  flex-wrap: wrap;
 }
 
 .iconButton {
@@ -157,13 +107,13 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.2s ease;
-}
 
-.iconButton:hover {
-  transform: scale(1.1);
-}
+  &:hover {
+    transform: scale(1.15);
+  }
 
-.iconButton svg {
-  width: clamp(2rem, 6vw, 3rem);
-  height: clamp(2rem, 6vw, 3rem);
+  svg {
+    width: 3rem;
+    height: 3rem;
+  }
 }

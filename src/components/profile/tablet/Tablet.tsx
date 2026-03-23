@@ -1,8 +1,6 @@
 'use client';
 
-import Image from 'next/image';
 import styles from './Tablet.module.scss';
-import tabletBg from '@/public/images/profile/tablet_view.webp';
 import React, { useState } from 'react';
 import { Root, List, Trigger, Content } from '@radix-ui/react-tabs';
 import { tabletButtons } from './tabletButtons/tabletButtons';
@@ -11,13 +9,17 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Test from '../tests/Tests';
 import Leaderboard from '../leaderboard/leaderboard';
 import Missions from '../missions/Missions';
-import CloseBtn from '@/public/images/svg/closeBtn.svg';
 import { Skin } from '../../skin/Skin';
 import { useAuth } from '@/src/context/AuthContext';
 import { headSkin, suit } from '@/src/utils/skinData';
+import { MAX_XP } from '@/src/config/gameConfig';
+import FullCosmonautIcon from '@/public/images/svg/mobile/other/full-cosmonaut.svg';
+import ExitIcon from '@/public/images/header/exit-icon.svg';
 
 export const Tablet = () => {
-  const { nickname, profile } = useAuth();
+  const { nickname, profile, logout } = useAuth();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const skinHeadId = profile?.skin?.headId ?? 0;
   const skinSuitId = profile?.skin?.suitId ?? 0;
@@ -31,13 +33,14 @@ export const Tablet = () => {
       costum: suit.find((s) => s.id === skinSuitId)?.name ?? suit[0].name,
     },
   };
-  const router = useRouter();
-  const searchParams = useSearchParams();
+
   const activeTabParam = searchParams.get('activeTab');
   const [isGameOpen, setIsGameOpen] = useState(false);
   const [gameLink, setGameLink] = useState('');
-
   const [activeTab, setActiveTab] = useState(activeTabParam || 'mission');
+
+  const total = profile?.leaderboard?.total ?? 0;
+  const progress = MAX_XP > 0 ? Math.min((total / MAX_XP) * 100, 100) : 0;
 
   const handleSetActiveParam = (value: string) => {
     const params = new URLSearchParams();
@@ -46,69 +49,86 @@ export const Tablet = () => {
     setActiveTab(value);
   };
 
+  const handleLogout = async () => {
+    await logout();
+    router.push('/');
+  };
+
+  if (isGameOpen) {
+    return (
+      <div className={styles.gameOverlay}>
+        <button className={styles.gameCloseBtn} onClick={() => setIsGameOpen(false)}>
+          CLOSE
+        </button>
+        <iframe src={gameLink} className={styles.gameIframe} allowFullScreen />
+      </div>
+    );
+  }
+
   return (
-    <>
-      {isGameOpen ? (
-        <div className="m-auto h-[700px] w-[1100px] p-[20px]">
-          <button
-            type="button"
-            className="absolute top-[20px] right-[60px]"
-            onClick={() => setIsGameOpen(false)}
-          >
-            <CloseBtn className="h-auto w-[50px]" />
-          </button>
-          <iframe src={gameLink} className="h-full w-full border-none" allowFullScreen />
-        </div>
-      ) : (
-        <div className={styles.tablet}>
-          <Root
-            value={activeTab}
-            onValueChange={(value) => handleSetActiveParam(value)}
-            className="h-full"
-          >
-            <Content value="mission" className="h-full">
-              <Missions setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
-            </Content>
-            <Content tabIndex={undefined} value="profile" className="h-full w-full">
-              <Skin data={personData} />
-            </Content>
-            <Content value="diary" className={`h-full w-full ${styles.diary}`}>
-              <Book />
-            </Content>
-            <Content value="test" className="relative h-full w-full">
-              <Test />
-            </Content>
-            <Content value="leader">
-              <Leaderboard />
-            </Content>
-
-            <div>
-              <List className={styles.tabletBtnWrapper}>
-                {tabletButtons.map((item) => {
-                  const Icon = item.icon;
-                  const ActiveIcon = item.activeIcon;
-
-                  return (
-                    <Trigger
-                      key={item.id}
-                      className={styles.tabletBtn}
-                      value={item.title.toLowerCase()}
-                    >
-                      {activeTab === item.title ? (
-                        <ActiveIcon className={styles.icon} />
-                      ) : (
-                        <Icon className={styles.icon} />
-                      )}
-                    </Trigger>
-                  );
-                })}
-              </List>
+    <div className={styles.desktopLayout}>
+      <Root
+        value={activeTab}
+        onValueChange={(value) => handleSetActiveParam(value)}
+        className={styles.tabRoot}
+      >
+        {/* Sidebar */}
+        <aside className={styles.sidebar}>
+          <div className={styles.sidebarProfile}>
+            <div className={styles.avatarCircle}>
+              <FullCosmonautIcon className={styles.avatarIcon} />
             </div>
+            <span className={styles.nickname}>{nickname ?? ''}</span>
+            <div className={styles.progressWrapper}>
+              <div className={styles.progressTrack}>
+                <div className={styles.progressFill} style={{ width: `${progress}%` }} />
+              </div>
+              <span className={styles.progressText}>{total}/{MAX_XP} XP</span>
+            </div>
+          </div>
 
-            <Image src={tabletBg} alt="" fill className={styles.bgImage} quality={100} />
-          </Root>
-        </div>
-      )}
-    </>
+          <List className={styles.navList}>
+            {tabletButtons.map((item) => {
+              const isActive = activeTab === item.title;
+              const Icon = isActive ? item.activeIcon : item.icon;
+              return (
+                <Trigger
+                  key={item.id}
+                  className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
+                  value={item.title.toLowerCase()}
+                >
+                  <Icon className={styles.navIcon} />
+                  <span className={styles.navLabel}>{item.label}</span>
+                </Trigger>
+              );
+            })}
+          </List>
+
+          <button className={styles.logoutBtn} onClick={handleLogout}>
+            <ExitIcon className={styles.logoutIcon} />
+            <span>Logout</span>
+          </button>
+        </aside>
+
+        {/* Content */}
+        <main className={styles.contentArea}>
+          <Content value="mission" className={styles.tabContent}>
+            <Missions setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
+          </Content>
+          <Content tabIndex={undefined} value="profile" className={styles.tabContent}>
+            <Skin data={personData} />
+          </Content>
+          <Content value="diary" className={styles.tabContent}>
+            <Book />
+          </Content>
+          <Content value="test" className={styles.tabContent}>
+            <Test />
+          </Content>
+          <Content value="leader" className={styles.tabContent}>
+            <Leaderboard />
+          </Content>
+        </main>
+      </Root>
+    </div>
   );
 };

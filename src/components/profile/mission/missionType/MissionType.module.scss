@@ -3,16 +3,17 @@
 }
 
 .videoButton {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .bonuseMissionText {
   padding: 10px 32px;
-  border: 2px solid #d1d5db;
+  border: 1.5px solid rgba(0, 200, 200, 0.25);
   border-radius: 20px;
   background: linear-gradient(
-    to right,
-    rgba(146, 149, 155, 0.5) 30%,
-    rgba(184, 186, 192, 0.5) 100%
+    135deg,
+    rgba(5, 20, 30, 0.9),
+    rgba(15, 45, 55, 0.85)
   );
+  color: rgba(255, 255, 255, 0.7);
 }

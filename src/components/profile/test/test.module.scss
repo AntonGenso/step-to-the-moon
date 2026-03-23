@@ -14,8 +14,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 800px;
   margin: 0 auto;
   padding: clamp(0.8rem, 2vw, 1.2rem);
   display: flex;
@@ -25,52 +24,53 @@
 }
 
 .questionBorder {
-  background: linear-gradient(to bottom left, #006c8400, #2B95C8, #006c8400);
-  padding: 5px;
-  border-radius: 15px;
+  background: linear-gradient(to bottom left, rgba(0, 200, 200, 0), #00d4c8, rgba(0, 200, 200, 0));
+  padding: 2px;
+  border-radius: 16px;
   margin-bottom: 1rem;
   flex-shrink: 0;
 }
 
 .questionBox {
-  background: linear-gradient(270deg, #2B95C8, #2b96c800 80%);
-  border-radius: 13px;
-  padding: clamp(1rem, 2vw, 3rem);   
+  background: linear-gradient(135deg, rgba(5, 20, 30, 0.95), rgba(15, 45, 55, 0.9));
+  border-radius: 14px;
+  padding: clamp(1rem, 2vw, 2.5rem);
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 200, 200, 0.08);
 
   p {
     margin-bottom: 0.5rem;
-    font-size: clamp(1rem, 2vw, 2.2rem); 
+    font-size: clamp(1rem, 2vw, 1.6rem);
     word-wrap: break-word;
+    color: #fff;
   }
 
   span {
-    font-size: clamp(0.9rem, 1.8vw, 1.6rem);
-    font-weight: bold;
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
   }
 }
-
 
 .optionsGrid {
   margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 1fr;
-  gap: 1rem;
+  gap: 12px;
   width: 100%;
-  height: 100%;
+  flex: 1;
 }
 
 .optionCard {
-  background: linear-gradient(to bottom left, #999EA0, #999ea000);
-  border: 3px solid #999EA0;
-  border-radius: 12px;
-  padding: clamp(0.6rem, 1.5vw, 1.2rem);
+  background: linear-gradient(135deg, rgba(5, 20, 30, 0.9), rgba(15, 45, 55, 0.85));
+  border: 1.5px solid rgba(0, 200, 200, 0.2);
+  border-radius: 14px;
+  padding: clamp(0.8rem, 1.5vw, 1.2rem);
   text-align: center;
   color: white;
   font-weight: 500;
-  transition: 0.3s ease;
+  transition: all 0.2s ease;
   cursor: pointer;
 
   display: flex;
@@ -79,36 +79,33 @@
   align-items: center;
 
   font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-
   height: 100%;
 
   &:hover:not(:disabled) {
-    background: rgba(0, 229, 255, 0.2);
-    transform: scale(1.02);
+    border-color: rgba(0, 200, 200, 0.5);
+    background: rgba(0, 200, 200, 0.08);
+    box-shadow: 0 0 12px rgba(0, 200, 200, 0.1);
+    transform: scale(1.01);
   }
 }
 
-
 .optionLetter {
   display: block;
-  font-size: clamp(1.2rem, 2vw, 2rem);
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   text-align: center;
-
-  background: linear-gradient(to bottom, #C792F9, #FFFFFF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+  color: #00d4c8;
 }
 
 .correct {
-  background: linear-gradient(to bottom left, #03AF8C, #999ea000);
+  background: linear-gradient(135deg, rgba(3, 175, 140, 0.2), rgba(3, 175, 140, 0.05));
   border-color: #03AF8C;
+  box-shadow: 0 0 12px rgba(3, 175, 140, 0.15);
 }
 
 .wrong {
-  background: linear-gradient(to bottom left, #D28080, #999ea000);
+  background: linear-gradient(135deg, rgba(210, 128, 128, 0.2), rgba(210, 128, 128, 0.05));
   border-color: #D28080;
+  box-shadow: 0 0 12px rgba(210, 128, 128, 0.15);
 }

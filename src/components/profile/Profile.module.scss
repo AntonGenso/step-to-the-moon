@@ -1,61 +1,13 @@
 .mainContainer {
   box-sizing: border-box;
   position: relative;
-  padding: 40px 20px;
   width: 100%;
-  min-height: 90vh;
-  height: 100%;
+  min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
+  background: #030a10;
 
   @media (max-width: 768px) {
     padding: 0;
-    min-height: 100vh;
-    height: 100vh;
   }
-
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .moon {
-    position: absolute;
-    width: 900px;
-    height: auto;
-    left: -230px;
-    bottom: -290px;
-    z-index: 20;
-    pointer-events: none;
-  }
-
-  .astronaut {
-    width: 125px;
-    height: auto;
-    position: absolute;
-    top: 180px;
-    left: 150px;
-  }
-}
-
-.tabletList {
-  padding: 25px 65px;
-  box-sizing: border-box;
-  width: fit-content;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(4, 160px);
-  grid-template-rows: repeat(2, 228px);
-  column-gap: 20px;
-  row-gap: 20px;
-
-  .tabletItem {
-    width: 100%;
-    height: auto;
-  }
-}
-
-.icon {
-  width: 97px;
-  height: auto;
 }
