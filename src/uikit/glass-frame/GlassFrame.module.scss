@@ -6,7 +6,7 @@
   flex-direction: column;
   padding: 3px;
   border-radius: 48px;
-  background: linear-gradient(to right, #006d86, #2fe4d3);
+  background: linear-gradient(to right, var(--color-cyan-dark), var(--color-cyan-light));
   box-shadow:
     0 0 15px rgba(78, 200, 255, 0.08),
     inset 0 0 20px rgba(78, 200, 255, 0.03);
@@ -17,7 +17,7 @@
   height: 100%;
   width: 100%;
   border-radius: 48px;
-  background: linear-gradient(to top right, #030505, #0f2d37);
+  background: linear-gradient(to top right, #030505, var(--color-bg-card-light));
   background-color: black;
   padding: 32px;
   box-shadow:

@@ -7,6 +7,59 @@
   --font-alumni-medium: 'AlumniSans-Medium';
   --font-alumni-bold: 'AlumniSans-Bold';
   --font-alumni-light: 'AlumniSans-Light';
+
+  /* ── Color System ── */
+
+  /* Cyan / Teal — primary accent */
+  --color-cyan: #00d4c8;
+  --color-cyan-dark: #006d86;
+  --color-cyan-light: #2fe4d3;
+  --color-cyan-glow: #4ec8ff;
+  --color-cyan-muted: #0a8a9a;
+
+  /* Orange — action / CTA */
+  --color-orange: #e88a1a;
+  --color-orange-dark: #d4740e;
+  --color-orange-bright: #ff7b1d;
+
+  /* Backgrounds */
+  --color-bg-base: #030a10;
+  --color-bg-sidebar: #0a1a25;
+  --color-bg-sidebar-deep: #061218;
+  --color-bg-card: #05141e;
+  --color-bg-card-light: #0f2d37;
+
+  /* Semantic */
+  --color-success: #03AF8C;
+  --color-error: #D28080;
+  --color-locked: #646464;
+
+  /* Text */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.5);
+  --color-text-muted: rgba(255, 255, 255, 0.35);
+}
+
+@theme inline {
+  --color-cyan: var(--color-cyan);
+  --color-cyan-dark: var(--color-cyan-dark);
+  --color-cyan-light: var(--color-cyan-light);
+  --color-cyan-glow: var(--color-cyan-glow);
+  --color-cyan-muted: var(--color-cyan-muted);
+  --color-orange: var(--color-orange);
+  --color-orange-dark: var(--color-orange-dark);
+  --color-orange-bright: var(--color-orange-bright);
+  --color-bg-base: var(--color-bg-base);
+  --color-bg-sidebar: var(--color-bg-sidebar);
+  --color-bg-sidebar-deep: var(--color-bg-sidebar-deep);
+  --color-bg-card: var(--color-bg-card);
+  --color-bg-card-light: var(--color-bg-card-light);
+  --color-success: var(--color-success);
+  --color-error: var(--color-error);
+  --color-locked: var(--color-locked);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
 }
 
 @font-face {

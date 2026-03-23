@@ -5,7 +5,7 @@
   min-height: 100vh;
   height: 100vh;
   overflow: hidden;
-  background: #030a10;
+  background: var(--color-bg-base);
 
   @media (max-width: 768px) {
     padding: 0;

@@ -71,7 +71,7 @@
   width: 50%;
   height: auto;
   border-radius: 50%;
-  border: 2.5px solid #00d4c8;
+  border: 2.5px solid var(--color-cyan);
   background: radial-gradient(circle, rgba(10, 30, 50, 0.9), rgba(5, 15, 25, 1));
   display: flex;
   align-items: center;
@@ -98,7 +98,7 @@
   font-family: var(--font-alumni), sans-serif;
   font-size: 11px;
   font-weight: 600;
-  color: #00d4c8;
+  color: var(--color-cyan);
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
@@ -131,7 +131,7 @@
   font-family: var(--font-alumni), sans-serif;
   font-size: 16px;
   font-weight: 700;
-  color: #00d4c8;
+  color: var(--color-cyan);
 }
 
 .xpUnit {
@@ -165,7 +165,7 @@
 }
 
 .actionBtnPlay {
-  background: linear-gradient(135deg, #e88a1a, #d4740e);
+  background: linear-gradient(135deg, var(--color-orange), var(--color-orange-dark));
   color: #fff;
   box-shadow: 0 2px 8px rgba(232, 138, 26, 0.3);
 }
@@ -217,7 +217,7 @@
   border-radius: 10px;
   border: 1.5px solid rgba(0, 200, 200, 0.4);
   background: rgba(0, 200, 200, 0.1);
-  color: #00d4c8;
+  color: var(--color-cyan);
   font-family: var(--font-alumni), sans-serif;
   font-size: 14px;
   font-weight: 700;
