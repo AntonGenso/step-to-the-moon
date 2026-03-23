@@ -24,25 +24,153 @@
   margin: 2px 0 12px;
 }
 
-.placeholder {
+/* Scrollable card list */
+.cardList {
   flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 8px;
+
+  /* hide scrollbar */
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Single mission card */
+.card {
+  flex-shrink: 0;
+  width: 100%;
+  border: 1.5px solid rgba(0, 200, 200, 0.35);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(5, 20, 30, 0.9), rgba(15, 45, 55, 0.85));
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow:
+    0 0 12px rgba(0, 200, 200, 0.08),
+    inset 0 0 16px rgba(0, 200, 200, 0.03);
+}
+
+.cardBody {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Circular icon with cyan ring */
+.iconRing {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2.5px solid #00d4c8;
+  background: radial-gradient(circle, rgba(10, 30, 50, 0.9), rgba(5, 15, 25, 1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 212, 200, 0.2);
+}
+
+.iconSvg {
+  width: 44px;
+  height: 44px;
+}
+
+/* Mission label + title */
+.cardInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.missionLabel {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #00d4c8;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.missionTitle {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* XP badge */
+.xpBadge {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  padding: 4px 10px;
+  border: 1.5px solid rgba(0, 200, 200, 0.4);
+  border-radius: 8px;
+  background: rgba(0, 200, 200, 0.08);
+}
+
+.xpValue {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #00d4c8;
+}
+
+.xpUnit {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(0, 212, 200, 0.7);
+}
+
+/* Action buttons */
+.actionBtn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  border: 1.5px solid rgba(78, 200, 255, 0.3);
-  border-radius: 16px;
-  background: rgba(10, 30, 50, 0.5);
-  box-shadow:
-    0 0 15px rgba(78, 200, 255, 0.08),
-    inset 0 0 20px rgba(78, 200, 255, 0.03);
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+
+  &:active {
+    opacity: 0.8;
+  }
 }
 
-.placeholderText {
-  font-family: var(--font-alumni), sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.3);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.actionBtnPlay {
+  background: linear-gradient(135deg, #e88a1a, #d4740e);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(232, 138, 26, 0.3);
+}
+
+.actionBtnDone {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
