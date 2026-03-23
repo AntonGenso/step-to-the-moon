@@ -176,6 +176,30 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+/* Locked card */
+.cardLocked {
+  border-color: rgba(100, 100, 100, 0.3);
+  background: linear-gradient(135deg, rgba(20, 20, 25, 0.9), rgba(30, 30, 35, 0.85));
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.iconRingLocked {
+  border-color: rgba(100, 100, 100, 0.4);
+  box-shadow: none;
+}
+
+.iconLocked {
+  filter: grayscale(100%);
+}
+
+.actionBtnLocked {
+  background: rgba(100, 100, 100, 0.2);
+  color: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(100, 100, 100, 0.3);
+  cursor: not-allowed;
+}
+
 /* Game overlay */
 .gameOverlay {
   flex: 1;

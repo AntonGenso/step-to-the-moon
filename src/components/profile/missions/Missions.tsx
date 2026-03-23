@@ -21,9 +21,7 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
   const router = useRouter();
   const mission = serchParams.get('missionId');
 
-  const sortedMissions = [...missionData].sort((a, b) => {
-    return a.id - b.id;
-  });
+  const sortedMissions = [...missionData].sort((a, b) => a.id - b.id);
 
   const handleActiveMision = useCallback(
     (value: number) => {

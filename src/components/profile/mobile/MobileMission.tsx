@@ -36,10 +36,12 @@ export const MobileMission = () => {
                 const xp = mission.level * XP_PER_LEVEL;
                 const isDone = profile?.missions?.[`mission_${mission.id}`]?.status === 'done';
 
+                const isLocked = !mission.isAtive;
+
                 return (
-                  <div key={mission.id} className={styles.card}>
-                    <div className={styles.iconRing}>
-                      <Icon className={styles.iconSvg} />
+                  <div key={mission.id} className={`${styles.card} ${isLocked ? styles.cardLocked : ''}`}>
+                    <div className={`${styles.iconRing} ${isLocked ? styles.iconRingLocked : ''}`}>
+                      <Icon className={`${styles.iconSvg} ${isLocked ? styles.iconLocked : ''}`} />
                     </div>
                     <div className="flex w-full flex-col justify-between">
                       <div className={styles.cardBody}>
@@ -57,11 +59,11 @@ export const MobileMission = () => {
                       </div>
 
                       <button
-                        disabled={!mission.gameLink}
+                        disabled={isLocked || !mission.gameLink}
                         onClick={() => mission.gameLink && setActiveGame(mission.gameLink)}
-                        className={`${styles.actionBtn} ${isDone ? styles.actionBtnDone : styles.actionBtnPlay}`}
+                        className={`${styles.actionBtn} ${isLocked ? styles.actionBtnLocked : isDone ? styles.actionBtnDone : styles.actionBtnPlay}`}
                       >
-                        {isDone ? 'DONE' : 'START'}
+                        {isLocked ? 'LOCKED' : isDone ? 'DONE' : 'START'}
                       </button>
                     </div>
                   </div>
