@@ -49,7 +49,7 @@ export default function SignupPage() {
       if (err) {
         setError(err);
       } else {
-        router.push('/profile');
+        router.push('/');
       }
     } catch {
       setError('Something went wrong. Please try again.');

@@ -30,8 +30,8 @@
   --color-bg-card-light: #0f2d37;
 
   /* Semantic */
-  --color-success: #03AF8C;
-  --color-error: #D28080;
+  --color-success: #03af8c;
+  --color-error: #d28080;
   --color-locked: #646464;
 
   /* Text */
@@ -126,4 +126,8 @@ body {
 .custom-scroll {
   scrollbar-width: 8px;
   padding: 0 8px;
+}
+
+@theme {
+  --shadow-inner-card: inset 0px 0px 4.58px 2.91px #00000040, inset 0px 0px 2.91px 1.46px #00000052;
 }

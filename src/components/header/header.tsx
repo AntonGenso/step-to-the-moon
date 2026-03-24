@@ -19,7 +19,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     await logout();
-    router.push('/');
+    router.push('/login');
     setShowConfirm(false);
   };
 
@@ -37,7 +37,7 @@ const Header = () => {
 
         <ul className={styles.navLinks}>
           <li>
-            <Link href={isLoggedIn ? '/profile' : '/'} className="btn">
+            <Link href="/" className="btn">
               Step to the moon
             </Link>
           </li>
@@ -56,7 +56,7 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link href="/profile">
+              <Link href="/">
                 <Inoman />
               </Link>
               <Link href="/">

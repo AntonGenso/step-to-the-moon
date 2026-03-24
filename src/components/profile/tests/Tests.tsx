@@ -1,112 +1,15 @@
 'use client';
 
-import StarScore from "@/public/images/profile/tests/star_score.svg";
-import Home from "@/public/images/profile/tests/home.svg";
-import Retry from "@/public/images/profile/tests/retry.svg";
-
-import { useState, useRef } from 'react';
 import styles from './Tests.module.scss';
 import { Card } from '@/src/uikit/card/Card';
-import Test from '../test/Test';
 import { testData } from '../../utils/testData';
 import { Heading } from '@/src/uikit/heading/Heading';
 import { useAuth } from '@/src/context/AuthContext';
-import { submitTestScore } from '@/src/services/userService';
-import { POINTS_PER_QUESTION } from '@/src/config/gameConfig';
+import { useRouter } from 'next/navigation';
 
 export default function Tests() {
-  const { nickname, profile, refreshProfile } = useAuth();
-  const [activeTest, setActiveTest] = useState<number | null>(null);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
-  const [correctCount, setCorrectCount] = useState(0);
-  const [showResult, setShowResult] = useState(false);
-  const scoreSaved = useRef(false);
-
-  if (activeTest !== null) {
-    const test = testData.find((t) => t.id === activeTest);
-    if (!test) return null;
-
-    const total = test.questions.length;
-    const question = test.questions[currentQuestion];
-
-    if (showResult) {
-      // Persist score once when result is shown
-      if (!scoreSaved.current && nickname && score > 0) {
-        scoreSaved.current = true;
-        submitTestScore(nickname, `test_${activeTest}`, score).then(() => {
-          refreshProfile();
-        });
-      }
-
-      return (
-        <div className={styles.resultWrapper}>
-          <div className={styles.resultCard}>
-            <div className="flex flex-col items-center justify-center">
-              <div className={styles.resultHeader}>
-                <StarScore className={styles.starIcon} />
-                <h2 className={styles.resultScore}>YOUR SCORE - {score}</h2>
-              </div>
-
-              <p className={styles.resultText}>
-                CORRECT ANSWERS - {correctCount}/{total}
-              </p>
-            </div>
-
-            <div className={styles.resultButtons}>
-              <button
-                className={styles.iconButton}
-                onClick={() => {
-                  setShowResult(false);
-                  setCurrentQuestion(0);
-                  setScore(0);
-                  setCorrectCount(0);
-                  scoreSaved.current = false;
-                }}
-              >
-                <Retry />
-              </button>
-
-              <button
-                className={styles.iconButton}
-                onClick={() => {
-                  setActiveTest(null);
-                  setCurrentQuestion(0);
-                  setScore(0);
-                  setCorrectCount(0);
-                  setShowResult(false);
-                  scoreSaved.current = false;
-                }}
-              >
-                <Home />
-              </button>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <Test
-        question={question}
-        current={currentQuestion + 1}
-        total={total}
-        onAnswer={(option) => {
-          const isCorrect = option === question.answer;
-          if (isCorrect) {
-            setScore((prev) => prev + POINTS_PER_QUESTION);
-            setCorrectCount((prev) => prev + 1);
-          }
-
-          if (currentQuestion + 1 < total) {
-            setCurrentQuestion((prev) => prev + 1);
-          } else {
-            setShowResult(true);
-          }
-        }}
-      />
-    );
-  }
+  const { profile } = useAuth();
+  const router = useRouter();
 
   return (
     <div className={`${styles.contentWrapper} custom-scroll`}>
@@ -114,15 +17,14 @@ export default function Tests() {
       <ul className={`${styles.tabletList} custom-scroll`}>
         {testData.map((test, i) => {
           const testKey = `test_${test.id}`;
-          const isDone = profile?.tests?.[testKey]?.status === 'done';
           return (
             <li key={test.id} className={styles.tabletItem}>
               <Card
                 image={test.icon}
                 title={test.title}
                 level={i + 1}
-                status={!isDone}
-                setActiveMission={() => setActiveTest(test.id)}
+                status={true}
+                setActiveMission={() => router.push(`/test/${test.id}`)}
                 label="test"
               />
             </li>

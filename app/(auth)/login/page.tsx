@@ -44,7 +44,7 @@ export default function LoginPage() {
       if (err) {
         setError(err);
       } else {
-        router.push('/profile');
+        router.push('/');
       }
     } catch {
       setError('Something went wrong. Please try again.');

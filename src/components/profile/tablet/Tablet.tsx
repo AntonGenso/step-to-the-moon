@@ -45,13 +45,13 @@ export const Tablet = () => {
   const handleSetActiveParam = (value: string) => {
     const params = new URLSearchParams();
     params.set('activeTab', value);
-    router.replace(`/profile?${params.toString()}`, { scroll: false });
+    router.replace(`/?${params.toString()}`, { scroll: false });
     setActiveTab(value);
   };
 
   const handleLogout = async () => {
     await logout();
-    router.push('/');
+    router.push('/login');
   };
 
   if (isGameOpen) {

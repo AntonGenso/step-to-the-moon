@@ -16,15 +16,124 @@
   height: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: clamp(0.8rem, 2vw, 1.2rem);
+  padding: clamp(0.5rem, 2vw, 1.2rem);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   box-sizing: border-box;
 }
 
+/* ── Header bar ── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.backBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-cyan);
+  background: rgba(5, 20, 30, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(0, 200, 200, 0.1);
+  }
+}
+
+.backIcon {
+  width: 100%;
+  height: 100%;
+  rotate: 180deg;
+  color: var(--color-cyan);
+}
+
+.titleBadge {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  border: 1.5px solid var(--color-cyan);
+  border-radius: 28px;
+  background: rgba(5, 20, 30, 0.8);
+  box-shadow: 0 0 10px rgba(0, 200, 200, 0.1);
+
+  span {
+    font-family: var(--font-alumni), sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+}
+
+.decorIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-cyan);
+  background: rgba(5, 20, 30, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.decorSvg {
+  width: 28px;
+  height: 28px;
+}
+
+/* ── Question label ── */
+
+.questionLabel {
+  text-align: center;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.questionHeading {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.questionSub {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 4px 0 0;
+  font-style: italic;
+}
+
+/* ── Question box ── */
+
 .questionBorder {
-  background: linear-gradient(to bottom left, rgba(0, 200, 200, 0), var(--color-cyan), rgba(0, 200, 200, 0));
+  background: linear-gradient(
+    to bottom left,
+    rgba(0, 200, 200, 0),
+    var(--color-cyan),
+    rgba(0, 200, 200, 0)
+  );
   padding: 2px;
   border-radius: 16px;
   margin-bottom: 1rem;
@@ -34,39 +143,36 @@
 .questionBox {
   background: linear-gradient(135deg, rgba(5, 20, 30, 0.95), rgba(15, 45, 55, 0.9));
   border-radius: 14px;
-  padding: clamp(1rem, 2vw, 2.5rem);
+  padding: clamp(1rem, 2vw, 2rem);
   text-align: center;
   box-shadow: 0 0 20px rgba(0, 200, 200, 0.08);
 
   p {
-    margin-bottom: 0.5rem;
-    font-size: clamp(1rem, 2vw, 1.6rem);
+    margin: 0;
+    font-size: clamp(0.95rem, 2vw, 1.4rem);
+    line-height: 1.5;
     word-wrap: break-word;
     color: #fff;
   }
-
-  span {
-    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.5);
-  }
 }
 
+/* ── Options grid ── */
+
 .optionsGrid {
-  margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 1fr;
   gap: 12px;
   width: 100%;
   flex: 1;
+  min-height: 0;
 }
 
 .optionCard {
   background: linear-gradient(135deg, rgba(5, 20, 30, 0.9), rgba(15, 45, 55, 0.85));
-  border: 1.5px solid rgba(0, 200, 200, 0.2);
+  border: 1.5px solid rgba(0, 200, 200, 0.25);
   border-radius: 14px;
-  padding: clamp(0.8rem, 1.5vw, 1.2rem);
+  padding: clamp(0.6rem, 1.5vw, 1.2rem);
   text-align: center;
   color: white;
   font-weight: 500;
@@ -78,7 +184,7 @@
   justify-content: center;
   align-items: center;
 
-  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-size: clamp(0.85rem, 1.5vw, 1.1rem);
   height: 100%;
 
   &:hover:not(:disabled) {
@@ -87,13 +193,18 @@
     box-shadow: 0 0 12px rgba(0, 200, 200, 0.1);
     transform: scale(1.01);
   }
+
+  p {
+    margin: 0;
+    line-height: 1.3;
+  }
 }
 
 .optionLetter {
   display: block;
-  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
   font-weight: bold;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
   text-align: center;
   color: var(--color-cyan);
 }

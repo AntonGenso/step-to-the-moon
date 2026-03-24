@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ElementType } from 'react';
 import styles from './test.module.scss';
+import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
 
 interface IQuestion {
   question: string;
@@ -10,28 +11,23 @@ interface IQuestion {
 }
 
 interface TestProps {
-  question?: IQuestion;
-  current?: number;
-  total?: number;
-  onAnswer?: (option: string) => void;
+  question: IQuestion;
+  current: number;
+  total: number;
+  title?: string;
+  icon?: ElementType;
+  onAnswer: (option: string) => void;
+  onBack?: () => void;
 }
 
-const sampleQuestion: IQuestion = {
-  question: 'На Меркурии год короче... чего?',
-  options: {
-    A: 'Ночи',
-    B: 'Солнца',
-    C: 'Дня',
-    D: 'Месяца',
-  },
-  answer: 'C',
-};
-
 const Test: React.FC<TestProps> = ({
-  question = sampleQuestion,
-  current = 1,
-  total = 8,
-  onAnswer = () => {},
+  question,
+  current,
+  total,
+  title,
+  icon: Icon,
+  onAnswer,
+  onBack,
 }) => {
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -51,15 +47,41 @@ const Test: React.FC<TestProps> = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
+        {/* Header bar */}
+        {title && (
+          <div className={styles.header}>
+            <button type="button" className={styles.backBtn} onClick={onBack}>
+              <BackIcon className={styles.backIcon} />
+            </button>
+            <div className={styles.titleBadge}>
+              <span>{title}</span>
+            </div>
+            {Icon ? (
+              <div className={styles.decorIcon}>
+                <Icon className={styles.decorSvg} />
+              </div>
+            ) : (
+              <div className={styles.decorIcon} />
+            )}
+          </div>
+        )}
+
+        {/* Question label */}
+        <div className={styles.questionLabel}>
+          <h2 className={styles.questionHeading}>QUESTION</h2>
+          <p className={styles.questionSub}>
+            Choose the correct answer ({current}/{total})
+          </p>
+        </div>
+
+        {/* Question box */}
         <div className={styles.questionBorder}>
           <div className={styles.questionBox}>
             <p>{question.question}</p>
-            <span>
-              {current}/{total}
-            </span>
           </div>
         </div>
 
+        {/* Options grid */}
         <div className={styles.optionsGrid}>
           {Object.entries(question.options).map(([key, value]) => {
             let btnClass = styles.optionCard;

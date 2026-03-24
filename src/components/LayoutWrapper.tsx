@@ -10,9 +10,9 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   const hideLayout = pathname.startsWith('/login') || pathname.startsWith('/signup');
-  const isProfile = pathname.startsWith('/profile');
-  const hideFooter = isProfile;
-  const hideHeader = hideLayout || (isProfile && isMobile);
+  const isAppPage = pathname === '/' || pathname.startsWith('/test/');
+  const hideFooter = isAppPage;
+  const hideHeader = hideLayout || (isAppPage && isMobile);
 
   return (
     <>

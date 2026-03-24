@@ -10,22 +10,12 @@ import { MobileSkin } from './MobileSkin';
 import { MobileMission } from './MobileMission';
 import { MobileTests } from './MobileTests';
 import { MobileLeaderboard } from './MobileLeaderboard';
+import { MobileBottomNav, tabs } from './MobileBottomNav';
 import { useAuth } from '@/src/context/AuthContext';
 
 import FullCosmonautIcon from '@/public/images/svg/mobile/other/full-cosmonaut.svg';
-import CosmonautIcon from '@/public/images/svg/mobile/navBar/cosmonaut.svg';
-import MoonFlagIcon from '@/public/images/svg/mobile/navBar/moon-flag.svg';
-import RocketIcon from '@/public/images/svg/mobile/navBar/rocket.svg';
-import StarMoveIcon from '@/public/images/svg/mobile/navBar/star-move.svg';
 
 import { MAX_XP } from '@/src/config/gameConfig';
-
-const tabs = [
-  { id: 'profile', label: 'Profile', icon: CosmonautIcon },
-  { id: 'mission', label: 'Mission', icon: MoonFlagIcon },
-  { id: 'tests', label: 'Tests', icon: RocketIcon },
-  { id: 'leader', label: 'Leader', icon: StarMoveIcon },
-];
 
 const SLIDE_IDS = tabs.map((t) => t.id);
 
@@ -110,22 +100,10 @@ export const MobileProfile = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <nav className={styles.bottomNav}>
-        {tabs.map((tab, index) => {
-          const isActive = activeIndex === index;
-          const Icon = tab.icon;
-          return (
-            <button
-              key={tab.id}
-              className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
-              onClick={() => handleTabClick(index)}
-            >
-              <Icon className={styles.navIcon} />
-              <span className={styles.navLabel}>{tab.label}</span>
-            </button>
-          );
-        })}
-      </nav>
+      <MobileBottomNav
+        activeTab={SLIDE_IDS[activeIndex]}
+        onTabClick={handleTabClick}
+      />
     </div>
   );
 };

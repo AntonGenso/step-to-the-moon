@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { headSkin, suit } from '@/src/utils/skinData';
 import { useAuth } from '@/src/context/AuthContext';
 import { updateUserSkin } from '@/src/services/userService';
@@ -12,6 +12,13 @@ export const MobileSkin = () => {
 
   const [selectedHead, setSelectedHead] = useState(profile?.skin?.headId ?? 0);
   const [selectedCostum, setSelectedCostum] = useState(profile?.skin?.suitId ?? 0);
+
+  useEffect(() => {
+    if (profile?.skin) {
+      setSelectedHead(profile.skin.headId);
+      setSelectedCostum(profile.skin.suitId);
+    }
+  }, [profile?.skin?.headId, profile?.skin?.suitId]);
 
   const saveSkin = useCallback(
     (headId: number, suitId: number) => {

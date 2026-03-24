@@ -9,7 +9,7 @@
 
 .title {
   font-family: var(--font-alumni), sans-serif;
-  font-size: 22px;
+  font-size: clamp(18px, 5.5vw, 22px);
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
@@ -19,7 +19,7 @@
 
 .subtitle {
   font-family: var(--font-alumni), sans-serif;
-  font-size: 13px;
+  font-size: clamp(11px, 3.3vw, 13px);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.4);
   margin: 2px 0 0;

@@ -2,9 +2,11 @@ import { headSkin, suit } from '@/src/utils/skinData';
 import ArrowLeft from '@/public/images/profile/skin/svg/arrow-left.svg';
 import ArrowRight from '@/public/images/profile/skin/svg/arrow-right.svg';
 import styles from './Skin.module.scss';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MoonProgressBar } from '@/src/uikit/MoonProgressBar/MoonProgressBar';
 import { MAX_XP } from '@/src/config/gameConfig';
+import { useAuth } from '@/src/context/AuthContext';
+import { updateUserSkin } from '@/src/services/userService';
 
 interface ISuitProps {
   hair: string;
@@ -62,20 +64,62 @@ const SelectedIcon = ({
 };
 
 export const Skin = ({ data }: ISkinProps) => {
-  const { name, points, skin } = data;
-  const [selectedHead, setSelectedHead] = useState(0);
-  const [selectedCostum, setSelectedCostum] = useState(0);
+  const { name, points } = data;
+  const { nickname, profile } = useAuth();
 
-  const [hair, setHair] = useState(skin.hair);
-  const [costum, setCostum] = useState(skin.costum);
+  const [selectedHead, setSelectedHead] = useState(profile?.skin?.headId ?? 0);
+  const [selectedCostum, setSelectedCostum] = useState(profile?.skin?.suitId ?? 0);
 
   useEffect(() => {
-    const curentHead = headSkin.find((item) => item.id === selectedHead);
-    const currentCostum = suit.find((item) => item.id === selectedCostum);
+    if (profile?.skin) {
+      setSelectedHead(profile.skin.headId);
+      setSelectedCostum(profile.skin.suitId);
+    }
+  }, [profile?.skin?.headId, profile?.skin?.suitId]);
 
-    setHair(curentHead?.name || '');
-    setCostum(currentCostum?.name || '');
-  }, [selectedHead, selectedCostum]);
+  const hair = headSkin.find((item) => item.id === selectedHead)?.name ?? headSkin[0].name;
+  const costum = suit.find((item) => item.id === selectedCostum)?.name ?? suit[0].name;
+
+  const saveSkin = useCallback(
+    (headId: number, suitId: number) => {
+      if (nickname) {
+        updateUserSkin(nickname, { headId, suitId });
+      }
+    },
+    [nickname],
+  );
+
+  const handlePrevHead = () => {
+    setSelectedHead((prev) => {
+      const next = prev <= 0 ? headSkin.length - 1 : prev - 1;
+      saveSkin(next, selectedCostum);
+      return next;
+    });
+  };
+
+  const handleNextHead = () => {
+    setSelectedHead((prev) => {
+      const next = prev >= headSkin.length - 1 ? 0 : prev + 1;
+      saveSkin(next, selectedCostum);
+      return next;
+    });
+  };
+
+  const handlePrevCostum = () => {
+    setSelectedCostum((prev) => {
+      const next = prev <= 0 ? suit.length - 1 : prev - 1;
+      saveSkin(selectedHead, next);
+      return next;
+    });
+  };
+
+  const handleNextCostum = () => {
+    setSelectedCostum((prev) => {
+      const next = prev >= suit.length - 1 ? 0 : prev + 1;
+      saveSkin(selectedHead, next);
+      return next;
+    });
+  };
 
   return (
     <div className={styles.skinContainer}>
@@ -101,9 +145,7 @@ export const Skin = ({ data }: ISkinProps) => {
             <button
               type="button"
               className={styles.arrowBtn}
-              onClick={() => {
-                if (selectedHead > 0) setSelectedHead(selectedHead - 1);
-              }}
+              onClick={handlePrevHead}
             >
               <ArrowLeft />
             </button>
@@ -113,9 +155,7 @@ export const Skin = ({ data }: ISkinProps) => {
             <button
               type="button"
               className={styles.arrowBtn}
-              onClick={() => {
-                if (selectedHead < headSkin.length - 1) setSelectedHead(selectedHead + 1);
-              }}
+              onClick={handleNextHead}
             >
               <ArrowRight />
             </button>
@@ -126,9 +166,7 @@ export const Skin = ({ data }: ISkinProps) => {
             <button
               type="button"
               className={styles.arrowBtn}
-              onClick={() => {
-                if (selectedCostum > 0) setSelectedCostum(selectedCostum - 1);
-              }}
+              onClick={handlePrevCostum}
             >
               <ArrowLeft />
             </button>
@@ -138,9 +176,7 @@ export const Skin = ({ data }: ISkinProps) => {
             <button
               type="button"
               className={styles.arrowBtn}
-              onClick={() => {
-                if (selectedCostum < suit.length - 1) setSelectedCostum(selectedCostum + 1);
-              }}
+              onClick={handleNextCostum}
             >
               <ArrowRight />
             </button>

@@ -28,7 +28,7 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
       const mission = sortedMissions.find((item) => item.id === value);
       if (mission) {
         setActiveMission(mission);
-        router.push(`/profile?activeTab=mission&missionId=${value}`);
+        router.push(`/?activeTab=mission&missionId=${value}`);
       }
       return;
     },
@@ -67,7 +67,7 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
         <div className="relative h-full w-full">
           <button
             type="button"
-            onClick={() => router.push('/profile?activeTab=mission')}
+            onClick={() => router.push('/?activeTab=mission')}
             className={`${styles.backButton} absolute top-0 left-0 z-10 w-[5%] cursor-pointer`}
           >
             <BackIcon className="z-10" />

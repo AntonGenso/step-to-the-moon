@@ -2,13 +2,19 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('auth_token')?.value;
+  const session = request.cookies.get('session')?.value;
+  const { pathname } = request.nextUrl;
 
-  // if (token) {
-  //   console.log('Нет авторизации');
-  //   return NextResponse.redirect(new URL('/', request.url));
-  // }
+  const isAuthPage = pathname === '/login' || pathname === '/signup';
 
-  // console.log('Пользователь авторизован.');
+  // Authenticated user on login/signup → redirect to home
+  if (session && isAuthPage) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
+
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ['/login', '/signup'],
+};
