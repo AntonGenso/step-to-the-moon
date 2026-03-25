@@ -219,7 +219,7 @@
   flex-direction: column;
   gap: 12px;
   padding: 4px;
-  border-radius: 25%;
+  border-radius: 50px;
   background: linear-gradient(
     to right,
     var(--color-card-orange-dark),
@@ -235,7 +235,7 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 14px;
-  border-radius: 25%;
+  border-radius: 50px;
   overflow: hidden;
   background: rgba(5, 15, 25, 1);
 }
@@ -284,7 +284,7 @@
   flex-direction: column;
   gap: 16px;
   padding: 4px;
-  border-radius: 20%;
+  border-radius: 50px;
   background: linear-gradient(
     to right,
     var(--color-card-orange-dark),
@@ -299,7 +299,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 20%;
+  border-radius: 50px;
   overflow: hidden;
   background: rgba(5, 15, 25, 1);
 }

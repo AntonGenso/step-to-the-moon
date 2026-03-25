@@ -101,7 +101,7 @@ export const MobileMissionDetail = ({ mission }: Props) => {
                 <div className={styles.factGrid}>
                   {mission.facts.map((fact) => (
                     <div key={fact.id} className={styles.factCard}>
-                      <div className="shadow-inner-card flex h-full w-full flex-col gap-5 rounded-[25%] bg-gradient-to-r from-[#0F2D37] to-[#030505] p-[15px]">
+                      <div className="shadow-inner-card flex h-full w-full flex-col gap-5 rounded-[50px] bg-gradient-to-r from-[#0F2D37] to-[#030505] p-[15px]">
                         <div className={styles.factImageWrap}>
                           <Image
                             src={fact.image}
@@ -135,7 +135,7 @@ export const MobileMissionDetail = ({ mission }: Props) => {
           return (
             <div className={styles.factModal} onClick={() => setOpenFactId(null)}>
               <div className={styles.factModalCard} onClick={(e) => e.stopPropagation()}>
-                <div className="shadow-inner-card flex h-full w-full flex-col gap-5 rounded-[20%] bg-gradient-to-r from-[#0F2D37] to-[#030505] p-[20px]">
+                <div className="shadow-inner-card flex h-full w-full flex-col gap-5 rounded-[50px] bg-gradient-to-r from-[#0F2D37] to-[#030505] p-[20px]">
                   <div className={styles.factModalImageWrap}>
                     <Image
                       src={fact.image}
