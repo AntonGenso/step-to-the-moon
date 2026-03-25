@@ -3,7 +3,6 @@
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/src/context/AuthContext';
-import { useMediaQuery } from '@/src/hooks/useMediaQuery';
 import { submitTestScore } from '@/src/services/userService';
 import { POINTS_PER_QUESTION } from '@/src/config/gameConfig';
 import { testData } from '@/src/components/utils/testData';
@@ -21,8 +20,6 @@ interface TestQuizProps {
 export const TestQuiz = ({ testId }: TestQuizProps) => {
   const router = useRouter();
   const { nickname, refreshProfile } = useAuth();
-  const isMobile = useMediaQuery('(max-width: 768px)');
-
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
@@ -79,7 +76,9 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
             </div>
           </div>
         </div>
-        {isMobile && <MobileBottomNav activeTab="tests" />}
+        <div className="hidden max-tablet:block">
+          <MobileBottomNav activeTab="tests" />
+        </div>
       </div>
     );
   }
@@ -110,7 +109,9 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
           }}
         />
       </div>
-      {isMobile && <MobileBottomNav activeTab="tests" />}
+      <div className="hidden max-tablet:block">
+        <MobileBottomNav activeTab="tests" />
+      </div>
     </div>
   );
 };

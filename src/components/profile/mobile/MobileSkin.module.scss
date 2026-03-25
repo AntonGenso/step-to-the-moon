@@ -100,11 +100,11 @@
 }
 
 .headIcon {
-  height: 34vw;
+  height: max(129px, 34vw);
   width: auto;
 }
 
 .costumIcon {
-  height: 68vw;
+  height: max(258px, 68vw);
   width: auto;
 }

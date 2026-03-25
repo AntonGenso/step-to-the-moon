@@ -16,17 +16,21 @@
   --color-cyan-light: #2fe4d3;
   --color-cyan-glow: #4ec8ff;
   --color-cyan-muted: #0a8a9a;
+  --color-text-cyan: #18a59e;
 
   /* Orange — action / CTA */
   --color-orange: #e88a1a;
   --color-orange-dark: #d4740e;
   --color-orange-bright: #ff7b1d;
+  --color-card-orange-dark: #ce671e;
+  --color-card-orange-light: #ffa91f;
 
   /* Backgrounds */
   --color-bg-base: #030a10;
   --color-bg-sidebar: #0a1a25;
   --color-bg-sidebar-deep: #061218;
   --color-bg-card: #05141e;
+  --color-bg-card-dark: #030505;
   --color-bg-card-light: #0f2d37;
 
   /* Semantic */
@@ -49,10 +53,13 @@
   --color-orange: var(--color-orange);
   --color-orange-dark: var(--color-orange-dark);
   --color-orange-bright: var(--color-orange-bright);
+  --color-card-orange-dark: var(--color-card-orange-dark);
+  --color-card-orange-light: var(--color-card-orange-light);
   --color-bg-base: var(--color-bg-base);
   --color-bg-sidebar: var(--color-bg-sidebar);
   --color-bg-sidebar-deep: var(--color-bg-sidebar-deep);
   --color-bg-card: var(--color-bg-card);
+  --color-bg-card-dark: var(--color-bg-card-dark);
   --color-bg-card-light: var(--color-bg-card-light);
   --color-success: var(--color-success);
   --color-error: var(--color-error);
@@ -60,6 +67,7 @@
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
   --color-text-muted: var(--color-text-muted);
+  --color-text-cyan: var(--color-text-cyan);
 }
 
 @font-face {
@@ -129,5 +137,16 @@ body {
 }
 
 @theme {
+  --font-ibm-plex-mono: var(--font-ibm-plex-mono);
   --shadow-inner-card: inset 0px 0px 4.58px 2.91px #00000040, inset 0px 0px 2.91px 1.46px #00000052;
+
+  --breakpoint-mobile: 320px;
+  --breakpoint-mobile-big: 568px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-laptop: 1200px;
+  --breakpoint-laptop-big: 1280px;
+  --breakpoint-desktop: 1440px;
+  --breakpoint-desktop-light: 1600px;
+  --breakpoint-desktop-big: 1800px;
+  --breakpoint-desktop-hard: 1920px;
 }

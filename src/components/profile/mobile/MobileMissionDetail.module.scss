@@ -12,56 +12,73 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   padding: 14px 16px 8px;
   flex-shrink: 0;
 }
 
 .backBtn {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-cyan);
+  background: rgba(5, 20, 30, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
-  border: none;
   cursor: pointer;
   flex-shrink: 0;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(0, 200, 200, 0.1);
+  }
+}
+
+.backIcon {
+  width: 100%;
+  height: 100%;
+  rotate: 180deg;
+  color: var(--color-cyan);
 }
 
 .titlePill {
-  font-family: var(--font-alumni), sans-serif;
-  font-size: clamp(16px, 5vw, 20px);
-  font-weight: 700;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  padding: 8px 24px;
-  border-radius: 14px;
-  background: rgba(8, 22, 38, 0.85);
-  border: 1.5px solid var(--color-cyan-muted);
-  box-shadow:
-    0 0 10px rgba(10, 138, 154, 0.2),
-    inset 0 0 8px rgba(10, 138, 154, 0.05);
-  text-align: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  border: 1.5px solid var(--color-cyan);
+  border-radius: 28px;
+  background: rgba(5, 20, 30, 0.8);
+  box-shadow: 0 0 10px rgba(0, 200, 200, 0.1);
+
+  span {
+    font-family: var(--font-alumni), sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
 }
 
 .headerIcon {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 2px solid var(--color-cyan);
-  background: radial-gradient(circle, rgba(10, 30, 50, 0.9), rgba(5, 15, 25, 1));
+  border: 1.5px solid var(--color-cyan);
+  background: rgba(5, 20, 30, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 212, 200, 0.2);
   flex-shrink: 0;
 }
 
 .headerIconSvg {
-  width: 100%;
-  height: 100%;
+  width: 28px;
+  height: 28px;
 }
 
 /* ── Scrollable content ── */
@@ -94,10 +111,10 @@
 }
 
 .sectionSub {
-  font-family: var(--font-alumni), sans-serif;
+  font-family: var(--font-ibm-plex-mono);
   font-size: clamp(11px, 3.3vw, 13px);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--color-text-cyan);
   margin: 2px 0 14px;
 }
 
@@ -112,12 +129,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 16px 12px 12px;
-  border-radius: 16px;
-  border: none;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px 16px 18px;
+  border-radius: 14px;
+  border: 2px solid transparent;
   cursor: pointer;
   transition: opacity 0.2s;
+  background: rgba(8, 22, 38, 0.85);
 
   &:active {
     opacity: 0.8;
@@ -130,31 +149,42 @@
 }
 
 .videoCard {
-  background: linear-gradient(135deg, var(--color-orange), var(--color-orange-dark));
+  border-color: var(--color-orange);
   box-shadow:
-    0 0 16px rgba(232, 138, 26, 0.3),
-    inset 0 0 12px rgba(255, 180, 60, 0.15);
+    0 0 16px rgba(232, 138, 26, 0.25),
+    inset 0 0 12px rgba(232, 138, 26, 0.05);
 }
 
 .gameCard {
-  background: rgba(8, 22, 38, 0.85);
-  border: 2px solid var(--color-cyan);
+  border-color: var(--color-cyan);
   box-shadow:
     0 0 16px rgba(0, 212, 200, 0.15),
     inset 0 0 12px rgba(10, 138, 154, 0.05);
 }
 
-.activityIconWrap {
-  width: 56px;
-  height: 56px;
+.activityCircle {
+  width: clamp(72px, 22vw, 96px);
+  height: clamp(72px, 22vw, 96px);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .videoCard & {
+    background: radial-gradient(circle, var(--color-orange), var(--color-orange-dark));
+    box-shadow: 0 4px 20px rgba(232, 138, 26, 0.4);
+  }
+
+  .gameCard & {
+    background: rgba(5, 20, 30, 0.9);
+    border: 2px solid var(--color-cyan);
+    box-shadow: 0 0 12px rgba(0, 200, 200, 0.15);
+  }
 }
 
 .activityLabel {
   font-family: var(--font-alumni), sans-serif;
-  font-size: clamp(14px, 4.5vw, 18px);
+  font-size: clamp(16px, 5vw, 20px);
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
@@ -162,35 +192,52 @@
 }
 
 .activityHint {
-  font-family: var(--font-alumni), sans-serif;
-  font-size: clamp(10px, 3vw, 12px);
+  font-family: var(--font-ibm-plex-mono);
+  font-size: clamp(11px, 3.3vw, 13px);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-cyan);
 }
 
 /* ── Fact cards ── */
 .factGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .factCard {
+  flex: 0 0 clamp(180px, 50vw, 220px);
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  gap: 12px;
+  padding: 4px;
+  border-radius: 25%;
+  background: linear-gradient(
+    to right,
+    var(--color-card-orange-dark),
+    var(--color-card-orange-light)
+  );
+  box-shadow:
+    0 0 14px rgba(232, 138, 26, 0.2),
+    inset 0 0 10px rgba(232, 138, 26, 0.04);
 }
 
 .factImageWrap {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  border-radius: 14px;
+  border-radius: 25%;
   overflow: hidden;
-  border: 2.5px solid var(--color-cyan);
-  box-shadow: 0 0 12px rgba(0, 212, 200, 0.2);
-  background: radial-gradient(circle, rgba(10, 30, 50, 0.9), rgba(5, 15, 25, 1));
+  background: rgba(5, 15, 25, 1);
 }
 
 .factImage {
@@ -199,18 +246,18 @@
 
 .factOpenBtn {
   width: 100%;
-  padding: 8px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 28px;
   border: none;
   background: linear-gradient(135deg, var(--color-orange), var(--color-orange-dark));
   color: #fff;
   font-family: var(--font-alumni), sans-serif;
-  font-size: clamp(13px, 4vw, 16px);
-  font-weight: 700;
+  font-size: clamp(25px, 4.5vw, 18px);
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(232, 138, 26, 0.3);
+  box-shadow: 0 4px 14px rgba(232, 138, 26, 0.35);
   transition: opacity 0.2s;
 
   &:active {
@@ -218,16 +265,53 @@
   }
 }
 
-.factDescription {
-  font-family: var(--font-alumni), sans-serif;
-  font-size: clamp(12px, 3.5vw, 14px);
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.4;
+/* ── Fact modal ── */
+.factModal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 24px;
+}
+
+.factModalCard {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 4px;
+  border-radius: 20%;
+  background: linear-gradient(
+    to right,
+    var(--color-card-orange-dark),
+    var(--color-card-orange-light)
+  );
+  box-shadow:
+    0 0 20px var(--color-card-orange-dark),
+    inset 0 0 12px var(--color-card-orange-light);
+}
+
+.factModalImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 20%;
+  overflow: hidden;
+  background: rgba(5, 15, 25, 1);
+}
+
+.factModalText {
+  font-family: var(--font-ibm-plex-mono);
+  font-size: clamp(16px, 4.5vw, 20px);
+  font-weight: 400;
+  color: #fff;
   text-align: center;
-  padding: 8px;
-  border-radius: 12px;
-  background: rgba(8, 22, 38, 0.8);
-  border: 1px solid var(--color-cyan-muted);
+  margin: 0;
+  padding: 0 8px 8px;
 }
 
 /* ── Overlay (video / game) ── */
