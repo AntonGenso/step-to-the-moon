@@ -11,7 +11,7 @@ export const Profile = () => {
       <div className="hidden max-tablet:block">
         <MobileProfile />
       </div>
-      <div className="block max-tablet:hidden">
+      <div className="block h-full max-tablet:hidden">
         <Suspense>
           <Tablet />
         </Suspense>
