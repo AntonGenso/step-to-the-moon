@@ -33,7 +33,7 @@ export const MobileBottomNav = ({ activeTab, onTabClick }: MobileBottomNavProps)
 
   return (
     <nav className={styles.bottomNav}>
-      <div className="flex w-full justify-evenly rounded-[99999px] bg-gradient-to-tr from-[#030505] to-[#0F2D37]">
+      <div className="flex w-full justify-evenly rounded-[99999px] bg-gradient-to-tr from-[#030505] to-[#0F2D37] p-2">
         {tabs.map((tab, index) => {
           const isActive = activeTab === tab.id;
           const Icon = tab.icon;
