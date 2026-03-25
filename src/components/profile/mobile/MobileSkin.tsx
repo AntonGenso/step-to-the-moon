@@ -76,7 +76,7 @@ export const MobileSkin = () => {
             <button className={styles.arrowLeft} onClick={handlePrevHead}>
               <ArrowIcon className={styles.arrowIcon} />
             </button>
-            <div className="flex w-[123px] items-center justify-end">
+            <div className="flex w-[34vw] items-center justify-end">
               <HeadIcon className={styles.headIcon} />
             </div>
             <button className={styles.arrowRight} onClick={handleNextHead}>

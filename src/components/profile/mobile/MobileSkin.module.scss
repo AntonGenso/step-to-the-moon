@@ -39,13 +39,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 /* Head row: arrows + head */
 .headRow {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
   margin-bottom: -20px;
   z-index: 20;
 }
@@ -54,7 +56,8 @@
 .costumRow {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 /* Shared arrow button base */
@@ -97,11 +100,11 @@
 }
 
 .headIcon {
-  height: 100px;
+  height: 34vw;
   width: auto;
 }
 
 .costumIcon {
-  height: 200px;
+  height: 68vw;
   width: auto;
 }
