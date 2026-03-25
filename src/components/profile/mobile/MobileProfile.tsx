@@ -62,15 +62,17 @@ export const MobileProfile = () => {
       {/* Progress Header */}
       <div className={styles.progressHeader}>
         <div className={styles.progressPill}>
-          <div className={styles.avatarCircle}>
-            <FullCosmonautIcon className={styles.avatarIcon} />
+          <div className="flex h-full w-full items-center gap-5 rounded-[99999px] bg-gradient-to-tr from-[#030505] from-[20%] to-[#0F2D37] p-[20px]">
+            <div className={styles.avatarCircle}>
+              <FullCosmonautIcon className={styles.avatarIcon} />
+            </div>
+            <div className={styles.progressBarTrack}>
+              <div className={styles.progressFill} style={{ width: `${progress}%` }} />
+            </div>
+            <span className={styles.scoreText}>
+              {total}/{MAX_XP} XP
+            </span>
           </div>
-          <div className={styles.progressBarTrack}>
-            <div className={styles.progressFill} style={{ width: `${progress}%` }} />
-          </div>
-          <span className={styles.scoreText}>
-            {total}/{MAX_XP} XP
-          </span>
         </div>
       </div>
 
@@ -100,10 +102,7 @@ export const MobileProfile = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <MobileBottomNav
-        activeTab={SLIDE_IDS[activeIndex]}
-        onTabClick={handleTabClick}
-      />
+      <MobileBottomNav activeTab={SLIDE_IDS[activeIndex]} onTabClick={handleTabClick} />
     </div>
   );
 };

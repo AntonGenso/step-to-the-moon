@@ -33,20 +33,22 @@ export const MobileBottomNav = ({ activeTab, onTabClick }: MobileBottomNavProps)
 
   return (
     <nav className={styles.bottomNav}>
-      {tabs.map((tab, index) => {
-        const isActive = activeTab === tab.id;
-        const Icon = tab.icon;
-        return (
-          <button
-            key={tab.id}
-            className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
-            onClick={() => handleClick(index)}
-          >
-            <Icon className={styles.navIcon} />
-            <span className={styles.navLabel}>{tab.label}</span>
-          </button>
-        );
-      })}
+      <div className="flex w-full justify-evenly rounded-[99999px] bg-gradient-to-tr from-[#030505] to-[#0F2D37]">
+        {tabs.map((tab, index) => {
+          const isActive = activeTab === tab.id;
+          const Icon = tab.icon;
+          return (
+            <button
+              key={tab.id}
+              className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
+              onClick={() => handleClick(index)}
+            >
+              <Icon className={styles.navIcon} />
+              <span className={styles.navLabel}>{tab.label}</span>
+            </button>
+          );
+        })}
+      </div>
     </nav>
   );
 };
