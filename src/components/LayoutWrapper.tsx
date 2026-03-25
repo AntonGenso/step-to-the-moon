@@ -15,10 +15,10 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   const hideHeader = hideLayout || (isAppPage && isMobile);
 
   return (
-    <>
+    <div className="flex h-screen flex-col">
       {!hideHeader && <Header />}
-      <main className={hideHeader ? '' : 'pt-30'}>{children}</main>
+      <main className="min-h-0 flex-1">{children}</main>
       {!hideLayout && !hideFooter && <Footer />}
-    </>
+    </div>
   );
 }

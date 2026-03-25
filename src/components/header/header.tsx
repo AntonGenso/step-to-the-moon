@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import styles from './Header.module.scss';
 import Link from 'next/link';
-import Button from '../button/Button';
 import { useAuth } from '@/src/context/AuthContext';
 import { useRouter } from 'next/navigation';
 
@@ -37,7 +36,7 @@ const Header = () => {
 
         <ul className={styles.navLinks}>
           <li>
-            <Link href="/" className="btn">
+            <Link href="/">
               Step to the moon
             </Link>
           </li>
@@ -50,8 +49,8 @@ const Header = () => {
               <Link href="/">
                 <USA />
               </Link>
-              <Link href="/login">
-                <Button text="Log In" />
+              <Link href="/login" className={styles.loginBtn}>
+                Log In
               </Link>
             </>
           ) : (
