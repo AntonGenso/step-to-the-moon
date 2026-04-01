@@ -15,5 +15,5 @@ export const MISSION_IDS = missionData.map((m) => `mission_${m.id}`);
 /** Test IDs from the data */
 export const TEST_IDS = testData.map((t) => `test_${t.id}`);
 
-/** Total max XP = sum of all test max scores (mission scores TBD from external games) */
-export const MAX_XP = Object.values(TEST_MAX_SCORES).reduce((a, b) => a + b, 0);
+/** Total max XP for the progress bar */
+export const MAX_XP = 690;
