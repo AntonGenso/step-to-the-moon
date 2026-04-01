@@ -1,16 +1,17 @@
-import EarthIcon from '@/public/images/svg/earth.svg';
-import SunhIcon from '@/public/images/svg/sun.svg';
-import Rockety from '@/public/images/svg/mssion/rocketry.svg';
-import Atmosphere from '@/public/images/svg/mssion/atmosphere.svg';
-import CanyonFlight from '@/public/images/svg/mssion/canyon_flight.svg';
-import SolarSystem from '@/public/images/svg/mssion/solar_system.svg';
-import MoonRover from '@/public/images/svg/mssion/moon_rover.svg';
+// import EarthIcon from '@/public/images/svg/earth.svg';
+// import SunhIcon from '@/public/images/svg/sun.svg';
+import Rockety from '@/public/images/profile/mission/mission-rocket.webp';
+// import Atmosphere from '@/public/images/svg/mssion/atmosphere.svg';
+// import CanyonFlight from '@/public/images/svg/mssion/canyon_flight.svg';
+// import SolarSystem from '@/public/images/svg/mssion/solar_system.svg';
+// import MoonRover from '@/public/images/svg/mssion/moon_rover.svg';
 
-import core from '@/public/images/profile/mission/land.webp';
-import land from '@/public/images/profile/mission/crust.webp';
-import outerCore from '@/public/images/profile/mission/outercore.webp';
-import mantle from '@/public/images/profile/mission/mantel.webp';
-import { ElementType } from 'react';
+import defaultImage from '@/public/images/profile/mission/test-stars.webp';
+
+import core from '@/public/images/facts/earth/earth-1.webp';
+import mantle from '@/public/images/facts/earth/earth-2.webp';
+import outerCore from '@/public/images/facts/earth/earth-3.webp';
+import land from '@/public/images/facts/earth/earth-4.webp';
 import { StaticImageData } from 'next/image';
 import {
   atmosphereFacts,
@@ -25,7 +26,7 @@ import {
 
 export interface IMissionData {
   id: number;
-  icon: ElementType;
+  icon: StaticImageData | string;
   title: string;
   level: number;
   description: string;
@@ -46,7 +47,7 @@ export const missionData: IMissionData[] = [
   /* ── Active missions (demo) ── */
   {
     id: 0,
-    icon: EarthIcon,
+    icon: defaultImage,
     title: 'Earth',
     level: 1,
     isAtive: true,
@@ -59,28 +60,28 @@ export const missionData: IMissionData[] = [
         id: 1,
         title: 'Fact 1',
         description:
-          'Земная кора — тонкая оболочка всего от 5 до 70 км, на которой живут люди, растения, животные и т.д.',
+          'Земная кора — тонкий слой Земли, как кожура яблока. Состоит из огромных кусков — они двигаются и вызывают землетрясения',
         image: core.src,
       },
       {
         id: 2,
         title: 'Fact 2',
         description:
-          ' Мантия — горячий слой густой породы, который движет горы и вызывает извержения вулканов.',
+          'Мантия — горячий густой слой. Его движение двигает континенты и вызывает извержения вулканов',
         image: mantle.src,
       },
       {
         id: 3,
         title: 'Fact 3',
         description:
-          'Внешнее ядро — жидкий слой железа, который течёт и усиливает магнитное поле Земли, как гигантский генератор.',
+          'Внешнее ядро — жидкий металл вокруг внутреннего ядра. Именно он создаёт магнитный щит Земли',
         image: outerCore.src,
       },
       {
         id: 4,
         title: 'Fact 4',
         description:
-          'Ядро — твёрдый металлический шар в центре Земли, горячий (до 6000°C) и создающий магнитное поле, защищающее планету от космических лучей.',
+          'Внутреннее ядро — твёрдый металлический шар в центре Земли, раскалённый до 6000°С',
         image: land.src,
       },
     ],
@@ -102,7 +103,7 @@ export const missionData: IMissionData[] = [
   },
   {
     id: 2,
-    icon: MoonRover,
+    icon: defaultImage,
     title: 'Moon Rover',
     level: 3,
     isAtive: true,
@@ -117,7 +118,7 @@ export const missionData: IMissionData[] = [
   /* ── Inactive missions ── */
   {
     id: 3,
-    icon: SolarSystem,
+    icon: defaultImage,
     title: 'Solar System',
     level: 4,
     isAtive: false,
@@ -130,7 +131,7 @@ export const missionData: IMissionData[] = [
   },
   {
     id: 4,
-    icon: EarthIcon,
+    icon: defaultImage,
     title: 'Earth (Bonus)',
     level: 5,
     isAtive: false,
@@ -144,7 +145,7 @@ export const missionData: IMissionData[] = [
   },
   {
     id: 5,
-    icon: CanyonFlight,
+    icon: defaultImage,
     title: 'Canyon Flight',
     level: 6,
     isAtive: false,
@@ -157,7 +158,7 @@ export const missionData: IMissionData[] = [
   },
   {
     id: 6,
-    icon: Rockety,
+    icon: defaultImage,
     title: 'Rocketry (Bonus)',
     level: 7,
     isAtive: false,
@@ -171,7 +172,7 @@ export const missionData: IMissionData[] = [
   },
   {
     id: 7,
-    icon: SunhIcon,
+    icon: defaultImage,
     title: 'Sun',
     level: 8,
     isAtive: false,
@@ -184,7 +185,7 @@ export const missionData: IMissionData[] = [
   },
   {
     id: 8,
-    icon: MoonRover,
+    icon: defaultImage,
     title: 'Moon Rover (Bonus)',
     level: 9,
     isAtive: false,
@@ -198,7 +199,7 @@ export const missionData: IMissionData[] = [
   },
   {
     id: 9,
-    icon: Atmosphere,
+    icon: defaultImage,
     title: 'Atmosphere Game',
     level: 10,
     isAtive: false,

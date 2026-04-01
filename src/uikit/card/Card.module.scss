@@ -60,6 +60,11 @@
   filter: grayscale(100%);
 }
 
+.lockedImage {
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .lockOverlay {
   position: absolute;
   width: 30px;

@@ -1,10 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { missionData } from '@/src/components/utils/missionData';
 import styles from './MobileMission.module.scss';
 import { GlassFrame } from '@/src/uikit/glass-frame/GlassFrame';
 import { useAuth } from '@/src/context/AuthContext';
+import lockedImg from '@/public/images/profile/mission/lockd-mission.webp';
 
 const XP_PER_LEVEL = 500;
 
@@ -19,7 +21,7 @@ export const MobileMission = () => {
       <GlassFrame>
         <div className={styles.cardList}>
           {missionData.map((mission) => {
-            const Icon = mission.icon;
+            const Icon = mission.icon as string;
             const xp = mission.level * XP_PER_LEVEL;
             const isDone = profile?.missions?.[`mission_${mission.id}`]?.status === 'done';
 
@@ -32,12 +34,12 @@ export const MobileMission = () => {
                 onClick={() => !isLocked && router.push(`/mission/${mission.id}`)}
               >
                 <div className="from-bg-card-light to-bg-card shadow-inner-card flex h-full w-full gap-4 rounded-[16px] bg-gradient-to-r p-[20px_30px]">
-                  <div
-                    className={`${styles.iconRing} ${isLocked ? styles.iconRingLocked : ''}`}
-                  >
-                    <Icon
-                      className={`${styles.iconSvg} ${isLocked ? styles.iconLocked : ''}`}
-                    />
+                  <div className={`${styles.iconRing} ${isLocked ? styles.iconRingLocked : ''}`}>
+                    {isLocked ? (
+                      <Image src={lockedImg} alt="Locked" className={styles.lockedImage} fill />
+                    ) : (
+                      <Image src={Icon} alt="Icon" className={styles.iconSvg} />
+                    )}
                   </div>
                   <div className="flex w-full flex-col justify-between">
                     <div className={styles.cardBody}>

@@ -16,7 +16,7 @@ interface Props {
 
 export const MobileMissionDetail = ({ mission }: Props) => {
   const router = useRouter();
-  const Icon = mission.icon;
+  const icon = mission.icon;
   const [activeOverlay, setActiveOverlay] = useState<'video' | 'game' | null>(null);
   const [openFactId, setOpenFactId] = useState<number | null>(null);
 
@@ -50,7 +50,8 @@ export const MobileMissionDetail = ({ mission }: Props) => {
             </div>
 
             <div className={styles.headerIcon}>
-              <Icon className={styles.headerIconSvg} />
+              {/* <Icon className={styles.headerIconSvg} /> */}
+              <Image src={icon} alt="Icon" className={styles.headerIconSvg} />
             </div>
           </div>
 

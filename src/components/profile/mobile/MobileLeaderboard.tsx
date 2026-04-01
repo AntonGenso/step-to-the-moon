@@ -45,8 +45,10 @@ export const MobileLeaderboard = () => {
                   <span className={styles.colStarsValue}>{p.stars}</span>
                   <span className={styles.colScoreValue}>{p.score}</span>
                   <div className={styles.colTotalValue}>
-                    <span className={styles.totalLabel}>Total</span>
-                    <span className={styles.totalNumber}>{p.total}</span>
+                    {/* <span className={styles.totalNumber}>{p.total}</span> */}
+                    <span
+                      className={styles.totalNumber}
+                    >{`${i % 2 === 0 ? '233674' : `${p.total}`}`}</span>
                   </div>
                 </div>
               </div>

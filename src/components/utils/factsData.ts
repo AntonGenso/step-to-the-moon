@@ -14,24 +14,25 @@ import valentinaIcon from '@/public/images/facts/astronauts/valentina.webp';
 import nillIcon from '@/public/images/facts/astronauts/nill.webp';
 import salijanIcon from '@/public/images/facts/astronauts/salijan.webp';
 
-import rocketIcon from '@/public/images/facts/rocket/rocket.webp';
-import rocket2Icon from '@/public/images/facts/rocket/rocket-2.webp';
-import rocketBodyIcon from '@/public/images/facts/rocket/rocket-body.webp';
-import rocketEngineIcon from '@/public/images/facts/rocket/engine.webp';
-import rocketFlyIcon from '@/public/images/facts/rocket/rocket-fly.webp';
-import rocketFuelIcon from '@/public/images/facts/rocket/rocket-fuel.webp';
-import rocketReusedIcon from '@/public/images/facts/rocket/rocket-reused.webp';
-import rocketCowlIcon from '@/public/images/facts/rocket/rocket-cowl.webp';
+import rocketIcon1 from '@/public/images/facts/rocket/rocket-1.webp';
+import rocketIcon2 from '@/public/images/facts/rocket/rocket-2.webp';
+import rocketIcon3 from '@/public/images/facts/rocket/rocket-3.webp';
+import rocketIcon4 from '@/public/images/facts/rocket/rocket-4.webp';
+import rocketIcon5 from '@/public/images/facts/rocket/rocket-5.webp';
 
 import sunSystemIcon from '@/public/images/facts/sun/sun-system.webp';
 import sunSpeedIcon from '@/public/images/facts/sun/sun-speed.webp';
 import sunIcon from '@/public/images/facts/sun/sun.webp';
 import sunViewIcon from '@/public/images/facts/sun/sun-view.webp';
 
-import moonRoverSignalIcon from '@/public/images/facts/moon-rover/radio-signal.webp';
-import moonRoverEnergyIcon from '@/public/images/facts/moon-rover/moon-rover-energy.webp';
-import moonRoverLiveIcon from '@/public/images/facts/moon-rover/moon-rover-live.webp';
-import moonRoverTypeIcon from '@/public/images/facts/moon-rover/moon-rover-type.webp';
+import moonRover1 from '@/public/images/facts/moon-rover/moon-rover-1.webp';
+import moonRover2 from '@/public/images/facts/moon-rover/moon-rover-2.webp';
+import moonRover3 from '@/public/images/facts/moon-rover/moon-rover-3.webp';
+import moonRover4 from '@/public/images/facts/moon-rover/moon-rover-4.webp';
+import moonRover5 from '@/public/images/facts/moon-rover/moon-rover-5.webp';
+// import moonRoverEnergyIcon from '@/public/images/facts/moon-rover/moon-rover-energy.webp';
+// import moonRoverLiveIcon from '@/public/images/facts/moon-rover/moon-rover-live.webp';
+// import moonRoverTypeIcon from '@/public/images/facts/moon-rover/moon-rover-type.webp';
 
 import moonRoverWeelsIcon from '@/public/images/facts/moon-rover/moon-rover-weels.webp';
 import moonRoverWeightIcon from '@/public/images/facts/moon-rover/moon-rover-weight.webp';
@@ -166,29 +167,35 @@ export const rocketryFacts = {
     {
       id: 1,
       title: 'Fact 1',
-      description:
-        'Ракета летит быстрее благодаря аэродинамическому носу-конусу, который разрезает воздух.',
-      image: rocketIcon,
+      description: 'Заострённый нос помогает ракете легче проходить сквозь воздух при взлёте',
+      image: rocketIcon1,
     },
     {
       id: 2,
       title: 'Fact 2',
       description:
-        'Крылья-стабилизаторы помогают ракете держаться прямо в полёте, это всё благодаря физике.',
-      image: rocket2Icon,
+        'Иллюминатор — прочное круглое окно, через которое космонавты наблюдают за полётом',
+      image: rocketIcon2,
     },
     {
       id: 3,
       title: 'Fact 3',
-      description: 'Прочный корпус из термостойкого сплава защищает от перегрева.',
-      image: rocketBodyIcon,
+      description: 'Плавники-стабилизаторы внизу ракеты помогают ей лететь ровно и не отклоняться',
+      image: rocketIcon3,
     },
     {
       id: 4,
       title: 'Fact 4',
       description:
-        'Двигатель – это мощный мотор, он создает тягу, чтобы запустить ракету в космос.',
-      image: rocketEngineIcon,
+        'Корпус покрыт жаропрочным покрытием, которое защищает ракету от перегрева при взлёте.',
+      image: rocketIcon4,
+    },
+    {
+      id: 5,
+      title: 'Fact 4',
+      description:
+        'Двигатель выбрасывает горячий газ вниз — и ракета летит вверх. Это реактивная тяга',
+      image: rocketIcon5,
     },
   ],
 };
@@ -200,27 +207,27 @@ export const rocketyBonusFacts = {
       id: 1,
       title: 'Fact 1',
       description: 'Ракета разгоняется, чтобы преодолеть притяжение Земли',
-      image: rocketFlyIcon,
+      image: rocketIcon1,
     },
     {
       id: 2,
       title: 'Fact 2',
       description:
         'Топливо - это как бензин для машины, только для ракеты. Даёт ей энергию для движения.',
-      image: rocketFuelIcon,
+      image: rocketIcon2,
     },
     {
       id: 3,
       title: 'Fact 3',
       description:
         'Ракеты, которые можно использовать несколько раз, возвращаются, чтобы полететь снова.',
-      image: rocketReusedIcon,
+      image: rocketIcon3,
     },
     {
       id: 4,
       title: 'Fact 4',
       description: 'Обтекатель на носу — это как шлем для спутника, он его защищает.',
-      image: rocketCowlIcon,
+      image: rocketIcon4,
     },
   ],
 };
@@ -262,26 +269,35 @@ export const moonRoverFacts = {
     {
       id: 1,
       title: 'Fact 1',
-      description: 'Ею управляют люди с Земли, посылая команды по радио',
-      image: moonRoverSignalIcon,
+      description:
+        'Луноход — первый робот на колёсах на другом небесном теле. Колёса-сетки не давали ему тонуть в лунной пыли',
+      image: moonRover1,
     },
     {
       id: 2,
       title: 'Fact 2',
-      description: 'Он работает на солнечной энергии, благодаря солнечным панелям на корпусе.',
-      image: moonRoverEnergyIcon,
+      description:
+        'Луноходом управляли операторы с Земли. Сигнал шёл больше секунды, поэтому каждое движение рассчитывали заранее',
+      image: moonRover2,
     },
     {
       id: 3,
       title: 'Fact 3',
-      description: 'Луноход пробыл на Луне дольше, чем все думали.',
-      image: moonRoverLiveIcon,
+      description: 'Через антенну Луноход отправлял на Землю данные о лунном грунте и рельефе',
+      image: moonRover3,
     },
     {
       id: 4,
       title: 'Fact 4',
-      description: 'Он исследует лунный грунт и передаёт информацию на Землю.',
-      image: moonRoverTypeIcon,
+      description: 'Луноход-1 должен был работать 3 месяца, но продержался почти 11',
+      image: moonRover4,
+    },
+    {
+      id: 5,
+      title: 'Fact 5',
+      description:
+        'Луноход получал энергию от солнечных панелей. В лунную ночь останавливался и экономил энергию',
+      image: moonRover5,
     },
   ],
 };
