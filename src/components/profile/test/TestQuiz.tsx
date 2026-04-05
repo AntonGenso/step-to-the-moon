@@ -8,10 +8,9 @@ import { POINTS_PER_QUESTION } from '@/src/config/gameConfig';
 import { testData } from '@/src/components/utils/testData';
 import { MobileBottomNav } from '@/src/components/profile/mobile/MobileBottomNav';
 import Test from './Test';
-import StarScore from '@/public/images/profile/tests/star_score.svg';
-import Home from '@/public/images/profile/tests/home.svg';
-import Retry from '@/public/images/profile/tests/retry.svg';
+import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
 import styles from './TestQuiz.module.scss';
+import testStyles from './test.module.scss';
 
 interface TestQuizProps {
   testId: number;
@@ -55,23 +54,59 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
       });
     }
 
+    const Icon = test.icon;
+
     return (
       <div className={styles.wrapper}>
         <div className={styles.page}>
-          <div className={styles.resultCard}>
-            <div className={styles.resultHeader}>
-              <StarScore className={styles.starIcon} />
-              <h2 className={styles.resultScore}>YOUR SCORE - {score}</h2>
-            </div>
-            <p className={styles.resultText}>
-              CORRECT ANSWERS - {correctCount}/{total}
-            </p>
-            <div className={styles.resultButtons}>
-              <button className={styles.iconButton} onClick={resetQuiz}>
-                <Retry />
+          <div className={styles.resultContainer}>
+            {/* Header */}
+            <div className={testStyles.header}>
+              <button type="button" className={testStyles.backBtn} onClick={goBack}>
+                <BackIcon className={testStyles.backIcon} />
               </button>
-              <button className={styles.iconButton} onClick={goBack}>
-                <Home />
+              <div className={testStyles.titleBadge}>
+                <span>{test.title}</span>
+              </div>
+              {Icon ? (
+                <div className={testStyles.decorIcon}>
+                  <Icon className={testStyles.decorSvg} />
+                </div>
+              ) : (
+                <div className={testStyles.decorIcon} />
+              )}
+            </div>
+
+            {/* Test Complete */}
+            <div className={styles.completeLabel}>
+              <h2 className={styles.completeTitle}>TEST COMPLETE</h2>
+              <p className={styles.completeSub}>You completed the tests</p>
+            </div>
+
+            {/* Score Card */}
+            <div className={styles.scoreCard}>
+              <div className={styles.scoreCardInner}>
+                <h3 className={styles.scoreLabel}>YOUR SCORE</h3>
+                <span className={styles.scoreValue}>{score}</span>
+                <h3 className={styles.scoreLabel}>CORRECT ANSWERS</h3>
+                <span className={styles.scoreValue}>
+                  {correctCount}/{total}
+                </span>
+              </div>
+            </div>
+
+            {/* Hint */}
+            <p className={styles.retryHint}>
+              If you don&apos;t like the result you can always retry the test
+            </p>
+
+            {/* Action buttons */}
+            <div className={styles.actionButtons}>
+              <button className={styles.retryBtn} onClick={resetQuiz}>
+                RETRY
+              </button>
+              <button className={styles.nextBtn} onClick={goBack}>
+                NEXT
               </button>
             </div>
           </div>
