@@ -76,7 +76,7 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
             </div>
           </div>
         </div>
-        <div className="hidden max-tablet:block">
+        <div className="max-tablet:block hidden">
           <MobileBottomNav activeTab="tests" />
         </div>
       </div>
@@ -109,7 +109,7 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
           }}
         />
       </div>
-      <div className="hidden max-tablet:block">
+      <div className="max-tablet:block hidden">
         <MobileBottomNav activeTab="tests" />
       </div>
     </div>

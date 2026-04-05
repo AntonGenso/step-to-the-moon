@@ -5,6 +5,7 @@ import { useAuth } from '@/src/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { GlassFrame } from '@/src/uikit/glass-frame/GlassFrame';
 import styles from './MobileTests.module.scss';
+import classNames from 'classnames';
 
 export const MobileTests = () => {
   const { profile } = useAuth();
@@ -25,7 +26,7 @@ export const MobileTests = () => {
             return (
               <div key={test.id} className={`${styles.card} ${isDone ? styles.isDone : ''}`}>
                 <div className="from-bg-card-light to-bg-card shadow-inner-card flex h-full w-full gap-4 rounded-[16px] bg-gradient-to-r p-[20px_30px]">
-                  <div className={styles.iconRing}>
+                  <div className={classNames(styles.iconRing, isDone && styles.iconRingPast)}>
                     <Icon className={styles.iconSvg} />
                   </div>
                   <div className="flex w-full flex-col justify-between">

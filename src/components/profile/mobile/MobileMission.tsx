@@ -33,8 +33,12 @@ export const MobileMission = () => {
                 className={`${styles.card} ${isLocked ? styles.cardLocked : ''}`}
                 onClick={() => !isLocked && router.push(`/mission/${mission.id}`)}
               >
-                <div className="from-bg-card-light to-bg-card shadow-inner-card flex h-full w-full gap-4 rounded-[16px] bg-gradient-to-r p-[20px_30px]">
-                  <div className={`${styles.iconRing} ${isLocked ? styles.iconRingLocked : ''}`}>
+                <div
+                  className={`from-bg-card-light to-bg-card shadow-inner-card flex h-full w-full gap-4 rounded-[16px] bg-gradient-to-r p-[20px_30px]`}
+                >
+                  <div
+                    className={`${styles.iconRing} ${isLocked ? styles.iconRingLocked : ''} ${isDone && styles.iconRingDone}`}
+                  >
                     {isLocked ? (
                       <Image src={lockedImg} alt="Locked" className={styles.lockedImage} fill />
                     ) : (

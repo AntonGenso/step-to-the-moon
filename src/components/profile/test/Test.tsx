@@ -3,6 +3,7 @@
 import React, { useState, useEffect, ElementType } from 'react';
 import styles from './test.module.scss';
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
+import { LinearBorder } from '@/src/uikit/linearBorder/LinearBorder';
 
 interface IQuestion {
   question: string;
@@ -65,7 +66,6 @@ const Test: React.FC<TestProps> = ({
             )}
           </div>
         )}
-
         {/* Question label */}
         <div className={styles.questionLabel}>
           <h2 className={styles.questionHeading}>QUESTION</h2>
@@ -73,14 +73,13 @@ const Test: React.FC<TestProps> = ({
             Choose the correct answer ({current}/{total})
           </p>
         </div>
-
         {/* Question box */}
-        <div className={styles.questionBorder}>
-          <div className={styles.questionBox}>
-            <p>{question.question}</p>
-          </div>
-        </div>
-
+        <LinearBorder
+          className="from-card-orange-dark to-card-orange-light mb-[12px] shadow-[0_0_12px_var(--color-orange-dark),inset_0_0_16px_var(--color-orange)]"
+          innerClassName="from-bg-card-light to-bg-card-dark shadow-[0_0_20px_rgba(0,200,200,0.08)]"
+        >
+          <p>{question.question}</p>
+        </LinearBorder>
         {/* Options grid */}
         <div className={styles.optionsGrid}>
           {Object.entries(question.options).map(([key, value]) => {

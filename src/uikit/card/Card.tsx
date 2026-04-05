@@ -7,7 +7,7 @@ import cn from 'classnames';
 import lockedImg from '@/public/images/profile/mission/lockd-mission.webp';
 
 interface ICardProps {
-  image: ElementType | StaticImageData;
+  image: ElementType | StaticImageData | string;
   title: string;
   level: number;
   status: boolean;
@@ -23,7 +23,8 @@ export const Card = ({
   setActiveMission,
   label = 'level',
 }: ICardProps) => {
-  const Icon = image as string;
+  const isComponent = typeof image === 'function';
+  const Icon = isComponent ? (image as ElementType) : null;
 
   return (
     <button
@@ -34,8 +35,11 @@ export const Card = ({
     >
       <div className={cn(styles.iconRing, { [styles.iconRingActive]: status })}>
         {status ? (
-          // <Icon className={styles.icon} />
-          <Image src={Icon} alt="Icon" className={styles.icon} />
+          isComponent && Icon ? (
+            <Icon className={styles.icon} />
+          ) : (
+            <Image src={image as StaticImageData | string} alt="Icon" className={styles.icon} />
+          )
         ) : (
           <Image src={lockedImg} alt="Locked" className={styles.lockedImage} fill />
         )}
