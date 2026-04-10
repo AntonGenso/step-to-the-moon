@@ -1,6 +1,7 @@
 import PlayIcon from '@/public/images/profile/mission/svg/play.svg';
 import JoystikIcon from '@/public/images/profile/mission/svg/joystick.svg';
 import LockIcon from '@/public/images/profile/mission/svg/lock.svg';
+import { useTranslations } from 'next-intl';
 
 import styles from './MissionType.module.scss';
 
@@ -20,6 +21,8 @@ export const CurrentMissionView = ({
   handlePlay: () => void;
   handleGame: () => void;
 }) => {
+  const t = useTranslations('mission');
+
   return (
     <>
       <div className="relative h-[200px] w-[50%] overflow-hidden rounded-[20px] bg-[url('/images/profile/mission/video_bg.webp')] bg-cover bg-center">
@@ -48,7 +51,7 @@ export const CurrentMissionView = ({
         <span
           className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
         >
-          Video
+          {t('video')}
         </span>
       </div>
       <div
@@ -68,7 +71,7 @@ export const CurrentMissionView = ({
         <span
           className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
         >
-          Game
+          {t('game')}
         </span>
       </div>
     </>

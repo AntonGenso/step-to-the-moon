@@ -1,11 +1,12 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/src/i18n/navigation';
 import Image from 'next/image';
 import { missionData } from '@/src/components/utils/missionData';
 import styles from './MobileMission.module.scss';
 import { GlassFrame } from '@/src/uikit/glass-frame/GlassFrame';
 import { useAuth } from '@/src/context/AuthContext';
+import { useTranslations } from 'next-intl';
 import lockedImg from '@/public/images/profile/mission/lockd-mission.webp';
 
 const XP_PER_LEVEL = 500;
@@ -13,11 +14,13 @@ const XP_PER_LEVEL = 500;
 export const MobileMission = () => {
   const { profile } = useAuth();
   const router = useRouter();
+  const t = useTranslations('mission');
+  const tc = useTranslations('common');
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>MISSION</h2>
-      <p className={styles.subtitle}>Complete tasks to earn points</p>
+      <h2 className={styles.title}>{t('title')}</h2>
+      <p className={styles.subtitle}>{t('subtitle')}</p>
       <GlassFrame>
         <div className={styles.cardList}>
           {missionData.map((mission) => {
@@ -49,21 +52,21 @@ export const MobileMission = () => {
                     <div className={styles.cardBody}>
                       <div className={styles.cardInfo}>
                         <span className={styles.missionLabel}>
-                          MISSION {String(mission.level).padStart(2, '0')}
+                          {t('missionLabel')} {String(mission.level).padStart(2, '0')}
                         </span>
                         <span className={styles.missionTitle}>{mission.title}</span>
                       </div>
 
                       <div className={styles.xpBadge}>
                         <span className={styles.xpValue}>{xp}</span>
-                        <span className={styles.xpUnit}>xp</span>
+                        <span className={styles.xpUnit}>{tc('xp').toLowerCase()}</span>
                       </div>
                     </div>
 
                     <div
                       className={`${styles.actionBtn} ${isLocked ? styles.actionBtnLocked : isDone ? styles.actionBtnDone : styles.actionBtnPlay}`}
                     >
-                      {isLocked ? 'LOCKED' : isDone ? 'DONE' : 'START'}
+                      {isLocked ? tc('locked') : isDone ? tc('done') : tc('start')}
                     </div>
                   </div>
                 </div>

@@ -4,10 +4,12 @@ import { useState, useCallback, useEffect } from 'react';
 import { headSkin, suit } from '@/src/utils/skinData';
 import { useAuth } from '@/src/context/AuthContext';
 import { updateUserSkin } from '@/src/services/userService';
+import { useTranslations } from 'next-intl';
 import styles from './MobileSkin.module.scss';
 import ArrowIcon from '@/public/images/svg/mobile/other/arrow.svg';
 
 export const MobileSkin = () => {
+  const t = useTranslations('profile');
   const { nickname, profile } = useAuth();
 
   const [selectedHead, setSelectedHead] = useState(profile?.skin?.headId ?? 0);
@@ -66,8 +68,8 @@ export const MobileSkin = () => {
 
   return (
     <div className={styles.mobileSkin}>
-      <h2 className={styles.title}>PROFILE</h2>
-      <p className={styles.subtitle}>Select a character skin</p>
+      <h2 className={styles.title}>{t('title')}</h2>
+      <p className={styles.subtitle}>{t('selectSkin')}</p>
 
       <div className={styles.characterArea}>
         <div className={styles.characterColumn}>

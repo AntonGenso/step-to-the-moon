@@ -1,20 +1,28 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
+import { routing } from './src/i18n/routing';
+import { NextRequest, NextResponse } from 'next/server';
 
-export function middleware(request: NextRequest) {
-  const session = request.cookies.get('session')?.value;
+const intlMiddleware = createMiddleware(routing);
+
+export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const session = request.cookies.get('session')?.value;
 
-  const isAuthPage = pathname === '/login' || pathname === '/signup';
+  // Strip locale prefix to get the "real" path
+  const pathnameWithoutLocale = pathname.replace(/^\/(uz)/, '') || '/';
+  const isAuthPage =
+    pathnameWithoutLocale === '/login' || pathnameWithoutLocale === '/signup';
 
   // Authenticated user on login/signup → redirect to home
   if (session && isAuthPage) {
-    return NextResponse.redirect(new URL('/', request.url));
+    const locale = pathname.startsWith('/uz') ? 'uz' : 'ru';
+    const redirectUrl = locale === 'uz' ? '/uz' : '/';
+    return NextResponse.redirect(new URL(redirectUrl, request.url));
   }
 
-  return NextResponse.next();
+  return intlMiddleware(request);
 }
 
 export const config = {
-  matcher: ['/login', '/signup'],
+  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
 };

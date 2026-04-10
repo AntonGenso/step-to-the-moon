@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Alumni_Sans, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
-import { AuthProvider } from '@/src/context/AuthContext';
 
 const alumni = Alumni_Sans({
   subsets: ['latin'],
@@ -27,9 +26,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html>
       <body className={`${alumni.variable} ${ibmPlexMono.variable}`}>
-        <AuthProvider>{children}</AuthProvider>
+        {children}
       </body>
     </html>
   );

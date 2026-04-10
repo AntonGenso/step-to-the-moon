@@ -1,0 +1,124 @@
+{
+  "auth": {
+    "title": "STEP TO THE MOON",
+    "loginSubtitle": "Enter your credentials to start the mission",
+    "signupSubtitle": "Create your account to join the mission",
+    "nickname": "//Nickname",
+    "pin": "//PIN",
+    "confirmPin": "//Confirm PIN",
+    "start": "Start",
+    "signingIn": "Signing in...",
+    "signUp": "Sign Up",
+    "signingUp": "Signing up...",
+    "noAccount": "Don't have an account?",
+    "somethingWrong": "Something went wrong. Please try again.",
+    "pinsNoMatch": "PINs do not match",
+    "placeholder": {
+      "nickname": "Nickname",
+      "pin": "4-digit PIN",
+      "nicknameHint": "2–16 chars: letters, digits, _",
+      "confirmPin": "Repeat PIN"
+    }
+  },
+  "validation": {
+    "enterNickname": "Enter your nickname",
+    "nicknameTooShort": "Nickname must be at least 2 characters",
+    "nicknameTooLong": "Nickname must be at most 16 characters",
+    "nicknameChars": "Only letters, numbers and underscore allowed",
+    "enterPin": "Enter your PIN",
+    "pinFormat": "PIN must be exactly 4 digits"
+  },
+  "header": {
+    "stepToMoon": "Step to the moon",
+    "logIn": "Log In",
+    "confirmLogout": "Confirm Logout",
+    "confirmMessage": "Are you sure you want to log out?",
+    "yesLogout": "Yes, Logout",
+    "cancel": "Cancel"
+  },
+  "nav": {
+    "profile": "Profile",
+    "mission": "Mission",
+    "missions": "Missions",
+    "tests": "Tests",
+    "leader": "Leader",
+    "diary": "Diary",
+    "leaderboard": "Leaderboard"
+  },
+  "leaderboard": {
+    "title": "LEADERBOARD",
+    "subtitle": "Top explorers ranking",
+    "hash": "#",
+    "name": "Name",
+    "stars": "Stars",
+    "score": "Score",
+    "total": "Total",
+    "you": "YOU"
+  },
+  "mission": {
+    "title": "MISSION",
+    "subtitle": "Complete tasks to earn points",
+    "facts": "Facts",
+    "video": "Video",
+    "game": "Game",
+    "interaction": "Interaction",
+    "bonusInstruction": "Открой инструкцию, выполни задание шаг за шагом и загрузи фото своего результата",
+    "uploadAnother": "Загрузить другой файл",
+    "uploading": "Загрузка...",
+    "addFile": "add your file png/jpeg",
+    "selectImage": "Пожалуйста, выберите изображение (PNG/JPEG)",
+    "activities": "Activities",
+    "chooseType": "Choose your mission type",
+    "watchVideo": "watch the video",
+    "playGame": "Play the game",
+    "discoverKnowledge": "Discover space knowledge",
+    "open": "OPEN",
+    "missionLabel": "MISSION"
+  },
+  "tests": {
+    "title": "TESTS",
+    "subtitle": "Challenge your knowledge"
+  },
+  "test": {
+    "question": "QUESTION",
+    "chooseCorrect": "Choose the correct answer ({current}/{total})",
+    "complete": "TEST COMPLETE",
+    "completeSub": "You completed the tests",
+    "yourScore": "YOUR SCORE",
+    "correctAnswers": "CORRECT ANSWERS",
+    "retryHint": "If you don't like the result you can always retry the test",
+    "retry": "RETRY",
+    "next": "NEXT",
+    "testLabel": "TEST"
+  },
+  "profile": {
+    "title": "PROFILE",
+    "selectSkin": "Select a character skin"
+  },
+  "common": {
+    "start": "START",
+    "locked": "LOCKED",
+    "done": "DONE",
+    "close": "CLOSE",
+    "logout": "Logout",
+    "xp": "XP",
+    "level": "level",
+    "test": "test",
+    "pts": "pts",
+    "retry": "RETRY"
+  },
+  "footer": {
+    "quote": "Learn To Love Growth And Change And You Will Be A Success.",
+    "pricing": "Pricing",
+    "teams": "Teams",
+    "education": "Education",
+    "referFriend": "Refer a friend",
+    "updates": "Updates",
+    "enterEmail": "Enter e-mail",
+    "join": "JOIN",
+    "receiveOffers": "Receive special offers and get our latest updates.",
+    "address": "1772 Nevskaya Street NW, Suite 21389, Atlanta, GA 902344",
+    "phone": "+1789 123456",
+    "email": "hello@containers.kit"
+  }
+}

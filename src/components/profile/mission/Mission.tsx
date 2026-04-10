@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { missionData } from '../../utils/missionData';
 import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import styles from './Mission.module.scss';
 import Image from 'next/image';
 import defaultImage from '@/public/images/default_image.png';
@@ -22,6 +23,7 @@ interface IMissionProps {
 export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const searchParams = useSearchParams();
+  const t = useTranslations('mission');
 
   const mission = missionData.find((item) => item.id === Number(searchParams.get('missionId')));
 
@@ -118,7 +120,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
         <h2
           className={`${styles.title} flex items-center justify-center text-[48px] font-bold lowercase`}
         >
-          Facts
+          {t('facts')}
         </h2>
       )}
       {!!mission?.facts.length && (

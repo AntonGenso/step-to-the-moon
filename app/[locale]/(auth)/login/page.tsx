@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import {
   validateNickname,
   validatePin,
 } from '@/src/services/validators';
-import Link from 'next/link';
+import { Link, useRouter } from '@/src/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import styles from './logIn.module.scss';
@@ -15,6 +15,8 @@ import styles from './logIn.module.scss';
 export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
+  const t = useTranslations('auth');
+  const tv = useTranslations('validation');
 
   const [nickname, setNickname] = useState('');
   const [pin, setPin] = useState('');
@@ -27,13 +29,13 @@ export default function LoginPage() {
 
     const nicknameError = validateNickname(nickname);
     if (nicknameError) {
-      setError(nicknameError);
+      setError(tv(nicknameError));
       return;
     }
 
     const pinError = validatePin(pin);
     if (pinError) {
-      setError(pinError);
+      setError(tv(pinError));
       return;
     }
 
@@ -47,7 +49,7 @@ export default function LoginPage() {
         router.push('/');
       }
     } catch {
-      setError('Something went wrong. Please try again.');
+      setError(t('somethingWrong'));
     } finally {
       setLoading(false);
     }
@@ -73,16 +75,16 @@ export default function LoginPage() {
       </div>
 
       <form onSubmit={handleSubmit} className={styles.loginForm}>
-        <h1 className={styles.title}>STEP TO THE MOON</h1>
+        <h1 className={styles.title}>{t('title')}</h1>
         <p className={styles.subtitle}>
-          Enter your credentials to start the mission
+          {t('loginSubtitle')}
         </p>
 
-        <label className={styles.label}>//Nickname</label>
+        <label className={styles.label}>{t('nickname')}</label>
         <div className={styles.inputGroup}>
           <input
             type="text"
-            placeholder="Nickname"
+            placeholder={t('placeholder.nickname')}
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             autoComplete="username"
@@ -90,12 +92,12 @@ export default function LoginPage() {
           />
         </div>
 
-        <label className={styles.label}>//PIN</label>
+        <label className={styles.label}>{t('pin')}</label>
         <div className={styles.inputGroup}>
           <input
             type="password"
             inputMode="numeric"
-            placeholder="4-digit PIN"
+            placeholder={t('placeholder.pin')}
             value={pin}
             onChange={(e) => {
               const v = e.target.value.replace(/\D/g, '').slice(0, 4);
@@ -113,13 +115,13 @@ export default function LoginPage() {
           className={styles.startBtn}
           disabled={loading}
         >
-          {loading ? 'Signing in...' : 'Start'}
+          {loading ? t('signingIn') : t('start')}
         </button>
 
         <p className={styles.subtitle} style={{ marginTop: '1rem', marginBottom: 0 }}>
-          Don&apos;t have an account?{' '}
+          {t('noAccount')}{' '}
           <Link href="/signup" style={{ color: '#00e3ff', textDecoration: 'underline' }}>
-            Sign Up
+            {t('signUp')}
           </Link>
         </p>
       </form>

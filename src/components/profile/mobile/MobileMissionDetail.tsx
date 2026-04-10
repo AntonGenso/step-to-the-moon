@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/src/i18n/navigation';
 import Image from 'next/image';
 import styles from './MobileMissionDetail.module.scss';
 import { IMissionData } from '@/src/components/utils/missionData';
 import { MobileBottomNav } from './MobileBottomNav';
+import { useTranslations } from 'next-intl';
 import GameIcon from '@/public/images/svg/mobile/other/game.svg';
 
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
@@ -16,6 +17,8 @@ interface Props {
 
 export const MobileMissionDetail = ({ mission }: Props) => {
   const router = useRouter();
+  const t = useTranslations('mission');
+  const tc = useTranslations('common');
   const icon = mission.icon;
   const [activeOverlay, setActiveOverlay] = useState<'video' | 'game' | null>(null);
   const [openFactId, setOpenFactId] = useState<number | null>(null);
@@ -25,7 +28,7 @@ export const MobileMissionDetail = ({ mission }: Props) => {
       {activeOverlay ? (
         <div className={styles.overlay}>
           <button className={styles.overlayClose} onClick={() => setActiveOverlay(null)}>
-            CLOSE
+            {tc('close')}
           </button>
           {activeOverlay === 'video' && mission.videoLink ? (
             <video src={mission.videoLink} className={styles.overlayMedia} controls autoPlay />
@@ -59,8 +62,8 @@ export const MobileMissionDetail = ({ mission }: Props) => {
           <div className={styles.content}>
             {/* Activities */}
             <section className={styles.section}>
-              <h3 className={styles.sectionTitle}>Activities</h3>
-              <p className={styles.sectionSub}>Choose your mission type</p>
+              <h3 className={styles.sectionTitle}>{t('activities')}</h3>
+              <p className={styles.sectionSub}>{t('chooseType')}</p>
 
               <div className={styles.activityRow}>
                 {/* Video card */}
@@ -74,8 +77,8 @@ export const MobileMissionDetail = ({ mission }: Props) => {
                       <path d="M8 4L24 14L8 24V4Z" fill="#fff" />
                     </svg>
                   </div>
-                  <span className={styles.activityLabel}>VIDEO</span>
-                  <span className={styles.activityHint}>watch the video</span>
+                  <span className={styles.activityLabel}>{t('video').toUpperCase()}</span>
+                  <span className={styles.activityHint}>{t('watchVideo')}</span>
                 </button>
 
                 {/* Game card */}
@@ -87,8 +90,8 @@ export const MobileMissionDetail = ({ mission }: Props) => {
                   <div className={styles.activityCircle}>
                     <GameIcon className="w-[40%]" />
                   </div>
-                  <span className={styles.activityLabel}>GAME</span>
-                  <span className={styles.activityHint}>Play the game</span>
+                  <span className={styles.activityLabel}>{t('game').toUpperCase()}</span>
+                  <span className={styles.activityHint}>{t('playGame')}</span>
                 </button>
               </div>
             </section>
@@ -96,8 +99,8 @@ export const MobileMissionDetail = ({ mission }: Props) => {
             {/* Facts */}
             {mission.facts.length > 0 && (
               <section className={styles.section}>
-                <h3 className={styles.sectionTitle}>Facts</h3>
-                <p className={styles.sectionSub}>Discover space knowledge</p>
+                <h3 className={styles.sectionTitle}>{t('facts')}</h3>
+                <p className={styles.sectionSub}>{t('discoverKnowledge')}</p>
 
                 <div className={styles.factGrid}>
                   {mission.facts.map((fact) => (
@@ -116,7 +119,7 @@ export const MobileMissionDetail = ({ mission }: Props) => {
                           className={styles.factOpenBtn}
                           onClick={() => setOpenFactId(fact.id)}
                         >
-                          OPEN
+                          {t('open')}
                         </button>
                       </div>
                     </div>

@@ -1,19 +1,20 @@
 'use client';
 import React, { useState } from 'react';
 import styles from './Header.module.scss';
-import Link from 'next/link';
 import { useAuth } from '@/src/context/AuthContext';
-import { useRouter } from 'next/navigation';
+import { Link, useRouter } from '@/src/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 import Logo from '@/public/images/svg/logo-en.svg';
 import LogoCosmos from '@/public/images/svg/uzcosmos_logo_white.svg';
 import ExitIcon from '@/public/images/header/exit-icon.svg';
 import Inoman from '@/public/images/header/inoman.svg';
-import USA from '@/public/images/header/USA.svg';
+import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
 
 const Header = () => {
   const { isLoggedIn, logout } = useAuth();
   const router = useRouter();
+  const t = useTranslations('header');
   const [showConfirm, setShowConfirm] = useState(false);
 
   const handleLogout = async () => {
@@ -29,15 +30,15 @@ const Header = () => {
           <Link href="/">
             <Logo className="h-[30px] w-auto" />
           </Link>
-          <Link href="https://uzspace.uz/ru" target="_blank">
+          <a href="https://uzspace.uz/ru" target="_blank" rel="noopener noreferrer">
             <LogoCosmos className="h-[55px] w-auto" />
-          </Link>
+          </a>
         </div>
 
         <ul className={styles.navLinks}>
           <li>
             <Link href="/">
-              Step to the moon
+              {t('stepToMoon')}
             </Link>
           </li>
         </ul>
@@ -46,11 +47,9 @@ const Header = () => {
         <div className={styles.authButtons}>
           {!isLoggedIn ? (
             <>
-              <Link href="/">
-                <USA />
-              </Link>
+              <LanguageSwitcher />
               <Link href="/login" className={styles.loginBtn}>
-                Log In
+                {t('logIn')}
               </Link>
             </>
           ) : (
@@ -58,9 +57,7 @@ const Header = () => {
               <Link href="/">
                 <Inoman />
               </Link>
-              <Link href="/">
-                <USA />
-              </Link>
+              <LanguageSwitcher />
               <button onClick={() => setShowConfirm(true)}>
                 <ExitIcon />
               </button>
@@ -71,17 +68,17 @@ const Header = () => {
       {showConfirm && (
         <div className={styles.backdrop}>
           <div className={styles.modal}>
-            <h2 className={styles.title}>Confirm Logout</h2>
-            <p className={styles.message}>Are you sure you want to log out?</p>
+            <h2 className={styles.title}>{t('confirmLogout')}</h2>
+            <p className={styles.message}>{t('confirmMessage')}</p>
             <div className={styles.actions}>
               <button onClick={handleLogout} className={`${styles.button} ${styles.logout}`}>
-                Yes, Logout
+                {t('yesLogout')}
               </button>
               <button
                 onClick={() => setShowConfirm(false)}
                 className={`${styles.button} ${styles.cancel}`}
               >
-                Cancel
+                {t('cancel')}
               </button>
             </div>
           </div>

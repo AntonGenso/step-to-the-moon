@@ -15,7 +15,7 @@ interface ITabletButton {
   icon: ElementType
   activeIcon: ElementType
   title: string
-  label: string
+  labelKey: string
 }
 
 export const tabletButtons: ITabletButton[] = [
@@ -24,34 +24,34 @@ export const tabletButtons: ITabletButton[] = [
     icon: MissionIcon,
     activeIcon: MissionActiveIcon,
     title: 'mission',
-    label: 'Missions',
+    labelKey: 'missions',
   },
   {
     id: 0,
     icon: ProfileIcon,
     activeIcon: ProfileActiveIcon,
     title: 'profile',
-    label: 'Profile',
+    labelKey: 'profile',
   },
   {
     id: 2,
     icon: DiaryIcon,
     activeIcon: DiaryActiveIcon,
     title: 'diary',
-    label: 'Diary',
+    labelKey: 'diary',
   },
   {
     id: 3,
     icon: TestIcon,
     activeIcon: TestActiveIcon,
     title: 'test',
-    label: 'Tests',
+    labelKey: 'tests',
   },
   {
     id: 4,
     icon: LeaderIcon,
     activeIcon: LeaderActiveIcon,
     title: 'leader',
-    label: 'Leaderboard',
+    labelKey: 'leaderboard',
   },
 ]

@@ -2,19 +2,23 @@
 
 import { testData } from '@/src/components/utils/testData';
 import { useAuth } from '@/src/context/AuthContext';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/src/i18n/navigation';
 import { GlassFrame } from '@/src/uikit/glass-frame/GlassFrame';
+import { useTranslations } from 'next-intl';
 import styles from './MobileTests.module.scss';
 import classNames from 'classnames';
 
 export const MobileTests = () => {
   const { profile } = useAuth();
   const router = useRouter();
+  const t = useTranslations('tests');
+  const tt = useTranslations('test');
+  const tc = useTranslations('common');
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>TESTS</h2>
-      <p className={styles.subtitle}>Challenge your knowledge</p>
+      <h2 className={styles.title}>{t('title')}</h2>
+      <p className={styles.subtitle}>{t('subtitle')}</p>
       <GlassFrame>
         <div className={styles.cardList}>
           {testData.map((test) => {
@@ -33,14 +37,14 @@ export const MobileTests = () => {
                     <div className={styles.cardBody}>
                       <div className={styles.cardInfo}>
                         <span className={styles.testLabel}>
-                          TEST {String(test.id).padStart(2, '0')}
+                          {tt('testLabel')} {String(test.id).padStart(2, '0')}
                         </span>
                         <span className={styles.testTitle}>{test.title}</span>
                       </div>
                       {isDone && (
                         <div className={styles.scoreBadge}>
                           <span className={styles.scoreValue}>{savedScore}</span>
-                          <span className={styles.scoreUnit}>pts</span>
+                          <span className={styles.scoreUnit}>{tc('pts')}</span>
                         </div>
                       )}
                     </div>
@@ -48,7 +52,7 @@ export const MobileTests = () => {
                       onClick={() => router.push(`/test/${test.id}`)}
                       className={`${styles.actionBtn} ${isDone ? styles.actionBtnDone : styles.actionBtnStart}`}
                     >
-                      {isDone ? 'RETRY' : 'START'}
+                      {isDone ? tc('retry') : tc('start')}
                     </button>
                   </div>
                 </div>

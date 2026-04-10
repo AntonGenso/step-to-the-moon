@@ -5,7 +5,8 @@ import React, { useState } from 'react';
 import { Root, List, Trigger, Content } from '@radix-ui/react-tabs';
 import { tabletButtons } from './tabletButtons/tabletButtons';
 import { Book } from './book/Book';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/src/i18n/navigation';
 import Test from '../tests/Tests';
 import Leaderboard from '../leaderboard/leaderboard';
 import Missions from '../missions/Missions';
@@ -15,10 +16,13 @@ import { headSkin, suit } from '@/src/utils/skinData';
 import { MAX_XP } from '@/src/config/gameConfig';
 import FullCosmonautIcon from '@/public/images/svg/mobile/other/full-cosmonaut.svg';
 import ExitIcon from '@/public/images/header/exit-icon.svg';
+import { useTranslations } from 'next-intl';
 
 export const Tablet = () => {
   const { nickname, profile, logout } = useAuth();
   const router = useRouter();
+  const t = useTranslations('common');
+  const tn = useTranslations('nav');
   const searchParams = useSearchParams();
 
   const skinHeadId = profile?.skin?.headId ?? 0;
@@ -58,7 +62,7 @@ export const Tablet = () => {
     return (
       <div className={styles.gameOverlay}>
         <button className={styles.gameCloseBtn} onClick={() => setIsGameOpen(false)}>
-          CLOSE
+          {t('close')}
         </button>
         <iframe src={gameLink} className={styles.gameIframe} allowFullScreen />
       </div>
@@ -83,7 +87,7 @@ export const Tablet = () => {
               <div className={styles.progressTrack}>
                 <div className={styles.progressFill} style={{ width: `${progress}%` }} />
               </div>
-              <span className={styles.progressText}>{total}/{MAX_XP} XP</span>
+              <span className={styles.progressText}>{total}/{MAX_XP} {t('xp')}</span>
             </div>
           </div>
 
@@ -98,7 +102,7 @@ export const Tablet = () => {
                   value={item.title.toLowerCase()}
                 >
                   <Icon className={styles.navIcon} />
-                  <span className={styles.navLabel}>{item.label}</span>
+                  <span className={styles.navLabel}>{tn(item.labelKey)}</span>
                 </Trigger>
               );
             })}
@@ -106,7 +110,7 @@ export const Tablet = () => {
 
           <button className={styles.logoutBtn} onClick={handleLogout}>
             <ExitIcon className={styles.logoutIcon} />
-            <span>Logout</span>
+            <span>{t('logout')}</span>
           </button>
         </aside>
 

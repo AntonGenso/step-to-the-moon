@@ -5,6 +5,7 @@ import Image, { StaticImageData } from 'next/image';
 import styles from './Card.module.scss';
 import cn from 'classnames';
 import lockedImg from '@/public/images/profile/mission/lockd-mission.webp';
+import { useTranslations } from 'next-intl';
 
 interface ICardProps {
   image: ElementType | StaticImageData | string;
@@ -23,6 +24,7 @@ export const Card = ({
   setActiveMission,
   label = 'level',
 }: ICardProps) => {
+  const tc = useTranslations('common');
   const isComponent = typeof image === 'function';
   const Icon = isComponent ? (image as ElementType) : null;
 
@@ -51,7 +53,7 @@ export const Card = ({
         <h3 className={styles.title}>{title}</h3>
       </div>
       <div className={cn(styles.action, { [styles.actionLocked]: !status })}>
-        {status ? 'START' : 'LOCKED'}
+        {status ? tc('start') : tc('locked')}
       </div>
     </button>
   );

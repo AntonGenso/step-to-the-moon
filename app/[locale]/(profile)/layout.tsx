@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import '../globals.css';
 import LayoutWrapper from '@/src/components/LayoutWrapper';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { redirect } from '@/src/i18n/navigation';
 
 export const metadata: Metadata = {
   title: 'Galaxy Academy',
@@ -14,7 +13,6 @@ export const metadata: Metadata = {
 
 export default async function ProfileLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = await cookies();
-  // const defaultClose = cookieStore.get('sidebar:state')?.value === 'false';
 
   const session = cookieStore.get('session');
 

@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/src/i18n/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import { submitTestScore } from '@/src/services/userService';
 import { POINTS_PER_QUESTION } from '@/src/config/gameConfig';
 import { testData } from '@/src/components/utils/testData';
 import { MobileBottomNav } from '@/src/components/profile/mobile/MobileBottomNav';
+import { useTranslations } from 'next-intl';
 import Test from './Test';
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
 import styles from './TestQuiz.module.scss';
@@ -19,6 +20,7 @@ interface TestQuizProps {
 export const TestQuiz = ({ testId }: TestQuizProps) => {
   const router = useRouter();
   const { nickname, refreshProfile } = useAuth();
+  const t = useTranslations('test');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
@@ -79,16 +81,16 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
 
             {/* Test Complete */}
             <div className={styles.completeLabel}>
-              <h2 className={styles.completeTitle}>TEST COMPLETE</h2>
-              <p className={styles.completeSub}>You completed the tests</p>
+              <h2 className={styles.completeTitle}>{t('complete')}</h2>
+              <p className={styles.completeSub}>{t('completeSub')}</p>
             </div>
 
             {/* Score Card */}
             <div className={styles.scoreCard}>
               <div className={styles.scoreCardInner}>
-                <h3 className={styles.scoreLabel}>YOUR SCORE</h3>
+                <h3 className={styles.scoreLabel}>{t('yourScore')}</h3>
                 <span className={styles.scoreValue}>{score}</span>
-                <h3 className={styles.scoreLabel}>CORRECT ANSWERS</h3>
+                <h3 className={styles.scoreLabel}>{t('correctAnswers')}</h3>
                 <span className={styles.scoreValue}>
                   {correctCount}/{total}
                 </span>
@@ -97,16 +99,16 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
 
             {/* Hint */}
             <p className={styles.retryHint}>
-              If you don&apos;t like the result you can always retry the test
+              {t('retryHint')}
             </p>
 
             {/* Action buttons */}
             <div className={styles.actionButtons}>
               <button className={styles.retryBtn} onClick={resetQuiz}>
-                RETRY
+                {t('retry')}
               </button>
               <button className={styles.nextBtn} onClick={goBack}>
-                NEXT
+                {t('next')}
               </button>
             </div>
           </div>

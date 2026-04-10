@@ -4,6 +4,7 @@ import React, { useState, useEffect, ElementType } from 'react';
 import styles from './test.module.scss';
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
 import { LinearBorder } from '@/src/uikit/linearBorder/LinearBorder';
+import { useTranslations } from 'next-intl';
 
 interface IQuestion {
   question: string;
@@ -30,6 +31,7 @@ const Test: React.FC<TestProps> = ({
   onAnswer,
   onBack,
 }) => {
+  const t = useTranslations('test');
   const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
@@ -68,9 +70,9 @@ const Test: React.FC<TestProps> = ({
         )}
         {/* Question label */}
         <div className={styles.questionLabel}>
-          <h2 className={styles.questionHeading}>QUESTION</h2>
+          <h2 className={styles.questionHeading}>{t('question')}</h2>
           <p className={styles.questionSub}>
-            Choose the correct answer ({current}/{total})
+            {t('chooseCorrect', { current, total })}
           </p>
         </div>
         {/* Question box */}

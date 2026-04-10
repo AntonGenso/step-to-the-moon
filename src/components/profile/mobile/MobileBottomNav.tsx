@@ -1,6 +1,7 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/src/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import styles from './MobileBottomNav.module.scss';
 
 import CosmonautIcon from '@/public/images/svg/mobile/navBar/cosmonaut.svg';
@@ -9,10 +10,10 @@ import RocketIcon from '@/public/images/svg/mobile/navBar/rocket.svg';
 import StarMoveIcon from '@/public/images/svg/mobile/navBar/star-move.svg';
 
 const tabs = [
-  { id: 'profile', label: 'Profile', icon: CosmonautIcon },
-  { id: 'mission', label: 'Mission', icon: MoonFlagIcon },
-  { id: 'tests', label: 'Tests', icon: RocketIcon },
-  { id: 'leader', label: 'Leader', icon: StarMoveIcon },
+  { id: 'profile', labelKey: 'profile' as const, icon: CosmonautIcon },
+  { id: 'mission', labelKey: 'mission' as const, icon: MoonFlagIcon },
+  { id: 'tests', labelKey: 'tests' as const, icon: RocketIcon },
+  { id: 'leader', labelKey: 'leader' as const, icon: StarMoveIcon },
 ];
 
 interface MobileBottomNavProps {
@@ -22,6 +23,7 @@ interface MobileBottomNavProps {
 
 export const MobileBottomNav = ({ activeTab, onTabClick }: MobileBottomNavProps) => {
   const router = useRouter();
+  const t = useTranslations('nav');
 
   const handleClick = (index: number) => {
     if (onTabClick) {
@@ -44,7 +46,7 @@ export const MobileBottomNav = ({ activeTab, onTabClick }: MobileBottomNavProps)
               onClick={() => handleClick(index)}
             >
               <Icon className={styles.navIcon} />
-              <span className={styles.navLabel}>{tab.label}</span>
+              <span className={styles.navLabel}>{t(tab.labelKey)}</span>
             </button>
           );
         })}

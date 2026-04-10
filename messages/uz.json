@@ -1,0 +1,124 @@
+{
+  "auth": {
+    "title": "OYGA QADAM",
+    "loginSubtitle": "Missiyani boshlash uchun ma'lumotlaringizni kiriting",
+    "signupSubtitle": "Missiyaga qo'shilish uchun hisob yarating",
+    "nickname": "//Taxallus",
+    "pin": "//PIN",
+    "confirmPin": "//PIN tasdiqlash",
+    "start": "Boshlash",
+    "signingIn": "Kirish...",
+    "signUp": "Ro'yxatdan o'tish",
+    "signingUp": "Ro'yxatdan o'tilmoqda...",
+    "noAccount": "Hisobingiz yo'qmi?",
+    "somethingWrong": "Xatolik yuz berdi. Qayta urinib ko'ring.",
+    "pinsNoMatch": "PIN kodlar mos kelmaydi",
+    "placeholder": {
+      "nickname": "Taxallus",
+      "pin": "4 raqamli PIN",
+      "nicknameHint": "2–16 belgi: harflar, raqamlar, _",
+      "confirmPin": "PIN takrorlang"
+    }
+  },
+  "validation": {
+    "enterNickname": "Taxallus kiriting",
+    "nicknameTooShort": "Taxallus kamida 2 belgidan iborat bo'lishi kerak",
+    "nicknameTooLong": "Taxallus ko'pi bilan 16 belgidan iborat bo'lishi kerak",
+    "nicknameChars": "Faqat harflar, raqamlar va pastki chiziq ruxsat etiladi",
+    "enterPin": "PIN kodni kiriting",
+    "pinFormat": "PIN aynan 4 raqamdan iborat bo'lishi kerak"
+  },
+  "header": {
+    "stepToMoon": "Oyga qadam",
+    "logIn": "Kirish",
+    "confirmLogout": "Chiqishni tasdiqlang",
+    "confirmMessage": "Haqiqatan ham tizimdan chiqmoqchimisiz?",
+    "yesLogout": "Ha, chiqish",
+    "cancel": "Bekor qilish"
+  },
+  "nav": {
+    "profile": "Profil",
+    "mission": "Missiya",
+    "missions": "Missiyalar",
+    "tests": "Testlar",
+    "leader": "Lider",
+    "diary": "Kundalik",
+    "leaderboard": "Peshqadamlar"
+  },
+  "leaderboard": {
+    "title": "PESHQADAMLAR",
+    "subtitle": "Eng yaxshi tadqiqotchilar reytingi",
+    "hash": "#",
+    "name": "Ism",
+    "stars": "Yulduzlar",
+    "score": "Ball",
+    "total": "Jami",
+    "you": "SIZ"
+  },
+  "mission": {
+    "title": "MISSIYA",
+    "subtitle": "Ballarni yig'ish uchun vazifalarni bajaring",
+    "facts": "Faktlar",
+    "video": "Video",
+    "game": "O'yin",
+    "interaction": "Interaksiya",
+    "bonusInstruction": "Ko'rsatmani oching, vazifani bosqichma-bosqich bajaring va natijangiz suratini yuklang",
+    "uploadAnother": "Boshqa fayl yuklash",
+    "uploading": "Yuklanmoqda...",
+    "addFile": "faylingizni qo'shing png/jpeg",
+    "selectImage": "Iltimos, rasm tanlang (PNG/JPEG)",
+    "activities": "Faoliyatlar",
+    "chooseType": "Missiya turini tanlang",
+    "watchVideo": "videoni tomosha qiling",
+    "playGame": "O'yinni o'ynang",
+    "discoverKnowledge": "Kosmik bilimlarni kashf eting",
+    "open": "OCHISH",
+    "missionLabel": "MISSIYA"
+  },
+  "tests": {
+    "title": "TESTLAR",
+    "subtitle": "Bilimingizni sinang"
+  },
+  "test": {
+    "question": "SAVOL",
+    "chooseCorrect": "To'g'ri javobni tanlang ({current}/{total})",
+    "complete": "TEST TUGADI",
+    "completeSub": "Siz testlarni yakunladingiz",
+    "yourScore": "SIZNING BALINGIZ",
+    "correctAnswers": "TO'G'RI JAVOBLAR",
+    "retryHint": "Agar natija yoqmasa, testni qayta topshirishingiz mumkin",
+    "retry": "QAYTA",
+    "next": "KEYINGI",
+    "testLabel": "TEST"
+  },
+  "profile": {
+    "title": "PROFIL",
+    "selectSkin": "Belgi terisini tanlang"
+  },
+  "common": {
+    "start": "BOSHLASH",
+    "locked": "YOPIQ",
+    "done": "BAJARILDI",
+    "close": "YOPISH",
+    "logout": "Chiqish",
+    "xp": "XP",
+    "level": "daraja",
+    "test": "test",
+    "pts": "ball",
+    "retry": "QAYTA"
+  },
+  "footer": {
+    "quote": "O'sish va o'zgarishni sevishni o'rganing va siz muvaffaqiyatga erishasiz.",
+    "pricing": "Narxlar",
+    "teams": "Jamoalar",
+    "education": "Ta'lim",
+    "referFriend": "Do'stni taklif qilish",
+    "updates": "Yangilanishlar",
+    "enterEmail": "E-mail kiriting",
+    "join": "QO'SHILISH",
+    "receiveOffers": "Maxsus takliflarni oling va so'nggi yangilanishlarimizni bilib oling.",
+    "address": "1772 Nevskaya Street NW, Suite 21389, Atlanta, GA 902344",
+    "phone": "+1789 123456",
+    "email": "hello@containers.kit"
+  }
+}

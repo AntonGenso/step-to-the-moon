@@ -5,8 +5,10 @@ import { IMissionData, missionData } from '../../utils/missionData';
 import { Card } from '@/src/uikit/card/Card';
 import { useCallback, useEffect, useState } from 'react';
 import { Mission } from '../mission/Mission';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/src/i18n/navigation';
 import { Heading } from '@/src/uikit/heading/Heading';
+import { useTranslations } from 'next-intl';
 import BackIcon from '@/public/images/svg/back.svg';
 
 interface IMissionProps {
@@ -16,6 +18,7 @@ interface IMissionProps {
 
 const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
   const [activeMission, setActiveMission] = useState<IMissionData | null>(null);
+  const tn = useTranslations('nav');
 
   const serchParams = useSearchParams();
   const router = useRouter();
@@ -47,7 +50,7 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
     <div className={`${styles.contentWrapper} custom-scroll`}>
       {activeMission === null && !mission ? (
         <>
-          <Heading title="Missions" />
+          <Heading title={tn('missions')} />
           <ul className={`${styles.tabletList} custom-scroll`}>
             {sortedMissions.map((item) => (
               <li key={item.id} className={styles.tabletItem}>

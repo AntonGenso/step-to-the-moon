@@ -3,6 +3,7 @@ import AddIcon from '@/public/images/profile/mission/svg/plus_icon.svg';
 import styles from './MissionType.module.scss';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 interface IBonusMissionProps {
   handleDownload: () => void;
@@ -10,6 +11,7 @@ interface IBonusMissionProps {
 }
 
 export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissionProps) => {
+  const t = useTranslations('mission');
   const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -20,7 +22,7 @@ export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissio
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      alert('Пожалуйста, выберите изображение (PNG/JPEG)');
+      alert(t('selectImage'));
       return;
     }
 
@@ -49,13 +51,13 @@ export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissio
             onClick={handleDownload}
           >
             <HandsIcon className="w-[80%] cursor-pointer" />
-            <span className={`mx-auto flex text-center text-4xl font-semibold`}>Interaction</span>
+            <span className={`mx-auto flex text-center text-4xl font-semibold`}>{t('interaction')}</span>
           </button>
         </div>
       </div>
       <div ref={containerRef} className={`col-span-1 row-span-1 ${styles.bonuseMissionText}`}>
         <p className="font-regular text-2xl leading-[2]">
-          Открой инструкцию, выполни задание шаг за шагом и загрузи фото своего результата
+          {t('bonusInstruction')}
         </p>
       </div>
       <div
@@ -89,7 +91,7 @@ export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissio
                 fileInputRef.current?.click();
               }}
             >
-              <span className="text-2xl font-semibold">Загрузить другой файл</span>
+              <span className="text-2xl font-semibold">{t('uploadAnother')}</span>
             </button>
           </div>
         ) : (
@@ -102,13 +104,13 @@ export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissio
             {isUploading ? (
               <>
                 <div className="h-[50px] w-[50px] animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
-                <span className="text-2xl">Загрузка...</span>
+                <span className="text-2xl">{t('uploading')}</span>
               </>
             ) : (
               <>
                 <AddIcon className="w-[15%] cursor-pointer" />
                 <span className={`${styles.subtitle} block w-[100%] text-3xl uppercase`}>
-                  add your file png/jpeg
+                  {t('addFile')}
                 </span>
               </>
             )}

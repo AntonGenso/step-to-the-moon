@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter, usePathname } from '@/src/i18n/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
@@ -16,10 +17,12 @@ import { useAuth } from '@/src/context/AuthContext';
 import FullCosmonautIcon from '@/public/images/svg/mobile/other/full-cosmonaut.svg';
 
 import { MAX_XP } from '@/src/config/gameConfig';
+import { useTranslations } from 'next-intl';
 
 const SLIDE_IDS = tabs.map((t) => t.id);
 
 export const MobileProfile = () => {
+  const tc = useTranslations('common');
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -70,7 +73,7 @@ export const MobileProfile = () => {
               <div className={styles.progressFill} style={{ width: `${progress}%` }} />
             </div>
             <span className={styles.scoreText}>
-              {total}/{MAX_XP} XP
+              {total}/{MAX_XP} {tc('xp')}
             </span>
           </div>
         </div>

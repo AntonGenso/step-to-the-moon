@@ -11,12 +11,12 @@ export const POST = async (req: NextRequest) => {
 
     const nickErr = validateNickname(nickname ?? '');
     if (nickErr) {
-      return NextResponse.json({ error: nickErr }, { status: 400 });
+      return NextResponse.json({ error: 'Invalid nickname' }, { status: 400 });
     }
 
     const pinErr = validatePin(pin ?? '');
     if (pinErr) {
-      return NextResponse.json({ error: pinErr }, { status: 400 });
+      return NextResponse.json({ error: 'Invalid PIN' }, { status: 400 });
     }
 
     const exists = await nicknameExists(nickname);

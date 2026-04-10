@@ -2,14 +2,17 @@ import React from 'react';
 import styles from './Footer.module.scss';
 import { FaTwitter, FaFacebookF, FaMedium, FaYoutube } from 'react-icons/fa';
 import { FiMapPin, FiPhone, FiMail } from 'react-icons/fi';
+import { useTranslations } from 'next-intl';
 
 const Footer = () => {
+  const t = useTranslations('footer');
+
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
         {/* Left Column */}
         <div className={styles.column}>
-          <p className={styles.quote}>Learn To Love Growth And Change And You Will Be A Success.</p>
+          <p className={styles.quote}>{t('quote')}</p>
           <div className={styles.socials}>
             <FaTwitter />
             <FaFacebookF />
@@ -21,11 +24,11 @@ const Footer = () => {
         {/* Middle Column */}
         <div className={styles.column}>
           <ul className={styles.links}>
-            <li>Pricing</li>
-            <li>Teams</li>
-            <li>Education</li>
-            <li>Refer a friend</li>
-            <li>Updates</li>
+            <li>{t('pricing')}</li>
+            <li>{t('teams')}</li>
+            <li>{t('education')}</li>
+            <li>{t('referFriend')}</li>
+            <li>{t('updates')}</li>
           </ul>
         </div>
 
@@ -33,25 +36,23 @@ const Footer = () => {
         <div className={styles.column}>
           <div className={styles.contact}>
             <p>
-              <FiMapPin /> 1772 Nevskaya Street NW,
-              <br />
-              Suite 21389, Atlanta, GA 902344
+              <FiMapPin /> {t('address')}
             </p>
             <p>
-              <FiPhone /> +1789 123456
+              <FiPhone /> {t('phone')}
             </p>
             <p>
-              <FiMail /> hello@containers.kit
+              <FiMail /> {t('email')}
             </p>
           </div>
         </div>
 
         {/* Subscribe Column */}
         <div className={styles.column}>
-          <p>Receive special offers and get our latest updates.</p>
+          <p>{t('receiveOffers')}</p>
           <form className={styles.subscribeForm}>
-            <input type="email" placeholder="Enter e-mail" />
-            <button type="submit">JOIN</button>
+            <input type="email" placeholder={t('enterEmail')} />
+            <button type="submit">{t('join')}</button>
           </form>
         </div>
       </div>
