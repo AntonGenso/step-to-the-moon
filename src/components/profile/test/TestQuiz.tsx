@@ -44,8 +44,19 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
     scoreSaved.current = false;
   };
 
+  const currentIndex = testData.findIndex((t) => t.id === testId);
+  const nextTest = testData[currentIndex + 1];
+
   const goBack = () => {
-    router.push('/?activeTab=test');
+    router.push('/?activeSlide=tests');
+  };
+
+  const goNext = () => {
+    if (nextTest) {
+      router.push(`/test/${nextTest.id}`);
+    } else {
+      router.push('/?activeSlide=tests');
+    }
   };
 
   if (showResult) {
@@ -107,7 +118,7 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
               <button className={styles.retryBtn} onClick={resetQuiz}>
                 {t('retry')}
               </button>
-              <button className={styles.nextBtn} onClick={goBack}>
+              <button className={styles.nextBtn} onClick={goNext}>
                 {t('next')}
               </button>
             </div>
@@ -126,6 +137,7 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
     <div className={styles.wrapper}>
       <div className={styles.page}>
         <Test
+          key={currentQuestion}
           question={question}
           current={currentQuestion + 1}
           total={total}

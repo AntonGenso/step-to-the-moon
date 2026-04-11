@@ -87,11 +87,13 @@ const Test: React.FC<TestProps> = ({
           {Object.entries(question.options).map(([key, value]) => {
             let btnClass = styles.optionCard;
 
-            if (selected === key) {
+            if (selected) {
               if (key === question.answer) {
                 btnClass = `${styles.optionCard} ${styles.correct}`;
-              } else {
+              } else if (selected === key) {
                 btnClass = `${styles.optionCard} ${styles.wrong}`;
+              } else {
+                btnClass = `${styles.optionCard} ${styles.dimmed}`;
               }
             }
 
