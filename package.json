@@ -29,6 +29,9 @@
     "swiper": "^12.1.2",
     "zustand": "^5.0.12"
   },
+  "overrides": {
+    "@swc/helpers": "0.5.21"
+  },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@svgr/webpack": "^8.1.0",
