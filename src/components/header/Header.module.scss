@@ -1,3 +1,8 @@
+/* ── Fluid font scaling (320px → 768px) ── */
+@function fluid($min, $max) {
+  @return clamp(#{$min}px, calc(#{$min}px + (100vw - 320px) * #{$max - $min} / 448), #{$max}px);
+}
+
 /* ── Header Shell ── */
 
 .custom {
@@ -11,6 +16,10 @@
   );
   border-bottom: 1px solid rgba(0, 200, 200, 0.12);
   padding: 14px 40px;
+
+  @media (max-width: 768px) {
+    padding: fluid(8, 14) fluid(12, 40);
+  }
 }
 
 /* ── Nav Content ── */
@@ -46,6 +55,12 @@
       border-radius: 12px;
       border: 1px solid transparent;
 
+      @media (max-width: 768px) {
+        font-size: fluid(13, 22);
+        letter-spacing: fluid(0.5, 1.5);
+        padding: fluid(4, 6) fluid(6, 14);
+      }
+
       &:hover {
         color: var(--color-cyan);
         background: rgba(0, 200, 200, 0.05);
@@ -55,12 +70,36 @@
   }
 }
 
+/* ── Logos ── */
+
+.logo {
+  height: 30px;
+  width: auto;
+
+  @media (max-width: 768px) {
+    height: fluid(18, 30);
+  }
+}
+
+.logoCosmos {
+  height: 55px;
+  width: auto;
+
+  @media (max-width: 768px) {
+    height: fluid(32, 55);
+  }
+}
+
 /* ── Auth Buttons ── */
 
 .authButtons {
   display: flex;
   align-items: center;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    gap: fluid(8, 20);
+  }
 
   a,
   button {
@@ -90,6 +129,12 @@
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
+
+  @media (max-width: 768px) {
+    font-size: fluid(11, 16);
+    padding: fluid(5, 8) fluid(10, 24);
+    letter-spacing: fluid(0.5, 1.5);
+  }
 
   &:hover {
     background: rgba(0, 200, 200, 0.2);

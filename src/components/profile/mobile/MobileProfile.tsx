@@ -13,6 +13,7 @@ import { MobileTests } from './MobileTests';
 import { MobileLeaderboard } from './MobileLeaderboard';
 import { MobileBottomNav, tabs } from './MobileBottomNav';
 import { useAuth } from '@/src/context/AuthContext';
+import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
 
 import FullCosmonautIcon from '@/public/images/svg/mobile/other/full-cosmonaut.svg';
 
@@ -59,13 +60,19 @@ export const MobileProfile = () => {
 
   return (
     <div className={styles.mobileProfile}>
-      {/* Username */}
-      <div className={styles.username}>{nickname}</div>
+      {/* Username + Language Switcher */}
+      <div className={styles.topBar}>
+        <div className={styles.topBarSpacer} />
+        <div className={styles.username}>{nickname}</div>
+        <div className={styles.topBarRight}>
+          <LanguageSwitcher />
+        </div>
+      </div>
 
       {/* Progress Header */}
       <div className={styles.progressHeader}>
         <div className={styles.progressPill}>
-          <div className="flex h-full w-full items-center gap-5 rounded-[99999px] bg-gradient-to-tr from-[#030505] from-[20%] to-[#0F2D37] p-[20px]">
+          <div className={styles.pillInner}>
             <div className={styles.avatarCircle}>
               <FullCosmonautIcon className={styles.avatarIcon} />
             </div>

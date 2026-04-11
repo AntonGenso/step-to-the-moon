@@ -304,11 +304,23 @@
   background: rgba(5, 15, 25, 1);
 }
 
+.factModalTitle {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: clamp(20px, 5.5vw, 26px);
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0 8px 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 .factModalText {
   font-family: var(--font-ibm-plex-mono);
-  font-size: clamp(16px, 4.5vw, 20px);
+  font-size: clamp(14px, 4vw, 18px);
   font-weight: 400;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.85);
   text-align: center;
   margin: 0;
   padding: 0 8px 8px;

@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './Tablet.module.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Root, List, Trigger, Content } from '@radix-ui/react-tabs';
 import { tabletButtons } from './tabletButtons/tabletButtons';
 import { Book } from './book/Book';
@@ -19,7 +19,7 @@ import ExitIcon from '@/public/images/header/exit-icon.svg';
 import { useTranslations } from 'next-intl';
 
 export const Tablet = () => {
-  const { nickname, profile, logout } = useAuth();
+  const { nickname, profile, logout, refreshProfile } = useAuth();
   const router = useRouter();
   const t = useTranslations('common');
   const tn = useTranslations('nav');
@@ -52,6 +52,32 @@ export const Tablet = () => {
     router.replace(`/?${params.toString()}`, { scroll: false });
     setActiveTab(value);
   };
+
+  // Listen for score submissions from game iframes via postMessage
+  useEffect(() => {
+    if (!isGameOpen) return;
+
+    const handleMessage = async (event: MessageEvent) => {
+      if (event.data?.type !== 'SUBMIT_SCORE') return;
+
+      const { score } = event.data as { score: unknown };
+      if (typeof score !== 'number' || score < 0) return;
+
+      const missionId = searchParams.get('missionId');
+      if (!missionId) return;
+
+      await fetch('/api/submit-score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mission: `mission_${missionId}`, score }),
+      });
+
+      await refreshProfile();
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [isGameOpen, searchParams, refreshProfile]);
 
   const handleLogout = async () => {
     await logout();

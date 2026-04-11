@@ -1,3 +1,8 @@
+/* ── Fluid font scaling (320px → 768px) ── */
+@function fluid($min, $max) {
+  @return clamp(#{$min}px, calc(#{$min}px + (100vw - 320px) * #{$max - $min} / 448), #{$max}px);
+}
+
 .mobileProfile {
   display: flex;
   flex-direction: column;
@@ -7,16 +12,34 @@
   background: url('/images/bg-main.webp') center center / cover no-repeat;
 }
 
+/* ── Top Bar (username + language switcher) ── */
+.topBar {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px 4px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.topBarSpacer {
+  flex: 1;
+}
+
+.topBarRight {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
 /* ── Username ── */
 .username {
   text-align: center;
   font-family: var(--font-alumni), sans-serif;
-  font-size: 22px;
+  font-size: fluid(15, 22);
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  padding: 14px 16px 4px;
+  letter-spacing: fluid(1, 2);
   flex-shrink: 0;
   z-index: 10;
 }
@@ -44,11 +67,22 @@
   overflow: hidden;
 }
 
+.pillInner {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  gap: fluid(10, 20);
+  border-radius: 9999px;
+  background: linear-gradient(to top right, #030505 20%, #0F2D37);
+  padding: fluid(12, 20);
+}
+
 .avatarCircle {
-  width: 60px;
-  height: 60px;
-  min-width: 50px;
-  padding: 5px;
+  width: fluid(38, 60);
+  height: fluid(38, 60);
+  min-width: fluid(38, 60);
+  padding: fluid(3, 5);
   border-radius: 50%;
   background: rgba(8, 22, 38, 0.9);
   border: 2px solid var(--color-cyan-light);
@@ -66,10 +100,10 @@
 
 .progressBarTrack {
   flex: 1;
-  height: 18px;
+  height: fluid(12, 18);
   border-radius: 10px;
   background: rgba(5, 15, 30, 0.6);
-  margin: 0 10px;
+  margin: 0 fluid(6, 10);
   overflow: hidden;
 }
 
@@ -83,12 +117,12 @@
 
 .scoreText {
   font-family: var(--font-alumni), sans-serif;
-  font-size: 28px;
+  font-size: fluid(16, 28);
   font-weight: 700;
   color: #fff;
   white-space: nowrap;
   flex-shrink: 0;
-  letter-spacing: 1px;
+  letter-spacing: fluid(0.5, 1);
 }
 
 /* ── Content Area ── */

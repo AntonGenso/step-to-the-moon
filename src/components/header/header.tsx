@@ -28,18 +28,16 @@ const Header = () => {
       <nav className={styles.navContent}>
         <div className="flex items-center justify-between gap-10">
           <Link href="/">
-            <Logo className="h-[30px] w-auto" />
+            <Logo className={styles.logo} />
           </Link>
           <a href="https://uzspace.uz/ru" target="_blank" rel="noopener noreferrer">
-            <LogoCosmos className="h-[55px] w-auto" />
+            <LogoCosmos className={styles.logoCosmos} />
           </a>
         </div>
 
         <ul className={styles.navLinks}>
           <li>
-            <Link href="/">
-              {t('stepToMoon')}
-            </Link>
+            <Link href="/">{t('stepToMoon')}</Link>
           </li>
         </ul>
 

@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from '@/src/i18n/navigation';
 import Image from 'next/image';
 import styles from './MobileMissionDetail.module.scss';
 import { IMissionData } from '@/src/components/utils/missionData';
 import { MobileBottomNav } from './MobileBottomNav';
 import { useTranslations } from 'next-intl';
+import { useAuth } from '@/src/context/AuthContext';
 import GameIcon from '@/public/images/svg/mobile/other/game.svg';
 
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
@@ -19,9 +20,34 @@ export const MobileMissionDetail = ({ mission }: Props) => {
   const router = useRouter();
   const t = useTranslations('mission');
   const tc = useTranslations('common');
+  const tf = useTranslations('facts');
+  const { refreshProfile } = useAuth();
   const icon = mission.icon;
   const [activeOverlay, setActiveOverlay] = useState<'video' | 'game' | null>(null);
   const [openFactId, setOpenFactId] = useState<number | null>(null);
+
+  // Listen for score submissions from game iframe via postMessage
+  useEffect(() => {
+    if (activeOverlay !== 'game') return;
+
+    const handleMessage = async (event: MessageEvent) => {
+      if (event.data?.type !== 'SUBMIT_SCORE') return;
+
+      const { score } = event.data as { score: unknown };
+      if (typeof score !== 'number' || score < 0) return;
+
+      await fetch('/api/submit-score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mission: `mission_${mission.id}`, score }),
+      });
+
+      await refreshProfile();
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [activeOverlay, mission.id, refreshProfile]);
 
   return (
     <div className={styles.page}>
@@ -143,13 +169,18 @@ export const MobileMissionDetail = ({ mission }: Props) => {
                   <div className={styles.factModalImageWrap}>
                     <Image
                       src={fact.image}
-                      alt={fact.title}
+                      alt={fact.key ? tf(`${fact.key}.title`) : fact.title}
                       fill
                       sizes="80vw"
                       className={styles.factImage}
                     />
                   </div>
-                  <p className={`${styles.factModalText} `}>{fact.description}</p>
+                  {fact.key && (
+                    <p className={styles.factModalTitle}>{tf(`${fact.key}.title`)}</p>
+                  )}
+                  <p className={styles.factModalText}>
+                    {fact.key ? tf(`${fact.key}.description`) : fact.description}
+                  </p>
                 </div>
               </div>
             </div>

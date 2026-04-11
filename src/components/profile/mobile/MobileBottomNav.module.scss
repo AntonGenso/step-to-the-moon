@@ -1,3 +1,8 @@
+/* ── Fluid font scaling (320px → 768px) ── */
+@function fluid($min, $max) {
+  @return clamp(#{$min}px, calc(#{$min}px + (100vw - 320px) * #{$max - $min} / 448), #{$max}px);
+}
+
 .bottomNav {
   display: flex;
   align-items: center;
@@ -16,15 +21,24 @@
     inset 0 0 12px rgba(10, 138, 154, 0.05);
 }
 
+.navInner {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  border-radius: 9999px;
+  background: linear-gradient(to top right, #030505, #0F2D37);
+  padding: fluid(6, 8);
+}
+
 .navItem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: fluid(2, 4);
   background: none;
   border: none;
   cursor: pointer;
-  padding: 6px 14px;
+  padding: fluid(4, 6) fluid(8, 14);
   border-radius: 16px;
   transition: background 0.2s ease;
 }
@@ -43,8 +57,8 @@
 }
 
 .navIcon {
-  width: 36px;
-  height: 36px;
+  width: fluid(22, 36);
+  height: fluid(22, 36);
 
   path {
     fill: #ffffff;
@@ -55,10 +69,10 @@
 
 .navLabel {
   font-family: var(--font-alumni), sans-serif;
-  font-size: 12px;
+  font-size: fluid(9, 12);
   font-weight: 600;
   color: #fff;
   text-transform: capitalize;
-  letter-spacing: 0.5px;
+  letter-spacing: fluid(0.2, 0.5);
   transition: color 0.2s ease;
 }

@@ -24,6 +24,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const searchParams = useSearchParams();
   const t = useTranslations('mission');
+  const tf = useTranslations('facts');
 
   const mission = missionData.find((item) => item.id === Number(searchParams.get('missionId')));
 
@@ -136,7 +137,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
                 >
                   <Image
                     src={fact?.image || defaultImage}
-                    alt={fact.title}
+                    alt={fact.key ? tf(`${fact.key}.title`) : fact.title}
                     width={500}
                     height={500}
                     quality={90}
@@ -144,10 +145,15 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
                   />
                 </div>
                 <div className={styles.descriptionWrapper}>
+                  {fact.key && (
+                    <p className="p-[10px_10px_4px_10px] text-center font-[var(--font-alumni)] text-[22px] font-bold leading-[1] text-white">
+                      {tf(`${fact.key}.title`)}
+                    </p>
+                  )}
                   <p
-                    className={`${styles.description} p-[10px_10px_15px_10px] text-center text-[24px] leading-[1] text-white`}
+                    className={`${styles.description} p-[4px_10px_15px_10px] text-center text-[20px] leading-[1.3] text-white`}
                   >
-                    {fact.description}
+                    {fact.key ? tf(`${fact.key}.description`) : fact.description}
                   </p>
                 </div>
               </li>

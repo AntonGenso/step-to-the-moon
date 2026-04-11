@@ -37,6 +37,7 @@ export interface IMissionData {
   facts: {
     id: number;
     title: string;
+    key?: string;
     description: string;
     image: string | StaticImageData;
   }[];
@@ -58,30 +59,34 @@ export const missionData: IMissionData[] = [
     facts: [
       {
         id: 1,
-        title: 'Fact 1',
+        title: 'Земная кора',
+        key: 'earth.crust',
         description:
-          'Земная кора — тонкий слой Земли, как кожура яблока. Состоит из огромных кусков — они двигаются и вызывают землетрясения',
+          'Земная кора — самый тонкий слой Земли, как кожура яблока. Состоит из огромных кусков, которые двигаются и вызывают землетрясения.',
         image: core.src,
       },
       {
         id: 2,
-        title: 'Fact 2',
+        title: 'Мантия',
+        key: 'earth.mantle',
         description:
-          'Мантия — горячий густой слой. Его движение двигает континенты и вызывает извержения вулканов',
+          'Мантия — горячий густой слой. Его движение двигает континенты и вызывает извержения вулканов.',
         image: mantle.src,
       },
       {
         id: 3,
-        title: 'Fact 3',
+        title: 'Внешнее ядро',
+        key: 'earth.outerCore',
         description:
-          'Внешнее ядро — жидкий металл вокруг внутреннего ядра. Именно он создаёт магнитный щит Земли',
+          'Внешнее ядро — жидкий металл вокруг внутреннего ядра. Именно он создаёт магнитный щит Земли.',
         image: outerCore.src,
       },
       {
         id: 4,
-        title: 'Fact 4',
+        title: 'Внутреннее ядро',
+        key: 'earth.innerCore',
         description:
-          'Внутреннее ядро — твёрдый металлический шар в центре Земли, раскалённый до 6000°С',
+          'Внутреннее ядро — твёрдый металлический шар в центре Земли, раскалённый до 6000°С.',
         image: land.src,
       },
     ],
@@ -107,7 +112,7 @@ export const missionData: IMissionData[] = [
     title: 'Moon Rover',
     level: 3,
     isAtive: true,
-    gameLink: '/games/void-breakers/Void%20Breakers.html',
+    gameLink: 'https://antongenso.github.io/moon-rover/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',

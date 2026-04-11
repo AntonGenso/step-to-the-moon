@@ -107,6 +107,70 @@
     "pts": "ball",
     "retry": "QAYTA"
   },
+  "facts": {
+    "earth": {
+      "crust": {
+        "title": "Yer po'stlog'i",
+        "description": "Yer po'stlog'i — Yerning eng yupqa qatlami, xuddi olma po'stlog'iga o'xshaydi. U juda katta bo'laklardan iborat bo'lib, ular harakatlanadi va zilzilalarni keltirib chiqaradi."
+      },
+      "mantle": {
+        "title": "Mantiya",
+        "description": "Mantiya — issiq, quyuq qatlam. Uning harakati qit'alarni siljitadi va vulqonlar otilishiga olib keladi."
+      },
+      "outerCore": {
+        "title": "Tashqi yadro",
+        "description": "Tashqi yadro — ichki yadro atrofidagi suyuq metall. Aynan u Yerning magnit qobig'ini hosil qiladi."
+      },
+      "innerCore": {
+        "title": "Ichki yadro",
+        "description": "Ichki yadro — Yerning markaziy qismidagi 6000°S gacha qiziydigan qattiq metall shar."
+      }
+    },
+    "rocketry": {
+      "nose": {
+        "title": "Raketaning burun qismi",
+        "description": "Raketaning o'tkir burun qismi parvoz paytida havo qatlamini oson yorib o'tishga yordam beradi."
+      },
+      "stabilizers": {
+        "title": "Stabilizatorlar",
+        "description": "Raketaning quyi qismidagi stabilizator-suzgichlar uning bir tekisda uchishini va og'ib ketmasligini ta'minlaydi."
+      },
+      "porthole": {
+        "title": "Illyuminator",
+        "description": "Illyuminator — bu kosmonavtlar parvoz jarayonini kuzatib boradigan doirasimon mustahkam oyna."
+      },
+      "body": {
+        "title": "Korpus",
+        "description": "Korpus issiqlikka chidamli sirt bilan qoplangan bo'lib, u raketani uchish paytida qizib ketishdan himoya qiladi."
+      },
+      "engine": {
+        "title": "Dvigatel",
+        "description": "Dvigatel qizigan gaz oqimini pastga haydaydi va natijada raketa yuqoriga ko'tariladi. Bu reaktiv tortish kuchidir."
+      }
+    },
+    "moonRover": {
+      "wheeled": {
+        "title": "G'ildirakli robot",
+        "description": "Lunoxod — o'zga samoviy sayyoradagi ilk g'ildirakli robot. To'rsimon g'ildiraklari uning oy sirtidagi changga botib qolmasligiga yordam bergan."
+      },
+      "remoteControl": {
+        "title": "Yerdan turib boshqarish",
+        "description": "Lunoxod Yerdagi operatorlar tomonidan boshqarilgan. Signal bir soniyadan ko'proq vaqt davomida yetib borgani uchun har bir harakat oldindan hisobga olingan."
+      },
+      "solar": {
+        "title": "Quyosh panellari",
+        "description": "Lunoxod quvvatni quyosh panellaridan olgan. Oy tunida to'xtab, quvvatni tejagan."
+      },
+      "communication": {
+        "title": "Yer bilan aloqa",
+        "description": "Lunoxod antenna orqali oy tuprog'i va relyefi haqidagi ma'lumotlarni Yerga yuborib turgan."
+      },
+      "lifespan": {
+        "title": "Xizmat muddati",
+        "description": "Lunoxod-1 ning faoliyati uch oyga mo'ljallangan edi, ammo u qariyb 11 oy davomida ishlagan."
+      }
+    }
+  },
   "footer": {
     "quote": "O'sish va o'zgarishni sevishni o'rganing va siz muvaffaqiyatga erishasiz.",
     "pricing": "Narxlar",
