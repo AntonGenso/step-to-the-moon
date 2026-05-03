@@ -1,10 +1,13 @@
-// import EarthIcon from '@/public/images/svg/earth.svg';
-// import SunhIcon from '@/public/images/svg/sun.svg';
+import EarthIcon from '@/public/images/profile/mission/earth-image.webp';
+import SunhIcon from '@/public/images/profile/mission/solar-image.webp';
 import Rockety from '@/public/images/profile/mission/mission-rocket.webp';
-// import Atmosphere from '@/public/images/svg/mssion/atmosphere.svg';
-// import CanyonFlight from '@/public/images/svg/mssion/canyon_flight.svg';
-// import SolarSystem from '@/public/images/svg/mssion/solar_system.svg';
-// import MoonRover from '@/public/images/svg/mssion/moon_rover.svg';
+import AtmosphereIcon from '@/public/images/profile/mission/atmosphere-image.webp';
+import CanyonFlightIcon from '@/public/images/profile/mission/canyon-image.webp';
+import SolarSystemIcon from '@/public/images/profile/mission/solar-system-image.webp';
+import MoonRoverIcon from '@/public/images/profile/mission/moon-rover-image.webp';
+import GalaxyIcon from '@/public/images/profile/mission/galaxy-image.webp';
+import BlackHoleIcon from '@/public/images/profile/mission/black-hole-image.webp';
+import SatelliteIcon from '@/public/images/profile/mission/satellita-image.webp';
 
 import defaultImage from '@/public/images/profile/mission/test-stars.webp';
 
@@ -45,10 +48,10 @@ export interface IMissionData {
 }
 
 export const missionData: IMissionData[] = [
-  /* ── Active missions (demo) ── */
+  /* ── 1. Earth ── */
   {
     id: 0,
-    icon: defaultImage,
+    icon: EarthIcon,
     title: 'Earth',
     level: 1,
     isAtive: true,
@@ -92,127 +95,308 @@ export const missionData: IMissionData[] = [
     ],
     type: 'current',
   },
+
+  /* ── 2. Earth (bonus) ── */
   {
     id: 1,
-    icon: Rockety,
-    title: 'Rocketry',
-    level: 2,
-    isAtive: true,
-    gameLink: 'https://allelf.github.io/PuzzleWebGL/',
-    description:
-      'This is a description for mission sun at level 5. It provides additional context and details about the mission.',
-    videoLink: '',
-    fileLink: '',
-    facts: rocketryFacts.facts,
-    type: 'current',
-  },
-  {
-    id: 2,
-    icon: defaultImage,
-    title: 'Moon Rover',
-    level: 3,
-    isAtive: true,
-    gameLink: 'https://antongenso.github.io/moon-rover/?uid=USER_ID&api=https://your-platform.com',
-    description:
-      'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
-    videoLink: '',
-    facts: moonRoverFacts.facts,
-    type: 'current',
-  },
-
-  /* ── Inactive missions ── */
-  {
-    id: 3,
-    icon: defaultImage,
-    title: 'Solar System',
-    level: 4,
-    isAtive: false,
-    gameLink: 'https://allelf.github.io/CosmoTourist2DGame/',
-    description:
-      'This is a description for mission sun at level 2. It provides additional context and details about the mission.',
-    videoLink: '/video/mission/earth/earth.mp4',
-    facts: solarSystemFacts.facts,
-    type: 'current',
-  },
-  {
-    id: 4,
-    icon: defaultImage,
+    icon: EarthIcon,
     title: 'Earth (Bonus)',
-    level: 5,
+    level: 2,
     isAtive: false,
     gameLink: '',
     description:
-      'This is a description for mission sun at level 3. It provides additional context and details about the mission.',
+      'This is a description for mission sun at level 2. It provides additional context and details about the mission.',
     videoLink: '',
     fileLink: '/files/mission/earth_model.pdf',
     facts: [],
     type: 'bonus',
   },
+
+  /* ── 3. Atmosphere ── */
   {
-    id: 5,
-    icon: defaultImage,
+    id: 2,
+    icon: AtmosphereIcon,
+    title: 'Atmosphere',
+    level: 3,
+    isAtive: false,
+    gameLink: 'https://allelf.github.io/Cosmo2D/',
+    description:
+      'This is a description for mission sun at level 3. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: atmosphereFacts.facts,
+    type: 'current',
+  },
+
+  /* ── 4. Atmosphere (bonus) ── */
+  {
+    id: 3,
+    icon: AtmosphereIcon,
+    title: 'Atmosphere (Bonus)',
+    level: 4,
+    isAtive: false,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 4. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+    type: 'bonus',
+  },
+
+  /* ── 5. Canyon Flight ── */
+  {
+    id: 4,
+    icon: CanyonFlightIcon,
     title: 'Canyon Flight',
-    level: 6,
+    level: 5,
     isAtive: false,
     gameLink: 'https://allelf.github.io/FlyPlane/',
     description:
-      'This is a description for mission sun at level 4. It provides additional context and details about the mission.',
+      'This is a description for mission sun at level 5. It provides additional context and details about the mission.',
     videoLink: '',
     facts: canyonFlightFacts.facts,
     type: 'current',
   },
+
+  /* ── 6. Telescope ── */
   {
-    id: 6,
+    id: 5,
     icon: defaultImage,
-    title: 'Rocketry (Bonus)',
-    level: 7,
+    title: 'Telescope',
+    level: 6,
     isAtive: false,
     gameLink: '',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+    type: 'current',
+  },
+
+  /* ── 7. Telescope (bonus) ── */
+  {
+    id: 6,
+    icon: defaultImage,
+    title: 'Telescope (Bonus)',
+    level: 7,
+    isAtive: false,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 7. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+    type: 'bonus',
+  },
+
+  /* ── 8. Satellite ── */
+  {
+    id: 7,
+    icon: SatelliteIcon,
+    title: 'Satellite',
+    level: 8,
+    isAtive: false,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 8. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+    type: 'current',
+  },
+
+  /* ── 9. Satellite (bonus) ── */
+  {
+    id: 8,
+    icon: SatelliteIcon,
+    title: 'Satellite (Bonus)',
+    level: 9,
+    isAtive: false,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 9. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+    type: 'bonus',
+  },
+
+  /* ── 10. Rocket ── */
+  {
+    id: 9,
+    icon: Rockety,
+    title: 'Rocket',
+    level: 10,
+    isAtive: true,
+    gameLink: 'https://allelf.github.io/PuzzleWebGL/',
+    description:
+      'This is a description for mission sun at level 10. It provides additional context and details about the mission.',
+    videoLink: '',
+    fileLink: '',
+    facts: rocketryFacts.facts,
+    type: 'current',
+  },
+
+  /* ── 11. Rocket (bonus) ── */
+  {
+    id: 10,
+    icon: Rockety,
+    title: 'Rocket (Bonus)',
+    level: 11,
+    isAtive: false,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 11. It provides additional context and details about the mission.',
     videoLink: '',
     fileLink: '/files/mission/rocket_instruction.pdf',
     facts: rocketyBonusFacts.facts,
     type: 'bonus',
   },
+
+  /* ── 12. Solar System ── */
   {
-    id: 7,
-    icon: defaultImage,
-    title: 'Sun',
-    level: 8,
+    id: 11,
+    icon: SolarSystemIcon,
+    title: 'Solar System',
+    level: 12,
     isAtive: false,
-    gameLink: 'https://ziyoda-1995.github.io/Game_jame/Rus%20ideal%20game/index.html',
+    gameLink: 'https://allelf.github.io/CosmoTourist2DGame/',
     description:
-      'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
-    videoLink: '',
-    facts: sunFacts.facts,
+      'This is a description for mission sun at level 12. It provides additional context and details about the mission.',
+    videoLink: '/video/mission/earth/earth.mp4',
+    facts: solarSystemFacts.facts,
     type: 'current',
   },
+
+  /* ── 13. Solar System (bonus) ── */
   {
-    id: 8,
-    icon: defaultImage,
-    title: 'Moon Rover (Bonus)',
-    level: 9,
+    id: 12,
+    icon: SolarSystemIcon,
+    title: 'Solar System (Bonus)',
+    level: 13,
     isAtive: false,
     gameLink: '',
     description:
-      'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
+      'This is a description for mission sun at level 13. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+    type: 'bonus',
+  },
+
+  /* ── 14. Moon Rover ── */
+  {
+    id: 13,
+    icon: MoonRoverIcon,
+    title: 'Moon Rover',
+    level: 14,
+    isAtive: true,
+    gameLink: 'https://antongenso.github.io/moon-rover/?uid=USER_ID&api=https://your-platform.com',
+    description:
+      'This is a description for mission sun at level 14. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: moonRoverFacts.facts,
+    type: 'current',
+  },
+
+  /* ── 15. Moon Rover (bonus) ── */
+  {
+    id: 14,
+    icon: MoonRoverIcon,
+    title: 'Moon Rover (Bonus)',
+    level: 15,
+    isAtive: false,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 15. It provides additional context and details about the mission.',
     videoLink: '',
     fileLink: '/files/mission/Instrukciya_lunohoda.pdf',
     facts: moonRoverBonusFacts.facts,
     type: 'bonus',
   },
+
+  /* ── 16. Comets & Asteroids ── */
   {
-    id: 9,
-    icon: defaultImage,
-    title: 'Atmosphere Game',
-    level: 10,
+    id: 15,
+    icon: SunhIcon,
+    title: 'Comets & Asteroids',
+    level: 16,
     isAtive: false,
-    gameLink: 'https://allelf.github.io/Cosmo2D/',
+    gameLink: '',
     description:
-      'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
+      'This is a description for mission sun at level 16. It provides additional context and details about the mission.',
     videoLink: '',
-    facts: atmosphereFacts.facts,
+    facts: [],
     type: 'current',
+  },
+
+  /* ── 17. Comets & Asteroids (bonus) ── */
+  {
+    id: 16,
+    icon: SunhIcon,
+    title: 'Comets & Asteroids (Bonus)',
+    level: 17,
+    isAtive: false,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 17. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+    type: 'bonus',
+  },
+
+  /* ── 18. Black Hole ── */
+  {
+    id: 17,
+    icon: BlackHoleIcon,
+    title: 'Black Hole',
+    level: 18,
+    isAtive: false,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 18. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+    type: 'current',
+  },
+
+  /* ── 19. Black Hole (bonus) ── */
+  {
+    id: 18,
+    icon: BlackHoleIcon,
+    title: 'Black Hole (Bonus)',
+    level: 19,
+    isAtive: false,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 19. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+    type: 'bonus',
+  },
+
+  /* ── 20. Galaxy (bonus) ── */
+  {
+    id: 19,
+    icon: GalaxyIcon,
+    title: 'Galaxy (Bonus)',
+    level: 20,
+    isAtive: false,
+    gameLink: '',
+    description:
+      'This is a description for mission sun at level 20. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: [],
+    type: 'bonus',
+  },
+
+  /* ── 21. The Sun (bonus) ── */
+  {
+    id: 20,
+    icon: SunhIcon,
+    title: 'The Sun (Bonus)',
+    level: 21,
+    isAtive: false,
+    gameLink: 'https://ziyoda-1995.github.io/Game_jame/Rus%20ideal%20game/index.html',
+    description:
+      'This is a description for mission sun at level 21. It provides additional context and details about the mission.',
+    videoLink: '',
+    facts: sunFacts.facts,
+    type: 'bonus',
   },
 ];
