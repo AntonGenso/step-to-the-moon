@@ -14,6 +14,7 @@ export const MobileTests = () => {
   const t = useTranslations('tests');
   const tt = useTranslations('test');
   const tc = useTranslations('common');
+  const tData = useTranslations('testData');
 
   return (
     <div className={styles.container}>
@@ -26,6 +27,7 @@ export const MobileTests = () => {
             const testKey = `test_${test.id}`;
             const isDone = profile?.tests?.[testKey]?.status === 'done';
             const savedScore = profile?.tests?.[testKey]?.score ?? 0;
+            const title = (tData.raw(`t${test.id}`) as { title: string }).title;
 
             return (
               <div key={test.id} className={`${styles.card} ${isDone ? styles.isDone : ''}`}>
@@ -39,7 +41,7 @@ export const MobileTests = () => {
                         <span className={styles.testLabel}>
                           {tt('testLabel')} {String(test.id).padStart(2, '0')}
                         </span>
-                        <span className={styles.testTitle}>{test.title}</span>
+                        <span className={styles.testTitle}>{title}</span>
                       </div>
                       {isDone && (
                         <div className={styles.scoreBadge}>

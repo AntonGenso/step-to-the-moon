@@ -1,7 +1,5 @@
 import ProfileIcon from '@/public/images/profile/svg/profile.svg'
 import ProfileActiveIcon from '@/public/images/profile/svg/profile-active.svg'
-import DiaryIcon from '@/public/images/profile/svg/diary.svg'
-import DiaryActiveIcon from '@/public/images/profile/svg/diary-activesvg.svg'
 import MissionIcon from '@/public/images/profile/svg/mission.svg'
 import MissionActiveIcon from '@/public/images/profile/svg/mission-active.svg'
 import TestIcon from '@/public/images/profile/svg/test.svg'
@@ -32,13 +30,6 @@ export const tabletButtons: ITabletButton[] = [
     activeIcon: ProfileActiveIcon,
     title: 'profile',
     labelKey: 'profile',
-  },
-  {
-    id: 2,
-    icon: DiaryIcon,
-    activeIcon: DiaryActiveIcon,
-    title: 'diary',
-    labelKey: 'diary',
   },
   {
     id: 3,

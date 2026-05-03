@@ -13,6 +13,13 @@
   }
 }
 
+.topBar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 16px 0;
+  flex-shrink: 0;
+}
+
 .page {
   flex: 1;
   display: flex;

@@ -1,16 +1,21 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useLocale } from 'next-intl';
 import { usePathname, useRouter } from '@/src/i18n/navigation';
+import { useSearchParams } from 'next/navigation';
 
-export const LanguageSwitcher = () => {
+const LanguageSwitcherInner = () => {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const handleSwitch = () => {
     const nextLocale = locale === 'ru' ? 'uz' : 'ru';
-    router.replace(pathname, { locale: nextLocale });
+    const query = searchParams.toString();
+    const href = query ? `${pathname}?${query}` : pathname;
+    router.replace(href, { locale: nextLocale });
   };
 
   return (
@@ -22,3 +27,9 @@ export const LanguageSwitcher = () => {
     </button>
   );
 };
+
+export const LanguageSwitcher = () => (
+  <Suspense fallback={null}>
+    <LanguageSwitcherInner />
+  </Suspense>
+);

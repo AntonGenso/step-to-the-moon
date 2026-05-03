@@ -6,7 +6,7 @@ export const POINTS_PER_QUESTION = 10;
 
 /** Max score for each test = number of questions * points per question */
 export const TEST_MAX_SCORES: Record<string, number> = Object.fromEntries(
-  testData.map((t) => [`test_${t.id}`, t.questions.length * POINTS_PER_QUESTION]),
+  testData.map((t) => [`test_${t.id}`, t.questionCount * POINTS_PER_QUESTION]),
 );
 
 /** Mission IDs from the data */

@@ -3,27 +3,12 @@ import ArrowLeft from '@/public/images/profile/skin/svg/arrow-left.svg';
 import ArrowRight from '@/public/images/profile/skin/svg/arrow-right.svg';
 import styles from './Skin.module.scss';
 import { useCallback, useEffect, useState } from 'react';
-import { MoonProgressBar } from '@/src/uikit/MoonProgressBar/MoonProgressBar';
-import { MAX_XP } from '@/src/config/gameConfig';
 import { useAuth } from '@/src/context/AuthContext';
 import { updateUserSkin } from '@/src/services/userService';
 
 interface ISuitProps {
   hair: string;
   costum: string;
-}
-
-interface ISkinProps {
-  data: {
-    name: string;
-    points: number;
-    place: number;
-    avatar: string;
-    skin: {
-      hair: string;
-      costum: string;
-    };
-  };
 }
 
 const SelectedSuit = ({ hair, costum }: ISuitProps) => {
@@ -63,8 +48,7 @@ const SelectedIcon = ({
   return <Icon className={className} />;
 };
 
-export const Skin = ({ data }: ISkinProps) => {
-  const { name, points } = data;
+export const Skin = () => {
   const { nickname, profile } = useAuth();
 
   const [selectedHead, setSelectedHead] = useState(profile?.skin?.headId ?? 0);
@@ -130,15 +114,6 @@ export const Skin = ({ data }: ISkinProps) => {
 
       {/* Right: Controls */}
       <div className={styles.rightSide}>
-        <h1 className={styles.title}>{name}</h1>
-        <p className={styles.points}>
-          {points}/{MAX_XP} XP
-        </p>
-
-        <div className={styles.progressBarWrapper}>
-          <MoonProgressBar progress={points} distance={MAX_XP} />
-        </div>
-
         <div className={styles.selectorsWrapper}>
           {/* Head selector */}
           <div className={styles.selectorRow}>

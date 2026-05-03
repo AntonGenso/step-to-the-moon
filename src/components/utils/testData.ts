@@ -1,114 +1,31 @@
 import Earth from '@/public/images/svg/earth.svg';
+import Atmosphere from '@/public/images/svg/mssion/atmosphere.svg';
+import CanyonFlight from '@/public/images/svg/mssion/canyon_flight.svg';
+import Stars from '@/public/images/svg/mssion/stars.svg';
+import Moon from '@/public/images/svg/mssion/moon.svg';
 import Rocketry from '@/public/images/svg/mssion/rocketry.svg';
+import SolarSystem from '@/public/images/svg/mssion/solar_system.svg';
 import MoonRover from '@/public/images/svg/mssion/moon_rover.svg';
+import Saturn from '@/public/images/svg/mssion/saturn.svg';
+import Spacesuit from '@/public/images/svg/mssion/spacesuit.svg';
 import { ElementType } from 'react';
 
-export interface ITest {
+export interface ITestBase {
   id: number;
-  title: string;
   icon: ElementType;
-  questions: {
-    question: string;
-    options: Record<string, string>;
-    answer: string;
-  }[];
+  questionCount: number;
+  answers: string[];
 }
 
-export const testData: ITest[] = [
-  {
-    id: 1,
-    title: 'Earth Quiz',
-    icon: Earth,
-    questions: [
-      {
-        question: 'Самый центр Земли — это твёрдый шар. Из чего он состоит?',
-        options: { A: 'Из воды', B: 'Из камня', C: 'Из металла', D: 'Из льда' },
-        answer: 'C',
-      },
-      {
-        question: 'Вокруг внутреннего ядра течёт жидкий металл. Что он создаёт?',
-        options: { A: 'Звук', B: 'Магнитный щит', C: 'Свет', D: 'Ветер' },
-        answer: 'B',
-      },
-      {
-        question: 'Что двигает континенты и вызывает извержения вулканов?',
-        options: { A: 'Ветер', B: 'Движение мантии', C: 'Луна', D: 'Солнце' },
-        answer: 'B',
-      },
-      {
-        question: 'Если представить Землю как яблоко, то земная кора — это…',
-        options: { A: 'Всё яблоко целиком', B: 'Тонкая кожура', C: 'Семечка внутри', D: 'Половина яблока' },
-        answer: 'B',
-      },
-      {
-        question: 'Земная кора не цельная — она состоит из огромных кусков, которые медленно двигаются. Что происходит, когда они сталкиваются?',
-        options: { A: 'Дождь', B: 'Землетрясения', C: 'Снег', D: 'Радуга' },
-        answer: 'B',
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: 'Rocketry Quiz',
-    icon: Rocketry,
-    questions: [
-      {
-        question: 'Почему нос ракеты заострённый?',
-        options: { A: 'Чтобы легче проходить сквозь воздух', B: 'Чтобы ловить сигналы из космоса', C: 'Чтобы выдерживать удары', D: 'Чтобы соединяться с другими ракетами' },
-        answer: 'A',
-      },
-      {
-        question: 'Для чего ракете иллюминатор — круглое окно?',
-        options: { A: 'Для вентиляции', B: 'Чтобы космонавты могли наблюдать за полётом', C: 'Для подачи топлива', D: 'Для связи с Землёй' },
-        answer: 'B',
-      },
-      {
-        question: 'Внизу ракеты есть небольшие «плавники». Для чего они?',
-        options: { A: 'Для ускорения', B: 'Для торможения', C: 'Чтобы ракета летела ровно', D: 'Для защиты двигателя' },
-        answer: 'C',
-      },
-      {
-        question: 'При взлёте ракета сильно нагревается. Что её защищает?',
-        options: { A: 'Толстый слой металла', B: 'Специальное жаропрочное покрытие', C: 'Система охлаждения водой', D: 'Обычная краска' },
-        answer: 'B',
-      },
-      {
-        question: 'Как ракетный двигатель создаёт силу для взлёта?',
-        options: { A: 'Вращает винт, как у самолёта', B: 'Выбрасывает горячий газ вниз, и ракета летит вверх', C: 'Отталкивается от воздуха', D: 'Использует электричество' },
-        answer: 'B',
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: 'Moon Rover Quiz',
-    icon: MoonRover,
-    questions: [
-      {
-        question: 'Луноход — это первый аппарат, который ездил по поверхности другого небесного тела. Что он из себя представлял?',
-        options: { A: 'Робот на колёсах', B: 'Летающий зонд', C: 'Спускаемая капсула', D: 'Орбитальная станция' },
-        answer: 'A',
-      },
-      {
-        question: 'Луноход ехал по Луне, но кто им управлял?',
-        options: { A: 'Бортовой компьютер самостоятельно', B: 'Космонавты на Луне', C: 'Команда операторов с Земли', D: 'Экипаж орбитального корабля' },
-        answer: 'C',
-      },
-      {
-        question: 'Откуда Луноход получал энергию для работы?',
-        options: { A: 'От батареек', B: 'От солнечных панелей', C: 'От ядерного реактора', D: 'От топливного бака' },
-        answer: 'B',
-      },
-      {
-        question: 'Луноход-1 должен был проработать 3 месяца. Что произошло на самом деле?',
-        options: { A: 'Сломался через неделю', B: 'Проработал почти 11 месяцев', C: 'Работает до сих пор', D: 'Проработал ровно 3 месяца' },
-        answer: 'B',
-      },
-      {
-        question: 'Что Луноход изучал на поверхности Луны?',
-        options: { A: 'Атмосферу и ветер', B: 'Лунный грунт и рельеф', C: 'Воду и лёд', D: 'Магнитное поле' },
-        answer: 'B',
-      },
-    ],
-  },
+export const testData: ITestBase[] = [
+  { id: 1,  icon: Earth,        questionCount: 5, answers: ['C', 'B', 'B', 'B', 'B'] },
+  { id: 2,  icon: Atmosphere,   questionCount: 5, answers: ['B', 'B', 'B', 'B', 'C'] },
+  { id: 3,  icon: CanyonFlight, questionCount: 5, answers: ['B', 'B', 'A', 'C', 'C'] },
+  { id: 4,  icon: Stars,        questionCount: 5, answers: ['A', 'C', 'B', 'B', 'B'] },
+  { id: 5,  icon: Moon,         questionCount: 5, answers: ['B', 'C', 'C', 'C', 'B'] },
+  { id: 6,  icon: Rocketry,     questionCount: 5, answers: ['A', 'B', 'C', 'B', 'B'] },
+  { id: 7,  icon: SolarSystem,  questionCount: 5, answers: ['C', 'C', 'B', 'C', 'D'] },
+  { id: 8,  icon: MoonRover,    questionCount: 5, answers: ['A', 'C', 'B', 'B', 'B'] },
+  { id: 9,  icon: Saturn,       questionCount: 5, answers: ['B', 'B', 'B', 'C', 'C'] },
+  { id: 10, icon: Spacesuit,    questionCount: 5, answers: ['B', 'B', 'B', 'B', 'C'] },
 ];

@@ -12,6 +12,7 @@ export default function Tests() {
   const { profile } = useAuth();
   const router = useRouter();
   const tn = useTranslations('nav');
+  const tData = useTranslations('testData');
 
   return (
     <div className={`${styles.contentWrapper} custom-scroll`}>
@@ -19,11 +20,12 @@ export default function Tests() {
       <ul className={`${styles.tabletList} custom-scroll`}>
         {testData.map((test, i) => {
           const testKey = `test_${test.id}`;
+          const title = (tData.raw(`t${test.id}`) as { title: string }).title;
           return (
             <li key={test.id} className={styles.tabletItem}>
               <Card
                 image={test.icon}
-                title={test.title}
+                title={title}
                 level={i + 1}
                 status={true}
                 setActiveMission={() => router.push(`/test/${test.id}`)}

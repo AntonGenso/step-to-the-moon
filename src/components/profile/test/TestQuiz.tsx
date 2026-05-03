@@ -10,8 +10,22 @@ import { MobileBottomNav } from '@/src/components/profile/mobile/MobileBottomNav
 import { useTranslations } from 'next-intl';
 import Test from './Test';
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
+import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
 import styles from './TestQuiz.module.scss';
 import testStyles from './test.module.scss';
+
+interface LocalizedQuestion {
+  text: string;
+  A: string;
+  B: string;
+  C: string;
+  D: string;
+}
+
+interface LocalizedTest {
+  title: string;
+  [key: string]: LocalizedQuestion | string;
+}
 
 interface TestQuizProps {
   testId: number;
@@ -21,20 +35,22 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
   const router = useRouter();
   const { nickname, refreshProfile } = useAuth();
   const t = useTranslations('test');
+  const tData = useTranslations('testData');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const scoreSaved = useRef(false);
 
-  const test = testData.find((t) => t.id === testId);
+  const testBase = testData.find((t) => t.id === testId);
 
-  if (!test) {
+  if (!testBase) {
     router.replace('/');
     return null;
   }
 
-  const total = test.questions.length;
+  const localTest = tData.raw(`t${testId}`) as LocalizedTest;
+  const total = testBase.questionCount;
 
   const resetQuiz = () => {
     setCurrentQuestion(0);
@@ -67,19 +83,21 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
       });
     }
 
-    const Icon = test.icon;
+    const Icon = testBase.icon;
 
     return (
       <div className={styles.wrapper}>
+        <div className={styles.topBar}>
+          <LanguageSwitcher />
+        </div>
         <div className={styles.page}>
           <div className={styles.resultContainer}>
-            {/* Header */}
             <div className={testStyles.header}>
               <button type="button" className={testStyles.backBtn} onClick={goBack}>
                 <BackIcon className={testStyles.backIcon} />
               </button>
               <div className={testStyles.titleBadge}>
-                <span>{test.title}</span>
+                <span>{localTest.title as string}</span>
               </div>
               {Icon ? (
                 <div className={testStyles.decorIcon}>
@@ -90,13 +108,11 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
               )}
             </div>
 
-            {/* Test Complete */}
             <div className={styles.completeLabel}>
               <h2 className={styles.completeTitle}>{t('complete')}</h2>
               <p className={styles.completeSub}>{t('completeSub')}</p>
             </div>
 
-            {/* Score Card */}
             <div className={styles.scoreCard}>
               <div className={styles.scoreCardInner}>
                 <h3 className={styles.scoreLabel}>{t('yourScore')}</h3>
@@ -108,12 +124,8 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
               </div>
             </div>
 
-            {/* Hint */}
-            <p className={styles.retryHint}>
-              {t('retryHint')}
-            </p>
+            <p className={styles.retryHint}>{t('retryHint')}</p>
 
-            {/* Action buttons */}
             <div className={styles.actionButtons}>
               <button className={styles.retryBtn} onClick={resetQuiz}>
                 {t('retry')}
@@ -131,21 +143,29 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
     );
   }
 
-  const question = test.questions[currentQuestion];
+  const lq = localTest[`q${currentQuestion}`] as LocalizedQuestion;
+  const question = {
+    question: lq.text,
+    options: { A: lq.A, B: lq.B, C: lq.C, D: lq.D },
+    answer: testBase.answers[currentQuestion],
+  };
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.topBar}>
+        <LanguageSwitcher />
+      </div>
       <div className={styles.page}>
         <Test
           key={currentQuestion}
           question={question}
           current={currentQuestion + 1}
           total={total}
-          title={test.title}
-          icon={test.icon}
+          title={localTest.title as string}
+          icon={testBase.icon}
           onBack={goBack}
           onAnswer={(option) => {
-            const isCorrect = option === question.answer;
+            const isCorrect = option === testBase.answers[currentQuestion];
             if (isCorrect) {
               setScore((prev) => prev + POINTS_PER_QUESTION);
               setCorrectCount((prev) => prev + 1);

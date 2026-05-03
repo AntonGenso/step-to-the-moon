@@ -4,7 +4,6 @@ import styles from './Tablet.module.scss';
 import React, { useState, useEffect } from 'react';
 import { Root, List, Trigger, Content } from '@radix-ui/react-tabs';
 import { tabletButtons } from './tabletButtons/tabletButtons';
-import { Book } from './book/Book';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from '@/src/i18n/navigation';
 import Test from '../tests/Tests';
@@ -12,7 +11,6 @@ import Leaderboard from '../leaderboard/leaderboard';
 import Missions from '../missions/Missions';
 import { Skin } from '../../skin/Skin';
 import { useAuth } from '@/src/context/AuthContext';
-import { headSkin, suit } from '@/src/utils/skinData';
 import { MAX_XP } from '@/src/config/gameConfig';
 import FullCosmonautIcon from '@/public/images/svg/mobile/other/full-cosmonaut.svg';
 import ExitIcon from '@/public/images/header/exit-icon.svg';
@@ -24,19 +22,6 @@ export const Tablet = () => {
   const t = useTranslations('common');
   const tn = useTranslations('nav');
   const searchParams = useSearchParams();
-
-  const skinHeadId = profile?.skin?.headId ?? 0;
-  const skinSuitId = profile?.skin?.suitId ?? 0;
-  const personData = {
-    name: nickname ?? '',
-    points: profile?.leaderboard?.total ?? 0,
-    place: 0,
-    avatar: '',
-    skin: {
-      hair: headSkin.find((h) => h.id === skinHeadId)?.name ?? headSkin[0].name,
-      costum: suit.find((s) => s.id === skinSuitId)?.name ?? suit[0].name,
-    },
-  };
 
   const activeTabParam = searchParams.get('activeTab');
   const [isGameOpen, setIsGameOpen] = useState(false);
@@ -146,12 +131,9 @@ export const Tablet = () => {
             <Missions setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
           </Content>
           <Content tabIndex={undefined} value="profile" className={styles.tabContent}>
-            <Skin data={personData} />
+            <Skin />
           </Content>
-          <Content value="diary" className={styles.tabContent}>
-            <Book />
-          </Content>
-          <Content value="test" className={styles.tabContent}>
+<Content value="test" className={styles.tabContent}>
             <Test />
           </Content>
           <Content value="leader" className={styles.tabContent}>
