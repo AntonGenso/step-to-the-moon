@@ -7,6 +7,14 @@
   background: url('/images/bg-main.webp') center center / cover no-repeat;
 }
 
+/* ── Language switcher bar ── */
+.topBar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 16px 0;
+  flex-shrink: 0;
+}
+
 /* ── Header ── */
 .header {
   display: flex;

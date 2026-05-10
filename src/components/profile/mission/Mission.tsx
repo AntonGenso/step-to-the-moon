@@ -146,7 +146,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
                 </div>
                 <div className={styles.descriptionWrapper}>
                   {fact.key && (
-                    <p className="p-[10px_10px_4px_10px] text-center font-[var(--font-alumni)] text-[22px] font-bold leading-[1] text-white">
+                    <p className="p-[10px_10px_4px_10px] text-center text-[22px] leading-[1] font-[var(--font-alumni)] font-bold text-white">
                       {tf(`${fact.key}.title`)}
                     </p>
                   )}

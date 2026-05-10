@@ -9,8 +9,8 @@ import { MobileBottomNav } from './MobileBottomNav';
 import { useTranslations } from 'next-intl';
 import { useAuth } from '@/src/context/AuthContext';
 import GameIcon from '@/public/images/svg/mobile/other/game.svg';
-
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
+import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
 
 interface Props {
   mission: IMissionData;
@@ -68,6 +68,11 @@ export const MobileMissionDetail = ({ mission }: Props) => {
         </div>
       ) : (
         <>
+          {/* Language switcher */}
+          <div className={styles.topBar}>
+            <LanguageSwitcher />
+          </div>
+
           {/* Header */}
           <div className={styles.header}>
             <button type="button" className={styles.backBtn} onClick={() => router.back()}>
@@ -175,9 +180,7 @@ export const MobileMissionDetail = ({ mission }: Props) => {
                       className={styles.factImage}
                     />
                   </div>
-                  {fact.key && (
-                    <p className={styles.factModalTitle}>{tf(`${fact.key}.title`)}</p>
-                  )}
+                  {fact.key && <p className={styles.factModalTitle}>{tf(`${fact.key}.title`)}</p>}
                   <p className={styles.factModalText}>
                     {fact.key ? tf(`${fact.key}.description`) : fact.description}
                   </p>

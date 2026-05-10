@@ -33,14 +33,14 @@ export const MobileMission = () => {
             return (
               <div
                 key={mission.id}
-                className={`${styles.card} ${isLocked ? styles.cardLocked : ''}`}
+                className={`${styles.card} ${isLocked ? styles.cardLocked : ''} ${mission?.type === 'bonus' ? styles.bonuseBorderGradient : ''} ${!isDone ? styles.notDoneBorderGradient : ''}`}
                 onClick={() => !isLocked && router.push(`/mission/${mission.id}`)}
               >
                 <div
-                  className={`from-bg-card-light to-bg-card shadow-inner-card flex h-full w-full gap-4 rounded-[16px] bg-gradient-to-r p-[20px_30px]`}
+                  className={`from-bg-card-light to-bg-card shadow-inner-card relative flex h-full w-full gap-4 rounded-[16px] bg-gradient-to-r p-[20px_30px]`}
                 >
                   <div
-                    className={`${styles.iconRing} ${isLocked ? styles.iconRingLocked : ''} ${isDone && styles.iconRingDone}`}
+                    className={`${styles.iconRing} ${isLocked ? styles.iconRingLocked : ''} ${isDone && styles.iconRingDone} ${mission?.type === 'bonus' ? styles.iconRingBonus : ''}`}
                   >
                     {isLocked ? (
                       <Image src={lockedImg} alt="Locked" className={styles.lockedImage} fill />
@@ -64,11 +64,18 @@ export const MobileMission = () => {
                     </div>
 
                     <div
-                      className={`${styles.actionBtn} ${isLocked ? styles.actionBtnLocked : isDone ? styles.actionBtnDone : styles.actionBtnPlay}`}
+                      className={`${styles.actionBtn} ${isLocked ? styles.actionBtnLocked : isDone ? styles.actionBtnDone : styles.actionBtnPlay} ${mission.type === 'bonus' ? 'bg-black' : ''}`}
                     >
                       {isLocked ? tc('locked') : isDone ? tc('done') : tc('start')}
                     </div>
                   </div>
+                  {mission?.type === 'bonus' && (
+                    <span
+                      className={`text font-alumni absolute bottom-[16px] left-[16px] rounded-[8px] bg-gradient-to-r from-[#5FFF9F] to-[#10A56F] p-[8px_16px] text-sm font-semibold text-white uppercase`}
+                    >
+                      Bonus
+                    </span>
+                  )}
                 </div>
               </div>
             );

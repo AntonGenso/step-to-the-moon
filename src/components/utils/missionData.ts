@@ -100,9 +100,9 @@ export const missionData: IMissionData[] = [
   {
     id: 1,
     icon: EarthIcon,
-    title: 'Earth (Bonus)',
+    title: 'Earth',
     level: 2,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 2. It provides additional context and details about the mission.',
@@ -118,7 +118,7 @@ export const missionData: IMissionData[] = [
     icon: AtmosphereIcon,
     title: 'Atmosphere',
     level: 3,
-    isAtive: false,
+    isAtive: true,
     gameLink: 'https://allelf.github.io/Cosmo2D/',
     description:
       'This is a description for mission sun at level 3. It provides additional context and details about the mission.',
@@ -131,9 +131,9 @@ export const missionData: IMissionData[] = [
   {
     id: 3,
     icon: AtmosphereIcon,
-    title: 'Atmosphere (Bonus)',
+    title: 'Atmosphere',
     level: 4,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 4. It provides additional context and details about the mission.',
@@ -148,7 +148,7 @@ export const missionData: IMissionData[] = [
     icon: CanyonFlightIcon,
     title: 'Canyon Flight',
     level: 5,
-    isAtive: false,
+    isAtive: true,
     gameLink: 'https://allelf.github.io/FlyPlane/',
     description:
       'This is a description for mission sun at level 5. It provides additional context and details about the mission.',
@@ -163,7 +163,7 @@ export const missionData: IMissionData[] = [
     icon: defaultImage,
     title: 'Telescope',
     level: 6,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
@@ -176,9 +176,9 @@ export const missionData: IMissionData[] = [
   {
     id: 6,
     icon: defaultImage,
-    title: 'Telescope (Bonus)',
+    title: 'Telescope',
     level: 7,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 7. It provides additional context and details about the mission.',
@@ -193,7 +193,7 @@ export const missionData: IMissionData[] = [
     icon: SatelliteIcon,
     title: 'Satellite',
     level: 8,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 8. It provides additional context and details about the mission.',
@@ -206,9 +206,9 @@ export const missionData: IMissionData[] = [
   {
     id: 8,
     icon: SatelliteIcon,
-    title: 'Satellite (Bonus)',
+    title: 'Satellite',
     level: 9,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 9. It provides additional context and details about the mission.',
@@ -237,9 +237,9 @@ export const missionData: IMissionData[] = [
   {
     id: 10,
     icon: Rockety,
-    title: 'Rocket (Bonus)',
+    title: 'Rocket',
     level: 11,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 11. It provides additional context and details about the mission.',
@@ -255,7 +255,7 @@ export const missionData: IMissionData[] = [
     icon: SolarSystemIcon,
     title: 'Solar System',
     level: 12,
-    isAtive: false,
+    isAtive: true,
     gameLink: 'https://allelf.github.io/CosmoTourist2DGame/',
     description:
       'This is a description for mission sun at level 12. It provides additional context and details about the mission.',
@@ -268,9 +268,9 @@ export const missionData: IMissionData[] = [
   {
     id: 12,
     icon: SolarSystemIcon,
-    title: 'Solar System (Bonus)',
+    title: 'Solar System',
     level: 13,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 13. It provides additional context and details about the mission.',
@@ -298,9 +298,9 @@ export const missionData: IMissionData[] = [
   {
     id: 14,
     icon: MoonRoverIcon,
-    title: 'Moon Rover (Bonus)',
+    title: 'Moon Rover',
     level: 15,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 15. It provides additional context and details about the mission.',
@@ -316,7 +316,7 @@ export const missionData: IMissionData[] = [
     icon: SunhIcon,
     title: 'Comets & Asteroids',
     level: 16,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 16. It provides additional context and details about the mission.',
@@ -329,9 +329,9 @@ export const missionData: IMissionData[] = [
   {
     id: 16,
     icon: SunhIcon,
-    title: 'Comets & Asteroids (Bonus)',
+    title: 'Comets & Asteroids',
     level: 17,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 17. It provides additional context and details about the mission.',
@@ -346,7 +346,7 @@ export const missionData: IMissionData[] = [
     icon: BlackHoleIcon,
     title: 'Black Hole',
     level: 18,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 18. It provides additional context and details about the mission.',
@@ -359,9 +359,9 @@ export const missionData: IMissionData[] = [
   {
     id: 18,
     icon: BlackHoleIcon,
-    title: 'Black Hole (Bonus)',
+    title: 'Black Hole',
     level: 19,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 19. It provides additional context and details about the mission.',
@@ -374,9 +374,9 @@ export const missionData: IMissionData[] = [
   {
     id: 19,
     icon: GalaxyIcon,
-    title: 'Galaxy (Bonus)',
+    title: 'Galaxy',
     level: 20,
-    isAtive: false,
+    isAtive: true,
     gameLink: '',
     description:
       'This is a description for mission sun at level 20. It provides additional context and details about the mission.',
@@ -389,9 +389,9 @@ export const missionData: IMissionData[] = [
   {
     id: 20,
     icon: SunhIcon,
-    title: 'The Sun (Bonus)',
+    title: 'The Sun',
     level: 21,
-    isAtive: false,
+    isAtive: true,
     gameLink: 'https://ziyoda-1995.github.io/Game_jame/Rus%20ideal%20game/index.html',
     description:
       'This is a description for mission sun at level 21. It provides additional context and details about the mission.',

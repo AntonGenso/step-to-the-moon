@@ -25,6 +25,9 @@
   --color-card-orange-dark: #ce671e;
   --color-card-orange-light: #ffa91f;
 
+  --color-card-indigo-light: #ff5f77;
+  --color-card-indigo: #e51dff;
+
   /* Backgrounds */
   --color-bg-base: #030a10;
   --color-bg-sidebar: #0a1a25;
@@ -68,6 +71,8 @@
   --color-text-secondary: var(--color-text-secondary);
   --color-text-muted: var(--color-text-muted);
   --color-text-cyan: var(--color-text-cyan);
+  --color-card-indigo-light: var(--color-card-indigo-light);
+  --color-card-indigo: var(--color-card-indigo);
 }
 
 @font-face {
@@ -149,4 +154,11 @@ body {
   --breakpoint-desktop-light: 1600px;
   --breakpoint-desktop-big: 1800px;
   --breakpoint-desktop-hard: 1920px;
+}
+
+.bonuse-border-gradient {
+  background: linear-gradient(to right, var(--color-orange-dark), var(--color-orange));
+  box-shadow:
+    0 0 12px var(--color-orange-dark),
+    inset 0 0 16px var(--color-orange);
 }

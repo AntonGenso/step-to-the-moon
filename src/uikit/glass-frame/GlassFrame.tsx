@@ -11,9 +11,7 @@ interface GlassFrameProps {
 export const GlassFrame = ({ children, className, innerClassName }: GlassFrameProps) => {
   return (
     <div className={cn(styles.frame, className)}>
-      <div className={cn(styles.inner, innerClassName)}>
-        {children}
-      </div>
+      <div className={cn(styles.inner, innerClassName)}>{children}</div>
     </div>
   );
 };
