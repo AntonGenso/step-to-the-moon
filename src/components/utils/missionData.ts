@@ -18,13 +18,17 @@ import land from '@/public/images/facts/earth/earth-4.webp';
 import { StaticImageData } from 'next/image';
 import {
   atmosphereFacts,
+  blackHole,
   canyonFlightFacts,
+  cometsAndAsterouds,
   moonRoverBonusFacts,
   moonRoverFacts,
   rocketryFacts,
   rocketyBonusFacts,
   solarSystemFacts,
+  stellitesFacts,
   sunFacts,
+  telescopeFacts,
 } from './factsData';
 
 export interface IMissionData {
@@ -168,7 +172,7 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',
-    facts: [],
+    facts: telescopeFacts.facts,
     type: 'current',
   },
 
@@ -198,7 +202,7 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 8. It provides additional context and details about the mission.',
     videoLink: '',
-    facts: [],
+    facts: stellitesFacts.facts,
     type: 'current',
   },
 
@@ -321,7 +325,7 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 16. It provides additional context and details about the mission.',
     videoLink: '',
-    facts: [],
+    facts: cometsAndAsterouds.facts,
     type: 'current',
   },
 
@@ -351,7 +355,7 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 18. It provides additional context and details about the mission.',
     videoLink: '',
-    facts: [],
+    facts: blackHole.facts,
     type: 'current',
   },
 

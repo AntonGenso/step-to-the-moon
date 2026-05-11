@@ -126,6 +126,138 @@
         "description": "Ichki yadro — Yerning markaziy qismidagi 6000°S gacha qiziydigan qattiq metall shar."
       }
     },
+    "atmosphere": {
+      "breathe": {
+        "title": "",
+        "description": "Atmosfera — Yerning havo qobig'idir. Busiz nafas olishning imkoni bo'lmas edi."
+      },
+      "shield": {
+        "title": "",
+        "description": "Koinot toshlari Yer yuzasiga yetib kelmasdan, atmosferada yonib ketadi. U himoya vazifasini bajaradi."
+      },
+      "troposphere": {
+        "title": "",
+        "description": "Biz atmosferaning eng quyi qatlami — troposferada yashaymiz. Bu yerda havo va issiqlik bor."
+      },
+      "weather": {
+        "title": "",
+        "description": "Bulutlar, yomg'ir va shamol — bularning barchasi atmosferada hosil bo'ladi."
+      },
+      "layers": {
+        "title": "",
+        "description": "Yer atmosferasi beshta asosiy qatlamdan iborat. Har biri o'z balandligiga va o'z xususiyatiga ega."
+      }
+    },
+    "canyonFlight": {
+      "laika": {
+        "title": "",
+        "description": "Layka laqabli it — Yer atrofini koinotda aylanib chiqqan ilk tirik jonzotdir. Parvoz 1957-yilda amalga oshirilgan."
+      },
+      "gagarin": {
+        "title": "",
+        "description": "Yuriy Gagarin — koinotdagi birinchi inson. U 1961-yil 12-aprelda Yer atrofida parvozni amalga oshirgan."
+      },
+      "tereshkova": {
+        "title": "",
+        "description": "Valentina Tereshkova — koinotdagi birinchi ayol. U 1963-yilda parvoz qilgan."
+      },
+      "armstrong": {
+        "title": "",
+        "description": "Nil Armstrong — Oyga qadam qo'ygan birinchi inson. Bu voqea 1969-yilda sodir bo'lgan."
+      },
+      "uzcosmos": {
+        "title": "",
+        "description": "UzCosmos — O'zbekistonning birinchi kosmonavtini tayyorlaydigan tashkilot."
+      }
+    },
+    "telescope": {
+      "device": {
+        "title": "",
+        "description": "Teleskop — koinotdagi olis jismlarni ko'rishga yordam beradigan asbob."
+      },
+      "ulugbek": {
+        "title": "",
+        "description": "Mirzo Ulug'bek yulduzlarni o'rganish uchun Samarqandda mashhur rasadxona qurdirgan."
+      },
+      "hubble": {
+        "title": "",
+        "description": "\"Xabbl\" teleskopi Yer orbitasida joylashgan bo'lib, uzoq galaktikalarni suratga oladi."
+      },
+      "space": {
+        "title": "",
+        "description": "Teleskoplar kosmosda yaxshiroq ko'radi, chunki ularga atmosfera to'sqinlik qilmaydi."
+      },
+      "webb": {
+        "title": "",
+        "description": "\"Jeyms Uebb\" — 2021-yilda kosmosga chiqarilgan eng yangi kosmik teleskop."
+      }
+    },
+    "satellite": {
+      "what": {
+        "title": "",
+        "description": "Yo'ldosh — sayyora atrofida aylanuvchi obyekt. Ular tabiiy va sun'iy bo'ladi."
+      },
+      "sputnik1": {
+        "title": "",
+        "description": "\"Sputnik-1\" — Yerning birinchi sun'iy yo'ldoshi. Uning o'lchami basketbol to'pidek bo'lgan."
+      },
+      "ussr": {
+        "title": "",
+        "description": "SSSR dunyoda birinchi bo'lib koinotga sun'iy yo'ldosh uchirgan. Bu kosmik davrning boshlanishi bo'lgan."
+      },
+      "moon": {
+        "title": "",
+        "description": "Oy — Yerning tabiiy yo'ldoshi. U sayyoramiz atrofida aylanib yuradi."
+      },
+      "since1957": {
+        "title": "",
+        "description": "Birinchi sun'iy yo'ldosh 1957-yilda uchirilgan. O'shandan beri koinotda minglab sun'iy yo'ldoshlar bo'lgan."
+      }
+    },
+    "solarSystem": {
+      "count": {
+        "title": "",
+        "description": "Quyosh tizimida 8 ta sayyora mavjud. Ularning barchasi Quyosh atrofida aylanadi."
+      },
+      "mercury": {
+        "title": "",
+        "description": "Merkuriy — Quyoshga eng yaqin sayyora. Bu Quyosh sistemasidagi eng kichik sayyora."
+      },
+      "mars": {
+        "title": "",
+        "description": "Marsni \"Qizil sayyora\" deyishadi — uning yuzasi zang bilan qoplangan."
+      },
+      "jupiter": {
+        "title": "",
+        "description": "Yupiter — eng katta sayyora. Uning ichiga qolgan barcha sayyoralar sig'ishi mumkin."
+      },
+      "saturn": {
+        "title": "",
+        "description": "Saturn o'z halqalari bilan mashhur. Ular muz va toshlardan tashkil topgan."
+      }
+    },
+    "blackHole": {
+      "what": {
+        "title": "",
+        "description": "Qora tuynuk — koinotdagi hatto yorug'lik ham chiqa olmaydigan hudud."
+      },
+      "star": {
+        "title": "",
+        "description": "Katta yulduz portlaganida, u zichlashib, qora tuynukka aylanishi mumkin."
+      },
+      "horizon": {
+        "title": "",
+        "description": "Qora tuynukning chegarasi hodisalar gorizonti deb ataladi. Undan keyin hech narsa tashqariga chiqa olmaydi."
+      },
+      "milkyWay": {
+        "title": "",
+        "description": "Bizning Somon yo'li galaktikamiz markazida yuqori massaga ega qora tuynuk joylashgan."
+      },
+      "indirect": {
+        "title": "",
+        "description": "Qora tuynukni to'g'ridan-to'g'ri ko'rib bo'lmaydi, ammo olimlar uning atrofdagi obyektlarga ta'sirini kuzatmoqdalar."
+      }
+    },
     "rocketry": {
       "nose": {
         "title": "Raketaning burun qismi",
