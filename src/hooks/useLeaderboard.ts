@@ -6,13 +6,13 @@ import {
   type LeaderboardEntry,
 } from '@/src/services/userService';
 
-export function useLeaderboard(count: number = 10) {
+export function useLeaderboard() {
   const [players, setPlayers] = useState<LeaderboardEntry[]>([]);
 
   useEffect(() => {
-    const unsubscribe = subscribeTopUsers(count, setPlayers);
+    const unsubscribe = subscribeTopUsers(setPlayers);
     return () => unsubscribe();
-  }, [count]);
+  }, []);
 
   return players;
 }

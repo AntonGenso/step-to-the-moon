@@ -101,6 +101,15 @@
   white-space: nowrap;
 }
 
+.xp {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: clamp(10px, 0.9vw, 13px);
+  font-weight: 600;
+  color: var(--color-orange);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 /* Action badge */
 .action {
   flex-shrink: 0;

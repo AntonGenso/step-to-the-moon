@@ -8,6 +8,8 @@ export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const session = request.cookies.get('session')?.value;
 
+  const locale = pathname.startsWith('/uz') ? 'uz' : 'ru';
+
   // Strip locale prefix to get the "real" path
   const pathnameWithoutLocale = pathname.replace(/^\/(uz)/, '') || '/';
   const isAuthPage =
@@ -15,9 +17,14 @@ export default function middleware(request: NextRequest) {
 
   // Authenticated user on login/signup → redirect to home
   if (session && isAuthPage) {
-    const locale = pathname.startsWith('/uz') ? 'uz' : 'ru';
     const redirectUrl = locale === 'uz' ? '/uz' : '/';
     return NextResponse.redirect(new URL(redirectUrl, request.url));
+  }
+
+  // Unauthenticated user on any protected page → redirect to login
+  if (!session && !isAuthPage) {
+    const loginUrl = locale === 'uz' ? '/uz/login' : '/login';
+    return NextResponse.redirect(new URL(loginUrl, request.url));
   }
 
   return intlMiddleware(request);

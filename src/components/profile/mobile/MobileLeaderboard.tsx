@@ -8,7 +8,7 @@ import { GlassFrame } from '@/src/uikit/glass-frame/GlassFrame';
 import { useTranslations } from 'next-intl';
 
 export const MobileLeaderboard = () => {
-  const players = useLeaderboard(10);
+  const players = useLeaderboard();
   const { nickname } = useAuth();
   const t = useTranslations('leaderboard');
 

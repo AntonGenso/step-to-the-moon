@@ -9,8 +9,6 @@ import { useAuth } from '@/src/context/AuthContext';
 import { useTranslations } from 'next-intl';
 import lockedImg from '@/public/images/profile/mission/lockd-mission.webp';
 
-const XP_PER_LEVEL = 500;
-
 export const MobileMission = () => {
   const { profile } = useAuth();
   const router = useRouter();
@@ -25,7 +23,6 @@ export const MobileMission = () => {
         <div className={styles.cardList}>
           {missionData.map((mission) => {
             const Icon = mission.icon as string;
-            const xp = mission.level * XP_PER_LEVEL;
             const isDone = profile?.missions?.[`mission_${mission.id}`]?.status === 'done';
 
             const isLocked = !mission.isAtive;
@@ -58,7 +55,7 @@ export const MobileMission = () => {
                       </div>
 
                       <div className={styles.xpBadge}>
-                        <span className={styles.xpValue}>{xp}</span>
+                        <span className={styles.xpValue}>{mission.xp}</span>
                         <span className={styles.xpUnit}>{tc('xp').toLowerCase()}</span>
                       </div>
                     </div>

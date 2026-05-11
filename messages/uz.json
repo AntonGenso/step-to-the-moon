@@ -10,7 +10,9 @@
     "signingIn": "Kirish...",
     "signUp": "Ro'yxatdan o'tish",
     "signingUp": "Ro'yxatdan o'tilmoqda...",
+    "logIn": "Kirish",
     "noAccount": "Hisobingiz yo'qmi?",
+    "haveAccount": "Hisobingiz bormi?",
     "somethingWrong": "Xatolik yuz berdi. Qayta urinib ko'ring.",
     "pinsNoMatch": "PIN kodlar mos kelmaydi",
     "placeholder": {

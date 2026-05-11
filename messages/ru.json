@@ -10,7 +10,9 @@
     "signingIn": "Signing in...",
     "signUp": "Sign Up",
     "signingUp": "Signing up...",
+    "logIn": "Log In",
     "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
     "somethingWrong": "Something went wrong. Please try again.",
     "pinsNoMatch": "PINs do not match",
     "placeholder": {

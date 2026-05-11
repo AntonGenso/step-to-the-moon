@@ -59,6 +59,7 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
                   image={item.icon}
                   title={item.title}
                   level={item.level}
+                  xp={item.xp}
                   setActiveMission={() => handleActiveMision(item.id)}
                   label="level"
                 />

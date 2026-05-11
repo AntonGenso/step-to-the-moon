@@ -8,7 +8,6 @@ import {
   collection,
   query,
   orderBy,
-  limit,
   onSnapshot,
   type Unsubscribe,
 } from 'firebase/firestore';
@@ -189,13 +188,11 @@ export const updateUserSkin = async (nickname: string, skin: UserSkin) => {
  * Returns an unsubscribe function.
  */
 export const subscribeTopUsers = (
-  count: number,
   callback: (entries: LeaderboardEntry[]) => void,
 ): Unsubscribe => {
   const q = query(
     collection(db, 'users'),
     orderBy('leaderboard.total', 'desc'),
-    limit(count),
   );
 
   return onSnapshot(q, (snap) => {

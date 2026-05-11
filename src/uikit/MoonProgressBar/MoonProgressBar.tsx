@@ -13,15 +13,15 @@ interface IMoonProgressBarProps {
 
 export const MoonProgressBar = ({ progress, distance }: IMoonProgressBarProps) => {
   const safeProgress = Math.min(Math.max((progress / distance) * 100, 0), 100);
+  const iconLeft = `max(0px, calc(${safeProgress}% - 15px))`;
 
   return (
     <div className={styles.mainContainer}>
       <div className={styles.progressWrapper}>
         <LandIcon className={styles.landIcon} />
         <div className={styles.progressBar}>
-          <div className={styles.progressBarFill} style={{ width: `${safeProgress}%` }}>
-            <BoyIcon className={styles.boyIcon} style={{ left: `calc(${safeProgress}% - 15px)` }} />
-          </div>
+          <div className={styles.progressBarFill} style={{ width: `${safeProgress}%` }} />
+          <BoyIcon className={styles.boyIcon} style={{ left: iconLeft }} />
         </div>
         <MoonIcon className={styles.moonIcon} />
       </div>

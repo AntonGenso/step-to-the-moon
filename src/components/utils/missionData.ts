@@ -36,6 +36,7 @@ export interface IMissionData {
   icon: StaticImageData | string;
   title: string;
   level: number;
+  xp: number;
   description: string;
   isAtive: boolean;
   gameLink: string;
@@ -58,6 +59,7 @@ export const missionData: IMissionData[] = [
     icon: EarthIcon,
     title: 'Earth',
     level: 1,
+    xp: 100,
     isAtive: true,
     gameLink: 'https://allelf.github.io/MMOArcade/',
     description:
@@ -106,6 +108,7 @@ export const missionData: IMissionData[] = [
     icon: EarthIcon,
     title: 'Earth',
     level: 2,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -122,6 +125,7 @@ export const missionData: IMissionData[] = [
     icon: AtmosphereIcon,
     title: 'Atmosphere',
     level: 3,
+    xp: 100,
     isAtive: true,
     gameLink: 'https://allelf.github.io/Cosmo2D/',
     description:
@@ -137,6 +141,7 @@ export const missionData: IMissionData[] = [
     icon: AtmosphereIcon,
     title: 'Atmosphere',
     level: 4,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -152,6 +157,7 @@ export const missionData: IMissionData[] = [
     icon: CanyonFlightIcon,
     title: 'Canyon Flight',
     level: 5,
+    xp: 100,
     isAtive: true,
     gameLink: 'https://allelf.github.io/FlyPlane/',
     description:
@@ -167,6 +173,7 @@ export const missionData: IMissionData[] = [
     icon: defaultImage,
     title: 'Telescope',
     level: 6,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -182,6 +189,7 @@ export const missionData: IMissionData[] = [
     icon: defaultImage,
     title: 'Telescope',
     level: 7,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -197,6 +205,7 @@ export const missionData: IMissionData[] = [
     icon: SatelliteIcon,
     title: 'Satellite',
     level: 8,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -212,6 +221,7 @@ export const missionData: IMissionData[] = [
     icon: SatelliteIcon,
     title: 'Satellite',
     level: 9,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -227,6 +237,7 @@ export const missionData: IMissionData[] = [
     icon: Rockety,
     title: 'Rocket',
     level: 10,
+    xp: 100,
     isAtive: true,
     gameLink: 'https://allelf.github.io/PuzzleWebGL/',
     description:
@@ -243,6 +254,7 @@ export const missionData: IMissionData[] = [
     icon: Rockety,
     title: 'Rocket',
     level: 11,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -259,6 +271,7 @@ export const missionData: IMissionData[] = [
     icon: SolarSystemIcon,
     title: 'Solar System',
     level: 12,
+    xp: 100,
     isAtive: true,
     gameLink: 'https://allelf.github.io/CosmoTourist2DGame/',
     description:
@@ -274,6 +287,7 @@ export const missionData: IMissionData[] = [
     icon: SolarSystemIcon,
     title: 'Solar System',
     level: 13,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -289,6 +303,7 @@ export const missionData: IMissionData[] = [
     icon: MoonRoverIcon,
     title: 'Moon Rover',
     level: 14,
+    xp: 100,
     isAtive: true,
     gameLink: 'https://antongenso.github.io/moon-rover/?uid=USER_ID&api=https://your-platform.com',
     description:
@@ -304,6 +319,7 @@ export const missionData: IMissionData[] = [
     icon: MoonRoverIcon,
     title: 'Moon Rover',
     level: 15,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -320,6 +336,7 @@ export const missionData: IMissionData[] = [
     icon: SunhIcon,
     title: 'Comets & Asteroids',
     level: 16,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -335,6 +352,7 @@ export const missionData: IMissionData[] = [
     icon: SunhIcon,
     title: 'Comets & Asteroids',
     level: 17,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -350,6 +368,7 @@ export const missionData: IMissionData[] = [
     icon: BlackHoleIcon,
     title: 'Black Hole',
     level: 18,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -365,6 +384,7 @@ export const missionData: IMissionData[] = [
     icon: BlackHoleIcon,
     title: 'Black Hole',
     level: 19,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -380,6 +400,7 @@ export const missionData: IMissionData[] = [
     icon: GalaxyIcon,
     title: 'Galaxy',
     level: 20,
+    xp: 100,
     isAtive: true,
     gameLink: '',
     description:
@@ -395,6 +416,7 @@ export const missionData: IMissionData[] = [
     icon: SunhIcon,
     title: 'The Sun',
     level: 21,
+    xp: 100,
     isAtive: true,
     gameLink: 'https://ziyoda-1995.github.io/Game_jame/Rus%20ideal%20game/index.html',
     description:

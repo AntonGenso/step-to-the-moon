@@ -108,12 +108,17 @@ $grey: #adbecc;
   background: linear-gradient(135deg, $primary, #00b8a9);
   transition: opacity 0.2s;
 
-  &:hover {
+  &:hover:not(:disabled) {
     opacity: 0.85;
   }
 
-  &:active {
+  &:active:not(:disabled) {
     opacity: 0.7;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }
 

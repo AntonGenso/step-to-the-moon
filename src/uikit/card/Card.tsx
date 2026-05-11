@@ -11,6 +11,7 @@ interface ICardProps {
   image: ElementType | StaticImageData | string;
   title: string;
   level: number;
+  xp: number;
   status: boolean;
   setActiveMission: (level: number) => void;
   label: string;
@@ -20,6 +21,7 @@ export const Card = ({
   image,
   title,
   level,
+  xp,
   status,
   setActiveMission,
   label = 'level',
@@ -51,6 +53,7 @@ export const Card = ({
           {label} {String(level).padStart(2, '0')}
         </span>
         <h3 className={styles.title}>{title}</h3>
+        <span className={styles.xp}>{xp} {tc('xp')}</span>
       </div>
       <div className={cn(styles.action, { [styles.actionLocked]: !status })}>
         {status ? tc('start') : tc('locked')}

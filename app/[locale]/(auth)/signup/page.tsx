@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from '@/src/i18n/navigation';
+import { Link, useRouter } from '@/src/i18n/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import {
   validateNickname,
@@ -137,6 +137,13 @@ export default function SignupPage() {
         >
           {loading ? t('signingUp') : t('signUp')}
         </button>
+
+        <p className={styles.subtitle} style={{ marginTop: '1rem', marginBottom: 0 }}>
+          {t('haveAccount')}{' '}
+          <Link href="/login" style={{ color: '#00e3ff', textDecoration: 'underline' }}>
+            {t('logIn')}
+          </Link>
+        </p>
       </form>
     </div>
   );
