@@ -1,5 +1,5 @@
 import EarthIcon from '@/public/images/profile/mission/earth-image.webp';
-import SunhIcon from '@/public/images/profile/mission/solar-image.webp';
+// import SunhIcon from '@/public/images/profile/mission/solar-image.webp';
 import Rockety from '@/public/images/profile/mission/mission-rocket.webp';
 import AtmosphereIcon from '@/public/images/profile/mission/atmosphere-image.webp';
 import CanyonFlightIcon from '@/public/images/profile/mission/canyon-image.webp';
@@ -11,7 +11,7 @@ import SatelliteIcon from '@/public/images/profile/mission/satellita-image.webp'
 import TelescopeIcon from '@/public/images/profile/mission/telescope-image.webp';
 import CommetsIcon from '@/public/images/profile/mission/comets-image.webp';
 
-import defaultImage from '@/public/images/profile/mission/test-stars.webp';
+// import defaultImage from '@/public/images/profile/mission/test-stars.webp';
 
 import core from '@/public/images/facts/earth/earth-1.webp';
 import mantle from '@/public/images/facts/earth/earth-2.webp';
@@ -29,7 +29,7 @@ import {
   rocketyBonusFacts,
   solarSystemFacts,
   stellitesFacts,
-  sunFacts,
+  // sunFacts,
   telescopeFacts,
 } from './factsData';
 
