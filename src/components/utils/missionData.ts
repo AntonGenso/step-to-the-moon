@@ -8,6 +8,8 @@ import MoonRoverIcon from '@/public/images/profile/mission/moon-rover-image.webp
 import GalaxyIcon from '@/public/images/profile/mission/galaxy-image.webp';
 import BlackHoleIcon from '@/public/images/profile/mission/black-hole-image.webp';
 import SatelliteIcon from '@/public/images/profile/mission/satellita-image.webp';
+import TelescopeIcon from '@/public/images/profile/mission/telescope-image.webp';
+import CommetsIcon from '@/public/images/profile/mission/comets-image.webp';
 
 import defaultImage from '@/public/images/profile/mission/test-stars.webp';
 
@@ -170,7 +172,7 @@ export const missionData: IMissionData[] = [
   /* ── 6. Telescope ── */
   {
     id: 5,
-    icon: defaultImage,
+    icon: TelescopeIcon,
     title: 'Telescope',
     level: 6,
     xp: 100,
@@ -186,7 +188,7 @@ export const missionData: IMissionData[] = [
   /* ── 7. Telescope (bonus) ── */
   {
     id: 6,
-    icon: defaultImage,
+    icon: TelescopeIcon,
     title: 'Telescope',
     level: 7,
     xp: 100,
@@ -333,7 +335,7 @@ export const missionData: IMissionData[] = [
   /* ── 16. Comets & Asteroids ── */
   {
     id: 15,
-    icon: SunhIcon,
+    icon: CommetsIcon,
     title: 'Comets & Asteroids',
     level: 16,
     xp: 100,
@@ -349,7 +351,7 @@ export const missionData: IMissionData[] = [
   /* ── 17. Comets & Asteroids (bonus) ── */
   {
     id: 16,
-    icon: SunhIcon,
+    icon: CommetsIcon,
     title: 'Comets & Asteroids',
     level: 17,
     xp: 100,
@@ -411,18 +413,18 @@ export const missionData: IMissionData[] = [
   },
 
   /* ── 21. The Sun (bonus) ── */
-  {
-    id: 20,
-    icon: SunhIcon,
-    title: 'The Sun',
-    level: 21,
-    xp: 100,
-    isAtive: true,
-    gameLink: 'https://ziyoda-1995.github.io/Game_jame/Rus%20ideal%20game/index.html',
-    description:
-      'This is a description for mission sun at level 21. It provides additional context and details about the mission.',
-    videoLink: '',
-    facts: sunFacts.facts,
-    type: 'bonus',
-  },
+  // {
+  //   id: 20,
+  //   icon: SunhIcon,
+  //   title: 'The Sun',
+  //   level: 21,
+  //   xp: 100,
+  //   isAtive: true,
+  //   gameLink: 'https://ziyoda-1995.github.io/Game_jame/Rus%20ideal%20game/index.html',
+  //   description:
+  //     'This is a description for mission sun at level 21. It provides additional context and details about the mission.',
+  //   videoLink: '',
+  //   facts: sunFacts.facts,
+  //   type: 'bonus',
+  // },
 ];

@@ -68,7 +68,11 @@ import blackHole3 from '@/public/images/facts/black-hole/3.webp';
 import blackHole4 from '@/public/images/facts/black-hole/4.webp';
 import blackHole5 from '@/public/images/facts/black-hole/5.webp';
 
-import defaultImage from '@/public/images/default_image.png';
+import commets1 from '@/public/images/facts/commets/1.webp';
+import commets2 from '@/public/images/facts/commets/2.webp';
+import commets3 from '@/public/images/facts/commets/3.webp';
+import commets4 from '@/public/images/facts/commets/4.webp';
+import commets5 from '@/public/images/facts/commets/5.webp';
 
 export const earthFacts = {
   name: 'earth',
@@ -422,32 +426,32 @@ export const cometsAndAsterouds = {
       title: 'Fact 1',
       description:
         'Кометы состоят из льда и пыли. Они летают по Солнечной системе с огромной скоростью.',
-      image: defaultImage,
+      image: commets4,
     },
     {
       id: 2,
       title: 'Fact 2',
       description: 'Когда комета приближается к Солнцу, лёд тает и образуется яркий хвост.',
-      image: defaultImage,
+      image: commets1,
     },
     {
       id: 3,
       title: 'Fact 3',
       description: 'Астероид состоит из камня и металла. В отличие от кометы, у него нет хвоста.',
-      image: defaultImage,
+      image: commets3,
     },
     {
       id: 4,
       title: 'Fact 4',
       description: 'Большинство астероидов находятся между Марсом и Юпитером — в поясе астероидов.',
-      image: defaultImage,
+      image: commets5,
     },
     {
       id: 5,
       title: 'Fact 5',
       description:
         'Комета Галлея — самая известная комета. Она появляется рядом с Землёй раз в 75 лет.',
-      image: defaultImage,
+      image: commets2,
     },
   ],
 };
