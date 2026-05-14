@@ -1,0 +1,16 @@
+services:
+  frontend:
+    container_name: sttm_frontend_dev
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - dev
+networks:
+  dev:
