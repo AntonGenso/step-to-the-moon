@@ -6,11 +6,12 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "4000:3000"
+      - "3000:3000"
     volumes:
       - .:/app
       - /app/node_modules
     networks:
       - dev
+
 networks:
   dev:

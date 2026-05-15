@@ -13,7 +13,7 @@ jobs:
       packages: write
     environment:
       name: production
-      url: https://sttm.21id.uz
+      url: http://steptothemoon.uz/
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -40,6 +40,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: Dockerfile.prod
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
