@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import LayoutWrapper from '@/src/components/LayoutWrapper';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Galaxy Academy',
   description: '',
