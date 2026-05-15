@@ -13,7 +13,7 @@ jobs:
       packages: write
     environment:
       name: production
-      url: http://steptothemoon.uz/
+      url: https://steptothemoon.uz/
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
