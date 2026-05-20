@@ -21,8 +21,11 @@ export const MobileMissionDetail = ({ mission }: Props) => {
   const t = useTranslations('mission');
   const tc = useTranslations('common');
   const tf = useTranslations('facts');
-  const { refreshProfile } = useAuth();
+  const { nickname, refreshProfile } = useAuth();
   const icon = mission.icon;
+  const resolvedGameLink = mission.gameLink
+    .replace('USER_ID', nickname ?? '')
+    .replace('https://your-platform.com', window.location.origin);
   const [activeOverlay, setActiveOverlay] = useState<'video' | 'game' | null>(null);
   const [openFactId, setOpenFactId] = useState<number | null>(null);
 
@@ -60,7 +63,7 @@ export const MobileMissionDetail = ({ mission }: Props) => {
             <video src={mission.videoLink} className={styles.overlayMedia} controls autoPlay />
           ) : (
             <iframe
-              src={mission.gameLink}
+              src={resolvedGameLink}
               className={styles.overlayMedia}
               allow="fullscreen; autoplay"
             />

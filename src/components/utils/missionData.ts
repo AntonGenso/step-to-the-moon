@@ -63,7 +63,8 @@ export const missionData: IMissionData[] = [
     level: 1,
     xp: 100,
     isAtive: true,
-    gameLink: 'https://allelf.github.io/MMOArcade/',
+    gameLink:
+      'https://antongenso.github.io/earth-mission-1/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 1. It provides additional context and details about the mission.',
     videoLink: '/video/mission/earth/earth.mp4',
@@ -177,7 +178,8 @@ export const missionData: IMissionData[] = [
     level: 6,
     xp: 100,
     isAtive: true,
-    gameLink: '',
+    gameLink:
+      'https://antongenso.github.io/mission-6-telescope/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 6. It provides additional context and details about the mission.',
     videoLink: '',

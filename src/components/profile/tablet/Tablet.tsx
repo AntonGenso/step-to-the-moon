@@ -70,12 +70,16 @@ export const Tablet = () => {
   };
 
   if (isGameOpen) {
+    const resolvedGameLink = gameLink
+      .replace('USER_ID', nickname ?? '')
+      .replace('https://your-platform.com', window.location.origin);
+
     return (
       <div className={styles.gameOverlay}>
         <button className={styles.gameCloseBtn} onClick={() => setIsGameOpen(false)}>
           {t('close')}
         </button>
-        <iframe src={gameLink} className={styles.gameIframe} allowFullScreen />
+        <iframe src={resolvedGameLink} className={styles.gameIframe} allowFullScreen />
       </div>
     );
   }
