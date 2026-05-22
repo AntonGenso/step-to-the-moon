@@ -75,7 +75,15 @@
     "playGame": "O'yinni o'ynang",
     "discoverKnowledge": "Kosmik bilimlarni kashf eting",
     "open": "OCHISH",
-    "missionLabel": "MISSIYA"
+    "missionLabel": "MISSIYA",
+    "instruction": "KO'RSATMA",
+    "checkInstruction": "ko'rsatmani tekshiring",
+    "seeInstruction": "KO'RSATMANI KO'RISH",
+    "playNotGame": "O'yin emas, vazifa",
+    "yourResults": "NATIJALARINGIZ",
+    "letsCheck": "nima qilganingizni ko'rib chiqamiz",
+    "uploadFile": "FAYLNI YUKLANG",
+    "sendUsFile": "faylingizni yuboring"
   },
   "tests": {
     "title": "TESTLAR",

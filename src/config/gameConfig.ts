@@ -16,4 +16,4 @@ export const MISSION_IDS = missionData.map((m) => `mission_${m.id}`);
 export const TEST_IDS = testData.map((t) => `test_${t.id}`);
 
 /** Total max XP for the progress bar */
-export const MAX_XP = 690;
+export const MAX_XP = 2600;

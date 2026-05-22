@@ -21,9 +21,9 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(redirectUrl, request.url));
   }
 
-  // Unauthenticated user on any protected page → redirect to login
+  // Unauthenticated user on any protected page → redirect to signup
   if (!session && !isAuthPage) {
-    const loginUrl = locale === 'uz' ? '/uz/login' : '/login';
+    const loginUrl = locale === 'uz' ? '/uz/signup' : '/signup';
     return NextResponse.redirect(new URL(loginUrl, request.url));
   }
 

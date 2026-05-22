@@ -117,7 +117,7 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 2. It provides additional context and details about the mission.',
     videoLink: '',
-    fileLink: '/files/mission/earth_model.pdf',
+    fileLink: '/files/mission/2-Mission-Earth.pdf',
     facts: [],
     type: 'bonus',
   },
@@ -211,7 +211,7 @@ export const missionData: IMissionData[] = [
     level: 8,
     xp: 100,
     isAtive: true,
-    gameLink: '',
+    gameLink: 'https://antongenso.github.io/mission-8-satellite/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 8. It provides additional context and details about the mission.',
     videoLink: '',
@@ -264,7 +264,7 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 11. It provides additional context and details about the mission.',
     videoLink: '',
-    fileLink: '/files/mission/rocket_instruction.pdf',
+    fileLink: '/files/mission/11-Mission-Rocket.pdf',
     facts: rocketyBonusFacts.facts,
     type: 'bonus',
   },
@@ -329,7 +329,7 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 15. It provides additional context and details about the mission.',
     videoLink: '',
-    fileLink: '/files/mission/Instrukciya_lunohoda.pdf',
+    fileLink: '/files/mission/15-Mission-Moon-Rover.pdf',
     facts: moonRoverBonusFacts.facts,
     type: 'bonus',
   },

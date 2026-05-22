@@ -75,7 +75,15 @@
     "playGame": "Play the game",
     "discoverKnowledge": "Discover space knowledge",
     "open": "OPEN",
-    "missionLabel": "MISSION"
+    "missionLabel": "MISSION",
+    "instruction": "INSTRUCTION",
+    "checkInstruction": "check the instruction",
+    "seeInstruction": "SEE THE INSTRUCTION",
+    "playNotGame": "Play but not the game",
+    "yourResults": "YOUR RESULTS",
+    "letsCheck": "lets check what you have done",
+    "uploadFile": "UPLOAD THE FILE",
+    "sendUsFile": "send us your file"
   },
   "tests": {
     "title": "TESTS",

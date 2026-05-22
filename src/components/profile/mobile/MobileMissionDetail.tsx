@@ -94,41 +94,84 @@ export const MobileMissionDetail = ({ mission }: Props) => {
 
           {/* Scrollable content */}
           <div className={styles.content}>
-            {/* Activities */}
-            <section className={styles.section}>
-              <h3 className={styles.sectionTitle}>{t('activities')}</h3>
-              <p className={styles.sectionSub}>{t('chooseType')}</p>
+            {mission.type === 'bonus' ? (
+              <>
+                {/* Instruction section */}
+                <section className={styles.section}>
+                  <h3 className={styles.sectionTitle}>{t('instruction')}</h3>
+                  <p className={styles.sectionSub}>{t('checkInstruction')}</p>
 
-              <div className={styles.activityRow}>
-                {/* Video card */}
-                <button
-                  className={`${styles.activityCard} ${styles.videoCard}`}
-                  disabled={!mission.videoLink}
-                  onClick={() => mission.videoLink && setActiveOverlay('video')}
-                >
-                  <div className={styles.activityCircle}>
-                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                      <path d="M8 4L24 14L8 24V4Z" fill="#fff" />
-                    </svg>
-                  </div>
-                  <span className={styles.activityLabel}>{t('video').toUpperCase()}</span>
-                  <span className={styles.activityHint}>{t('watchVideo')}</span>
-                </button>
+                  <button
+                    className={`${styles.bonusCard} ${styles.instructionCard}`}
+                    onClick={() => mission.fileLink && window.open(mission.fileLink, '_blank')}
+                    disabled={!mission.fileLink}
+                  >
+                    <div className={styles.bonusIconCircle}>
+                      <svg width="44%" height="44%" viewBox="0 0 48 48" fill="none">
+                        <path d="M12 6h18l10 10v26H12V6z" stroke="#00d4c8" strokeWidth="3" strokeLinejoin="round" fill="rgba(0,200,200,0.08)" />
+                        <path d="M30 6v10h10" stroke="#00d4c8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M18 22h14M18 29h14M18 36h8" stroke="#00d4c8" strokeWidth="2.5" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <span className={styles.activityLabel}>{t('seeInstruction')}</span>
+                    <span className={styles.activityHint}>{t('playNotGame')}</span>
+                  </button>
+                </section>
 
-                {/* Game card */}
-                <button
-                  className={`${styles.activityCard} ${styles.gameCard}`}
-                  disabled={!mission.gameLink}
-                  onClick={() => mission.gameLink && setActiveOverlay('game')}
-                >
-                  <div className={styles.activityCircle}>
-                    <GameIcon className="w-[40%]" />
+                {/* Upload section */}
+                <section className={styles.section}>
+                  <h3 className={styles.sectionTitle}>{t('yourResults')}</h3>
+                  <p className={styles.sectionSub}>{t('letsCheck')}</p>
+
+                  <div className={`${styles.bonusCard} ${styles.uploadCard}`}>
+                    <div className={styles.bonusIconCircle}>
+                      <svg width="44%" height="44%" viewBox="0 0 48 48" fill="none">
+                        <path d="M24 32V16M24 16L16 24M24 16L32 24" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M10 36h28" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <span className={styles.activityLabel}>{t('uploadFile')}</span>
+                    <span className={styles.activityHint}>{t('sendUsFile')}</span>
                   </div>
-                  <span className={styles.activityLabel}>{t('game').toUpperCase()}</span>
-                  <span className={styles.activityHint}>{t('playGame')}</span>
-                </button>
-              </div>
-            </section>
+                </section>
+              </>
+            ) : (
+              /* Activities */
+              <section className={styles.section}>
+                <h3 className={styles.sectionTitle}>{t('activities')}</h3>
+                <p className={styles.sectionSub}>{t('chooseType')}</p>
+
+                <div className={styles.activityRow}>
+                  {/* Video card */}
+                  <button
+                    className={`${styles.activityCard} ${styles.videoCard}`}
+                    disabled={!mission.videoLink}
+                    onClick={() => mission.videoLink && setActiveOverlay('video')}
+                  >
+                    <div className={styles.activityCircle}>
+                      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                        <path d="M8 4L24 14L8 24V4Z" fill="#fff" />
+                      </svg>
+                    </div>
+                    <span className={styles.activityLabel}>{t('video').toUpperCase()}</span>
+                    <span className={styles.activityHint}>{t('watchVideo')}</span>
+                  </button>
+
+                  {/* Game card */}
+                  <button
+                    className={`${styles.activityCard} ${styles.gameCard}`}
+                    disabled={!mission.gameLink}
+                    onClick={() => mission.gameLink && setActiveOverlay('game')}
+                  >
+                    <div className={styles.activityCircle}>
+                      <GameIcon className="w-[40%]" />
+                    </div>
+                    <span className={styles.activityLabel}>{t('game').toUpperCase()}</span>
+                    <span className={styles.activityHint}>{t('playGame')}</span>
+                  </button>
+                </div>
+              </section>
+            )}
 
             {/* Facts */}
             {mission.facts.length > 0 && (
