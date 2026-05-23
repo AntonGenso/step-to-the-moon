@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, ElementType } from 'react';
+import React, { useState, useEffect } from 'react';
+import Image, { StaticImageData } from 'next/image';
 import styles from './test.module.scss';
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
 import { LinearBorder } from '@/src/uikit/linearBorder/LinearBorder';
@@ -17,7 +18,7 @@ interface TestProps {
   current: number;
   total: number;
   title?: string;
-  icon?: ElementType;
+  icon?: StaticImageData;
   onAnswer: (option: string) => void;
   onBack?: () => void;
 }
@@ -27,7 +28,7 @@ const Test: React.FC<TestProps> = ({
   current,
   total,
   title,
-  icon: Icon,
+  icon,
   onAnswer,
   onBack,
 }) => {
@@ -59,9 +60,9 @@ const Test: React.FC<TestProps> = ({
             <div className={styles.titleBadge}>
               <span>{title}</span>
             </div>
-            {Icon ? (
+            {icon ? (
               <div className={styles.decorIcon}>
-                <Icon className={styles.decorSvg} />
+                <Image src={icon} alt="" className={styles.decorSvg} />
               </div>
             ) : (
               <div className={styles.decorIcon} />

@@ -4,12 +4,10 @@ import styles from './Tests.module.scss';
 import { Card } from '@/src/uikit/card/Card';
 import { testData } from '../../utils/testData';
 import { Heading } from '@/src/uikit/heading/Heading';
-import { useAuth } from '@/src/context/AuthContext';
 import { useRouter } from '@/src/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
 export default function Tests() {
-  const { profile } = useAuth();
   const router = useRouter();
   const tn = useTranslations('nav');
   const tData = useTranslations('testData');
@@ -18,16 +16,16 @@ export default function Tests() {
     <div className={`${styles.contentWrapper} custom-scroll`}>
       <Heading title={tn('tests')} />
       <ul className={`${styles.tabletList} custom-scroll`}>
-        {testData.map((test, i) => {
-          const testKey = `test_${test.id}`;
+        {testData.map((test) => {
           const title = (tData.raw(`t${test.id}`) as { title: string }).title;
           return (
             <li key={test.id} className={styles.tabletItem}>
               <Card
                 image={test.icon}
                 title={title}
-                level={i + 1}
-                status={true}
+                level={test.id}
+                xp={test.xp}
+                status={test.isAtive}
                 setActiveMission={() => router.push(`/test/${test.id}`)}
                 label="test"
               />

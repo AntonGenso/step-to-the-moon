@@ -129,7 +129,7 @@ export const missionData: IMissionData[] = [
     title: 'Atmosphere',
     level: 3,
     xp: 100,
-    isAtive: true,
+    isAtive: false,
     gameLink: 'https://allelf.github.io/Cosmo2D/',
     description:
       'This is a description for mission sun at level 3. It provides additional context and details about the mission.',
@@ -211,7 +211,8 @@ export const missionData: IMissionData[] = [
     level: 8,
     xp: 100,
     isAtive: true,
-    gameLink: 'https://antongenso.github.io/mission-8-satellite/?uid=USER_ID&api=https://your-platform.com',
+    gameLink:
+      'https://antongenso.github.io/mission-8-satellite/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 8. It provides additional context and details about the mission.',
     videoLink: '',
@@ -276,7 +277,7 @@ export const missionData: IMissionData[] = [
     title: 'Solar System',
     level: 12,
     xp: 100,
-    isAtive: true,
+    isAtive: false,
     gameLink: 'https://allelf.github.io/CosmoTourist2DGame/',
     description:
       'This is a description for mission sun at level 12. It provides additional context and details about the mission.',
@@ -341,7 +342,7 @@ export const missionData: IMissionData[] = [
     title: 'Comets & Asteroids',
     level: 16,
     xp: 100,
-    isAtive: true,
+    isAtive: false,
     gameLink: '',
     description:
       'This is a description for mission sun at level 16. It provides additional context and details about the mission.',

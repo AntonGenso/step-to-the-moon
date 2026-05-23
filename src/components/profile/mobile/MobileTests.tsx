@@ -6,7 +6,8 @@ import { useRouter } from '@/src/i18n/navigation';
 import { GlassFrame } from '@/src/uikit/glass-frame/GlassFrame';
 import { useTranslations } from 'next-intl';
 import styles from './MobileTests.module.scss';
-import classNames from 'classnames';
+import Image from 'next/image';
+import lockedImg from '@/public/images/profile/mission/lockd-mission.webp';
 
 export const MobileTests = () => {
   const { profile } = useAuth();
@@ -23,19 +24,29 @@ export const MobileTests = () => {
       <GlassFrame>
         <div className={styles.cardList}>
           {testData.map((test) => {
-            const Icon = test.icon;
             const testKey = `test_${test.id}`;
             const isDone = profile?.tests?.[testKey]?.status === 'done';
             const savedScore = profile?.tests?.[testKey]?.score ?? 0;
+            const isLocked = !test.isAtive;
             const title = (tData.raw(`t${test.id}`) as { title: string }).title;
 
             return (
-              <div key={test.id} className={`${styles.card} ${isDone ? styles.isDone : ''}`}>
+              <div
+                key={test.id}
+                className={`${styles.card} ${isLocked ? styles.cardLocked : !isDone ? styles.notDoneBorderGradient : ''}`}
+                onClick={() => !isLocked && router.push(`/test/${test.id}`)}
+              >
                 <div className="from-bg-card-light to-bg-card shadow-inner-card flex h-full w-full gap-4 rounded-[16px] bg-gradient-to-r p-[20px_30px]">
-                  <div className={classNames(styles.iconRing, isDone && styles.iconRingPast)}>
-                    <Icon className={styles.iconSvg} />
+                  <div
+                    className={`${styles.iconRing} ${isLocked ? styles.iconRingLocked : ''} ${isDone ? styles.iconRingDone : ''}`}
+                  >
+                    {isLocked ? (
+                      <Image src={lockedImg} alt="Locked" className={styles.lockedImage} fill />
+                    ) : (
+                      <Image src={test.icon} alt="Icon" className={styles.iconSvg} />
+                    )}
                   </div>
-                  <div className="flex w-full flex-col justify-between">
+                  <div className="flex min-w-0 flex-1 flex-col justify-between">
                     <div className={styles.cardBody}>
                       <div className={styles.cardInfo}>
                         <span className={styles.testLabel}>
@@ -43,19 +54,23 @@ export const MobileTests = () => {
                         </span>
                         <span className={styles.testTitle}>{title}</span>
                       </div>
-                      {isDone && (
+                      {isDone ? (
                         <div className={styles.scoreBadge}>
                           <span className={styles.scoreValue}>{savedScore}</span>
                           <span className={styles.scoreUnit}>{tc('pts')}</span>
                         </div>
+                      ) : (
+                        <div className={styles.xpBadge}>
+                          <span className={styles.xpValue}>{test.xp}</span>
+                          <span className={styles.xpUnit}>{tc('xp').toLowerCase()}</span>
+                        </div>
                       )}
                     </div>
-                    <button
-                      onClick={() => router.push(`/test/${test.id}`)}
-                      className={`${styles.actionBtn} ${isDone ? styles.actionBtnDone : styles.actionBtnStart}`}
+                    <div
+                      className={`${styles.actionBtn} ${isLocked ? styles.actionBtnLocked : isDone ? styles.actionBtnDone : styles.actionBtnPlay}`}
                     >
-                      {isDone ? tc('retry') : tc('start')}
-                    </button>
+                      {isLocked ? tc('locked') : isDone ? tc('retry') : tc('start')}
+                    </div>
                   </div>
                 </div>
               </div>

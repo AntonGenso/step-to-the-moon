@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import Image from 'next/image';
 import { useRouter } from '@/src/i18n/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import { submitTestScore } from '@/src/services/userService';
@@ -83,8 +84,6 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
       });
     }
 
-    const Icon = testBase.icon;
-
     return (
       <div className={styles.wrapper}>
         <div className={styles.topBar}>
@@ -99,9 +98,9 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
               <div className={testStyles.titleBadge}>
                 <span>{localTest.title as string}</span>
               </div>
-              {Icon ? (
+              {testBase.icon ? (
                 <div className={testStyles.decorIcon}>
-                  <Icon className={testStyles.decorSvg} />
+                  <Image src={testBase.icon} alt="" className={testStyles.decorSvg} />
                 </div>
               ) : (
                 <div className={testStyles.decorIcon} />
