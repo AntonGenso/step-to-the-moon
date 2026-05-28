@@ -1,27 +1,15 @@
-// import Earth from '@/public/images/svg/earth.svg';
-// import Atmosphere from '@/public/images/svg/mssion/atmosphere.svg';
-// import CanyonFlight from '@/public/images/svg/mssion/canyon_flight.svg';
-// import Stars from '@/public/images/svg/mssion/stars.svg';
-// import Moon from '@/public/images/svg/mssion/moon.svg';
-// import Rocketry from '@/public/images/svg/mssion/rocketry.svg';
-// import SolarSystem from '@/public/images/svg/mssion/solar_system.svg';
-// import MoonRover from '@/public/images/svg/mssion/moon_rover.svg';
-// import Saturn from '@/public/images/svg/mssion/saturn.svg';
-// import Spacesuit from '@/public/images/svg/mssion/spacesuit.svg';
 import { StaticImageData } from 'next/image';
-
-import defaultImage from '@/public/images/profile/mission/test-stars.webp';
 
 import earthImage from '@/public/images/profile/mission/earth-image.webp';
 import atmosphereImage from '@/public/images/profile/mission/atmosphere-image.webp';
 import canyonImage from '@/public/images/profile/mission/canyon-image.webp';
-// import starsImage from '@/public/images/profile/mission/earth-image.webp';
-// import moonImage from '@/public/images/profile/mission/earth-image.webp';
+import telescopeImage from '@/public/images/profile/mission/telescope-image.webp';
+import sateliteImage from '@/public/images/profile/mission/satellita-image.webp';
+import commetsImage from '@/public/images/profile/mission/comets-image.webp';
+import blackHoleImage from '@/public/images/profile/mission/black-hole-image.webp';
 import rocketyImage from '@/public/images/profile/mission/mission-rocket.webp';
 import solarImage from '@/public/images/profile/mission/solar-system-image.webp';
 import moonRoverImage from '@/public/images/profile/mission/moon-rover-image.webp';
-// import saturnImage from '@/public/images/profile/mission/earth-image.webp';
-// import suitImage from '@/public/images/profile/mission/earth-image.webp';
 
 export interface ITestBase {
   id: number;
@@ -59,7 +47,7 @@ export const testData: ITestBase[] = [
   },
   {
     id: 4,
-    icon: defaultImage,
+    icon: telescopeImage,
     xp: 50,
     isAtive: true,
     questionCount: 5,
@@ -67,7 +55,7 @@ export const testData: ITestBase[] = [
   },
   {
     id: 5,
-    icon: defaultImage,
+    icon: sateliteImage,
     xp: 50,
     isAtive: true,
     questionCount: 5,
@@ -99,7 +87,7 @@ export const testData: ITestBase[] = [
   },
   {
     id: 9,
-    icon: defaultImage,
+    icon: commetsImage,
     xp: 50,
     isAtive: true,
     questionCount: 5,
@@ -107,7 +95,7 @@ export const testData: ITestBase[] = [
   },
   {
     id: 10,
-    icon: defaultImage,
+    icon: blackHoleImage,
     xp: 50,
     isAtive: true,
     questionCount: 5,
