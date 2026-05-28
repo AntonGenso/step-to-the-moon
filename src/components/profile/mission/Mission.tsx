@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { missionData } from '../../utils/missionData';
 import { useSearchParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import styles from './Mission.module.scss';
 import Image from 'next/image';
 import defaultImage from '@/public/images/default_image.png';
@@ -25,6 +25,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
   const searchParams = useSearchParams();
   const t = useTranslations('mission');
   const tf = useTranslations('facts');
+  const locale = useLocale();
 
   const mission = missionData.find((item) => item.id === Number(searchParams.get('missionId')));
 
@@ -85,9 +86,8 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
   }, []);
 
   const handleDownload = () => {
-    if (mission?.fileLink) {
-      window.open(mission.fileLink, '_blank');
-    }
+    const url = mission?.fileLinks?.[locale] ?? mission?.fileLinks?.ru;
+    if (url) window.open(url, '_blank');
   };
 
   const handleUpload = () => {

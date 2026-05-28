@@ -43,7 +43,7 @@ export interface IMissionData {
   isAtive: boolean;
   gameLink: string;
   videoLink: string;
-  fileLink?: string;
+  fileLinks?: Record<string, string>;
   facts: {
     id: number;
     title: string;
@@ -117,7 +117,10 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 2. It provides additional context and details about the mission.',
     videoLink: '',
-    fileLink: '/files/mission/2-Mission-Earth.pdf',
+    fileLinks: {
+      ru: '/files/mission/2-Mission-Earth.pdf',
+      uz: '/files/mission/2-Mission-Earth-Uz.pdf',
+    },
     facts: [],
     type: 'bonus',
   },
@@ -248,7 +251,6 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 10. It provides additional context and details about the mission.',
     videoLink: '',
-    fileLink: '',
     facts: rocketryFacts.facts,
     type: 'current',
   },
@@ -265,7 +267,10 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 11. It provides additional context and details about the mission.',
     videoLink: '',
-    fileLink: '/files/mission/11-Mission-Rocket.pdf',
+    fileLinks: {
+      ru: '/files/mission/11-Mission-Rocket.pdf',
+      uz: '/files/mission/11-Mission-Rocket-Uz.pdf',
+    },
     facts: rocketyBonusFacts.facts,
     type: 'bonus',
   },
@@ -330,7 +335,10 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 15. It provides additional context and details about the mission.',
     videoLink: '',
-    fileLink: '/files/mission/15-Mission-Moon-Rover.pdf',
+    fileLinks: {
+      ru: '/files/mission/15-Mission-Moon-Rover.pdf',
+      uz: '/files/mission/15-Mission-Moon-Rover.pdf',
+    },
     facts: moonRoverBonusFacts.facts,
     type: 'bonus',
   },

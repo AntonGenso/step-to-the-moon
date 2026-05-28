@@ -6,7 +6,7 @@ import Image from 'next/image';
 import styles from './MobileMissionDetail.module.scss';
 import { IMissionData } from '@/src/components/utils/missionData';
 import { MobileBottomNav } from './MobileBottomNav';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useAuth } from '@/src/context/AuthContext';
 import GameIcon from '@/public/images/svg/mobile/other/game.svg';
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
@@ -21,6 +21,7 @@ export const MobileMissionDetail = ({ mission }: Props) => {
   const t = useTranslations('mission');
   const tc = useTranslations('common');
   const tf = useTranslations('facts');
+  const locale = useLocale();
   const { nickname, refreshProfile } = useAuth();
   const icon = mission.icon;
   const resolvedGameLink = mission.gameLink
@@ -103,8 +104,11 @@ export const MobileMissionDetail = ({ mission }: Props) => {
 
                   <button
                     className={`${styles.bonusCard} ${styles.instructionCard}`}
-                    onClick={() => mission.fileLink && window.open(mission.fileLink, '_blank')}
-                    disabled={!mission.fileLink}
+                    onClick={() => {
+                      const url = mission.fileLinks?.[locale] ?? mission.fileLinks?.ru;
+                      if (url) window.open(url, '_blank');
+                    }}
+                    disabled={!mission.fileLinks}
                   >
                     <div className={styles.bonusIconCircle}>
                       <svg width="44%" height="44%" viewBox="0 0 48 48" fill="none">
