@@ -23,39 +23,37 @@ export const CurrentMissionView = ({
 }) => {
   const t = useTranslations('mission');
 
+  const hasVideo = !!mission?.videoLink;
+
   return (
-    <>
-      <div className="relative h-[200px] w-[50%] overflow-hidden rounded-[20px] bg-[url('/images/profile/mission/video_bg.webp')] bg-cover bg-center">
-        {mission?.videoLink && (
+    <div className="grid h-full w-full grid-cols-2 gap-[20px]">
+      {hasVideo && (
+        <div className="relative col-span-1 h-full overflow-hidden rounded-[20px] bg-[url('/images/profile/mission/video_bg.webp')] bg-cover bg-center">
           <video
             ref={videoRef || ''}
-            src={mission.videoLink}
+            src={mission!.videoLink}
             className="w-full max-w-3xl"
             preload="metadata"
             controls={false}
           />
-        )}
-        <div className="absolute top-1/2 left-1/2 flex w-[20%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center">
-          <button
-            type="button"
-            className={`flex w-full flex-col items-center justify-center gap-[5px] ${styles.videoButton}`}
-            onClick={mission?.videoLink ? handlePlay : undefined}
-          >
-            {mission?.videoLink ? (
+          <div className="absolute top-1/2 left-1/2 flex w-[20%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center">
+            <button
+              type="button"
+              className={`flex w-full flex-col items-center justify-center gap-[5px] ${styles.videoButton}`}
+              onClick={handlePlay}
+            >
               <PlayIcon className="cursor-pointer" />
-            ) : (
-              <LockIcon className="cursor-pointer" />
-            )}
-          </button>
+            </button>
+          </div>
+          <span
+            className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
+          >
+            {t('video')}
+          </span>
         </div>
-        <span
-          className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
-        >
-          {t('video')}
-        </span>
-      </div>
+      )}
       <div
-        className={`${mission?.gameLink ? "bg-[url('/images/profile/mission/game_bg.webp')]" : 'bg-black'} relative h-full w-[50%] rounded-[20px] bg-cover bg-center`}
+        className={`${mission?.gameLink ? "bg-[url('/images/profile/mission/game_bg.webp')]" : 'bg-black'} relative h-full rounded-[20px] bg-cover bg-center ${!hasVideo ? 'col-span-2' : 'col-span-1'}`}
       >
         <button
           type="button"
@@ -74,6 +72,6 @@ export const CurrentMissionView = ({
           {t('game')}
         </span>
       </div>
-    </>
+    </div>
   );
 };

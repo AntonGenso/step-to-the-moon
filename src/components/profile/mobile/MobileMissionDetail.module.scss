@@ -170,6 +170,10 @@
     inset 0 0 12px rgba(10, 138, 154, 0.05);
 }
 
+.gameCardFull {
+  grid-column: 1 / -1;
+}
+
 .activityCircle {
   width: clamp(72px, 22vw, 96px);
   height: clamp(72px, 22vw, 96px);

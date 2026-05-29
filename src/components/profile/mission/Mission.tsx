@@ -105,7 +105,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
 
   return (
     <div className="custom-scroll relative flex h-full w-full flex-col gap-[20px] overflow-auto">
-      <div className="flex h-full gap-[10px]">
+      <div className="flex h-full">
         {mission?.type === 'current' ? (
           <CurrentMissionView
             mission={mission}
