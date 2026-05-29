@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Step to the Moon – Intro</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .stage {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, #0a0e1f 0%, #02040a 60%, #000 100%);
+    overflow: hidden;
+  }
+  canvas#stars {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.05);
+    opacity: 0;
+    will-change: transform, opacity, filter;
+    filter: blur(20px);
+  }
+  .logo img {
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  #logo-21 img {
+    height: 180px;
+    width: auto;
+  }
+  #logo-uz img {
+    height: 140px;
+    width: auto;
+  }
+  #scene-a4 {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transform: scale(1);
+    will-change: transform;
+    z-index: 1;
+  }
+  #intro-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    transition: opacity 1800ms ease-out;
+    will-change: opacity;
+  }
+  #intro-overlay.fade { opacity: 0; }
+  #video-desktop { display: block; width: 100%; height: 100%; }
+  #video-mobile { display: none; width: 100%; height: 100%; }
+  #scene-a4 video {
+    object-fit: cover;
+    object-position: center;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  #video-wrap {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+  #top-bar {
+    display: none;
+    padding: 32px 32px 20px;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 700ms ease-out;
+    pointer-events: none;
+  }
+  #top-bar.show { opacity: 1; }
+  #top-bar .top-logo {
+    height: 70px;
+    width: auto;
+    display: block;
+  }
+  #top-bar .logo-uz {
+    height: 56px;
+  }
+  #start-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 20px 24px 36px;
+    pointer-events: none;
+  }
+  #start-btn {
+    opacity: 0;
+    transform: translateY(24px);
+    background: #FF6B35;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 18px 56px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-family: system-ui, -apple-system, sans-serif;
+    cursor: pointer;
+    pointer-events: none;
+    box-shadow: 0 8px 28px rgba(255, 107, 53, 0.4), 0 0 0 0 rgba(255, 107, 53, 0.5);
+    transition: opacity 700ms ease-out, transform 700ms cubic-bezier(0.16, 1, 0.3, 1),
+                background 0.2s, box-shadow 0.3s;
+  }
+  #start-btn.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    animation: pulse 2.4s ease-in-out 1.4s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 8px 28px rgba(255, 107, 53, 0.4), 0 0 0 0 rgba(255, 107, 53, 0.5); }
+    50% { box-shadow: 0 8px 28px rgba(255, 107, 53, 0.5), 0 0 0 16px rgba(255, 107, 53, 0); }
+  }
+  #start-btn:hover {
+    background: #FF8052;
+  }
+  #start-btn:active {
+    transform: translateY(2px) scale(0.98);
+  }
+  #video-fallback {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, #0a0e1f 0%, #02040a 70%, #000 100%);
+    color: #fff;
+    font-family: 'Trebuchet MS', system-ui, -apple-system, sans-serif;
+    font-size: clamp(28px, 6vw, 56px);
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 20px;
+    line-height: 1.1;
+  }
+  #video-fallback.show { display: flex; }
+  #video-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 5;
+  }
+  #video-loading.hide { display: none; }
+  #video-loading .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(255,255,255,0.15);
+    border-top-color: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 768px), (orientation: portrait) {
+    #video-desktop { display: none; }
+    #video-mobile { display: block; }
+    #top-bar { display: flex; }
+    #scene-a4 video {
+      object-fit: cover;
+    }
+    #logo-21 img {
+      height: 90px;
+    }
+    #logo-uz img {
+      height: 150px;
+    }
+  }
+
+  @media (min-width: 769px) and (orientation: landscape) {
+    #start-area {
+      position: absolute;
+      bottom: 40px;
+      left: 0;
+      right: 0;
+      padding: 0;
+    }
+  }
+  .skip {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 100;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.7);
+    padding: 8px 18px;
+    border-radius: 22px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .skip:hover {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+  }
+  .sound-btn {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    z-index: 100;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+  }
+  .sound-btn:hover {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+  }
+  .sound-btn svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+  .sound-btn.needs-click {
+    animation: soundPulse 1.8s ease-in-out infinite;
+    background: rgba(255, 107, 53, 0.15);
+    border-color: rgba(255, 107, 53, 0.5);
+    color: #FF6B35;
+  }
+  @keyframes soundPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.5); }
+    50% { box-shadow: 0 0 0 10px rgba(255, 107, 53, 0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div id="intro-overlay">
+    <canvas id="stars"></canvas>
+
+    <div class="logo" id="logo-21">
+      <img src="/images/svg/logo-en.svg" alt="School 21">
+    </div>
+
+    <div class="logo" id="logo-uz">
+      <img src="/images/svg/uzcosmos_logo_white.svg" alt="UZCOSMOS">
+    </div>
+  </div>
+
+  <div id="scene-a4">
+    <div id="top-bar">
+      <img src="/images/svg/logo-en.svg" alt="School 21" class="top-logo">
+      <img src="/images/svg/uzcosmos_logo_white.svg" alt="UZCOSMOS" class="top-logo logo-uz">
+    </div>
+    <div id="video-wrap">
+      <video id="video-desktop" autoplay muted loop playsinline webkit-playsinline preload="auto">
+        <source src="https://cdn.jsdelivr.net/gh/AntonGenso/start-step-to-the-moon@main/video-desktop.mp4" type="video/mp4">
+      </video>
+      <video id="video-mobile" autoplay muted loop playsinline webkit-playsinline preload="auto">
+        <source src="https://cdn.jsdelivr.net/gh/AntonGenso/start-step-to-the-moon@main/video-mobile.mp4" type="video/mp4">
+      </video>
+      <div id="video-loading"><div class="spinner"></div></div>
+      <div id="video-fallback">Step<br>to the moon</div>
+    </div>
+    <div id="start-area">
+      <button id="start-btn" type="button">START</button>
+    </div>
+  </div>
+
+  <button class="skip" id="skip">SKIP →</button>
+
+  <button class="sound-btn needs-click" id="sound-btn" type="button" aria-label="Toggle sound">
+    <svg id="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="23" y1="9" x2="17" y2="15"/>
+      <line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>
+    <svg id="icon-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+  </button>
+
+  <audio id="bg-music" loop preload="auto">
+    <source src="https://cdn.jsdelivr.net/gh/AntonGenso/start-step-to-the-moon@main/STTM.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<script>
+// ============ STARFIELD ============
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = window.innerWidth * window.devicePixelRatio;
+  canvas.height = window.innerHeight * window.devicePixelRatio;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+}
+resize();
+window.addEventListener('resize', resize);
+
+const stars = [];
+const STAR_COUNT = 400;
+
+function initStars() {
+  stars.length = 0;
+  for (let i = 0; i < STAR_COUNT; i++) {
+    stars.push({
+      x: (Math.random() - 0.5) * canvas.width * 2,
+      y: (Math.random() - 0.5) * canvas.height * 2,
+      z: Math.random() * canvas.width,
+      pz: 0,
+      size: Math.random() * 1.5 + 0.3
+    });
+  }
+}
+initStars();
+
+let warpSpeed = 25;
+
+function drawStars() {
+  ctx.fillStyle = 'rgba(2, 4, 10, 0.35)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
+
+  for (const s of stars) {
+    s.pz = s.z;
+    s.z -= warpSpeed;
+
+    if (s.z < 1) {
+      s.x = (Math.random() - 0.5) * canvas.width * 2;
+      s.y = (Math.random() - 0.5) * canvas.height * 2;
+      s.z = canvas.width;
+      s.pz = s.z;
+    }
+
+    const sx = (s.x / s.z) * cx + cx;
+    const sy = (s.y / s.z) * cy + cy;
+    const psx = (s.x / s.pz) * cx + cx;
+    const psy = (s.y / s.pz) * cy + cy;
+
+    const r = (1 - s.z / canvas.width) * s.size * window.devicePixelRatio * 1.8;
+    const alpha = Math.min(1, (1 - s.z / canvas.width) * 1.2);
+
+    if (warpSpeed > 3) {
+      ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.7})`;
+      ctx.lineWidth = r * 0.6;
+      ctx.beginPath();
+      ctx.moveTo(psx, psy);
+      ctx.lineTo(sx, sy);
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+    ctx.beginPath();
+    ctx.arc(sx, sy, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  requestAnimationFrame(drawStars);
+}
+drawStars();
+
+// ============ LOGO ANIMATION ============
+const logo21 = document.getElementById('logo-21');
+const logoUz = document.getElementById('logo-uz');
+const sceneA4 = document.getElementById('scene-a4');
+
+const APPEAR_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const EXIT_EASE = 'cubic-bezier(0.7, 0, 0.84, 0)';
+
+function showLogo21() {
+  logo21.style.transition = `transform 1800ms ${APPEAR_EASE}, opacity 1400ms ease-out, filter 1400ms ease-out`;
+  logo21.style.transform = 'translate(-50%, -50%) scale(1)';
+  logo21.style.opacity = '1';
+  logo21.style.filter = 'blur(0px)';
+}
+
+function hideLogo21() {
+  logo21.style.transition = `transform 900ms ${EXIT_EASE}, opacity 700ms ease-in, filter 700ms ease-in`;
+  logo21.style.transform = 'translate(-50%, -50%) scale(3.5)';
+  logo21.style.opacity = '0';
+  logo21.style.filter = 'blur(8px)';
+}
+
+function showLogoUz() {
+  logoUz.style.transition = `transform 1800ms ${APPEAR_EASE}, opacity 1400ms ease-out, filter 1400ms ease-out`;
+  logoUz.style.transform = 'translate(-50%, -50%) scale(1)';
+  logoUz.style.opacity = '1';
+  logoUz.style.filter = 'blur(0px)';
+}
+
+function showSceneA4() {
+  const skipBtn = document.getElementById('skip');
+  skipBtn.style.transition = 'opacity 500ms ease-out';
+  skipBtn.style.opacity = '0';
+  skipBtn.style.pointerEvents = 'none';
+  setTimeout(() => {
+    skipBtn.style.visibility = 'hidden';
+    skipBtn.style.display = 'none';
+  }, 550);
+
+  const introOverlay = document.getElementById('intro-overlay');
+  introOverlay.classList.add('fade');
+
+  if (!videoFailed) {
+    tryPlayVideo();
+  }
+
+  setTimeout(() => {
+    document.getElementById('top-bar').classList.add('show');
+  }, 600);
+
+  setTimeout(() => {
+    document.getElementById('start-btn').classList.add('show');
+  }, 1400);
+}
+
+function tween(from, to, duration, onUpdate) {
+  const start = performance.now();
+  return new Promise(resolve => {
+    function step(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      onUpdate(from + (to - from) * eased);
+      if (t < 1) requestAnimationFrame(step);
+      else resolve();
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+function wait(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+let cancelled = false;
+
+async function runIntro() {
+  await wait(200);
+  if (cancelled) return;
+
+  showLogo21();
+  await wait(1800);
+  if (cancelled) return;
+
+  await wait(800);
+  if (cancelled) return;
+
+  hideLogo21();
+  await wait(500);
+  if (cancelled) return;
+
+  showLogoUz();
+  await wait(1800);
+  if (cancelled) return;
+
+  await wait(800);
+  if (cancelled) return;
+
+  logoUz.style.transition = `opacity 1200ms ease-in-out, filter 1200ms ease-in-out, transform 1200ms ease-in-out`;
+  logoUz.style.opacity = '0';
+  logoUz.style.filter = 'blur(12px)';
+  logoUz.style.transform = 'translate(-50%, -50%) scale(1.15)';
+
+  tween(25, 0.8, 1400, v => warpSpeed = v);
+  await wait(900);
+  if (cancelled) return;
+
+  showSceneA4();
+  await wait(2000);
+  if (cancelled) return;
+
+  tween(warpSpeed, 0.4, 1500, v => warpSpeed = v);
+}
+
+document.getElementById('skip').addEventListener('click', () => {
+  cancelled = true;
+  logo21.style.transition = 'opacity 200ms ease-out';
+  logoUz.style.transition = 'opacity 200ms ease-out';
+  logo21.style.opacity = '0';
+  logoUz.style.opacity = '0';
+  tween(warpSpeed, 0.4, 600, v => warpSpeed = v);
+  setTimeout(() => {
+    showSceneA4();
+  }, 250);
+  window.dispatchEvent(new CustomEvent('intro:skipped'));
+});
+
+// ============ VIDEO SETUP ============
+const vDesktop = document.getElementById('video-desktop');
+const vMobile = document.getElementById('video-mobile');
+const videoLoading = document.getElementById('video-loading');
+const videoFallback = document.getElementById('video-fallback');
+
+const isMobileDevice = window.matchMedia('(max-width: 768px), (orientation: portrait)').matches;
+const activeVideo = isMobileDevice ? vMobile : vDesktop;
+const inactiveVideo = isMobileDevice ? vDesktop : vMobile;
+
+inactiveVideo.removeAttribute('autoplay');
+inactiveVideo.pause();
+const inactiveSource = inactiveVideo.querySelector('source');
+if (inactiveSource) inactiveSource.removeAttribute('src');
+try { inactiveVideo.load(); } catch (e) {}
+
+let videoStarted = false;
+let videoFailed = false;
+
+function showVideoFallback(reason) {
+  if (videoStarted || videoFailed) return;
+  videoFailed = true;
+  vDesktop.style.display = 'none';
+  vMobile.style.display = 'none';
+  videoLoading.classList.add('hide');
+  videoFallback.classList.add('show');
+}
+
+activeVideo.addEventListener('playing', () => {
+  videoStarted = true;
+  videoLoading.classList.add('hide');
+});
+
+activeVideo.addEventListener('error', () => {
+  const err = activeVideo.error;
+  showVideoFallback(`video error code ${err ? err.code : '?'}`);
+});
+const activeSource = activeVideo.querySelector('source');
+if (activeSource) {
+  activeSource.addEventListener('error', () => showVideoFallback('source not loadable'));
+}
+
+try { activeVideo.load(); } catch (e) {}
+
+function tryPlayVideo() {
+  const p = activeVideo.play();
+  if (p !== undefined) {
+    p.catch(err => console.log('[intro] Video play() blocked:', err.message));
+  }
+}
+tryPlayVideo();
+
+// ============ BACKGROUND MUSIC ============
+const audio = document.getElementById('bg-music');
+const soundBtn = document.getElementById('sound-btn');
+const iconMuted = document.getElementById('icon-muted');
+const iconSound = document.getElementById('icon-sound');
+const TARGET_VOLUME = 0.55;
+audio.volume = 0;
+
+let musicStarted = false;
+let userMuted = false;
+
+function fadeInMusic(duration = 1500) {
+  const start = performance.now();
+  function step(now) {
+    const t = Math.min(1, (now - start) / duration);
+    audio.volume = TARGET_VOLUME * t;
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function fadeOutMusic(duration = 600) {
+  const start = performance.now();
+  const startVol = audio.volume;
+  function step(now) {
+    const t = Math.min(1, (now - start) / duration);
+    audio.volume = startVol * (1 - t);
+    if (t < 1) requestAnimationFrame(step);
+    else audio.pause();
+  }
+  requestAnimationFrame(step);
+}
+
+function setSoundIcon(on) {
+  if (on) {
+    iconMuted.style.display = 'none';
+    iconSound.style.display = 'block';
+    soundBtn.classList.remove('needs-click');
+  } else {
+    iconMuted.style.display = 'block';
+    iconSound.style.display = 'none';
+  }
+}
+
+function tryStartMusic() {
+  if (musicStarted || userMuted) return;
+  const p = audio.play();
+  if (p !== undefined) {
+    p.then(() => {
+      musicStarted = true;
+      fadeInMusic();
+      setSoundIcon(true);
+    }).catch(() => {});
+  }
+}
+
+tryStartMusic();
+
+function onFirstInteraction() {
+  tryStartMusic();
+  if (!videoStarted && !videoFailed) tryPlayVideo();
+  if (musicStarted) {
+    document.removeEventListener('click', onFirstInteraction);
+    document.removeEventListener('touchstart', onFirstInteraction);
+    document.removeEventListener('keydown', onFirstInteraction);
+  }
+}
+document.addEventListener('click', onFirstInteraction);
+document.addEventListener('touchstart', onFirstInteraction);
+document.addEventListener('keydown', onFirstInteraction);
+
+soundBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (!musicStarted) { tryStartMusic(); return; }
+  if (audio.paused || userMuted) {
+    userMuted = false;
+    audio.play();
+    fadeInMusic(400);
+    setSoundIcon(true);
+  } else {
+    userMuted = true;
+    fadeOutMusic(400);
+    setSoundIcon(false);
+  }
+});
+
+audio.addEventListener('error', () => {
+  soundBtn.style.display = 'none';
+});
+
+// ============ START BUTTON ============
+document.getElementById('start-btn').addEventListener('click', () => {
+  // notify parent Next.js page to navigate to signup
+  window.parent.postMessage({ type: 'intro:start' }, '*');
+  window.dispatchEvent(new CustomEvent('intro:start'));
+});
+
+// start when logo images are loaded
+const logoImages = document.querySelectorAll('.logo img');
+let loadedCount = 0;
+const totalImages = logoImages.length;
+logoImages.forEach(img => {
+  if (img.complete) {
+    loadedCount++;
+    if (loadedCount === totalImages) runIntro();
+  } else {
+    img.addEventListener('load', () => {
+      loadedCount++;
+      if (loadedCount === totalImages) runIntro();
+    });
+    img.addEventListener('error', () => {
+      loadedCount++;
+      if (loadedCount === totalImages) runIntro();
+    });
+  }
+});
+
+setTimeout(() => {
+  if (!cancelled) window.dispatchEvent(new CustomEvent('intro:complete'));
+}, 9000);
+</script>
+
+</body>
+</html>

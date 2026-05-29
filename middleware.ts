@@ -12,19 +12,21 @@ export default function middleware(request: NextRequest) {
 
   // Strip locale prefix to get the "real" path
   const pathnameWithoutLocale = pathname.replace(/^\/(uz)/, '') || '/';
-  const isAuthPage =
-    pathnameWithoutLocale === '/login' || pathnameWithoutLocale === '/signup';
+  const isPublicPage =
+    pathnameWithoutLocale === '/login' ||
+    pathnameWithoutLocale === '/signup' ||
+    pathnameWithoutLocale === '/intro';
 
-  // Authenticated user on login/signup → redirect to home
-  if (session && isAuthPage) {
+  // Authenticated user on public auth/intro pages → redirect to home
+  if (session && isPublicPage) {
     const redirectUrl = locale === 'uz' ? '/uz' : '/';
     return NextResponse.redirect(new URL(redirectUrl, request.url));
   }
 
-  // Unauthenticated user on any protected page → redirect to signup
-  if (!session && !isAuthPage) {
-    const loginUrl = locale === 'uz' ? '/uz/signup' : '/signup';
-    return NextResponse.redirect(new URL(loginUrl, request.url));
+  // Unauthenticated user on any protected page → show intro first
+  if (!session && !isPublicPage) {
+    const introUrl = locale === 'uz' ? '/uz/intro' : '/intro';
+    return NextResponse.redirect(new URL(introUrl, request.url));
   }
 
   return intlMiddleware(request);
