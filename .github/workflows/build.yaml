@@ -8,8 +8,6 @@ on:
 jobs:
   deploy:
     name: Build and push Docker image to ghcr.io
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     permissions:
       contents: read
       packages: write
@@ -39,7 +37,7 @@ jobs:
             type=raw,value=${{ github.ref_name }}
 
       - name: Build and push Docker image to ghcr.io
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: Dockerfile.prod
@@ -71,6 +69,7 @@ jobs:
           script: |
             echo $GHCR_TOKEN | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
             cd ~/sttm
+            git pull origin main
             export GITHUB_REPOSITORY=$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')
             docker compose -f docker-compose.prod.yml pull
             docker compose -f docker-compose.prod.yml up -d --force-recreate --remove-orphans
