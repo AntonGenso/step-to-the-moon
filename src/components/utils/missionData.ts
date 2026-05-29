@@ -165,7 +165,8 @@ export const missionData: IMissionData[] = [
     level: 5,
     xp: 100,
     isAtive: true,
-    gameLink: 'https://allelf.github.io/FlyPlane/',
+    gameLink:
+      'https://antongenso.github.io/space-rush-tunnel/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 5. It provides additional context and details about the mission.',
     videoLink: '',
@@ -282,11 +283,11 @@ export const missionData: IMissionData[] = [
     title: 'Solar System',
     level: 12,
     xp: 100,
-    isAtive: false,
+    isAtive: true,
     gameLink: 'https://allelf.github.io/CosmoTourist2DGame/',
     description:
       'This is a description for mission sun at level 12. It provides additional context and details about the mission.',
-    videoLink: '/video/mission/earth/earth.mp4',
+    videoLink: '/video/mission/solar-system/Solar-System.mp4',
     facts: solarSystemFacts.facts,
     type: 'current',
   },

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from '@/src/i18n/navigation';
 import Image from 'next/image';
 import styles from './MobileMissionDetail.module.scss';
@@ -29,6 +29,14 @@ export const MobileMissionDetail = ({ mission }: Props) => {
     .replace('https://your-platform.com', window.location.origin);
   const [activeOverlay, setActiveOverlay] = useState<'video' | 'game' | null>(null);
   const [openFactId, setOpenFactId] = useState<number | null>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (openFactId === null || !carouselRef.current) return;
+    const index = mission.facts.findIndex((f) => f.id === openFactId);
+    if (index < 0) return;
+    carouselRef.current.scrollLeft = index * carouselRef.current.clientWidth;
+  }, [openFactId, mission.facts]);
 
   // Listen for score submissions from game iframe via postMessage
   useEffect(() => {
@@ -237,33 +245,39 @@ export const MobileMissionDetail = ({ mission }: Props) => {
         </>
       )}
 
-      {/* Fact modal */}
-      {openFactId !== null &&
-        (() => {
-          const fact = mission.facts.find((f) => f.id === openFactId);
-          if (!fact) return null;
-          return (
-            <div className={styles.factModal} onClick={() => setOpenFactId(null)}>
-              <div className={styles.factModalCard} onClick={(e) => e.stopPropagation()}>
-                <div className="shadow-inner-card flex h-full w-full flex-col gap-5 rounded-[50px] bg-gradient-to-r from-[#0F2D37] to-[#030505] p-[20px]">
-                  <div className={styles.factModalImageWrap}>
-                    <Image
-                      src={fact.image}
-                      alt={fact.key ? tf(`${fact.key}.title`) : fact.title}
-                      fill
-                      sizes="80vw"
-                      className={styles.factImage}
-                    />
+      {/* Fact carousel modal */}
+      {openFactId !== null && (
+        <div className={styles.factModal}>
+          <button className={styles.factCloseBtn} onClick={() => setOpenFactId(null)}>
+            ✕
+          </button>
+          <div className={styles.factCarousel} ref={carouselRef}>
+            {mission.facts.map((fact) => (
+              <div key={fact.id} className={styles.factSlide}>
+                <div className={styles.factModalCard}>
+                  <div className="shadow-inner-card flex h-full w-full flex-col gap-5 rounded-[50px] bg-gradient-to-r from-[#0F2D37] to-[#030505] p-[20px]">
+                    <div className={styles.factModalImageWrap}>
+                      <Image
+                        src={fact.image}
+                        alt={fact.key ? tf(`${fact.key}.title`) : fact.title}
+                        fill
+                        sizes="80vw"
+                        className={styles.factImage}
+                      />
+                    </div>
+                    {fact.key && (
+                      <p className={styles.factModalTitle}>{tf(`${fact.key}.title`)}</p>
+                    )}
+                    <p className={styles.factModalText}>
+                      {fact.key ? tf(`${fact.key}.description`) : fact.description}
+                    </p>
                   </div>
-                  {fact.key && <p className={styles.factModalTitle}>{tf(`${fact.key}.title`)}</p>}
-                  <p className={styles.factModalText}>
-                    {fact.key ? tf(`${fact.key}.description`) : fact.description}
-                  </p>
                 </div>
               </div>
-            </div>
-          );
-        })()}
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Bottom navigation */}
       <MobileBottomNav activeTab="mission" />
