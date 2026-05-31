@@ -132,8 +132,9 @@ export const missionData: IMissionData[] = [
     title: 'Atmosphere',
     level: 3,
     xp: 100,
-    isAtive: false,
-    gameLink: 'https://allelf.github.io/Cosmo2D/',
+    isAtive: true,
+    gameLink:
+      'https://antongenso.github.io/STTM-Atmosphere/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 3. It provides additional context and details about the mission.',
     videoLink: '',
@@ -153,6 +154,10 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 4. It provides additional context and details about the mission.',
     videoLink: '',
+    fileLinks: {
+      ru: '/files/mission/mission_04_atmosphere_ru.pdf',
+      uz: '/files/mission/mission_04_atmosphere_uz.pdf',
+    },
     facts: [],
     type: 'bonus',
   },
@@ -203,6 +208,10 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 7. It provides additional context and details about the mission.',
     videoLink: '',
+    fileLinks: {
+      ru: '/files/mission/mission_07_telescope_ru.pdf',
+      uz: '/files/mission/mission_07_telescope_uz.pdf',
+    },
     facts: [],
     type: 'bonus',
   },
@@ -236,6 +245,10 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 9. It provides additional context and details about the mission.',
     videoLink: '',
+    fileLinks: {
+      ru: '/files/mission/9_Mission_Satellite_RU.pdf',
+      uz: '/files/mission/9_Mission_Satellite_UZ.pdf',
+    },
     facts: [],
     type: 'bonus',
   },
@@ -284,7 +297,8 @@ export const missionData: IMissionData[] = [
     level: 12,
     xp: 100,
     isAtive: true,
-    gameLink: 'https://allelf.github.io/CosmoTourist2DGame/',
+    gameLink:
+      'https://antongenso.github.io/solar-system-puzzle/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 12. It provides additional context and details about the mission.',
     videoLink: '/video/mission/solar-system/Solar-System.mp4',
@@ -304,6 +318,10 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 13. It provides additional context and details about the mission.',
     videoLink: '',
+    fileLinks: {
+      ru: '/files/mission/13_Mission_Solar_System_RU.pdf',
+      uz: '/files/mission/13_Mission_Solar_System_UZ.pdf',
+    },
     facts: [],
     type: 'bonus',
   },
@@ -337,8 +355,8 @@ export const missionData: IMissionData[] = [
       'This is a description for mission sun at level 15. It provides additional context and details about the mission.',
     videoLink: '',
     fileLinks: {
-      ru: '/files/mission/15-Mission-Moon-Rover.pdf',
-      uz: '/files/mission/15-Mission-Moon-Rover.pdf',
+      ru: '/files/mission/15_Mission_Moon_Rover_RU.pdf',
+      uz: '/files/mission/15_Mission_Moon_Rover_UZ.pdf',
     },
     facts: moonRoverBonusFacts.facts,
     type: 'bonus',
@@ -351,8 +369,9 @@ export const missionData: IMissionData[] = [
     title: 'Comets & Asteroids',
     level: 16,
     xp: 100,
-    isAtive: false,
-    gameLink: '',
+    isAtive: true,
+    gameLink:
+      'https://antongenso.github.io/comets-and-asteroids/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 16. It provides additional context and details about the mission.',
     videoLink: '',
@@ -372,6 +391,10 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 17. It provides additional context and details about the mission.',
     videoLink: '',
+    fileLinks: {
+      ru: '/files/mission/mission_17_comets_ru.pdf',
+      uz: '/files/mission/mission_17_comets_uz.pdf',
+    },
     facts: [],
     type: 'bonus',
   },
@@ -383,7 +406,7 @@ export const missionData: IMissionData[] = [
     title: 'Black Hole',
     level: 18,
     xp: 100,
-    isAtive: true,
+    isAtive: false,
     gameLink: '',
     description:
       'This is a description for mission sun at level 18. It provides additional context and details about the mission.',
@@ -404,6 +427,10 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 19. It provides additional context and details about the mission.',
     videoLink: '',
+    fileLinks: {
+      ru: '/files/mission/mission_19_blackhole_ru.pdf',
+      uz: '/files/mission/mission_19_blackhole_uz.pdf',
+    },
     facts: [],
     type: 'bonus',
   },
@@ -420,6 +447,10 @@ export const missionData: IMissionData[] = [
     description:
       'This is a description for mission sun at level 20. It provides additional context and details about the mission.',
     videoLink: '',
+    fileLinks: {
+      ru: '/files/mission/mission_20_galaxy_ru.pdf',
+      uz: '/files/mission/mission_20_galaxy_uz.pdf',
+    },
     facts: [],
     type: 'bonus',
   },
