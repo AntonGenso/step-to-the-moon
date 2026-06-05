@@ -406,7 +406,7 @@ export const missionData: IMissionData[] = [
     title: 'Black Hole',
     level: 18,
     xp: 100,
-    isAtive: false,
+    isAtive: true,
     gameLink:
       'https://antongenso.github.io/sttm-mission18-blackhole/?uid=USER_ID&api=https://your-platform.com',
     description:
