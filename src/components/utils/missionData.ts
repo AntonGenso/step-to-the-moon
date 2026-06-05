@@ -407,7 +407,8 @@ export const missionData: IMissionData[] = [
     level: 18,
     xp: 100,
     isAtive: false,
-    gameLink: '',
+    gameLink:
+      'https://antongenso.github.io/sttm-mission18-blackhole/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 18. It provides additional context and details about the mission.',
     videoLink: '',
