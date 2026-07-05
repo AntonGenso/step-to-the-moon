@@ -53,7 +53,9 @@ export const Card = ({
           {label} {String(level).padStart(2, '0')}
         </span>
         <h3 className={styles.title}>{title}</h3>
-        <span className={styles.xp}>{xp} {tc('xp')}</span>
+        <span className={styles.xp}>
+          {xp} {tc('xp')}
+        </span>
       </div>
       <div className={cn(styles.action, { [styles.actionLocked]: !status })}>
         {status ? tc('start') : tc('locked')}

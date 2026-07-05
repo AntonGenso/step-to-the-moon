@@ -11,13 +11,11 @@ import Leaderboard from '../leaderboard/leaderboard';
 import Missions from '../missions/Missions';
 import { Skin } from '../../skin/Skin';
 import { useAuth } from '@/src/context/AuthContext';
-import { MAX_XP } from '@/src/config/gameConfig';
-import FullCosmonautIcon from '@/public/images/svg/mobile/other/full-cosmonaut.svg';
 import ExitIcon from '@/public/images/header/exit-icon.svg';
 import { useTranslations } from 'next-intl';
 
 export const Tablet = () => {
-  const { nickname, profile, logout, refreshProfile } = useAuth();
+  const { nickname, logout, refreshProfile } = useAuth();
   const router = useRouter();
   const t = useTranslations('common');
   const tn = useTranslations('nav');
@@ -27,9 +25,6 @@ export const Tablet = () => {
   const [isGameOpen, setIsGameOpen] = useState(false);
   const [gameLink, setGameLink] = useState('');
   const [activeTab, setActiveTab] = useState(activeTabParam || 'mission');
-
-  const total = profile?.leaderboard?.total ?? 0;
-  const progress = MAX_XP > 0 ? Math.min((total / MAX_XP) * 100, 100) : 0;
 
   const handleSetActiveParam = (value: string) => {
     const params = new URLSearchParams();
@@ -91,21 +86,8 @@ export const Tablet = () => {
         onValueChange={(value) => handleSetActiveParam(value)}
         className={styles.tabRoot}
       >
-        {/* Sidebar */}
-        <aside className={styles.sidebar}>
-          <div className={styles.sidebarProfile}>
-            <div className={styles.avatarCircle}>
-              <FullCosmonautIcon className={styles.avatarIcon} />
-            </div>
-            <span className={styles.nickname}>{nickname ?? ''}</span>
-            <div className={styles.progressWrapper}>
-              <div className={styles.progressTrack}>
-                <div className={styles.progressFill} style={{ width: `${progress}%` }} />
-              </div>
-              <span className={styles.progressText}>{total}/{MAX_XP} {t('xp')}</span>
-            </div>
-          </div>
-
+        {/* Top navigation bar */}
+        <header className={styles.topbar}>
           <List className={styles.navList}>
             {tabletButtons.map((item) => {
               const isActive = activeTab === item.title;
@@ -127,7 +109,7 @@ export const Tablet = () => {
             <ExitIcon className={styles.logoutIcon} />
             <span>{t('logout')}</span>
           </button>
-        </aside>
+        </header>
 
         {/* Content */}
         <main className={styles.contentArea}>

@@ -24,12 +24,17 @@ export const MobileMissionDetail = ({ mission }: Props) => {
   const locale = useLocale();
   const { nickname, refreshProfile } = useAuth();
   const icon = mission.icon;
+  const [origin, setOrigin] = useState('');
   const resolvedGameLink = mission.gameLink
     .replace('USER_ID', nickname ?? '')
-    .replace('https://your-platform.com', window.location.origin);
+    .replace('https://your-platform.com', origin);
   const [activeOverlay, setActiveOverlay] = useState<'video' | 'game' | null>(null);
   const [openFactId, setOpenFactId] = useState<number | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
 
   useEffect(() => {
     if (openFactId === null || !carouselRef.current) return;
@@ -218,7 +223,11 @@ export const MobileMissionDetail = ({ mission }: Props) => {
 
                 <div className={styles.factGrid}>
                   {mission.facts.map((fact) => (
-                    <div key={fact.id} className={styles.factCard}>
+                    <button
+                      key={fact.id}
+                      className={styles.factCard}
+                      onClick={() => setOpenFactId(fact.id)}
+                    >
                       <div className="shadow-inner-card flex h-full w-full flex-col gap-5 rounded-[50px] bg-gradient-to-r from-[#0F2D37] to-[#030505] p-[15px]">
                         <div className={styles.factImageWrap}>
                           <Image
@@ -229,14 +238,14 @@ export const MobileMissionDetail = ({ mission }: Props) => {
                             className={styles.factImage}
                           />
                         </div>
-                        <button
+                        <div
                           className={styles.factOpenBtn}
-                          onClick={() => setOpenFactId(fact.id)}
+                          // onClick={() => setOpenFactId(fact.id)}
                         >
                           {t('open')}
-                        </button>
+                        </div>
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
               </section>
@@ -265,9 +274,7 @@ export const MobileMissionDetail = ({ mission }: Props) => {
                         className={styles.factImage}
                       />
                     </div>
-                    {fact.key && (
-                      <p className={styles.factModalTitle}>{tf(`${fact.key}.title`)}</p>
-                    )}
+                    {fact.key && <p className={styles.factModalTitle}>{tf(`${fact.key}.title`)}</p>}
                     <p className={styles.factModalText}>
                       {fact.key ? tf(`${fact.key}.description`) : fact.description}
                     </p>

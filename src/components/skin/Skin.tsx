@@ -1,52 +1,10 @@
 import { headSkin, suit } from '@/src/utils/skinData';
-import ArrowLeft from '@/public/images/profile/skin/svg/arrow-left.svg';
-import ArrowRight from '@/public/images/profile/skin/svg/arrow-right.svg';
 import styles from './Skin.module.scss';
 import { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '@/src/context/AuthContext';
 import { updateUserSkin } from '@/src/services/userService';
-
-interface ISuitProps {
-  hair: string;
-  costum: string;
-}
-
-const SelectedSuit = ({ hair, costum }: ISuitProps) => {
-  const mainSuit = suit.find((item) => item.name === costum);
-  const mainHead = headSkin.find((item) => item.name === hair);
-
-  const SuitIcon = mainSuit?.icon || suit[0].icon;
-  const HeadIcon = mainHead?.icon || headSkin[0].icon;
-
-  return (
-    <div className={styles.skinWrapper}>
-      <HeadIcon className={styles.headIcon} />
-      <SuitIcon className={styles.costumIcon} />
-    </div>
-  );
-};
-
-const SelectedIcon = ({
-  value,
-  name,
-  className,
-}: {
-  value: number;
-  name: string;
-  className: string;
-}) => {
-  let costum;
-
-  if (name === 'suit') {
-    costum = suit.find((item) => item.id === value);
-  } else {
-    costum = headSkin.find((item) => item.id === value);
-  }
-
-  const Icon = costum?.icon || suit[0].icon;
-
-  return <Icon className={className} />;
-};
+import { MAX_XP } from '@/src/config/gameConfig';
+import ArrowIcon from '@/public/images/svg/mobile/other/arrow.svg';
 
 export const Skin = () => {
   const { nickname, profile } = useAuth();
@@ -61,8 +19,11 @@ export const Skin = () => {
     }
   }, [profile?.skin?.headId, profile?.skin?.suitId]);
 
-  const hair = headSkin.find((item) => item.id === selectedHead)?.name ?? headSkin[0].name;
-  const costum = suit.find((item) => item.id === selectedCostum)?.name ?? suit[0].name;
+  const HeadIcon = (headSkin.find((item) => item.id === selectedHead) ?? headSkin[0]).icon;
+  const SuitIcon = (suit.find((item) => item.id === selectedCostum) ?? suit[0]).icon;
+
+  const total = profile?.leaderboard?.total ?? 0;
+  const progress = MAX_XP > 0 ? Math.min((total / MAX_XP) * 100, 100) : 0;
 
   const saveSkin = useCallback(
     (headId: number, suitId: number) => {
@@ -107,55 +68,50 @@ export const Skin = () => {
 
   return (
     <div className={styles.skinContainer}>
-      {/* Left: Character Preview */}
-      <div className={styles.leftSide}>
-        <SelectedSuit hair={hair} costum={costum} />
+      {/* Profile badge: nickname + vertical XP bar + avatar */}
+      <div className={styles.profileBadge}>
+        <span className={styles.badgeNick}>{nickname ?? ''}</span>
+        <div className={styles.badgePill}>
+          <span className={styles.badgeValue}>
+            {total}/{MAX_XP}
+          </span>
+          <div className={styles.badgeTrack}>
+            <div className={styles.badgeFill} style={{ height: `${progress}%` }} />
+          </div>
+          <div className={styles.badgeAvatar}>
+            <HeadIcon className={styles.badgeAvatarIcon} />
+          </div>
+        </div>
       </div>
 
-      {/* Right: Controls */}
-      <div className={styles.rightSide}>
-        <div className={styles.selectorsWrapper}>
-          {/* Head selector */}
-          <div className={styles.selectorRow}>
-            <button
-              type="button"
-              className={styles.arrowBtn}
-              onClick={handlePrevHead}
-            >
-              <ArrowLeft />
+      {/* Character stage with head/suit selectors */}
+      <div className={styles.stage}>
+        <div className={styles.characterColumn}>
+          {/* Head with arrows */}
+          <div className={styles.headRow}>
+            <button type="button" className={styles.arrowLeft} onClick={handlePrevHead}>
+              <ArrowIcon className={styles.arrowIcon} />
             </button>
-            <div className={styles.iconDisplay}>
-              <SelectedIcon value={selectedHead} name="head" className="h-auto w-[70%]" />
+            <div className={styles.headSlot}>
+              <HeadIcon className={styles.headIcon} />
             </div>
-            <button
-              type="button"
-              className={styles.arrowBtn}
-              onClick={handleNextHead}
-            >
-              <ArrowRight />
+            <button type="button" className={styles.arrowRight} onClick={handleNextHead}>
+              <ArrowIcon className={styles.arrowIcon} />
             </button>
           </div>
 
-          {/* Suit selector */}
-          <div className={styles.selectorRow}>
-            <button
-              type="button"
-              className={styles.arrowBtn}
-              onClick={handlePrevCostum}
-            >
-              <ArrowLeft />
+          {/* Costume with arrows */}
+          <div className={styles.costumRow}>
+            <button type="button" className={styles.arrowLeft} onClick={handlePrevCostum}>
+              <ArrowIcon className={styles.arrowIcon} />
             </button>
-            <div className={styles.iconDisplay}>
-              <SelectedIcon value={selectedCostum} name="suit" className="h-auto w-[80%]" />
-            </div>
-            <button
-              type="button"
-              className={styles.arrowBtn}
-              onClick={handleNextCostum}
-            >
-              <ArrowRight />
+            <SuitIcon className={styles.costumIcon} />
+            <button type="button" className={styles.arrowRight} onClick={handleNextCostum}>
+              <ArrowIcon className={styles.arrowIcon} />
             </button>
           </div>
+
+          <div className={styles.platform} />
         </div>
       </div>
     </div>
