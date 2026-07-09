@@ -8,10 +8,10 @@ import { MobileProfile } from './mobile/MobileProfile';
 export const Profile = () => {
   return (
     <div className={styles.mainContainer}>
-      <div className="hidden max-tablet:block">
+      <div className="max-tablet:block hidden">
         <MobileProfile />
       </div>
-      <div className="block h-full max-tablet:hidden">
+      <div className="max-tablet:hidden block h-full">
         <Suspense>
           <Tablet />
         </Suspense>

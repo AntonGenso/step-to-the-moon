@@ -11,7 +11,7 @@ import Leaderboard from '../leaderboard/leaderboard';
 import Missions from '../missions/Missions';
 import { Skin } from '../../skin/Skin';
 import { useAuth } from '@/src/context/AuthContext';
-import ExitIcon from '@/public/images/header/exit-icon.svg';
+// import ExitIcon from '@/public/images/header/exit-icon.svg';
 import { useTranslations } from 'next-intl';
 
 export const Tablet = () => {
@@ -59,10 +59,10 @@ export const Tablet = () => {
     return () => window.removeEventListener('message', handleMessage);
   }, [isGameOpen, searchParams, refreshProfile]);
 
-  const handleLogout = async () => {
-    await logout();
-    router.push('/login');
-  };
+  // const handleLogout = async () => {
+  //   await logout();
+  //   router.push('/login');
+  // };
 
   if (isGameOpen) {
     const resolvedGameLink = gameLink
@@ -87,7 +87,7 @@ export const Tablet = () => {
         className={styles.tabRoot}
       >
         {/* Top navigation bar */}
-        <header className={styles.topbar}>
+        <div className={styles.topbar}>
           <List className={styles.navList}>
             {tabletButtons.map((item) => {
               const isActive = activeTab === item.title;
@@ -105,11 +105,11 @@ export const Tablet = () => {
             })}
           </List>
 
-          <button className={styles.logoutBtn} onClick={handleLogout}>
+          {/* <button className={styles.logoutBtn} onClick={handleLogout}>
             <ExitIcon className={styles.logoutIcon} />
             <span>{t('logout')}</span>
-          </button>
-        </header>
+          </button> */}
+        </div>
 
         {/* Content */}
         <main className={styles.contentArea}>
@@ -119,7 +119,7 @@ export const Tablet = () => {
           <Content tabIndex={undefined} value="profile" className={styles.tabContent}>
             <Skin />
           </Content>
-<Content value="test" className={styles.tabContent}>
+          <Content value="test" className={styles.tabContent}>
             <Test />
           </Content>
           <Content value="leader" className={styles.tabContent}>

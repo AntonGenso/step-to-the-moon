@@ -31,7 +31,7 @@ export const Skin = () => {
         updateUserSkin(nickname, { headId, suitId });
       }
     },
-    [nickname],
+    [nickname]
   );
 
   const handlePrevHead = () => {

@@ -8,7 +8,8 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   const pathname = usePathname();
 
   const hideLayout = pathname.startsWith('/login') || pathname.startsWith('/signup');
-  const isAppPage = pathname === '/' || pathname.startsWith('/test/') || pathname.startsWith('/mission/');
+  const isAppPage =
+    pathname === '/' || pathname.startsWith('/test/') || pathname.startsWith('/mission/');
   const hideFooter = isAppPage;
 
   return (
