@@ -115,7 +115,8 @@
     "level": "daraja",
     "test": "test",
     "pts": "ball",
-    "retry": "QAYTA"
+    "retry": "QAYTA",
+    "bonus": "BONUS"
   },
   "facts": {
     "earth": {

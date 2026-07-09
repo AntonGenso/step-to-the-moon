@@ -115,7 +115,8 @@
     "level": "level",
     "test": "test",
     "pts": "pts",
-    "retry": "RETRY"
+    "retry": "RETRY",
+    "bonus": "BONUS"
   },
   "facts": {
     "earth": {

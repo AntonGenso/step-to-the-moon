@@ -15,7 +15,7 @@ import { useAuth } from '@/src/context/AuthContext';
 import { useTranslations } from 'next-intl';
 
 export const Tablet = () => {
-  const { nickname, logout, refreshProfile } = useAuth();
+  const { nickname, refreshProfile } = useAuth();
   const router = useRouter();
   const t = useTranslations('common');
   const tn = useTranslations('nav');
@@ -113,11 +113,11 @@ export const Tablet = () => {
 
         {/* Content */}
         <main className={styles.contentArea}>
-          <Content value="mission" className={styles.tabContent}>
-            <Missions setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
-          </Content>
           <Content tabIndex={undefined} value="profile" className={styles.tabContent}>
             <Skin />
+          </Content>
+          <Content value="mission" className={styles.tabContent}>
+            <Missions setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
           </Content>
           <Content value="test" className={styles.tabContent}>
             <Test />

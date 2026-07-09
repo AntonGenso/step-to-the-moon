@@ -104,19 +104,19 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
   };
 
   return (
-    <div className="custom-scroll relative flex h-full w-full flex-col gap-[20px] overflow-auto">
-      <div className="flex h-full">
-        {mission?.type === 'current' ? (
-          <CurrentMissionView
-            mission={mission}
-            videoRef={videoRef}
-            handlePlay={handlePlay}
-            handleGame={handleGame}
-          />
-        ) : (
+    <div className="custom-scroll relative flex h-full w-full flex-col items-center gap-[20px] overflow-auto">
+      {mission?.type === 'current' ? (
+        <CurrentMissionView
+          mission={mission}
+          videoRef={videoRef}
+          handlePlay={handlePlay}
+          handleGame={handleGame}
+        />
+      ) : (
+        <div className="flex h-full w-[80%]">
           <BonuseMissionView handleDownload={handleDownload} handleUpload={handleUpload} />
-        )}
-      </div>
+        </div>
+      )}
       {!!mission?.facts.length && (
         <h2
           className={`${styles.title} flex items-center justify-center text-[48px] font-bold lowercase`}
