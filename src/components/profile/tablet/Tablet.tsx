@@ -11,13 +11,11 @@ import Leaderboard from '../leaderboard/leaderboard';
 import Missions from '../missions/Missions';
 import { Skin } from '../../skin/Skin';
 import { useAuth } from '@/src/context/AuthContext';
-import { MAX_XP } from '@/src/config/gameConfig';
-import FullCosmonautIcon from '@/public/images/svg/mobile/other/full-cosmonaut.svg';
-import ExitIcon from '@/public/images/header/exit-icon.svg';
+// import ExitIcon from '@/public/images/header/exit-icon.svg';
 import { useTranslations } from 'next-intl';
 
 export const Tablet = () => {
-  const { nickname, profile, logout, refreshProfile } = useAuth();
+  const { nickname, refreshProfile } = useAuth();
   const router = useRouter();
   const t = useTranslations('common');
   const tn = useTranslations('nav');
@@ -27,9 +25,6 @@ export const Tablet = () => {
   const [isGameOpen, setIsGameOpen] = useState(false);
   const [gameLink, setGameLink] = useState('');
   const [activeTab, setActiveTab] = useState(activeTabParam || 'mission');
-
-  const total = profile?.leaderboard?.total ?? 0;
-  const progress = MAX_XP > 0 ? Math.min((total / MAX_XP) * 100, 100) : 0;
 
   const handleSetActiveParam = (value: string) => {
     const params = new URLSearchParams();
@@ -64,10 +59,10 @@ export const Tablet = () => {
     return () => window.removeEventListener('message', handleMessage);
   }, [isGameOpen, searchParams, refreshProfile]);
 
-  const handleLogout = async () => {
-    await logout();
-    router.push('/login');
-  };
+  // const handleLogout = async () => {
+  //   await logout();
+  //   router.push('/login');
+  // };
 
   if (isGameOpen) {
     const resolvedGameLink = gameLink
@@ -91,21 +86,8 @@ export const Tablet = () => {
         onValueChange={(value) => handleSetActiveParam(value)}
         className={styles.tabRoot}
       >
-        {/* Sidebar */}
-        <aside className={styles.sidebar}>
-          <div className={styles.sidebarProfile}>
-            <div className={styles.avatarCircle}>
-              <FullCosmonautIcon className={styles.avatarIcon} />
-            </div>
-            <span className={styles.nickname}>{nickname ?? ''}</span>
-            <div className={styles.progressWrapper}>
-              <div className={styles.progressTrack}>
-                <div className={styles.progressFill} style={{ width: `${progress}%` }} />
-              </div>
-              <span className={styles.progressText}>{total}/{MAX_XP} {t('xp')}</span>
-            </div>
-          </div>
-
+        {/* Top navigation bar */}
+        <div className={styles.topbar}>
           <List className={styles.navList}>
             {tabletButtons.map((item) => {
               const isActive = activeTab === item.title;
@@ -123,21 +105,21 @@ export const Tablet = () => {
             })}
           </List>
 
-          <button className={styles.logoutBtn} onClick={handleLogout}>
+          {/* <button className={styles.logoutBtn} onClick={handleLogout}>
             <ExitIcon className={styles.logoutIcon} />
             <span>{t('logout')}</span>
-          </button>
-        </aside>
+          </button> */}
+        </div>
 
         {/* Content */}
         <main className={styles.contentArea}>
-          <Content value="mission" className={styles.tabContent}>
-            <Missions setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
-          </Content>
           <Content tabIndex={undefined} value="profile" className={styles.tabContent}>
             <Skin />
           </Content>
-<Content value="test" className={styles.tabContent}>
+          <Content value="mission" className={styles.tabContent}>
+            <Missions setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
+          </Content>
+          <Content value="test" className={styles.tabContent}>
             <Test />
           </Content>
           <Content value="leader" className={styles.tabContent}>

@@ -1,4 +1,3 @@
-import PlayIcon from '@/public/images/profile/mission/svg/play.svg';
 import JoystikIcon from '@/public/images/profile/mission/svg/joystick.svg';
 import LockIcon from '@/public/images/profile/mission/svg/lock.svg';
 import { useTranslations } from 'next-intl';
@@ -24,54 +23,54 @@ export const CurrentMissionView = ({
   const t = useTranslations('mission');
 
   const hasVideo = !!mission?.videoLink;
+  const hasGame = !!mission?.gameLink;
 
   return (
-    <div className="grid h-full w-full grid-cols-2 gap-[20px]">
-      {hasVideo && (
-        <div className="relative col-span-1 h-full overflow-hidden rounded-[20px] bg-[url('/images/profile/mission/video_bg.webp')] bg-cover bg-center">
-          <video
-            ref={videoRef || ''}
-            src={mission!.videoLink}
-            className="w-full max-w-3xl"
-            preload="metadata"
-            controls={false}
-          />
-          <div className="absolute top-1/2 left-1/2 flex w-[20%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center">
-            <button
-              type="button"
-              className={`flex w-full flex-col items-center justify-center gap-[5px] ${styles.videoButton}`}
-              onClick={handlePlay}
-            >
-              <PlayIcon className="cursor-pointer" />
-            </button>
-          </div>
-          <span
-            className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
+    <section className={styles.activitySection}>
+      <h3 className={styles.sectionTitle}>{t('activities')}</h3>
+      <p className={styles.sectionSub}>{t('chooseType')}</p>
+
+      <div className={styles.activityRow}>
+        {hasVideo && (
+          <button
+            type="button"
+            className={`${styles.activityCard} ${styles.videoCard}`}
+            onClick={handlePlay}
           >
-            {t('video')}
-          </span>
-        </div>
-      )}
-      <div
-        className={`${mission?.gameLink ? "bg-[url('/images/profile/mission/game_bg.webp')]" : 'bg-black'} relative h-full rounded-[20px] bg-cover bg-center ${!hasVideo ? 'col-span-2' : 'col-span-1'}`}
-      >
+            <video
+              ref={videoRef}
+              src={mission!.videoLink}
+              className={styles.hiddenVideo}
+              preload="metadata"
+              controls={false}
+            />
+            <div className={styles.activityCircle}>
+              <svg width="34" height="34" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <path d="M8 4L24 14L8 24V4Z" fill="#fff" />
+              </svg>
+            </div>
+            <span className={styles.activityLabel}>{t('video')}</span>
+            <span className={styles.activityHint}>{t('watchVideo')}</span>
+          </button>
+        )}
+
         <button
           type="button"
-          className="absolute top-1/2 left-1/2 flex w-[20%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-[5px]"
-          onClick={mission?.gameLink ? handleGame : undefined}
+          disabled={!hasGame}
+          onClick={hasGame ? handleGame : undefined}
+          className={`${styles.activityCard} ${styles.gameCard} ${!hasVideo ? styles.gameCardFull : ''} ${!hasGame ? styles.gameCardLocked : ''}`}
         >
-          {mission?.gameLink ? (
-            <JoystikIcon className="cursor-pointer" />
-          ) : (
-            <LockIcon className="cursor-pointer" />
-          )}
+          <div className={styles.activityCircle}>
+            {hasGame ? (
+              <JoystikIcon className={styles.gameIcon} />
+            ) : (
+              <LockIcon className={styles.gameIcon} />
+            )}
+          </div>
+          <span className={styles.activityLabel}>{t('game')}</span>
+          <span className={styles.activityHint}>{t('playGame')}</span>
         </button>
-        <span
-          className={`absolute bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 ${styles.videoButton}`}
-        >
-          {t('game')}
-        </span>
       </div>
-    </div>
+    </section>
   );
 };

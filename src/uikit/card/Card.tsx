@@ -15,6 +15,8 @@ interface ICardProps {
   status: boolean;
   setActiveMission: (level: number) => void;
   label: string;
+  type?: 'current' | 'bonus';
+  isDone?: boolean;
 }
 
 export const Card = ({
@@ -25,38 +27,66 @@ export const Card = ({
   status,
   setActiveMission,
   label = 'level',
+  type = 'current',
+  isDone = false,
 }: ICardProps) => {
   const tc = useTranslations('common');
   const isComponent = typeof image === 'function';
   const Icon = isComponent ? (image as ElementType) : null;
 
+  const isLocked = !status;
+  const isBonus = !isLocked && type === 'bonus';
+  const isCurrent = !isLocked && !isBonus && !isDone;
+
   return (
     <button
       type="button"
-      className={cn(styles.card, { [styles.cardActive]: status, [styles.cardLocked]: !status })}
+      className={cn(styles.card, {
+        [styles.cardLocked]: isLocked,
+        [styles.cardBonus]: isBonus,
+        [styles.cardCurrent]: isCurrent,
+      })}
       onClick={() => setActiveMission(level)}
-      disabled={!status}
+      disabled={isLocked}
     >
-      <div className={cn(styles.iconRing, { [styles.iconRingActive]: status })}>
-        {status ? (
-          isComponent && Icon ? (
-            <Icon className={styles.icon} />
-          ) : (
-            <Image src={image as StaticImageData | string} alt="Icon" className={styles.icon} />
-          )
-        ) : (
-          <Image src={lockedImg} alt="Locked" className={styles.lockedImage} fill />
-        )}
+      <div className={styles.top}>
+        <div className={styles.iconWrap}>
+          <div
+            className={cn(styles.iconRing, {
+              [styles.iconRingLocked]: isLocked,
+              [styles.iconRingBonus]: isBonus,
+              [styles.iconRingCurrent]: isCurrent,
+            })}
+          >
+            {isLocked ? (
+              <Image src={lockedImg} alt="Locked" className={styles.lockedImage} fill />
+            ) : isComponent && Icon ? (
+              <Icon className={styles.icon} />
+            ) : (
+              <Image src={image as StaticImageData | string} alt="Icon" className={styles.icon} />
+            )}
+          </div>
+          {isBonus && <span className={styles.bonusBadge}>{tc('bonus')}</span>}
+        </div>
+        <div className={styles.info}>
+          <span className={styles.label}>
+            {label} {String(level).padStart(2, '0')}
+          </span>
+          <h3 className={styles.title}>{title}</h3>
+          <span className={styles.xp}>
+            {xp} {tc('xp')}
+          </span>
+        </div>
       </div>
-      <div className={styles.info}>
-        <span className={styles.label}>
-          {label} {String(level).padStart(2, '0')}
-        </span>
-        <h3 className={styles.title}>{title}</h3>
-        <span className={styles.xp}>{xp} {tc('xp')}</span>
-      </div>
-      <div className={cn(styles.action, { [styles.actionLocked]: !status })}>
-        {status ? tc('start') : tc('locked')}
+      <div
+        className={cn(styles.action, {
+          [styles.actionLocked]: isLocked,
+          [styles.actionDone]: !isLocked && isDone,
+          [styles.actionBonus]: isBonus && !isDone,
+          [styles.actionCurrent]: isCurrent,
+        })}
+      >
+        {isLocked ? tc('locked') : isDone ? tc('done') : tc('start')}
       </div>
     </button>
   );

@@ -8,130 +8,76 @@
 
 .tabRoot {
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 }
 
-/* ── Sidebar ── */
+/* ── Top navigation bar ── */
 
-.sidebar {
-  width: 240px;
+.topbar {
+  position: relative;
   flex-shrink: 0;
-  background: linear-gradient(180deg, var(--color-bg-sidebar) 0%, var(--color-bg-sidebar-deep) 100%);
-  border-right: 1px solid rgba(0, 200, 200, 0.12);
-  padding: 24px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.sidebarProfile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(0, 200, 200, 0.1);
-}
-
-.avatarCircle {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: 2px solid var(--color-cyan-muted);
-  background: radial-gradient(circle, rgba(10, 30, 50, 0.9), rgba(5, 15, 25, 1));
+  width: 100%;
+  // background: linear-gradient(
+  //   180deg,
+  //   var(--color-bg-sidebar) 0%,
+  //   var(--color-bg-sidebar-deep) 100%
+  // );
+  // border-bottom: 1px solid rgba(0, 200, 200, 0.12);
+  padding: 60px 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 12px rgba(0, 200, 200, 0.15);
-}
-
-.avatarIcon {
-  width: 36px;
-  height: 36px;
-}
-
-.nickname {
-  font-family: var(--font-alumni), sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.progressWrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.progressTrack {
-  width: 100%;
-  height: 6px;
-  border-radius: 3px;
-  background: rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-}
-
-.progressFill {
-  height: 100%;
-  border-radius: 3px;
-  background: linear-gradient(90deg, #064d5e, #0a8aaa, var(--color-cyan-glow));
-  transition: width 0.4s ease;
-}
-
-.progressText {
-  font-family: var(--font-alumni), sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.4);
-  text-align: center;
+  gap: 24px;
 }
 
 /* ── Navigation ── */
 
 .navList {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 }
 
 .navItem {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid transparent;
-  background: none;
-  color: rgba(255, 255, 255, 0.45);
-  font-family: var(--font-alumni), sans-serif;
-  font-size: 15px;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: #0e2937;
+  color: #ffffff;
+  // font-family: var(--font-inter), sans-serif;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.5px;
   cursor: pointer;
+  white-space: nowrap;
   transition: all 0.2s ease;
 
   &:hover {
-    background: rgba(0, 200, 200, 0.05);
-    color: rgba(255, 255, 255, 0.7);
+    box-shadow:
+      0px 0px 50px 0px rgba(255, 123, 29, 0.5),
+      0px 0px 5px 0px rgba(255, 123, 29, 1);
   }
 }
 
 .navItemActive {
-  background: rgba(0, 200, 200, 0.08);
-  color: var(--color-cyan);
-  border-color: rgba(0, 200, 200, 0.2);
-  box-shadow: 0 0 10px rgba(0, 200, 200, 0.05);
+  // background: rgba(0, 200, 200, 0.08);
+  color: var(--color-white);
+  // border-color: rgba(0, 200, 200, 0.2);
+  box-shadow:
+    0px 0px 50px 0px rgba(255, 123, 29, 0.5),
+    0px 0px 5px 0px rgba(255, 123, 29, 1);
 }
 
 .navIcon {
-  width: 28px;
-  height: 28px;
+  width: auto;
+  height: 16px;
   flex-shrink: 0;
+  overflow: visible;
 }
 
 .navLabel {
@@ -141,10 +87,14 @@
 /* ── Logout ── */
 
 .logoutBtn {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 8px 14px;
   border-radius: 12px;
   border: 1px solid rgba(255, 80, 80, 0.15);
   background: rgba(255, 80, 80, 0.05);

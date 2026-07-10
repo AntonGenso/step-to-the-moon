@@ -26,9 +26,9 @@
 .headerRow {
   display: flex;
   align-items: center;
-  padding: 0 18px 12px;
+  padding: 0 20px 12px;
   border-bottom: 1px solid rgba(0, 200, 200, 0.1);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   font-family: var(--font-alumni), sans-serif;
   font-size: 12px;
   font-weight: 600;
@@ -37,12 +37,11 @@
   letter-spacing: 1px;
 }
 
+/* Column widths — shared by header + rows */
 .colHash {
-  width: 36px;
+  width: 56px;
   flex-shrink: 0;
   text-align: center;
-  font-family: var(--font-alumni), sans-serif;
-  font-weight: 700;
 }
 
 .colName {
@@ -50,16 +49,28 @@
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-family: var(--font-alumni), sans-serif;
-  font-weight: 600;
-  font-size: 15px;
+  gap: 14px;
 }
 
 .colStars,
-.colScore,
+.colScore {
+  width: 132px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
 .colTotal {
-  width: 72px;
+  width: 120px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* header cells need the text centered too */
+.headerRow .colStars,
+.headerRow .colScore,
+.headerRow .colTotal {
   text-align: center;
 }
 
@@ -67,9 +78,10 @@
 .playerList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 14px;
   overflow-y: auto;
-  max-height: 50vh;
+  max-height: 55vh;
+  padding-right: 4px;
 
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 200, 200, 0.2) transparent;
@@ -86,54 +98,110 @@
 .playerRow {
   display: flex;
   align-items: center;
-  padding: 12px 18px;
-  border-radius: 16px;
-  border: 1.5px solid rgba(0, 110, 134, 0.35);
-  background: linear-gradient(135deg, rgba(0, 109, 134, 0.06), rgba(47, 228, 211, 0.03));
-  font-family: var(--font-alumni), sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-  transition: border-color 0.2s;
+  padding: 12px 20px;
+  border-radius: 18px;
+  border: 1.5px solid rgba(0, 200, 200, 0.4);
+  background: linear-gradient(135deg, rgba(0, 109, 134, 0.1), rgba(47, 228, 211, 0.04));
+  box-shadow: 0 0 14px rgba(0, 200, 200, 0.08);
+  transition: all 0.2s ease;
 }
 
 .playerRowMe {
-  border-color: rgba(255, 123, 29, 0.45);
-  background: linear-gradient(135deg, rgba(255, 123, 29, 0.08), rgba(255, 203, 120, 0.04));
-  box-shadow: 0 0 20px rgba(255, 123, 29, 0.06);
+  border-color: var(--color-orange-bright);
+  background: linear-gradient(135deg, rgba(255, 123, 29, 0.12), rgba(255, 203, 120, 0.05));
+  box-shadow: 0 0 26px rgba(255, 123, 29, 0.35);
+
+  .colHash {
+    color: var(--color-orange-bright);
+  }
+
+  .avatar {
+    border-color: var(--color-orange-bright);
+    box-shadow: 0 0 10px rgba(255, 123, 29, 0.35);
+  }
 }
 
+/* Rank number */
+.colHash {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-cyan);
+}
+
+/* Name + avatar */
 .avatar {
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: 1.5px solid rgba(0, 200, 200, 0.25);
+  border: 2px solid var(--color-cyan);
   overflow: hidden;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(10, 30, 50, 0.8);
+  box-shadow: 0 0 10px rgba(0, 212, 200, 0.2);
 }
 
 .avatarImg {
-  width: 26px;
-  height: 26px;
+  width: 36px;
+  height: 36px;
 }
 
-.colValue {
-  width: 72px;
-  text-align: center;
+.playerName {
   font-family: var(--font-alumni), sans-serif;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.55);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.colTotalValue {
-  width: 72px;
-  text-align: center;
+/* Stars / XP pill badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(0, 200, 200, 0.35);
+  background: rgba(0, 200, 200, 0.05);
+}
+
+.badgeValue {
   font-family: var(--font-alumni), sans-serif;
-  font-size: 17px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--color-cyan);
+}
+
+.badgeUnit {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: rgba(0, 212, 200, 0.7);
+  text-transform: lowercase;
+}
+
+.starIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Total box */
+.totalBox {
+  min-width: 84px;
+  text-align: center;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.03);
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
 }

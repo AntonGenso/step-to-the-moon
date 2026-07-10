@@ -1,5 +1,3 @@
-import HandsIcon from '@/public/images/profile/mission/svg/hands.svg';
-import AddIcon from '@/public/images/profile/mission/svg/plus_icon.svg';
 import styles from './MissionType.module.scss';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
@@ -12,7 +10,6 @@ interface IBonusMissionProps {
 
 export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissionProps) => {
   const t = useTranslations('mission');
-  const containerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -27,7 +24,6 @@ export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissio
     }
 
     setIsUploading(true);
-
     const imageUrl = URL.createObjectURL(file);
     setUploadedImage(imageUrl);
     setIsUploading(false);
@@ -40,31 +36,47 @@ export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissio
   };
 
   return (
-    <div className="grid h-full w-full grid-cols-2 gap-[20px]">
-      <div className="relative col-span-1 row-span-2 flex w-full items-center justify-center overflow-hidden rounded-[20px] bg-[url('/images/profile/mission/video_bg.webp')] bg-cover bg-center">
-        <div
-          className={`flex w-full flex-col items-center justify-center ${styles.interactionWrapper}`}
-        >
-          <button
-            type="button"
-            className={`flex w-full flex-col items-center justify-center gap-[30px] leading-[1] ${styles.videoButton}`}
-            onClick={handleDownload}
-          >
-            <HandsIcon className="w-[80%] cursor-pointer" />
-            <span className={`mx-auto flex text-center text-4xl font-semibold`}>{t('interaction')}</span>
-          </button>
+    <div className={styles.bonusWrapper}>
+      {/* Instruction card */}
+      <button
+        type="button"
+        className={`${styles.bonusCard} ${styles.instructionCard}`}
+        onClick={handleDownload}
+      >
+        <div className={styles.bonusIconCircle}>
+          <svg width="44%" height="44%" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <path
+              d="M12 6h18l10 10v26H12V6z"
+              stroke="#00d4c8"
+              strokeWidth="3"
+              strokeLinejoin="round"
+              fill="rgba(0,200,200,0.08)"
+            />
+            <path
+              d="M30 6v10h10"
+              stroke="#00d4c8"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M18 22h14M18 29h14M18 36h8"
+              stroke="#00d4c8"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
+          </svg>
         </div>
-      </div>
-      <div ref={containerRef} className={`col-span-1 row-span-1 ${styles.bonuseMissionText}`}>
-        <p className="font-regular text-2xl leading-[2]">
-          {t('bonusInstruction')}
-        </p>
-      </div>
-      <div
-        className={`relative col-span-1 row-span-1 flex items-center justify-center overflow-hidden ${styles.bonuseMissionText}`}
-        style={{
-          height: containerRef.current?.clientHeight,
-        }}
+        <span className={styles.activityLabel}>{t('seeInstruction')}</span>
+        <span className={styles.activityHint}>{t('playNotGame')}</span>
+      </button>
+
+      {/* Upload card */}
+      <button
+        type="button"
+        className={`${styles.bonusCard} ${styles.uploadCard}`}
+        onClick={triggerFileInput}
+        disabled={isUploading}
       >
         <input
           ref={fileInputRef}
@@ -75,48 +87,36 @@ export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissio
         />
 
         {uploadedImage ? (
-          <div className="flex flex-col items-center justify-center gap-[10px]">
-            <Image
-              src={uploadedImage}
-              alt="Uploaded"
-              fill
-              objectFit="cover"
-              className="z-0 object-cover"
-            />
-            <button
-              type="button"
-              className="z-10 cursor-pointer"
-              onClick={() => {
-                setUploadedImage(null);
-                fileInputRef.current?.click();
-              }}
-            >
-              <span className="text-2xl font-semibold">{t('uploadAnother')}</span>
-            </button>
+          <div className={styles.uploadPreview}>
+            <Image src={uploadedImage} alt="Uploaded" fill className={styles.uploadPreviewImg} />
+            <span className={styles.uploadPreviewText}>{t('uploadAnother')}</span>
           </div>
+        ) : isUploading ? (
+          <>
+            <div className={styles.bonusIconCircle}>
+              <span className={styles.spinner} />
+            </div>
+            <span className={styles.activityLabel}>{t('uploading')}</span>
+          </>
         ) : (
-          <button
-            type="button"
-            className="flex flex-col items-center justify-center gap-[5px]"
-            onClick={triggerFileInput}
-            disabled={isUploading}
-          >
-            {isUploading ? (
-              <>
-                <div className="h-[50px] w-[50px] animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
-                <span className="text-2xl">{t('uploading')}</span>
-              </>
-            ) : (
-              <>
-                <AddIcon className="w-[15%] cursor-pointer" />
-                <span className={`${styles.subtitle} block w-[100%] text-3xl uppercase`}>
-                  {t('addFile')}
-                </span>
-              </>
-            )}
-          </button>
+          <>
+            <div className={styles.bonusIconCircle}>
+              <svg width="44%" height="44%" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <path
+                  d="M24 32V16M24 16L16 24M24 16L32 24"
+                  stroke="#fff"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path d="M10 36h28" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
+              </svg>
+            </div>
+            <span className={styles.activityLabel}>{t('uploadFile')}</span>
+            <span className={styles.activityHint}>{t('sendUsFile')}</span>
+          </>
         )}
-      </div>
+      </button>
     </div>
   );
 };

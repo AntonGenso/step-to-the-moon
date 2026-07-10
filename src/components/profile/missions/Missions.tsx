@@ -10,6 +10,7 @@ import { useRouter } from '@/src/i18n/navigation';
 import { Heading } from '@/src/uikit/heading/Heading';
 import { useTranslations } from 'next-intl';
 import BackIcon from '@/public/images/svg/back.svg';
+import { useAuth } from '@/src/context/AuthContext';
 
 interface IMissionProps {
   setIsGameOpen: (value: boolean) => void;
@@ -19,6 +20,7 @@ interface IMissionProps {
 const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
   const [activeMission, setActiveMission] = useState<IMissionData | null>(null);
   const tn = useTranslations('nav');
+  const { profile } = useAuth();
 
   const serchParams = useSearchParams();
   const router = useRouter();
@@ -62,6 +64,8 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
                   xp={item.xp}
                   setActiveMission={() => handleActiveMision(item.id)}
                   label="level"
+                  type={item.type}
+                  isDone={profile?.missions?.[`mission_${item.id}`]?.status === 'done'}
                 />
               </li>
             ))}
