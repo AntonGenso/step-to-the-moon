@@ -331,83 +331,395 @@
   "testData": {
     "t1": {
       "title": "Missiya: Yer",
-      "q0": { "text": "Yerning eng markazi — bu qattiq shar. U nimadan tashkil topgan?", "A": "Suvdan", "B": "Toshdan", "C": "Metalldan", "D": "Muzdan" },
-      "q1": { "text": "Ichki yadro atrofida suyuq metall oqib turadi. U nimani hosil qiladi?", "A": "Tovush", "B": "Magnit qalqoni", "C": "Yorug'lik", "D": "Shamol" },
-      "q2": { "text": "Qit'alarni nima harakatga keltiradi va vulqonlar otilishiga sabab bo'ladi?", "A": "Shamol", "B": "Mantiya harakati", "C": "Oy", "D": "Quyosh" },
-      "q3": { "text": "Agar Yerni olma deb tasavvur qilsak, Yer po'stlog'i — bu...", "A": "Butun boshli olma", "B": "Olmaning yupqa po'sti", "C": "Ichidagi urug'i", "D": "Olmaning yarmi" },
-      "q4": { "text": "Yer po'stlog'i yaxlit emas, u sekin harakatlanadigan ulkan bo'laklardan iborat. Ular to'qnashganda nima sodir bo'ladi?", "A": "Yomg'ir", "B": "Zilzilalar", "C": "Qor", "D": "Kamalak" }
+      "q0": {
+        "text": "Yerning eng markazi — bu qattiq shar. U nimadan tashkil topgan?",
+        "A": "Suvdan",
+        "B": "Toshdan",
+        "C": "Metalldan",
+        "D": "Muzdan"
+      },
+      "q1": {
+        "text": "Ichki yadro atrofida suyuq metall oqib turadi. U nimani hosil qiladi?",
+        "A": "Tovush",
+        "B": "Magnit qalqoni",
+        "C": "Yorug'lik",
+        "D": "Shamol"
+      },
+      "q2": {
+        "text": "Qit'alarni nima harakatga keltiradi va vulqonlar otilishiga sabab bo'ladi?",
+        "A": "Shamol",
+        "B": "Mantiya harakati",
+        "C": "Oy",
+        "D": "Quyosh"
+      },
+      "q3": {
+        "text": "Agar Yerni olma deb tasavvur qilsak, Yer po'stlog'i — bu...",
+        "A": "Butun boshli olma",
+        "B": "Olmaning yupqa po'sti",
+        "C": "Ichidagi urug'i",
+        "D": "Olmaning yarmi"
+      },
+      "q4": {
+        "text": "Yer po'stlog'i yaxlit emas, u sekin harakatlanadigan ulkan bo'laklardan iborat. Ular to'qnashganda nima sodir bo'ladi?",
+        "A": "Yomg'ir",
+        "B": "Zilzilalar",
+        "C": "Qor",
+        "D": "Kamalak"
+      }
     },
     "t2": {
       "title": "Missiya: Atmosfera",
-      "q0": { "text": "Atmosfera nima?", "A": "Yerning suv qobig'i", "B": "Yerning havo qobig'i", "C": "Yerning tosh qobig'i", "D": "Yerning magnit qobig'i" },
-      "q1": { "text": "Kichik kosmik toshlar Yerga uchib kelganda, ular bilan nima sodir bo'ladi?", "A": "Ular uchib o'tishadi", "B": "Ular atmosferada yonib ketadi", "C": "Ular orqaga qaytishadi", "D": "Ular koinotda to'xtab qoladi" },
-      "q2": { "text": "Biz atmosferaning qaysi qatlamida yashab, nafas olamiz?", "A": "Stratosferada", "B": "Troposferada", "C": "Ekzosferada", "D": "Mezosferada" },
-      "q3": { "text": "Bulut, yomg'ir va shamol qayerda hosil bo'ladi?", "A": "Koinotda", "B": "Atmosferada", "C": "Yer ostida", "D": "Okeanda" },
-      "q4": { "text": "Yer atmosferasi nechta asosiy qatlamdan iborat?", "A": "Ikkita", "B": "Uchta", "C": "Beshta", "D": "O'nta" }
+      "q0": {
+        "text": "Atmosfera nima?",
+        "A": "Yerning suv qobig'i",
+        "B": "Yerning havo qobig'i",
+        "C": "Yerning tosh qobig'i",
+        "D": "Yerning magnit qobig'i"
+      },
+      "q1": {
+        "text": "Kichik kosmik toshlar Yerga uchib kelganda, ular bilan nima sodir bo'ladi?",
+        "A": "Ular uchib o'tishadi",
+        "B": "Ular atmosferada yonib ketadi",
+        "C": "Ular orqaga qaytishadi",
+        "D": "Ular koinotda to'xtab qoladi"
+      },
+      "q2": {
+        "text": "Biz atmosferaning qaysi qatlamida yashab, nafas olamiz?",
+        "A": "Stratosferada",
+        "B": "Troposferada",
+        "C": "Ekzosferada",
+        "D": "Mezosferada"
+      },
+      "q3": {
+        "text": "Bulut, yomg'ir va shamol qayerda hosil bo'ladi?",
+        "A": "Koinotda",
+        "B": "Atmosferada",
+        "C": "Yer ostida",
+        "D": "Okeanda"
+      },
+      "q4": {
+        "text": "Yer atmosferasi nechta asosiy qatlamdan iborat?",
+        "A": "Ikkita",
+        "B": "Uchta",
+        "C": "Beshta",
+        "D": "O'nta"
+      }
     },
     "t3": {
       "title": "Missiya: Kanyon bo'ylab parvoz",
-      "q0": { "text": "Tirik mavjudotlardan qaysi biri kosmosda birinchi bo'lib Yerning atrofini aylanib chiqqan?", "A": "Mushuk", "B": "Layka laqabli it", "C": "Maymun", "D": "Qush" },
-      "q1": { "text": "Koinotga uchgan birinchi inson kim?", "A": "Nil Armstrong", "B": "Yuriy Gagarin", "C": "Solijon Sharipov", "D": "Valentina Tereshkova" },
-      "q2": { "text": "Koinotga uchgan birinchi ayol kim?", "A": "Valentina Tereshkova", "B": "Salli Rayd", "C": "Svetlana Savitskaya", "D": "Yelena Kondakova" },
-      "q3": { "text": "Kim oy yuzasiga birinchi bo'lib qadam qo'ygan?", "A": "Yuriy Gagarin", "B": "Bazz Oldrin", "C": "Nil Armstrong", "D": "Solijon Sharipov" },
-      "q4": { "text": "Qaysi tashkilot O'zbekistonning ilk kosmonavtini tayyorlaydi?", "A": "NASA", "B": "SpaceX", "C": "UzCosmos", "D": "ESA" }
+      "q0": {
+        "text": "Tirik mavjudotlardan qaysi biri kosmosda birinchi bo'lib Yerning atrofini aylanib chiqqan?",
+        "A": "Mushuk",
+        "B": "Layka laqabli it",
+        "C": "Maymun",
+        "D": "Qush"
+      },
+      "q1": {
+        "text": "Koinotga uchgan birinchi inson kim?",
+        "A": "Nil Armstrong",
+        "B": "Yuriy Gagarin",
+        "C": "Solijon Sharipov",
+        "D": "Valentina Tereshkova"
+      },
+      "q2": {
+        "text": "Koinotga uchgan birinchi ayol kim?",
+        "A": "Valentina Tereshkova",
+        "B": "Salli Rayd",
+        "C": "Svetlana Savitskaya",
+        "D": "Yelena Kondakova"
+      },
+      "q3": {
+        "text": "Kim oy yuzasiga birinchi bo'lib qadam qo'ygan?",
+        "A": "Yuriy Gagarin",
+        "B": "Bazz Oldrin",
+        "C": "Nil Armstrong",
+        "D": "Solijon Sharipov"
+      },
+      "q4": {
+        "text": "Qaysi tashkilot O'zbekistonning ilk kosmonavtini tayyorlaydi?",
+        "A": "NASA",
+        "B": "SpaceX",
+        "C": "UzCosmos",
+        "D": "ESA"
+      }
     },
     "t4": {
       "title": "Missiya: Teleskop",
-      "q0": { "text": "Teleskop nima uchun kerak?", "A": "Koinotdagi olis obyektlarni kuzatish uchun", "B": "Koinotdan keladigan tovushlarni eshitish uchun", "C": "Boshqa sayyoralarga signal yuborish uchun", "D": "Yulduzlarning haroratini o'lchash uchun" },
-      "q1": { "text": "Mirzo Ulug'bek yulduzlarni o'rganishga mo'ljallangan mashhur rasadxonani qaysi shaharda qurdirgan?", "A": "Toshkent", "B": "Buxoro", "C": "Samarqand", "D": "Xiva" },
-      "q2": { "text": "«Xabbl» kosmik teleskopi qayerda joylashgan?", "A": "Tog'ning tepasida", "B": "Yer atrofidagi orbitada", "C": "Oyda", "D": "Cho'lda" },
-      "q3": { "text": "Nima uchun kosmosdagi teleskoplar Yerdagiga qaraganda yaxshiroq ko'ra oladi?", "A": "Ularning o'lchami kattaroq", "B": "Ularga atmosfera xalaqit bermaydi", "C": "Ular yulduzlarga yaqinroq", "D": "Ular tezroq ishlaydi" },
-      "q4": { "text": "2021-yilda fazoga uchirilgan yangi teleskop qanday nomlanadi?", "A": "Xabbl", "B": "Jeyms Uebb", "C": "Kepler", "D": "Spitser" }
+      "q0": {
+        "text": "Teleskop nima uchun kerak?",
+        "A": "Koinotdagi olis obyektlarni kuzatish uchun",
+        "B": "Koinotdan keladigan tovushlarni eshitish uchun",
+        "C": "Boshqa sayyoralarga signal yuborish uchun",
+        "D": "Yulduzlarning haroratini o'lchash uchun"
+      },
+      "q1": {
+        "text": "Mirzo Ulug'bek yulduzlarni o'rganishga mo'ljallangan mashhur rasadxonani qaysi shaharda qurdirgan?",
+        "A": "Toshkent",
+        "B": "Buxoro",
+        "C": "Samarqand",
+        "D": "Xiva"
+      },
+      "q2": {
+        "text": "«Xabbl» kosmik teleskopi qayerda joylashgan?",
+        "A": "Tog'ning tepasida",
+        "B": "Yer atrofidagi orbitada",
+        "C": "Oyda",
+        "D": "Cho'lda"
+      },
+      "q3": {
+        "text": "Nima uchun kosmosdagi teleskoplar Yerdagiga qaraganda yaxshiroq ko'ra oladi?",
+        "A": "Ularning o'lchami kattaroq",
+        "B": "Ularga atmosfera xalaqit bermaydi",
+        "C": "Ular yulduzlarga yaqinroq",
+        "D": "Ular tezroq ishlaydi"
+      },
+      "q4": {
+        "text": "2021-yilda fazoga uchirilgan yangi teleskop qanday nomlanadi?",
+        "A": "Xabbl",
+        "B": "Jeyms Uebb",
+        "C": "Kepler",
+        "D": "Spitser"
+      }
     },
     "t5": {
       "title": "Missiya: Yo'ldosh",
-      "q0": { "text": "Yo'ldosh nima?", "A": "Sayyora yaqinidagi yulduz", "B": "Sayyora atrofida aylanadigan obyekt", "C": "Yer yonidan uchib o'tadigan kometa", "D": "Sayyoradan ajralib chiqqan qism" },
-      "q1": { "text": "Yerning ilk sun'iy yo'ldoshi qanday nomlangan?", "A": "Ittifoq (Soyuz)", "B": "Sharq (Vostok)", "C": "1-Yo'ldosh (Sputnik-1)", "D": "1-Oy (Luna-1)" },
-      "q2": { "text": "Koinotga birinchi bo'lib yo'ldosh uchirgan davlat qaysi?", "A": "AQSH", "B": "Xitoy", "C": "SSSR", "D": "Fransiya" },
-      "q3": { "text": "Yerning tabiiy yo'ldoshi nima?", "A": "Mars", "B": "Quyosh", "C": "Oy", "D": "Venera" },
-      "q4": { "text": "Yerning ilk sun'iy yo'ldoshi nechanchi yilda uchirilgan?", "A": "1945", "B": "1957", "C": "1969", "D": "1975" }
+      "q0": {
+        "text": "Yo'ldosh nima?",
+        "A": "Sayyora yaqinidagi yulduz",
+        "B": "Sayyora atrofida aylanadigan obyekt",
+        "C": "Yer yonidan uchib o'tadigan kometa",
+        "D": "Sayyoradan ajralib chiqqan qism"
+      },
+      "q1": {
+        "text": "Yerning ilk sun'iy yo'ldoshi qanday nomlangan?",
+        "A": "Ittifoq (Soyuz)",
+        "B": "Sharq (Vostok)",
+        "C": "1-Yo'ldosh (Sputnik-1)",
+        "D": "1-Oy (Luna-1)"
+      },
+      "q2": {
+        "text": "Koinotga birinchi bo'lib yo'ldosh uchirgan davlat qaysi?",
+        "A": "AQSH",
+        "B": "Xitoy",
+        "C": "SSSR",
+        "D": "Fransiya"
+      },
+      "q3": {
+        "text": "Yerning tabiiy yo'ldoshi nima?",
+        "A": "Mars",
+        "B": "Quyosh",
+        "C": "Oy",
+        "D": "Venera"
+      },
+      "q4": {
+        "text": "Yerning ilk sun'iy yo'ldoshi nechanchi yilda uchirilgan?",
+        "A": "1945",
+        "B": "1957",
+        "C": "1969",
+        "D": "1975"
+      }
     },
     "t6": {
       "title": "Missiya: Raketa",
-      "q0": { "text": "Nima uchun raketaning burun qismi o'tkir uchli bo'ladi?", "A": "Havo qatlamini osonroq yorib o'tish uchun", "B": "Koinotdan kelayotgan signallarni tutib olish uchun", "C": "Zarbalarga bardosh berish uchun", "D": "Boshqa raketalarga ulanish uchun" },
-      "q1": { "text": "Raketadagi illyuminator — dumaloq oyna nima uchun kerak?", "A": "Ventilyatsiya uchun", "B": "Kosmonavtlar parvozni kuzatishlari uchun", "C": "Yoqilg'i uzatish uchun", "D": "Yer bilan muloqot qilish uchun" },
-      "q2": { "text": "Raketaning pastki qismida kichik «suzgichlar» bor. Ular nima uchun?", "A": "Tezlashtirish uchun", "B": "Sekinlashtirish uchun", "C": "Raketa bir tekis uchishi uchun", "D": "Dvigatelni himoya qilish uchun" },
-      "q3": { "text": "Uchish paytida raketa kuchli qiziydi. Uni nima himoya qiladi?", "A": "Qalin metall qatlam", "B": "Maxsus issiqlikka chidamli qoplama", "C": "Suv bilan sovutish tizimi", "D": "Oddiy bo'yoq" },
-      "q4": { "text": "Raketa dvigateli ko'tarish kuchi qanday hosil qiladi?", "A": "Samolyotdagidek vintni aylantiradi", "B": "Pastga qizigan gaz chiqaradi va raketa yuqoriga ko'tariladi", "C": "Havoni itaradi", "D": "Elektr energiyasidan foydalanadi" }
+      "q0": {
+        "text": "Nima uchun raketaning burun qismi o'tkir uchli bo'ladi?",
+        "A": "Havo qatlamini osonroq yorib o'tish uchun",
+        "B": "Koinotdan kelayotgan signallarni tutib olish uchun",
+        "C": "Zarbalarga bardosh berish uchun",
+        "D": "Boshqa raketalarga ulanish uchun"
+      },
+      "q1": {
+        "text": "Raketadagi illyuminator — dumaloq oyna nima uchun kerak?",
+        "A": "Ventilyatsiya uchun",
+        "B": "Kosmonavtlar parvozni kuzatishlari uchun",
+        "C": "Yoqilg'i uzatish uchun",
+        "D": "Yer bilan muloqot qilish uchun"
+      },
+      "q2": {
+        "text": "Raketaning pastki qismida kichik «suzgichlar» bor. Ular nima uchun?",
+        "A": "Tezlashtirish uchun",
+        "B": "Sekinlashtirish uchun",
+        "C": "Raketa bir tekis uchishi uchun",
+        "D": "Dvigatelni himoya qilish uchun"
+      },
+      "q3": {
+        "text": "Uchish paytida raketa kuchli qiziydi. Uni nima himoya qiladi?",
+        "A": "Qalin metall qatlam",
+        "B": "Maxsus issiqlikka chidamli qoplama",
+        "C": "Suv bilan sovutish tizimi",
+        "D": "Oddiy bo'yoq"
+      },
+      "q4": {
+        "text": "Raketa dvigateli ko'tarish kuchi qanday hosil qiladi?",
+        "A": "Samolyotdagidek vintni aylantiradi",
+        "B": "Pastga qizigan gaz chiqaradi va raketa yuqoriga ko'tariladi",
+        "C": "Havoni itaradi",
+        "D": "Elektr energiyasidan foydalanadi"
+      }
     },
     "t7": {
       "title": "Missiya: Quyosh tizimi",
-      "q0": { "text": "Quyosh tizimida nechta sayyora bor?", "A": "6", "B": "7", "C": "8", "D": "10" },
-      "q1": { "text": "Quyoshga eng yaqin sayyora qaysi?", "A": "Venera", "B": "Yer", "C": "Merkuriy", "D": "Mars" },
-      "q2": { "text": "Nima uchun Marsni «Qizil sayyora» deyishadi?", "A": "Qizil atmosfera", "B": "Yuzasidagi zang", "C": "Quyoshga yaqinligi", "D": "Vulqon lavasi" },
-      "q3": { "text": "Quyosh tizimidagi eng katta sayyora qaysi?", "A": "Saturn", "B": "Neptun", "C": "Yupiter", "D": "Uran" },
-      "q4": { "text": "Qaysi sayyorada eng ko'zga ko'rinadigan halqalar bor?", "A": "Yupiter", "B": "Uran", "C": "Neptun", "D": "Saturn" }
+      "q0": {
+        "text": "Quyosh tizimida nechta sayyora bor?",
+        "A": "6",
+        "B": "7",
+        "C": "8",
+        "D": "10"
+      },
+      "q1": {
+        "text": "Quyoshga eng yaqin sayyora qaysi?",
+        "A": "Venera",
+        "B": "Yer",
+        "C": "Merkuriy",
+        "D": "Mars"
+      },
+      "q2": {
+        "text": "Nima uchun Marsni «Qizil sayyora» deyishadi?",
+        "A": "Qizil atmosfera",
+        "B": "Yuzasidagi zang",
+        "C": "Quyoshga yaqinligi",
+        "D": "Vulqon lavasi"
+      },
+      "q3": {
+        "text": "Quyosh tizimidagi eng katta sayyora qaysi?",
+        "A": "Saturn",
+        "B": "Neptun",
+        "C": "Yupiter",
+        "D": "Uran"
+      },
+      "q4": {
+        "text": "Qaysi sayyorada eng ko'zga ko'rinadigan halqalar bor?",
+        "A": "Yupiter",
+        "B": "Uran",
+        "C": "Neptun",
+        "D": "Saturn"
+      }
     },
     "t8": {
       "title": "Missiya: Lunoxod",
-      "q0": { "text": "Lunoxod — o'zga samoviy sayyora yuzasida harakatlangan birinchi apparat. U o'zi qanday ko'rinishda edi?", "A": "G'ildirakli robot", "B": "Uchuvchi zond", "C": "Pastga tushiriladigan kapsula", "D": "Orbital stansiya" },
-      "q1": { "text": "Lunoxod Oy sirti bo'ylab harakatlangan, lekin uni kim boshqargan?", "A": "Bort kompyuteri mustaqil ravishda boshqargan", "B": "Oydagi kosmonavtlar", "C": "Yerdagi operatorlar jamoasi", "D": "Orbital kema ekipaji" },
-      "q2": { "text": "Lunoxod ishlash uchun quvvatni qayerdan olgan?", "A": "Batareyalardan", "B": "Quyosh panellaridan", "C": "Yadro reaktoridan", "D": "Yoqilg'i bakidan" },
-      "q3": { "text": "Lunoxod-1 ning faoliyati uch oyga mo'ljallangan edi. Haqiqatda esa qanday holat yuz bergan?", "A": "Bir haftadan keyin buzilib qolgan", "B": "Qariyb 11 oy ishlagan", "C": "Hozirgacha ishlayapti", "D": "Aniq 3 oy ishlagan" },
-      "q4": { "text": "Lunoxod Oy sirtida nimani o'rgangan?", "A": "Atmosfera va shamolni", "B": "Oy tuprog'i va relyefini", "C": "Suv va muzni", "D": "Magnit maydonini" }
+      "q0": {
+        "text": "Lunoxod — o'zga samoviy sayyora yuzasida harakatlangan birinchi apparat. U o'zi qanday ko'rinishda edi?",
+        "A": "G'ildirakli robot",
+        "B": "Uchuvchi zond",
+        "C": "Pastga tushiriladigan kapsula",
+        "D": "Orbital stansiya"
+      },
+      "q1": {
+        "text": "Lunoxod Oy sirti bo'ylab harakatlangan, lekin uni kim boshqargan?",
+        "A": "Bort kompyuteri mustaqil ravishda boshqargan",
+        "B": "Oydagi kosmonavtlar",
+        "C": "Yerdagi operatorlar jamoasi",
+        "D": "Orbital kema ekipaji"
+      },
+      "q2": {
+        "text": "Lunoxod ishlash uchun quvvatni qayerdan olgan?",
+        "A": "Batareyalardan",
+        "B": "Quyosh panellaridan",
+        "C": "Yadro reaktoridan",
+        "D": "Yoqilg'i bakidan"
+      },
+      "q3": {
+        "text": "Lunoxod-1 ning faoliyati uch oyga mo'ljallangan edi. Haqiqatda esa qanday holat yuz bergan?",
+        "A": "Bir haftadan keyin buzilib qolgan",
+        "B": "Qariyb 11 oy ishlagan",
+        "C": "Hozirgacha ishlayapti",
+        "D": "Aniq 3 oy ishlagan"
+      },
+      "q4": {
+        "text": "Lunoxod Oy sirtida nimani o'rgangan?",
+        "A": "Atmosfera va shamolni",
+        "B": "Oy tuprog'i va relyefini",
+        "C": "Suv va muzni",
+        "D": "Magnit maydonini"
+      }
     },
     "t9": {
       "title": "Missiya: Kometa va asteroidlar",
-      "q0": { "text": "Kometalar tarkibi asosan nimalardan iborat?", "A": "Tosh va metaldan", "B": "Muz va changdan", "C": "Suyuq suvdan", "D": "Qum va loydan" },
-      "q1": { "text": "Kometa Quyoshga yaqinlashganda unda nima paydo bo'ladi?", "A": "Halqalar", "B": "Dum", "C": "Qanotlar", "D": "Soya" },
-      "q2": { "text": "Asteroid nimadan tarkib topgan?", "A": "Muz va changdan", "B": "Tosh va metalldan", "C": "Gaz va suvdan", "D": "Qum va gildan" },
-      "q3": { "text": "Quyosh tizimidagi eng ko'p asteroidlar qayerda joylashgan?", "A": "Yer va Oy o'rtasida", "B": "Neptun ortida", "C": "Mars va Yupiter o'rtasida", "D": "Quyosh yaqinida" },
-      "q4": { "text": "Qaysi mashhur kometa Yer yaqinida taxminan har 75 yilda bir marta paydo bo'ladi?", "A": "Enke kometasi", "B": "Xeyl-Bopp kometasi", "C": "Galley kometasi", "D": "Churyumov kometasi" }
+      "q0": {
+        "text": "Kometalar tarkibi asosan nimalardan iborat?",
+        "A": "Tosh va metaldan",
+        "B": "Muz va changdan",
+        "C": "Suyuq suvdan",
+        "D": "Qum va loydan"
+      },
+      "q1": {
+        "text": "Kometa Quyoshga yaqinlashganda unda nima paydo bo'ladi?",
+        "A": "Halqalar",
+        "B": "Dum",
+        "C": "Qanotlar",
+        "D": "Soya"
+      },
+      "q2": {
+        "text": "Asteroid nimadan tarkib topgan?",
+        "A": "Muz va changdan",
+        "B": "Tosh va metalldan",
+        "C": "Gaz va suvdan",
+        "D": "Qum va gildan"
+      },
+      "q3": {
+        "text": "Quyosh tizimidagi eng ko'p asteroidlar qayerda joylashgan?",
+        "A": "Yer va Oy o'rtasida",
+        "B": "Neptun ortida",
+        "C": "Mars va Yupiter o'rtasida",
+        "D": "Quyosh yaqinida"
+      },
+      "q4": {
+        "text": "Qaysi mashhur kometa Yer yaqinida taxminan har 75 yilda bir marta paydo bo'ladi?",
+        "A": "Enke kometasi",
+        "B": "Xeyl-Bopp kometasi",
+        "C": "Galley kometasi",
+        "D": "Churyumov kometasi"
+      }
     },
     "t10": {
       "title": "Missiya: Qora tuynuk",
-      "q0": { "text": "Qora tuynuk nima?", "A": "Koinotdagi bo'sh joy", "B": "Yorug'lik ham chiqa olmaydigan hudud", "C": "Zulmat sayyorasi", "D": "Fazoviy chang buluti" },
-      "q1": { "text": "Katta yulduzning hayoti tugagandan so'ng u bilan nima sodir bo'ladi?", "A": "U muzlab qoladi", "B": "U portlab, qora tuynukka aylanadi", "C": "U sayyoraga aylanadi", "D": "U galaktikadan uchib ketadi" },
-      "q2": { "text": "Qora tuynukning hech narsa ortga qayta olmaydigan chegarasi nima deb ataladi?", "A": "Ekvator", "B": "Voqealar gorizonti", "C": "Orbita", "D": "Atmosfera" },
-      "q3": { "text": "Somon Yo'li galaktikamiz markazida nima joylashgan?", "A": "Ulkan yulduz", "B": "Yuqori massaga ega qora tuynuk", "C": "Gigant sayyora", "D": "Gaz buluti" },
-      "q4": { "text": "Qora tuynukni to'g'ridan-to'g'ri ko'rish mumkinmi?", "A": "Ha, u nur sochadi", "B": "Ha, agar unga yaqin uchib borilsa", "C": "Yo'q, lekin olimlar uning atrofdagi jismlarga ta'sirini kuzatishadi", "D": "Yo'q, uni aniqlash imkonsiz" }
+      "q0": {
+        "text": "Qora tuynuk nima?",
+        "A": "Koinotdagi bo'sh joy",
+        "B": "Yorug'lik ham chiqa olmaydigan hudud",
+        "C": "Zulmat sayyorasi",
+        "D": "Fazoviy chang buluti"
+      },
+      "q1": {
+        "text": "Katta yulduzning hayoti tugagandan so'ng u bilan nima sodir bo'ladi?",
+        "A": "U muzlab qoladi",
+        "B": "U portlab, qora tuynukka aylanadi",
+        "C": "U sayyoraga aylanadi",
+        "D": "U galaktikadan uchib ketadi"
+      },
+      "q2": {
+        "text": "Qora tuynukning hech narsa ortga qayta olmaydigan chegarasi nima deb ataladi?",
+        "A": "Ekvator",
+        "B": "Voqealar gorizonti",
+        "C": "Orbita",
+        "D": "Atmosfera"
+      },
+      "q3": {
+        "text": "Somon Yo'li galaktikamiz markazida nima joylashgan?",
+        "A": "Ulkan yulduz",
+        "B": "Yuqori massaga ega qora tuynuk",
+        "C": "Gigant sayyora",
+        "D": "Gaz buluti"
+      },
+      "q4": {
+        "text": "Qora tuynukni to'g'ridan-to'g'ri ko'rish mumkinmi?",
+        "A": "Ha, u nur sochadi",
+        "B": "Ha, agar unga yaqin uchib borilsa",
+        "C": "Yo'q, lekin olimlar uning atrofdagi jismlarga ta'sirini kuzatishadi",
+        "D": "Yo'q, uni aniqlash imkonsiz"
+      }
     }
+  },
+  "admin": {
+    "whatsNext": "Keyingi qadam",
+    "whatsNextSubtitle": "platformamiz taklif qilgan rejaga amal qiling",
+    "todaysMission": "bugungi missiya",
+    "duration": "davomiyligi - {minutes} daqiqa",
+    "individual": "yakka tartibda",
+    "startLesson": "Darsni boshlash",
+    "previousMission": "oldingi missiya:",
+    "noPreviousMission": "—",
+    "allMissionsDone": "Barcha missiyalar bajarildi",
+    "emptyLeaderboard": "Peshqadamlar ro'yxati bo'sh"
   }
 }

@@ -1,0 +1,140 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 14px;
+}
+
+/* Highlighted mission card */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px;
+  border-radius: 20px;
+  border: 2px solid var(--color-orange);
+  background: linear-gradient(135deg, rgba(5, 20, 30, 0.92), rgba(15, 45, 55, 0.88));
+  box-shadow: 0 0 26px rgba(232, 138, 26, 0.28);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.iconRing {
+  width: 104px;
+  height: 104px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid var(--color-orange);
+  background: radial-gradient(circle, rgba(10, 30, 50, 0.9), rgba(5, 15, 25, 1));
+  box-shadow: 0 0 14px rgba(232, 138, 26, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.icon {
+  width: 78%;
+  height: auto;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 2px;
+}
+
+.label {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+}
+
+.missionTitle {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.05;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.meta {
+  margin-top: 8px;
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+}
+
+.startButton {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, var(--color-orange), var(--color-orange-dark));
+  color: #fff;
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  box-shadow: 0 2px 14px rgba(232, 138, 26, 0.35);
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 2px 22px rgba(232, 138, 26, 0.55);
+  }
+}
+
+/* Previous mission footer */
+.previous {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.previousLabel {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: lowercase;
+}
+
+.previousTitle {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
