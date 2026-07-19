@@ -78,10 +78,10 @@
 .playerList {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px;
   overflow-y: auto;
   max-height: 55vh;
-  padding-right: 4px;
+  padding: 20px;
 
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 200, 200, 0.2) transparent;
@@ -90,7 +90,7 @@
     width: 6px;
   }
   &::-webkit-scrollbar-thumb {
-    background: rgba(0, 200, 200, 0.2);
+    // background: rgba(0, 200, 200, 0.2);
     border-radius: 3px;
   }
 }
@@ -106,6 +106,67 @@
   transition: all 0.2s ease;
 }
 
+/* Top-3 podium highlight */
+.rank1 {
+  border-color: #ffd15c;
+  background: linear-gradient(135deg, rgba(255, 209, 92, 0.14), rgba(255, 236, 170, 0.05));
+  box-shadow: 0 0 26px rgba(255, 209, 92, 0.35);
+
+  .colHash {
+    color: #ffd15c;
+    text-shadow: 0 0 12px rgba(255, 209, 92, 0.6);
+  }
+
+  .avatar {
+    border-color: #ffd15c;
+    box-shadow: 0 0 12px rgba(255, 209, 92, 0.45);
+  }
+
+  .totalBox {
+    border-color: rgba(255, 209, 92, 0.7);
+  }
+}
+
+.rank2 {
+  border-color: #cfd8e3;
+  background: linear-gradient(135deg, rgba(207, 216, 227, 0.12), rgba(255, 255, 255, 0.04));
+  box-shadow: 0 0 22px rgba(207, 216, 227, 0.28);
+
+  .colHash {
+    color: #e4ebf4;
+    text-shadow: 0 0 12px rgba(207, 216, 227, 0.5);
+  }
+
+  .avatar {
+    border-color: #cfd8e3;
+    box-shadow: 0 0 12px rgba(207, 216, 227, 0.35);
+  }
+
+  .totalBox {
+    border-color: rgba(207, 216, 227, 0.7);
+  }
+}
+
+.rank3 {
+  border-color: #d98b4a;
+  background: linear-gradient(135deg, rgba(217, 139, 74, 0.13), rgba(255, 190, 140, 0.04));
+  box-shadow: 0 0 22px rgba(217, 139, 74, 0.3);
+
+  .colHash {
+    color: #eda160;
+    text-shadow: 0 0 12px rgba(217, 139, 74, 0.5);
+  }
+
+  .avatar {
+    border-color: #d98b4a;
+    box-shadow: 0 0 12px rgba(217, 139, 74, 0.4);
+  }
+
+  .totalBox {
+    border-color: rgba(217, 139, 74, 0.7);
+  }
+}
+
 .playerRowMe {
   border-color: var(--color-orange-bright);
   background: linear-gradient(135deg, rgba(255, 123, 29, 0.12), rgba(255, 203, 120, 0.05));
@@ -118,6 +179,10 @@
   .avatar {
     border-color: var(--color-orange-bright);
     box-shadow: 0 0 10px rgba(255, 123, 29, 0.35);
+  }
+
+  .totalBox {
+    border-color: var(--color-orange-bright);
   }
 }
 

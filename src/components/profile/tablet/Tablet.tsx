@@ -80,7 +80,7 @@ export const Tablet = () => {
   }
 
   return (
-    <div className={styles.desktopLayout}>
+    <div className={`${styles.desktopLayout}`}>
       <Root
         value={activeTab}
         onValueChange={(value) => handleSetActiveParam(value)}
