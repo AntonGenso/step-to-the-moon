@@ -33,8 +33,8 @@
 .activityRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  height: clamp(300px, 34vh, 400px);
+  gap: 20px;
+  height: clamp(240px, 27vh, 320px);
 }
 
 /* ── Video / Game activity cards ── */
@@ -44,11 +44,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   width: 100%;
   height: 100%;
-  padding: 40px 24px;
-  border-radius: 24px;
+  padding: 32px 20px;
+  border-radius: 20px;
   border: 2px solid transparent;
   background: rgba(8, 22, 38, 0.85);
   cursor: pointer;
@@ -102,8 +102,8 @@
 
 /* Circular icon badge */
 .activityCircle {
-  width: clamp(96px, 12vw, 140px);
-  height: clamp(96px, 12vw, 140px);
+  width: clamp(76px, 9.5vw, 112px);
+  height: clamp(76px, 9.5vw, 112px);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -135,7 +135,7 @@
 
 .activityLabel {
   font-family: var(--font-alumni), sans-serif;
-  font-size: clamp(22px, 2vw, 30px);
+  font-size: clamp(18px, 1.6vw, 24px);
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
@@ -148,7 +148,7 @@
 
 .activityHint {
   font-family: var(--font-ibm-plex-mono), monospace;
-  font-size: clamp(13px, 1.1vw, 16px);
+  font-size: clamp(11px, 0.9vw, 13px);
   font-weight: 400;
   color: var(--color-cyan);
 

@@ -16,6 +16,7 @@ interface IAdminMissionCardProps {
   label: string;
   type?: 'current' | 'bonus';
   isDone?: boolean;
+  actionLabel?: string;
   onClick?: () => void;
 }
 
@@ -28,6 +29,7 @@ export const AdminMissionCard = ({
   label = 'test',
   type = 'current',
   isDone = false,
+  actionLabel,
   onClick,
 }: IAdminMissionCardProps) => {
   const tc = useTranslations('common');
@@ -86,7 +88,7 @@ export const AdminMissionCard = ({
           [styles.actionCurrent]: isCurrent,
         })}
       >
-        {isLocked ? tc('locked') : isDone ? tc('done') : tc('start')}
+        {isLocked ? tc('locked') : (actionLabel ?? (isDone ? tc('done') : tc('start')))}
       </div>
     </button>
   );

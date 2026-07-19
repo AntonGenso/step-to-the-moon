@@ -23,15 +23,7 @@ interface TestProps {
   onBack?: () => void;
 }
 
-const Test: React.FC<TestProps> = ({
-  question,
-  current,
-  total,
-  title,
-  icon,
-  onAnswer,
-  onBack,
-}) => {
+const Test: React.FC<TestProps> = ({ question, current, total, title, icon, onAnswer, onBack }) => {
   const t = useTranslations('test');
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -71,10 +63,8 @@ const Test: React.FC<TestProps> = ({
         )}
         {/* Question label */}
         <div className={styles.questionLabel}>
-          <h2 className={styles.questionHeading}>{t('question')}</h2>
-          <p className={styles.questionSub}>
-            {t('chooseCorrect', { current, total })}
-          </p>
+          <h2 className={`${styles.questionHeading} hidden`}>{t('question')}</h2>
+          <p className={`${styles.questionSub} hidden`}>{t('chooseCorrect', { current, total })}</p>
         </div>
         {/* Question box */}
         <LinearBorder

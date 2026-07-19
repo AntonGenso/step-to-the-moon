@@ -4,13 +4,7 @@
   height: 100vh;
   height: 100dvh;
   width: 100%;
-  background: var(--color-bg-base);
-}
-
-@media (max-width: 768px) {
-  .wrapper {
-    background: url('/images/bg-main.webp') center center / cover no-repeat;
-  }
+  background: url('/images/bg-main.webp') center center / cover no-repeat;
 }
 
 .topBar {

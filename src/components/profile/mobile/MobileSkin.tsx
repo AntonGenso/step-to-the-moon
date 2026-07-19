@@ -32,7 +32,7 @@ export const MobileSkin = () => {
   );
 
   const HeadIcon = (headSkin.find((h) => h.id === selectedHead) ?? headSkin[0]).icon;
-  const SuitIcon = (suit.find((s) => s.id === selectedCostum) ?? suit[0]).icon;
+  const suitSrc = (suit.find((s) => s.id === selectedCostum) ?? suit[0]).src;
 
   const handlePrevHead = () => {
     setSelectedHead((prev) => {
@@ -91,7 +91,8 @@ export const MobileSkin = () => {
             <button className={styles.arrowLeft} onClick={handlePrevCostum}>
               <ArrowIcon className={styles.arrowIcon} />
             </button>
-            <SuitIcon className={styles.costumIcon} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={suitSrc} alt="" className={styles.costumIcon} />
             <button className={styles.arrowRight} onClick={handleNextCostum}>
               <ArrowIcon className={styles.arrowIcon} />
             </button>

@@ -6,7 +6,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import styles from './Mission.module.scss';
 import Image from 'next/image';
 import defaultImage from '@/public/images/default_image.png';
-import BackIcon from '@/public/images/svg/back.svg';
+import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
 import { CurrentMissionView } from './missionType/CurrentMissioView';
 import { BonuseMissionView } from './missionType/BonuseMissionView';
 
@@ -118,7 +118,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
   };
 
   return (
-    <div className="custom-scroll relative flex h-full w-full flex-col items-center gap-[20px] overflow-auto">
+    <div className="hide-scroll relative mx-auto flex h-full w-[60%] flex-col items-center gap-[20px] overflow-auto">
       {/* Mission header: back / title / icon */}
       <div className={styles.missionHeader}>
         <button

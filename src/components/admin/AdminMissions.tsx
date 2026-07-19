@@ -1,10 +1,12 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { missionData } from '../utils/missionData';
 import { AdminMissionCard } from './AdminMissionCard';
 import styles from './AdminMissions.module.scss';
 
 export const AdminMissions = () => {
+  const ta = useTranslations('admin');
   const sortedMissions = [...missionData].sort((a, b) => a.id - b.id);
 
   return (
@@ -20,6 +22,7 @@ export const AdminMissions = () => {
             label="test"
             type={item.type}
             isDone
+            actionLabel={ta('startLesson')}
           />
         </li>
       ))}

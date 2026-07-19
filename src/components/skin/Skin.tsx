@@ -20,7 +20,7 @@ export const Skin = () => {
   }, [profile?.skin?.headId, profile?.skin?.suitId]);
 
   const HeadIcon = (headSkin.find((item) => item.id === selectedHead) ?? headSkin[0]).icon;
-  const SuitIcon = (suit.find((item) => item.id === selectedCostum) ?? suit[0]).icon;
+  const suitSrc = (suit.find((item) => item.id === selectedCostum) ?? suit[0]).src;
 
   const total = profile?.leaderboard?.total ?? 0;
   const progress = MAX_XP > 0 ? Math.min((total / MAX_XP) * 100, 100) : 0;
@@ -105,7 +105,8 @@ export const Skin = () => {
             <button type="button" className={styles.arrowLeft} onClick={handlePrevCostum}>
               <ArrowIcon className={styles.arrowIcon} />
             </button>
-            <SuitIcon className={styles.costumIcon} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={suitSrc} alt="" className={styles.costumIcon} />
             <button type="button" className={styles.arrowRight} onClick={handleNextCostum}>
               <ArrowIcon className={styles.arrowIcon} />
             </button>

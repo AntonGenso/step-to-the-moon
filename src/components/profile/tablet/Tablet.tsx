@@ -22,6 +22,8 @@ export const Tablet = () => {
   const searchParams = useSearchParams();
 
   const activeTabParam = searchParams.get('activeTab');
+  const missionIdParam = searchParams.get('missionId');
+  const isMissionDetail = missionIdParam !== null;
   const [isGameOpen, setIsGameOpen] = useState(false);
   const [gameLink, setGameLink] = useState('');
   const [activeTab, setActiveTab] = useState(activeTabParam || 'mission');
@@ -86,9 +88,10 @@ export const Tablet = () => {
         onValueChange={(value) => handleSetActiveParam(value)}
         className={styles.tabRoot}
       >
-        {/* Top navigation bar */}
-        <div className={styles.topbar}>
-          <List className={styles.navList}>
+        {/* Top navigation bar — hidden on mission detail view */}
+        {!isMissionDetail && (
+          <div className={styles.topbar}>
+            <List className={styles.navList}>
             {tabletButtons.map((item) => {
               const isActive = activeTab === item.title;
               const Icon = isActive ? item.activeIcon : item.icon;
@@ -105,11 +108,12 @@ export const Tablet = () => {
             })}
           </List>
 
-          {/* <button className={styles.logoutBtn} onClick={handleLogout}>
+            {/* <button className={styles.logoutBtn} onClick={handleLogout}>
             <ExitIcon className={styles.logoutIcon} />
             <span>{t('logout')}</span>
           </button> */}
-        </div>
+          </div>
+        )}
 
         {/* Content */}
         <main className={styles.contentArea}>

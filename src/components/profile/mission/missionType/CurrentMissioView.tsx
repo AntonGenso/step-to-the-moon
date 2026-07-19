@@ -27,8 +27,8 @@ export const CurrentMissionView = ({
 
   return (
     <section className={styles.activitySection}>
-      <h3 className={styles.sectionTitle}>{t('activities')}</h3>
-      <p className={styles.sectionSub}>{t('chooseType')}</p>
+      {/* <h3 className={styles.sectionTitle}>{t('activities')}</h3>
+      <p className={styles.sectionSub}>{t('chooseType')}</p> */}
 
       <div className={styles.activityRow}>
         {hasVideo && (
@@ -45,7 +45,7 @@ export const CurrentMissionView = ({
               controls={false}
             />
             <div className={styles.activityCircle}>
-              <svg width="34" height="34" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+              <svg width="27" height="27" viewBox="0 0 28 28" fill="none" aria-hidden="true">
                 <path d="M8 4L24 14L8 24V4Z" fill="#fff" />
               </svg>
             </div>

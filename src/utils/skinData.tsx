@@ -1,7 +1,3 @@
-import BlueSuit from '@/public/images/profile/skin/svg/suit_blue.svg';
-import RedSuit from '@/public/images/profile/skin/svg/suit_red.svg';
-import KhakiSuit from '@/public/images/profile/skin/svg/suit_khaki.svg';
-
 import BoyDark from '@/public/images/profile/skin/svg/boy_dark.svg';
 import BoyLight from '@/public/images/profile/skin/svg/boy_light.svg';
 import GirlDark from '@/public/images/profile/skin/svg/girl_dark.svg';
@@ -11,10 +7,14 @@ import GirlLight from '@/public/images/profile/skin/svg/girl_light.svg';
 // import Dog2 from '@/public/images/profile/skin/svg/dog2.svg';
 // import AltGirl from '@/public/images/profile/skin/svg/alt-girl.svg';
 
+// Suits are rendered as <img> (they are raster PNGs wrapped in SVG). Inlining
+// them via SVGR duplicates their internal pattern/image ids when the same suit
+// renders on both the mobile and desktop trees, which breaks the paint server
+// and leaves the suit invisible. A plain image src keeps each one isolated.
 export const suit = [
-  { id: 0, name: 'blue', icon: BlueSuit },
-  { id: 1, name: 'red', icon: RedSuit },
-  { id: 2, name: 'khaki', icon: KhakiSuit },
+  { id: 0, name: 'blue', src: '/images/profile/skin/svg/suit_blue.svg' },
+  { id: 1, name: 'red', src: '/images/profile/skin/svg/suit_red.svg' },
+  { id: 2, name: 'khaki', src: '/images/profile/skin/svg/suit_khaki.svg' },
 ];
 
 export const headSkin = [
