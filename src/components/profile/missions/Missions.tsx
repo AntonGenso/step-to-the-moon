@@ -9,7 +9,6 @@ import { useSearchParams } from 'next/navigation';
 import { useRouter } from '@/src/i18n/navigation';
 import { Heading } from '@/src/uikit/heading/Heading';
 import { useTranslations } from 'next-intl';
-import BackIcon from '@/public/images/svg/back.svg';
 import { useAuth } from '@/src/context/AuthContext';
 
 interface IMissionProps {
@@ -55,7 +54,7 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
           <Heading title={tn('missions')} />
           <ul className={`${styles.tabletList} custom-scroll`}>
             {sortedMissions.map((item) => (
-              <li key={item.id} className={styles.tabletItem}>
+              <li key={item.id} className={`${styles.tabletItem}`}>
                 <Card
                   status={item.isAtive}
                   image={item.icon}
@@ -72,14 +71,7 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
           </ul>
         </>
       ) : activeMission ? (
-        <div className="relative h-full w-full">
-          <button
-            type="button"
-            onClick={() => router.push('/?activeTab=mission')}
-            className={`${styles.backButton} absolute top-0 left-0 z-10 w-[5%] cursor-pointer`}
-          >
-            <BackIcon className="z-10" />
-          </button>
+        <div className="relative h-full w-[80%]">
           <Mission setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
         </div>
       ) : null}

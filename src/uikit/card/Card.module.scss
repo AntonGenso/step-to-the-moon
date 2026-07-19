@@ -1,11 +1,12 @@
 .card {
-  position: relative;
+  // position: relative;
   display: flex;
   flex-direction: column;
+  // gap: var(--card-gap, 20px);
   gap: 20px;
   width: 100%;
-  padding: 24px;
-  border-radius: 24px;
+  padding: var(--card-pad, 24px);
+  border-radius: var(--card-radius, 24px);
   border: 1.5px solid rgba(0, 200, 200, 0.5);
   background: linear-gradient(135deg, rgba(5, 20, 30, 0.9), rgba(15, 45, 55, 0.85));
   cursor: pointer;
@@ -20,9 +21,11 @@
 
 /* Top row: icon + info */
 .top {
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 32px;
+  justify-content: space-between;
+  gap: var(--top-gap, 32px);
   width: 100%;
 }
 
@@ -68,12 +71,12 @@
   position: absolute;
   bottom: 0;
   left: -8px;
-  padding: 6px 18px;
-  border-radius: 10px;
+  padding: var(--badge-pad, 6px 18px);
+  border-radius: var(--badge-radius, 10px);
   background: linear-gradient(135deg, #5fff9f, #10a56f);
   color: #fff;
   font-family: var(--font-alumni), sans-serif;
-  font-size: clamp(18px, 1vw, 14px);
+  font-size: var(--fs-badge, clamp(18px, 1vw, 14px));
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -83,8 +86,8 @@
 /* Icon ring */
 .iconRing {
   flex-shrink: 0;
-  width: 120px;
-  height: 120px;
+  width: var(--icon-size, 120px);
+  height: var(--icon-size, 120px);
   border-radius: 50%;
   border: 2px solid var(--color-cyan);
   background: radial-gradient(circle, rgba(10, 30, 50, 0.9), rgba(5, 15, 25, 1));
@@ -128,12 +131,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 6px;
+  gap: var(--info-gap, 6px);
 }
 
 .label {
   font-family: var(--font-alumni), sans-serif;
-  font-size: clamp(9px, 0.85vw, 12px);
+  font-size: var(--fs-label, clamp(9px, 0.85vw, 12px));
   font-weight: 600;
   color: var(--color-cyan);
   text-transform: uppercase;
@@ -142,7 +145,7 @@
 
 .title {
   font-family: var(--font-alumni), sans-serif;
-  font-size: clamp(14px, 1.4vw, 20px);
+  font-size: var(--fs-title, clamp(14px, 1.4vw, 20px));
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
@@ -153,13 +156,13 @@
 }
 
 .xp {
-  margin-top: 4px;
-  padding: 6px 18px;
-  border-radius: 12px;
+  margin-top: var(--xp-mt, 4px);
+  padding: var(--xp-pad, 6px 18px);
+  border-radius: var(--xp-radius, 12px);
   border: 1.5px solid rgba(0, 200, 200, 0.4);
   background: rgba(0, 200, 200, 0.05);
   font-family: var(--font-alumni), sans-serif;
-  font-size: clamp(12px, 1vw, 16px);
+  font-size: var(--fs-xp, clamp(12px, 1vw, 16px));
   font-weight: 700;
   color: var(--color-cyan);
   text-transform: uppercase;
@@ -170,11 +173,11 @@
 .action {
   width: 100%;
   flex-shrink: 0;
-  padding: 14px 16px;
-  border-radius: 16px;
+  padding: var(--action-pad, 14px 16px);
+  border-radius: var(--action-radius, 16px);
   border: 1.5px solid transparent;
   font-family: var(--font-alumni), sans-serif;
-  font-size: clamp(13px, 1.2vw, 18px);
+  font-size: var(--fs-action, clamp(13px, 1.2vw, 18px));
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;

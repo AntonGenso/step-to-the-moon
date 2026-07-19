@@ -1,10 +1,12 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { missionData } from '../../utils/missionData';
 import { useSearchParams } from 'next/navigation';
+import { useRouter } from '@/src/i18n/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 import styles from './Mission.module.scss';
 import Image from 'next/image';
 import defaultImage from '@/public/images/default_image.png';
+import BackIcon from '@/public/images/svg/back.svg';
 import { CurrentMissionView } from './missionType/CurrentMissioView';
 import { BonuseMissionView } from './missionType/BonuseMissionView';
 
@@ -23,9 +25,11 @@ interface IMissionProps {
 export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const searchParams = useSearchParams();
+  const router = useRouter();
   const t = useTranslations('mission');
   const tf = useTranslations('facts');
   const locale = useLocale();
+  const [openFactIndex, setOpenFactIndex] = useState<number | null>(null);
 
   const mission = missionData.find((item) => item.id === Number(searchParams.get('missionId')));
 
@@ -103,8 +107,39 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
     }
   };
 
+  const facts = mission?.facts ?? [];
+  const openFact = openFactIndex !== null ? facts[openFactIndex] : null;
+
+  const stepFact = (delta: number) => {
+    setOpenFactIndex((current) => {
+      if (current === null) return current;
+      return (current + delta + facts.length) % facts.length;
+    });
+  };
+
   return (
     <div className="custom-scroll relative flex h-full w-full flex-col items-center gap-[20px] overflow-auto">
+      {/* Mission header: back / title / icon */}
+      <div className={styles.missionHeader}>
+        <button
+          type="button"
+          className={styles.headerBackBtn}
+          onClick={() => router.push('/?activeTab=mission')}
+        >
+          <BackIcon className={styles.headerBackIcon} />
+        </button>
+
+        <div className={styles.titlePill}>
+          <span>{mission?.title}</span>
+        </div>
+
+        <div className={styles.headerIcon}>
+          {mission?.icon && (
+            <Image src={mission.icon} alt={mission.title} className={styles.headerIconImg} />
+          )}
+        </div>
+      </div>
+
       {mission?.type === 'current' ? (
         <CurrentMissionView
           mission={mission}
@@ -117,48 +152,84 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
           <BonuseMissionView handleDownload={handleDownload} handleUpload={handleUpload} />
         </div>
       )}
-      {!!mission?.facts.length && (
-        <h2
-          className={`${styles.title} flex items-center justify-center text-[48px] font-bold lowercase`}
-        >
-          {t('facts')}
-        </h2>
-      )}
-      {!!mission?.facts.length && (
-        <div className="h-full w-full">
-          <ul className="grid h-full grid-cols-3 gap-[20px]">
-            {mission?.facts.map((fact) => (
-              <li
-                key={fact.id}
-                className={`${styles.factItem} rounded-[75px] border-[2px] border-[#2f8e86] bg-gradient-to-b from-[rgba(41,140,99,0.2)] to-[rgba(41,140,99,1)]`}
-              >
-                <div
-                  className={`${styles.imageWrapper} relative aspect-[1/1] w-full flex-1 overflow-hidden rounded-[100px] border-[2px] border-[#2f8e86]`}
+      {!!facts.length && (
+        <section className={styles.factsSection}>
+          <h3 className={styles.factsTitle}>{t('facts')}</h3>
+          <p className={styles.factsSub}>{t('discoverKnowledge')}</p>
+
+          <ul className={styles.factGrid}>
+            {facts.map((fact, index) => (
+              <li key={fact.id}>
+                <button
+                  type="button"
+                  className={styles.factCard}
+                  onClick={() => setOpenFactIndex(index)}
                 >
-                  <Image
-                    src={fact?.image || defaultImage}
-                    alt={fact.key ? tf(`${fact.key}.title`) : fact.title}
-                    width={500}
-                    height={500}
-                    quality={90}
-                    className={styles.factImage}
-                  />
-                </div>
-                <div className={styles.descriptionWrapper}>
-                  {fact.key && (
-                    <p className="p-[10px_10px_4px_10px] text-center text-[22px] leading-[1] font-[var(--font-alumni)] font-bold text-white">
-                      {tf(`${fact.key}.title`)}
-                    </p>
-                  )}
-                  <p
-                    className={`${styles.description} p-[4px_10px_15px_10px] text-center text-[20px] leading-[1.3] text-white`}
-                  >
-                    {fact.key ? tf(`${fact.key}.description`) : fact.description}
-                  </p>
-                </div>
+                  <div className={styles.factImageWrap}>
+                    <Image
+                      src={fact?.image || defaultImage}
+                      alt={fact.key ? tf(`${fact.key}.title`) : fact.title}
+                      fill
+                      sizes="33vw"
+                      quality={90}
+                      className={styles.factImage}
+                    />
+                  </div>
+                  <span className={styles.factOpenBtn}>{t('open')}</span>
+                </button>
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {/* Fact modal */}
+      {openFact && (
+        <div className={styles.factModal} onClick={() => setOpenFactIndex(null)}>
+          <button className={styles.factCloseBtn} onClick={() => setOpenFactIndex(null)}>
+            ✕
+          </button>
+
+          {facts.length > 1 && (
+            <button
+              className={`${styles.factNavBtn} ${styles.factNavPrev}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                stepFact(-1);
+              }}
+            >
+              ‹
+            </button>
+          )}
+
+          <div className={styles.factModalCard} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.factModalImageWrap}>
+              <Image
+                src={openFact.image || defaultImage}
+                alt={openFact.key ? tf(`${openFact.key}.title`) : openFact.title}
+                fill
+                sizes="40vw"
+                quality={90}
+                className={styles.factImage}
+              />
+            </div>
+            {openFact.key && <p className={styles.factModalTitle}>{tf(`${openFact.key}.title`)}</p>}
+            <p className={styles.factModalText}>
+              {openFact.key ? tf(`${openFact.key}.description`) : openFact.description}
+            </p>
+          </div>
+
+          {facts.length > 1 && (
+            <button
+              className={`${styles.factNavBtn} ${styles.factNavNext}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                stepFact(1);
+              }}
+            >
+              ›
+            </button>
+          )}
         </div>
       )}
     </div>

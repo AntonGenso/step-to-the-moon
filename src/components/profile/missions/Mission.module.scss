@@ -7,6 +7,10 @@
   gap: 20px;
   overflow: auto;
 
+  /* Establish a size container so grid cells can be sized relative to
+     the list width (keeps cards proportional on zoom / resize). */
+  container-type: inline-size;
+
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 200, 200, 0.2) transparent;
 
@@ -46,8 +50,85 @@
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1280px) {
   .tabletList {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 70%;
+    /* 3 columns per row */
+    --cols: 3;
+    /* Gap scales with the layout (Figma: ~75px gap on a 1920 screen). */
+    --gap: 4cqw;
+    /* Card width / height, taken from the Figma frame (~436 x 357). */
+    --card-ratio: 1.22;
+
+    /* The list is 80% of the container width (80cqw) — derive one column,
+       then the row height from the Figma aspect ratio. Everything below is
+       relative, so 1280 and 1920 render the same layout, just scaled. */
+    --col-w: calc((80cqw - (var(--cols) - 1) * var(--gap)) / var(--cols));
+    --row-h: calc(var(--col-w) / var(--card-ratio));
+
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: var(--gap);
+
+    /* Take the height the container allows, but never more than 2 rows at the
+       Figma aspect ratio. */
+    flex: 1;
+    min-height: 0;
+    max-height: calc(var(--row-h) * 2 + var(--gap));
+
+    /* Two rows always split the list height exactly, so both rows are fully
+       visible (never clipped) and the rest scrolls one full row at a time. */
+    grid-auto-rows: calc((100% - var(--gap)) / 2);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    /* Scroll strictly row by row. */
+    scroll-snap-type: y mandatory;
+
+    .tabletItem {
+      height: 100%;
+      scroll-snap-align: start;
+
+      /* Size container (both axes) so the card's contents can scale with the
+         card itself instead of staying at fixed px on browser zoom. */
+      container-type: size;
+
+      /* The Card renders a <button>; make it fill the row height with the
+         action pinned to the bottom. */
+      > button {
+        height: 100%;
+        justify-content: space-between;
+
+        /* One scale unit = 1% of the card width, but capped by its height, so
+           when the row gets shorter than the Figma ratio the contents shrink
+           with it instead of overflowing. At the Figma ratio both are equal. */
+        --u: min(1cqw, calc(1.22 * 1cqh));
+
+        /* Multipliers measured off the Figma frame (card ~436px at 1920).
+           Being relative, the card looks the same at 1280, 1920 and any zoom. */
+        --card-pad: calc(5.8 * var(--u));
+        --card-gap: calc(4.5 * var(--u));
+        --card-radius: calc(5.5 * var(--u));
+        --top-gap: calc(8 * var(--u));
+        --icon-size: calc(32 * var(--u));
+        --info-gap: calc(1.5 * var(--u));
+
+        --fs-label: calc(2.8 * var(--u));
+        --fs-title: calc(5 * var(--u));
+        --fs-xp: calc(4 * var(--u));
+        --fs-action: calc(4.2 * var(--u));
+        --fs-badge: calc(4.2 * var(--u));
+
+        --xp-mt: calc(1 * var(--u));
+        --xp-pad: calc(1.5 * var(--u)) calc(4 * var(--u));
+        --xp-radius: calc(2.8 * var(--u));
+
+        --action-pad: calc(3.4 * var(--u)) calc(3.6 * var(--u));
+        --action-radius: calc(3.6 * var(--u));
+
+        --badge-pad: calc(1.5 * var(--u)) calc(4 * var(--u));
+        --badge-radius: calc(2.5 * var(--u));
+      }
+    }
   }
 }

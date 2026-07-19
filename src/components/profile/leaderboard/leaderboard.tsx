@@ -20,7 +20,7 @@ export default function Leaderboard() {
       <h2 className={styles.title}>{t('title')}</h2>
       <p className={styles.subtitle}>{t('subtitle')}</p>
 
-      <div className="w-[80%] rounded-lg bg-gradient-to-b from-transparent via-transparent to-[#000000] p-4">
+      <div className="w-[70%] rounded-lg p-4">
         {/* <div className={styles.headerRow}>
           <span className={styles.colHash}>{t('hash')}</span>
           <span className={styles.colName}>{t('name')}</span>
@@ -29,13 +29,14 @@ export default function Leaderboard() {
           <span className={styles.colTotal}>{t('total')}</span>
         </div> */}
 
-        <div className={styles.playerList}>
+        <div className={`${styles.playerList}`}>
           {players.map((p, i) => {
             const isMe = p.nickname === nickname;
+            const rankClass = [styles.rank1, styles.rank2, styles.rank3][i] ?? '';
             return (
               <div
                 key={p.nickname}
-                className={`${styles.playerRow} ${isMe ? styles.playerRowMe : ''}`}
+                className={`${styles.playerRow} ${rankClass} ${isMe ? styles.playerRowMe : ''}`}
               >
                 <span className={styles.colHash}>{i + 1}</span>
                 <div className={styles.colName}>
