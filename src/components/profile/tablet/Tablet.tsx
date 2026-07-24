@@ -92,21 +92,21 @@ export const Tablet = () => {
         {!isMissionDetail && (
           <div className={styles.topbar}>
             <List className={styles.navList}>
-            {tabletButtons.map((item) => {
-              const isActive = activeTab === item.title;
-              const Icon = isActive ? item.activeIcon : item.icon;
-              return (
-                <Trigger
-                  key={item.id}
-                  className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
-                  value={item.title.toLowerCase()}
-                >
-                  <Icon className={styles.navIcon} />
-                  <span className={styles.navLabel}>{tn(item.labelKey)}</span>
-                </Trigger>
-              );
-            })}
-          </List>
+              {tabletButtons.map((item) => {
+                const isActive = activeTab === item.title;
+                const Icon = isActive ? item.activeIcon : item.icon;
+                return (
+                  <Trigger
+                    key={item.id}
+                    className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
+                    value={item.title.toLowerCase()}
+                  >
+                    <Icon className={styles.navIcon} />
+                    <span className={styles.navLabel}>{tn(item.labelKey)}</span>
+                  </Trigger>
+                );
+              })}
+            </List>
 
             {/* <button className={styles.logoutBtn} onClick={handleLogout}>
             <ExitIcon className={styles.logoutIcon} />

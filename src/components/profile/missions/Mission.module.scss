@@ -29,7 +29,7 @@
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 60px;
+  gap: 40px;
   padding: 0;
   margin: 0;
 
@@ -56,10 +56,9 @@
     /* 3 columns per row */
     --cols: 3;
     /* Gap scales with the layout (Figma: ~75px gap on a 1920 screen). */
-    --gap: 4cqw;
-    /* Card width / height, taken from the Figma frame (~436 x 357). */
+    // --gap: 4cqw;
+    --gap: 40px; /* Card width / height, taken from the Figma frame (~436 x 357). */
     --card-ratio: 1.22;
-
     /* The list is 80% of the container width (80cqw) — derive one column,
        then the row height from the Figma aspect ratio. Everything below is
        relative, so 1280 and 1920 render the same layout, just scaled. */
