@@ -14,7 +14,7 @@ export default function Tests() {
 
   return (
     <div className={`${styles.contentWrapper} custom-scroll`}>
-      <Heading title={tn('tests')} />
+      {/* <Heading title={tn('tests')} /> */}
       <ul className={`${styles.tabletList} custom-scroll w-[60%]`}>
         {testData.map((test) => {
           const title = (tData.raw(`t${test.id}`) as { title: string }).title;

@@ -51,7 +51,7 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
     <div className={`${styles.contentWrapper} custom-scroll`}>
       {activeMission === null && !mission ? (
         <>
-          <Heading title={tn('missions')} />
+          {/* <Heading title={tn('missions')} /> */}
           <ul className={`${styles.tabletList} custom-scroll`}>
             {sortedMissions.map((item) => (
               <li key={item.id} className={`${styles.tabletItem}`}>

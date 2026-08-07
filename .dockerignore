@@ -1,0 +1,26 @@
+# Installed in the builder stage — the host copy (1.2 GB) would both bloat the
+# build context and overwrite what `npm ci` put in the image.
+node_modules
+
+# Build output — produced inside the image, never copied into it.
+.next
+out
+
+.git
+.gitignore
+.github
+
+.env
+.env.*
+!.env.example
+
+Dockerfile*
+docker-compose*.yml
+
+*.log
+npm-debug.log*
+.DS_Store
+.vscode
+.idea
+README.md
+CLAUDE.md
