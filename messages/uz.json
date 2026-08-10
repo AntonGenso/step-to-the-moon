@@ -6,6 +6,8 @@
     "nickname": "//Taxallus",
     "pin": "//PIN",
     "confirmPin": "//PIN tasdiqlash",
+    "classCode": "Sinf kodi",
+    "classCodeRequired": "Sinf kodini kiriting",
     "start": "Boshlash",
     "signingIn": "Kirish...",
     "signUp": "Ro'yxatdan o'tish",
@@ -19,7 +21,8 @@
       "nickname": "Taxallus",
       "pin": "4 raqamli PIN",
       "nicknameHint": "2–16 belgi: harflar, raqamlar, _",
-      "confirmPin": "PIN takrorlang"
+      "confirmPin": "PIN takrorlang",
+      "classCode": "masalan Z4EZZJY"
     }
   },
   "validation": {

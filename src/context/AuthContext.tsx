@@ -18,7 +18,11 @@ type AuthContextType = {
   isLoggedIn: boolean;
   loading: boolean;
   login: (nickname: string, pin: string) => Promise<string | null>;
-  signup: (nickname: string, pin: string) => Promise<string | null>;
+  signup: (
+    nickname: string,
+    pin: string,
+    classCode: string,
+  ) => Promise<string | null>;
   logout: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 };
@@ -72,11 +76,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return null;
   };
 
-  const signup = async (nick: string, pin: string): Promise<string | null> => {
+  const signup = async (
+    nick: string,
+    pin: string,
+    classCode: string,
+  ): Promise<string | null> => {
     const res = await fetch('/api/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nickname: nick, pin }),
+      body: JSON.stringify({ nickname: nick, pin, classCode }),
     });
 
     const data = await res.json();

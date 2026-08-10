@@ -1,25 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
+import {
+  getToken,
+  decodeToken,
+  clearSessionCookie,
+} from '@/src/services/session';
 
 export const GET = async (req: NextRequest) => {
-  const nickname = req.cookies.get('session')?.value;
+  const token = getToken(req);
+  const payload = token ? decodeToken(token) : null;
 
-  if (!nickname) {
+  if (!payload) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
 
-  return NextResponse.json({ nickname });
+  return NextResponse.json({ nickname: payload.name, roles: payload.roles });
 };
 
 export const DELETE = async () => {
   const response = NextResponse.json({ ok: true });
-
-  response.cookies.set('session', '', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    path: '/',
-    maxAge: 0,
-  });
-
+  clearSessionCookie(response);
   return response;
 };

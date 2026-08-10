@@ -1,20 +1,12 @@
-import {
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  writeBatch,
-  serverTimestamp,
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
-  type Unsubscribe,
-} from 'firebase/firestore';
-import { db } from './firebase';
-import { MISSION_IDS, TEST_IDS } from '@/src/config/gameConfig';
+/**
+ * Client-side data access for the game UI.
+ *
+ * Every call goes to a same-origin Next.js route under `/api/**`, which forwards
+ * to sttm-server with the session JWT (kept in an httpOnly cookie). This module
+ * runs in the browser and never talks to the database or Firebase directly.
+ */
 
-/* ───── Types ───── */
+/* ───── Types (kept stable for the components that consume them) ───── */
 
 export interface MissionEntry {
   score: number;
@@ -27,12 +19,10 @@ export interface UserSkin {
 }
 
 export interface UserProfile {
-  pin: string;
   skin: UserSkin;
   missions: Record<string, MissionEntry>;
   tests: Record<string, MissionEntry>;
   leaderboard: { stars: number; score: number; total: number };
-  created_at: unknown;
 }
 
 export interface LeaderboardEntry {
@@ -43,169 +33,93 @@ export interface LeaderboardEntry {
   total: number;
 }
 
-/* ───── Helpers ───── */
+/* ───── Profile ───── */
 
-const userRef = (nickname: string) => doc(db, 'users', nickname.toLowerCase());
-
-function buildDefaultMissions(): Record<string, MissionEntry> {
-  const m: Record<string, MissionEntry> = {};
-  for (const id of MISSION_IDS) {
-    m[id] = { score: 0, status: 'open' };
-  }
-  return m;
-}
-
-function buildDefaultTests(): Record<string, MissionEntry> {
-  const t: Record<string, MissionEntry> = {};
-  for (const id of TEST_IDS) {
-    t[id] = { score: 0, status: 'open' };
-  }
-  return t;
-}
-
-/* ───── CRUD ───── */
-
-/** Create profile on signup. Document ID = nickname (lowercase). */
-export const createUserProfile = async (nickname: string, pin: string) => {
-  await setDoc(userRef(nickname), {
-    pin,
-    skin: { headId: 0, suitId: 0 },
-    missions: buildDefaultMissions(),
-    tests: buildDefaultTests(),
-    leaderboard: { stars: 0, score: 0, total: 0 },
-    created_at: serverTimestamp(),
-  });
-};
-
-/** Get user profile by nickname */
+/**
+ * Current user's profile. The `nickname` argument is accepted for backwards
+ * compatibility but ignored — the server resolves the user from the session
+ * cookie. Returns null when not logged in or on error.
+ */
 export const getUserProfile = async (
-  nickname: string,
+  _nickname?: string,
 ): Promise<UserProfile | null> => {
-  const snap = await getDoc(userRef(nickname));
-  return snap.exists() ? (snap.data() as UserProfile) : null;
+  try {
+    const res = await fetch('/api/profile', { cache: 'no-store' });
+    if (!res.ok) return null;
+    return (await res.json()) as UserProfile;
+  } catch {
+    return null;
+  }
 };
 
-/** Check if nickname already exists */
-export const nicknameExists = async (nickname: string): Promise<boolean> => {
-  const snap = await getDoc(userRef(nickname));
-  return snap.exists();
-};
+/* ───── Score submission ───── */
 
-/* ───── Score submission (compare-and-keep-higher, atomic batch) ───── */
-
-/**
- * Submit a mission score. Only updates if newScore > current score.
- * Recalculates leaderboard.stars and leaderboard.total in a single batch.
- */
-export const submitMissionScore = async (
-  nickname: string,
-  missionKey: string,
-  newScore: number,
-): Promise<UserProfile | null> => {
-  const ref = userRef(nickname);
-  const snap = await getDoc(ref);
-  if (!snap.exists()) return null;
-
-  const data = snap.data() as UserProfile;
-  const current = data.missions[missionKey]?.score ?? 0;
-
-  if (newScore <= current) return data;
-
-  // Recalculate stars with the new value
-  const updatedMissions = { ...data.missions };
-  updatedMissions[missionKey] = { score: newScore, status: 'done' };
-
-  const stars = Object.values(updatedMissions).reduce((sum, m) => sum + m.score, 0);
-  const total = stars + data.leaderboard.score;
-
-  const batch = writeBatch(db);
-  batch.update(ref, {
-    [`missions.${missionKey}.score`]: newScore,
-    [`missions.${missionKey}.status`]: 'done',
-    'leaderboard.stars': stars,
-    'leaderboard.total': total,
-  });
-  await batch.commit();
-
-  return {
-    ...data,
-    missions: updatedMissions,
-    leaderboard: { ...data.leaderboard, stars, total },
-  };
-};
-
-/**
- * Submit a test score. Only updates if newScore > current score.
- * Recalculates leaderboard.score and leaderboard.total in a single batch.
- */
+/** Submit a test score. `testKey` is the front-end key, e.g. "test_3". */
 export const submitTestScore = async (
-  nickname: string,
+  _nickname: string,
   testKey: string,
-  newScore: number,
-): Promise<UserProfile | null> => {
-  const ref = userRef(nickname);
-  const snap = await getDoc(ref);
-  if (!snap.exists()) return null;
-
-  const data = snap.data() as UserProfile;
-  const current = data.tests[testKey]?.score ?? 0;
-
-  if (newScore <= current) return data;
-
-  // Recalculate score with the new value
-  const updatedTests = { ...data.tests };
-  updatedTests[testKey] = { score: newScore, status: 'done' };
-
-  const score = Object.values(updatedTests).reduce((sum, t) => sum + t.score, 0);
-  const total = data.leaderboard.stars + score;
-
-  const batch = writeBatch(db);
-  batch.update(ref, {
-    [`tests.${testKey}.score`]: newScore,
-    [`tests.${testKey}.status`]: 'done',
-    'leaderboard.score': score,
-    'leaderboard.total': total,
-  });
-  await batch.commit();
-
-  return {
-    ...data,
-    tests: updatedTests,
-    leaderboard: { ...data.leaderboard, score, total },
-  };
+  score: number,
+): Promise<boolean> => {
+  try {
+    const res = await fetch('/api/submit-test', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ test: testKey, score }),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 };
 
 /* ───── Skin ───── */
 
-export const updateUserSkin = async (nickname: string, skin: UserSkin) => {
-  await updateDoc(userRef(nickname), { skin });
+export const updateUserSkin = async (
+  _nickname: string,
+  skin: UserSkin,
+): Promise<boolean> => {
+  try {
+    const res = await fetch('/api/skin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(skin),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
 };
 
-/* ───── Leaderboard (real-time) ───── */
+/* ───── Leaderboard ───── */
+
+const LEADERBOARD_POLL_MS = 15_000;
 
 /**
- * Subscribe to the top N users, ordered by total descending.
- * Returns an unsubscribe function.
+ * Subscribe to the leaderboard. sttm-server has no realtime channel, so this
+ * polls `/api/leaderboard` on an interval and reports the latest snapshot.
+ * Returns an unsubscribe function, matching the previous realtime API.
  */
 export const subscribeTopUsers = (
   callback: (entries: LeaderboardEntry[]) => void,
-): Unsubscribe => {
-  const q = query(
-    collection(db, 'users'),
-    orderBy('leaderboard.total', 'desc'),
-  );
+): (() => void) => {
+  let active = true;
 
-  return onSnapshot(q, (snap) => {
-    const entries: LeaderboardEntry[] = snap.docs.map((d) => {
-      const data = d.data() as UserProfile;
-      return {
-        nickname: d.id,
-        skin: data.skin ?? { headId: 0, suitId: 0 },
-        stars: data.leaderboard?.stars ?? 0,
-        score: data.leaderboard?.score ?? 0,
-        total: data.leaderboard?.total ?? 0,
-      };
-    });
-    callback(entries);
-  });
+  const tick = async () => {
+    try {
+      const res = await fetch('/api/leaderboard', { cache: 'no-store' });
+      if (!res.ok) return;
+      const entries = (await res.json()) as LeaderboardEntry[];
+      if (active) callback(entries);
+    } catch {
+      /* ignore transient errors; the next tick retries */
+    }
+  };
+
+  tick();
+  const id = setInterval(tick, LEADERBOARD_POLL_MS);
+
+  return () => {
+    active = false;
+    clearInterval(id);
+  };
 };

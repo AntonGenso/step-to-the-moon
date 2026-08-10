@@ -6,6 +6,8 @@
     "nickname": "//Nickname",
     "pin": "//PIN",
     "confirmPin": "//Confirm PIN",
+    "classCode": "Class code",
+    "classCodeRequired": "Enter your class code",
     "start": "Start",
     "signingIn": "Signing in...",
     "signUp": "Sign Up",
@@ -19,7 +21,8 @@
       "nickname": "Nickname",
       "pin": "4-digit PIN",
       "nicknameHint": "2–16 chars: letters, digits, _",
-      "confirmPin": "Repeat PIN"
+      "confirmPin": "Repeat PIN",
+      "classCode": "e.g. Z4EZZJY"
     }
   },
   "validation": {

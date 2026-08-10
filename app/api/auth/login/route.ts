@@ -1,44 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getUserProfile } from '@/src/services/userService';
 import { validateNickname, validatePin } from '@/src/services/validators';
+import { login, SttmError } from '@/src/services/sttmServer';
+import { setSessionCookie } from '@/src/services/session';
 
 export const POST = async (req: NextRequest) => {
   try {
     const { nickname, pin } = await req.json();
 
-    const nickErr = validateNickname(nickname ?? '');
-    const pinErr = validatePin(pin ?? '');
-    if (nickErr || pinErr) {
-      return NextResponse.json(
-        { error: 'Wrong nickname or PIN' },
-        { status: 401 },
-      );
+    if (validateNickname(nickname ?? '') || validatePin(pin ?? '')) {
+      return NextResponse.json({ error: 'Wrong nickname or PIN' }, { status: 401 });
     }
 
-    const profile = await getUserProfile(nickname);
+    // Nicknames are stored lower-cased at registration; match that on login so
+    // "Teacher" and "teacher" resolve to the same account.
+    const { user, token } = await login(nickname.trim().toLowerCase(), pin);
 
-    if (!profile || profile.pin !== pin) {
-      return NextResponse.json(
-        { error: 'Wrong nickname or PIN' },
-        { status: 401 },
-      );
-    }
-
-    const response = NextResponse.json({
-      ok: true,
-      nickname: nickname.toLowerCase(),
-    });
-
-    response.cookies.set('session', nickname.toLowerCase(), {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-    });
-
+    const response = NextResponse.json({ ok: true, nickname: user.name });
+    setSessionCookie(response, token);
     return response;
-  } catch {
-    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+  } catch (error) {
+    if (error instanceof SttmError && error.status === 401) {
+      return NextResponse.json({ error: 'Wrong nickname or PIN' }, { status: 401 });
+    }
+    return NextResponse.json({ error: 'Something went wrong' }, { status: 500 });
   }
 };

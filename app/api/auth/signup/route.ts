@@ -1,49 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  nicknameExists,
-  createUserProfile,
-} from '@/src/services/userService';
 import { validateNickname, validatePin } from '@/src/services/validators';
+import { registerStudent, SttmError } from '@/src/services/sttmServer';
+import { setSessionCookie } from '@/src/services/session';
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { nickname, pin } = await req.json();
+    const { nickname, pin, classCode } = await req.json();
 
-    const nickErr = validateNickname(nickname ?? '');
-    if (nickErr) {
+    if (validateNickname(nickname ?? '')) {
       return NextResponse.json({ error: 'Invalid nickname' }, { status: 400 });
     }
-
-    const pinErr = validatePin(pin ?? '');
-    if (pinErr) {
+    if (validatePin(pin ?? '')) {
       return NextResponse.json({ error: 'Invalid PIN' }, { status: 400 });
     }
-
-    const exists = await nicknameExists(nickname);
-    if (exists) {
-      return NextResponse.json(
-        { error: 'This nickname is already taken' },
-        { status: 409 },
-      );
+    if (typeof classCode !== 'string' || !classCode.trim()) {
+      return NextResponse.json({ error: 'Class code is required' }, { status: 400 });
     }
 
-    await createUserProfile(nickname, pin);
+    const { user, token } = await registerStudent(nickname, pin, classCode);
 
-    const response = NextResponse.json({
-      ok: true,
-      nickname: nickname.toLowerCase(),
-    });
-
-    response.cookies.set('session', nickname.toLowerCase(), {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-    });
-
+    const response = NextResponse.json({ ok: true, nickname: user.name });
+    setSessionCookie(response, token);
     return response;
-  } catch {
+  } catch (error) {
+    if (error instanceof SttmError) {
+      // A taken nickname (409) or an unknown/invalid class code (404/400) is a
+      // user-facing message; anything else is a server fault.
+      if (error.status === 409) {
+        return NextResponse.json({ error: 'This nickname is already taken' }, { status: 409 });
+      }
+      if (error.status === 404 || error.status === 400) {
+        return NextResponse.json({ error: 'Invalid class code' }, { status: 400 });
+      }
+    }
     return NextResponse.json({ error: 'Something went wrong' }, { status: 500 });
   }
 };

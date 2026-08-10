@@ -21,6 +21,7 @@ export default function SignupPage() {
   const [nickname, setNickname] = useState('');
   const [pin, setPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
+  const [classCode, setClassCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -45,10 +46,15 @@ export default function SignupPage() {
       return;
     }
 
+    if (!classCode.trim()) {
+      setError(t('classCodeRequired'));
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const err = await signup(nickname, pin);
+      const err = await signup(nickname, pin, classCode.trim().toUpperCase());
       if (err) {
         setError(err);
       } else {
@@ -125,6 +131,22 @@ export default function SignupPage() {
             }}
             autoComplete="new-password"
             maxLength={4}
+          />
+        </div>
+
+        <label className={styles.label}>{t('classCode')}</label>
+        <div className={styles.inputGroup}>
+          <input
+            type="text"
+            placeholder={t('placeholder.classCode')}
+            value={classCode}
+            onChange={(e) =>
+              setClassCode(
+                e.target.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 7),
+              )
+            }
+            autoComplete="off"
+            maxLength={7}
           />
         </div>
 
