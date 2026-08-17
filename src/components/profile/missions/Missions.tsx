@@ -7,8 +7,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { Mission } from '../mission/Mission';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from '@/src/i18n/navigation';
-import { Heading } from '@/src/uikit/heading/Heading';
-import { useTranslations } from 'next-intl';
+// import { Heading } from '@/src/uikit/heading/Heading';
+// import { useTranslations } from 'next-intl';
 import { useAuth } from '@/src/context/AuthContext';
 
 interface IMissionProps {
@@ -18,7 +18,7 @@ interface IMissionProps {
 
 const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
   const [activeMission, setActiveMission] = useState<IMissionData | null>(null);
-  const tn = useTranslations('nav');
+  // const tn = useTranslations('nav');
   const { profile } = useAuth();
 
   const serchParams = useSearchParams();

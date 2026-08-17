@@ -137,7 +137,7 @@ export const missionData: IMissionData[] = [
       'https://antongenso.github.io/STTM-Atmosphere/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 3. It provides additional context and details about the mission.',
-    videoLink: '/video/mission/atmosphere/atmosphere.mp4',
+    videoLink: '/video/mission/atmosphere/atmosphere_uz.mp4',
     facts: atmosphereFacts.facts,
     type: 'current',
   },
@@ -174,7 +174,7 @@ export const missionData: IMissionData[] = [
       'https://antongenso.github.io/space-rush-tunnel/?uid=USER_ID&api=https://your-platform.com',
     description:
       'This is a description for mission sun at level 5. It provides additional context and details about the mission.',
-    videoLink: '',
+    videoLink: '/video/mission/canyon/space_uz.mp4',
     facts: canyonFlightFacts.facts,
     type: 'current',
   },

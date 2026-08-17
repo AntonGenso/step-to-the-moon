@@ -168,6 +168,28 @@
   pointer-events: none;
 }
 
+/* The video element itself is what goes fullscreen on play. Its in-card state
+   is transparent, so the opacity has to be restored while fullscreen or the
+   browser plays only the audio over a blank screen. Kept as separate rules:
+   an unknown vendor pseudo-class would otherwise invalidate the whole list. */
+.hiddenVideo:fullscreen {
+  opacity: 1;
+  object-fit: contain;
+  background: #000;
+}
+
+.hiddenVideo:-webkit-full-screen {
+  opacity: 1;
+  object-fit: contain;
+  background: #000;
+}
+
+.hiddenVideo:-ms-fullscreen {
+  opacity: 1;
+  object-fit: contain;
+  background: #000;
+}
+
 /* ── Bonus mission cards ── */
 .bonusWrapper {
   display: flex;
