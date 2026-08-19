@@ -147,12 +147,18 @@
 /* ── Game Overlay ── */
 
 .gameOverlay {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 12px;
   width: 100%;
-  height: 100vh;
+  /* Fill the content area (viewport minus the app header), not the raw
+     viewport — 100vh here pushes the overlay below the visible screen by the
+     header's height, cutting off the close button and bottom of the game. */
+  height: 100%;
+  min-height: 0;
   padding: 20px;
+  overflow: hidden;
   background: var(--color-bg-base);
 }
 
@@ -177,6 +183,7 @@
 
 .gameIframe {
   flex: 1;
+  min-height: 0;
   width: 100%;
   border: 1.5px solid rgba(0, 200, 200, 0.25);
   border-radius: 16px;
