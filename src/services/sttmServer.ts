@@ -36,6 +36,7 @@ export interface SttmUser {
 export interface AuthResult {
   user: SttmUser;
   token: string;
+  refreshToken: string;
 }
 
 export interface ProgressItem {
@@ -108,8 +109,7 @@ const request = async <T>(path: string, options: FetchOptions = {}): Promise<T> 
   }
 
   if (!res.ok) {
-    const message =
-      (data as { message?: string })?.message ?? `Request failed (${res.status})`;
+    const message = (data as { message?: string })?.message ?? `Request failed (${res.status})`;
     throw new SttmError(res.status, message);
   }
 
@@ -121,7 +121,7 @@ const request = async <T>(path: string, options: FetchOptions = {}): Promise<T> 
 export const registerStudent = (
   nickname: string,
   pin: string,
-  classCode: string,
+  classCode: string
 ): Promise<AuthResult> =>
   request<AuthResult>('/auth/student/register', {
     method: 'POST',
@@ -133,6 +133,20 @@ export const login = (nickname: string, pin: string): Promise<AuthResult> =>
   request<AuthResult>('/auth/login', {
     method: 'POST',
     body: { name: nickname, password: pin },
+  });
+
+/** Exchanges a refresh token for a new access token (and a rotated refresh). */
+export const refreshSession = (refreshToken: string): Promise<AuthResult> =>
+  request<AuthResult>('/auth/refresh', {
+    method: 'POST',
+    body: { refreshToken },
+  });
+
+/** Revokes a refresh token server-side (logout). */
+export const revokeSession = (refreshToken: string): Promise<unknown> =>
+  request('/auth/logout', {
+    method: 'POST',
+    body: { refreshToken },
   });
 
 /* ───────────────────────── Game ───────────────────────── */
@@ -161,11 +175,7 @@ export const updateSkin = (token: string, headId: number, suitId: number) =>
     body: { headId, suitId },
   });
 
-export const getLeaderboard = (
-  token: string,
-  classId?: number,
-): Promise<LeaderboardRow[]> =>
-  request<LeaderboardRow[]>(
-    '/game/leaderboard' + (classId ? `?classId=${classId}` : ''),
-    { token },
-  );
+export const getLeaderboard = (token: string, classId?: number): Promise<LeaderboardRow[]> =>
+  request<LeaderboardRow[]>('/game/leaderboard' + (classId ? `?classId=${classId}` : ''), {
+    token,
+  });

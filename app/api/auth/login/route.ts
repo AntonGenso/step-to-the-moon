@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { validateNickname, validatePin } from '@/src/services/validators';
 import { login, SttmError } from '@/src/services/sttmServer';
-import { setSessionCookie } from '@/src/services/session';
+import { setSession } from '@/src/services/session';
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -13,10 +13,10 @@ export const POST = async (req: NextRequest) => {
 
     // Nicknames are stored lower-cased at registration; match that on login so
     // "Teacher" and "teacher" resolve to the same account.
-    const { user, token } = await login(nickname.trim().toLowerCase(), pin);
+    const { user, token, refreshToken } = await login(nickname.trim().toLowerCase(), pin);
 
     const response = NextResponse.json({ ok: true, nickname: user.name });
-    setSessionCookie(response, token);
+    setSession(response, token, refreshToken);
     return response;
   } catch (error) {
     if (error instanceof SttmError && error.status === 401) {

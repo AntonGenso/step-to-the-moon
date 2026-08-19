@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  submitMission,
-  MISSION_ID_OFFSET,
-  SttmError,
-} from '@/src/services/sttmServer';
-import { getToken } from '@/src/services/session';
+import { submitMission, MISSION_ID_OFFSET, SttmError } from '@/src/services/sttmServer';
+import { withStudentAuth } from '@/src/services/withStudentAuth';
 
 interface SubmitResult {
   leaderboard: { stars: number; score: number; total: number };
@@ -15,37 +11,33 @@ interface SubmitResult {
  * cookie (JWT); the mission arrives as the front-end key `mission_<n>`, which
  * maps to `missions.id = n + MISSION_ID_OFFSET`.
  */
-export const POST = async (req: NextRequest) => {
-  const token = getToken(req);
-  if (!token) {
-    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
-  }
+export const POST = (req: NextRequest) =>
+  withStudentAuth(req, async (token) => {
+    try {
+      const { mission, score } = await req.json();
 
-  try {
-    const { mission, score } = await req.json();
+      const frontId = Number(String(mission ?? '').replace(/^mission_/, ''));
+      if (!Number.isInteger(frontId) || frontId < 0) {
+        return NextResponse.json({ error: 'Invalid mission' }, { status: 400 });
+      }
+      if (typeof score !== 'number' || score < 0) {
+        return NextResponse.json({ error: 'Invalid score' }, { status: 400 });
+      }
 
-    const frontId = Number(String(mission ?? '').replace(/^mission_/, ''));
-    if (!Number.isInteger(frontId) || frontId < 0) {
-      return NextResponse.json({ error: 'Invalid mission' }, { status: 400 });
+      const result = (await submitMission(
+        token,
+        frontId + MISSION_ID_OFFSET,
+        score
+      )) as SubmitResult;
+
+      return NextResponse.json({
+        ok: true,
+        stars: result.leaderboard.stars,
+        total: result.leaderboard.total,
+      });
+    } catch (error) {
+      const status = error instanceof SttmError ? error.status : 500;
+      const message = error instanceof SttmError ? error.message : 'Server error';
+      return NextResponse.json({ error: message }, { status });
     }
-    if (typeof score !== 'number' || score < 0) {
-      return NextResponse.json({ error: 'Invalid score' }, { status: 400 });
-    }
-
-    const result = (await submitMission(
-      token,
-      frontId + MISSION_ID_OFFSET,
-      score,
-    )) as SubmitResult;
-
-    return NextResponse.json({
-      ok: true,
-      stars: result.leaderboard.stars,
-      total: result.leaderboard.total,
-    });
-  } catch (error) {
-    const status = error instanceof SttmError ? error.status : 500;
-    const message = error instanceof SttmError ? error.message : 'Server error';
-    return NextResponse.json({ error: message }, { status });
-  }
-};
+  });

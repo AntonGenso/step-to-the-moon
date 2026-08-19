@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { validateNickname, validatePin } from '@/src/services/validators';
 import { registerStudent, SttmError } from '@/src/services/sttmServer';
-import { setSessionCookie } from '@/src/services/session';
+import { setSession } from '@/src/services/session';
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -17,10 +17,10 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json({ error: 'Class code is required' }, { status: 400 });
     }
 
-    const { user, token } = await registerStudent(nickname, pin, classCode);
+    const { user, token, refreshToken } = await registerStudent(nickname, pin, classCode);
 
     const response = NextResponse.json({ ok: true, nickname: user.name });
-    setSessionCookie(response, token);
+    setSession(response, token, refreshToken);
     return response;
   } catch (error) {
     if (error instanceof SttmError) {
