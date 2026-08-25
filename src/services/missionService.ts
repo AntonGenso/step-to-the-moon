@@ -10,6 +10,7 @@
  */
 
 import type { MissionDetail, MissionFactPayload, MissionListItem } from './sttmServer';
+import { toAssetUrl } from './assetUrl';
 
 export interface MissionFact {
   id: number;
@@ -62,15 +63,18 @@ export const parseCardId = (cardId: string): { id: number; isBonus: boolean } =>
 export const missionProgressKey = (missionId: number) => `mission_${missionId}`;
 
 const pickLocalized = (assets: { ru: string | null; uz: string | null }, locale: string): string =>
-  (locale === 'uz' ? assets.uz || assets.ru : assets.ru || assets.uz) ?? '';
+  toAssetUrl(locale === 'uz' ? assets.uz || assets.ru : assets.ru || assets.uz);
 
 /** Facts as the screens render them, with the locale already resolved. */
+const pickText = (text: { ru: string | null; uz: string | null }, locale: string): string =>
+  (locale === 'uz' ? text.uz || text.ru : text.ru || text.uz) ?? '';
+
 const toFacts = (facts: MissionFactPayload[], locale: string): MissionFact[] =>
   facts.map((fact) => ({
     id: fact.id,
-    title: pickLocalized(fact.title, locale),
-    description: pickLocalized(fact.description, locale),
-    image: fact.image_url ?? '',
+    title: pickText(fact.title, locale),
+    description: pickText(fact.description, locale),
+    image: toAssetUrl(fact.image_url),
   }));
 
 /**
@@ -82,7 +86,7 @@ const toCards = (missions: MissionListItem[], locale: string): MissionView[] => 
 
   for (const mission of missions) {
     const title = mission.label ?? mission.name;
-    const icon = mission.cover_url;
+    const icon = toAssetUrl(mission.cover_url) || null;
 
     cards.push({
       cardId: String(mission.id),
@@ -157,8 +161,8 @@ export const getMissionCard = async (
   const detail = (await res.json()) as MissionDetail;
 
   const fileLinks: Record<string, string> = {};
-  if (detail.documents.ru.url) fileLinks.ru = detail.documents.ru.url;
-  if (detail.documents.uz.url) fileLinks.uz = detail.documents.uz.url;
+  if (detail.documents.ru.url) fileLinks.ru = toAssetUrl(detail.documents.ru.url);
+  if (detail.documents.uz.url) fileLinks.uz = toAssetUrl(detail.documents.uz.url);
 
   return {
     cardId,
@@ -167,7 +171,7 @@ export const getMissionCard = async (
     title: detail.label ?? detail.name,
     level: detail.level,
     xp: isBonus ? undefined : detail.xp,
-    icon: detail.cover_url,
+    icon: toAssetUrl(detail.cover_url) || null,
     gameLink: isBonus ? '' : (detail.game_link ?? ''),
     videoLink: isBonus
       ? ''
