@@ -4,16 +4,17 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from '@/src/i18n/navigation';
 import Image from 'next/image';
 import styles from './MobileMissionDetail.module.scss';
-import { IMissionData } from '@/src/components/utils/missionData';
+import { missionProgressKey, type MissionView } from '@/src/services/missionService';
 import { MobileBottomNav } from './MobileBottomNav';
 import { useTranslations, useLocale } from 'next-intl';
 import { useAuth } from '@/src/context/AuthContext';
 import GameIcon from '@/public/images/svg/mobile/other/game.svg';
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
 import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
+import { resolveGameLink } from '@/src/services/gameLink';
 
 interface Props {
-  mission: IMissionData;
+  mission: MissionView;
 }
 
 export const MobileMissionDetail = ({ mission }: Props) => {
@@ -23,11 +24,8 @@ export const MobileMissionDetail = ({ mission }: Props) => {
   const tf = useTranslations('facts');
   const locale = useLocale();
   const { nickname, refreshProfile } = useAuth();
-  const icon = mission.icon;
   const [origin, setOrigin] = useState('');
-  const resolvedGameLink = mission.gameLink
-    .replace('USER_ID', nickname ?? '')
-    .replace('https://your-platform.com', origin);
+  const resolvedGameLink = resolveGameLink(mission.gameLink, { nickname, origin });
   const [activeOverlay, setActiveOverlay] = useState<'video' | 'game' | null>(null);
   const [openFactId, setOpenFactId] = useState<number | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -56,7 +54,7 @@ export const MobileMissionDetail = ({ mission }: Props) => {
       await fetch('/api/submit-score', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mission: `mission_${mission.id}`, score }),
+        body: JSON.stringify({ mission: missionProgressKey(mission.id), score }),
       });
 
       await refreshProfile();
@@ -102,7 +100,16 @@ export const MobileMissionDetail = ({ mission }: Props) => {
 
             <div className={styles.headerIcon}>
               {/* <Icon className={styles.headerIconSvg} /> */}
-              <Image src={icon} alt="Icon" className={styles.headerIconSvg} />
+              {mission.icon && (
+                <Image
+                  src={mission.icon}
+                  alt={mission.title}
+                  width={160}
+                  height={160}
+                  unoptimized
+                  className={styles.headerIconSvg}
+                />
+              )}
             </div>
           </div>
 
@@ -229,15 +236,18 @@ export const MobileMissionDetail = ({ mission }: Props) => {
                       onClick={() => setOpenFactId(fact.id)}
                     >
                       <div className="shadow-inner-card flex h-full w-full flex-col gap-5 rounded-[50px] bg-gradient-to-r from-[#0F2D37] to-[#030505] p-[15px]">
-                        <div className={styles.factImageWrap}>
-                          <Image
-                            src={fact.image}
-                            alt={fact.title}
-                            fill
-                            sizes="40vw"
-                            className={styles.factImage}
-                          />
-                        </div>
+                        {fact.image && (
+                          <div className={styles.factImageWrap}>
+                            <Image
+                              src={fact.image}
+                              alt={fact.title}
+                              fill
+                              sizes="40vw"
+                              unoptimized
+                              className={styles.factImage}
+                            />
+                          </div>
+                        )}
                         <div
                           className={styles.factOpenBtn}
                           // onClick={() => setOpenFactId(fact.id)}
@@ -265,16 +275,21 @@ export const MobileMissionDetail = ({ mission }: Props) => {
               <div key={fact.id} className={styles.factSlide}>
                 <div className={styles.factModalCard}>
                   <div className="shadow-inner-card flex h-full w-full flex-col gap-5 rounded-[50px] bg-gradient-to-r from-[#0F2D37] to-[#030505] p-[20px]">
-                    <div className={styles.factModalImageWrap}>
-                      <Image
-                        src={fact.image}
-                        alt={fact.key ? tf(`${fact.key}.title`) : fact.title}
-                        fill
-                        sizes="80vw"
-                        className={styles.factImage}
-                      />
-                    </div>
-                    {fact.key && <p className={styles.factModalTitle}>{tf(`${fact.key}.title`)}</p>}
+                    {fact.image && (
+                      <div className={styles.factModalImageWrap}>
+                        <Image
+                          src={fact.image}
+                          alt={fact.key ? tf(`${fact.key}.title`) : fact.title}
+                          fill
+                          sizes="80vw"
+                          unoptimized
+                          className={styles.factImage}
+                        />
+                      </div>
+                    )}
+                    <p className={styles.factModalTitle}>
+                      {fact.key ? tf(`${fact.key}.title`) : fact.title}
+                    </p>
                     <p className={styles.factModalText}>
                       {fact.key ? tf(`${fact.key}.description`) : fact.description}
                     </p>

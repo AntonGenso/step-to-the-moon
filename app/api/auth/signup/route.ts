@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { validateNickname, validatePin } from '@/src/services/validators';
+import { validateNewNickname, validatePin } from '@/src/services/validators';
 import { registerStudent, SttmError } from '@/src/services/sttmServer';
 import { setSession } from '@/src/services/session';
 
@@ -7,7 +7,7 @@ export const POST = async (req: NextRequest) => {
   try {
     const { nickname, pin, classCode } = await req.json();
 
-    if (validateNickname(nickname ?? '')) {
+    if (validateNewNickname(nickname ?? '')) {
       return NextResponse.json({ error: 'Invalid nickname' }, { status: 400 });
     }
     if (validatePin(pin ?? '')) {

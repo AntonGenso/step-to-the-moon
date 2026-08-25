@@ -90,6 +90,17 @@
   }
 }
 
+.logoIshonch {
+  height: 24px;
+  width: auto;
+
+  /* Wide wordmark (5.7:1), so it shrinks harder than the other two logos to
+     keep the header on one row on narrow screens. */
+  @media (max-width: 768px) {
+    height: fluid(12, 24);
+  }
+}
+
 /* ── Auth Buttons ── */
 
 .authButtons {
@@ -101,8 +112,10 @@
     gap: fluid(8, 20);
   }
 
-  a,
-  button {
+  // Direct children only: the language switcher brings its own colors and must
+  // not be repainted by this rule.
+  > a,
+  > button {
     display: flex;
     align-items: center;
     transition: all 0.2s ease;

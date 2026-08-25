@@ -16,6 +16,13 @@ $grey: #adbecc;
   background: $dark-bg url('/images/bg-main.webp') no-repeat center/cover;
 }
 
+.langSwitcher {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+}
+
 .logos {
   display: flex;
   align-items: center;

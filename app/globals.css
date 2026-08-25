@@ -12,6 +12,7 @@
 
   /* Cyan / Teal — primary accent */
   --color-cyan: #00d4c8;
+  --color-cyan-bright: #00e3ff;
   --color-cyan-dark: #006d86;
   --color-cyan-light: #2fe4d3;
   --color-cyan-glow: #4ec8ff;
@@ -45,10 +46,12 @@
   --color-text-primary: #ffffff;
   --color-text-secondary: rgba(255, 255, 255, 0.5);
   --color-text-muted: rgba(255, 255, 255, 0.35);
+  --color-grey: #adbecc;
 }
 
 @theme inline {
   --color-cyan: var(--color-cyan);
+  --color-cyan-bright: var(--color-cyan-bright);
   --color-cyan-dark: var(--color-cyan-dark);
   --color-cyan-light: var(--color-cyan-light);
   --color-cyan-glow: var(--color-cyan-glow);
@@ -70,6 +73,7 @@
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
   --color-text-muted: var(--color-text-muted);
+  --color-grey: var(--color-grey);
   --color-text-cyan: var(--color-text-cyan);
   --color-card-indigo-light: var(--color-card-indigo-light);
   --color-card-indigo: var(--color-card-indigo);

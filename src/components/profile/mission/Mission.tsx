@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { missionData } from '../../utils/missionData';
+import { getMissionCard, type MissionView } from '@/src/services/missionService';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from '@/src/i18n/navigation';
 import { useTranslations, useLocale } from 'next-intl';
@@ -31,7 +31,28 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
   const locale = useLocale();
   const [openFactIndex, setOpenFactIndex] = useState<number | null>(null);
 
-  const mission = missionData.find((item) => item.id === Number(searchParams.get('missionId')));
+  const cardId = searchParams.get('missionId');
+  const [mission, setMission] = useState<MissionView | null>(null);
+
+  useEffect(() => {
+    if (!cardId) {
+      setMission(null);
+      return;
+    }
+
+    let active = true;
+    getMissionCard(cardId, locale)
+      .then((card) => {
+        if (active) setMission(card);
+      })
+      .catch(() => {
+        if (active) setMission(null);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [cardId, locale]);
 
   const handlePlay = async () => {
     if (videoRef.current) {
@@ -135,7 +156,14 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
 
         <div className={styles.headerIcon}>
           {mission?.icon && (
-            <Image src={mission.icon} alt={mission.title} className={styles.headerIconImg} />
+            <Image
+              src={mission.icon}
+              alt={mission.title}
+              width={160}
+              height={160}
+              unoptimized
+              className={styles.headerIconImg}
+            />
           )}
         </div>
       </div>
@@ -172,6 +200,7 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
                       fill
                       sizes="33vw"
                       quality={90}
+                      unoptimized={!!fact.image}
                       className={styles.factImage}
                     />
                   </div>
@@ -210,10 +239,13 @@ export const Mission = ({ setGameLink, setIsGameOpen }: IMissionProps) => {
                 fill
                 sizes="40vw"
                 quality={90}
+                unoptimized={!!openFact.image}
                 className={styles.factImage}
               />
             </div>
-            {openFact.key && <p className={styles.factModalTitle}>{tf(`${openFact.key}.title`)}</p>}
+            <p className={styles.factModalTitle}>
+              {openFact.key ? tf(`${openFact.key}.title`) : openFact.title}
+            </p>
             <p className={styles.factModalText}>
               {openFact.key ? tf(`${openFact.key}.description`) : openFact.description}
             </p>

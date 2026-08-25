@@ -20,21 +20,22 @@
     "placeholder": {
       "nickname": "Nickname",
       "pin": "4-digit PIN",
-      "nicknameHint": "2–16 chars: letters, digits, _",
+      "nicknameHint": "{min}–{max} chars: letters, digits, _, space",
       "confirmPin": "Repeat PIN",
       "classCode": "e.g. Z4EZZJY"
     }
   },
   "validation": {
     "enterNickname": "Enter your nickname",
-    "nicknameTooShort": "Nickname must be at least 2 characters",
-    "nicknameTooLong": "Nickname must be at most 16 characters",
-    "nicknameChars": "Only letters, numbers and underscore allowed",
+    "nicknameTooShort": "Nickname must be at least {min} characters",
+    "nicknameTooLong": "Nickname must be at most {max} characters",
+    "nicknameChars": "Only Latin or Cyrillic letters, numbers, underscore and single spaces between words",
+    "nicknameProfanity": "Nickname contains inappropriate language",
     "enterPin": "Enter your PIN",
     "pinFormat": "PIN must be exactly 4 digits"
   },
   "header": {
-    "stepToMoon": "Step to the moon",
+    "missionMoon": "Mission Moon",
     "logIn": "Log In",
     "confirmLogout": "Confirm Logout",
     "confirmMessage": "Are you sure you want to log out?",

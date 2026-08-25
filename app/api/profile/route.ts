@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getProfile, MISSION_ID_OFFSET, SttmError } from '@/src/services/sttmServer';
+import { getProfile, SttmError } from '@/src/services/sttmServer';
 import { withStudentAuth } from '@/src/services/withStudentAuth';
 
 /**
- * Serves the logged-in student's game state in the legacy `UserProfile` shape
- * the components already expect: missions/tests as records keyed by the
- * front-end (0-based) mission id and (1-based) test id, so no UI code changes.
+ * Serves the logged-in student's game state in the `UserProfile` shape the
+ * components expect: missions and tests as records keyed by their database id
+ * (`mission_27`, `test_3`) — the same ids the catalog and the score submission
+ * use, so a card can look up its own progress without any mapping.
  */
 export const GET = (req: NextRequest) =>
   withStudentAuth(req, async (token) => {
@@ -14,8 +15,7 @@ export const GET = (req: NextRequest) =>
 
       const missions: Record<string, { score: number; status: string }> = {};
       for (const m of profile.missions) {
-        const frontId = (m.mission_id ?? 0) - MISSION_ID_OFFSET;
-        missions[`mission_${frontId}`] = {
+        missions[`mission_${m.mission_id}`] = {
           score: m.best_score,
           status: m.status === 'done' ? 'done' : 'open',
         };

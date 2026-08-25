@@ -1,4 +1,3 @@
-import { missionData } from '@/src/components/utils/missionData';
 import { testData } from '@/src/components/utils/testData';
 
 /** Points per correct answer in a test */
@@ -8,9 +7,6 @@ export const POINTS_PER_QUESTION = 10;
 export const TEST_MAX_SCORES: Record<string, number> = Object.fromEntries(
   testData.map((t) => [`test_${t.id}`, t.questionCount * POINTS_PER_QUESTION]),
 );
-
-/** Mission IDs from the data */
-export const MISSION_IDS = missionData.map((m) => `mission_${m.id}`);
 
 /** Test IDs from the data */
 export const TEST_IDS = testData.map((t) => `test_${t.id}`);

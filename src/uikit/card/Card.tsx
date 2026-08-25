@@ -11,7 +11,8 @@ interface ICardProps {
   image: ElementType | StaticImageData | string;
   title: string;
   level: number;
-  xp: number;
+  /** Omitted when the card carries no reward, e.g. the bonus card. */
+  xp?: number;
   status: boolean;
   setActiveMission: (level: number) => void;
   label: string;
@@ -62,9 +63,19 @@ export const Card = ({
               <Image src={lockedImg} alt="Locked" className={styles.lockedImage} fill />
             ) : isComponent && Icon ? (
               <Icon className={styles.icon} />
-            ) : (
-              <Image src={image as StaticImageData | string} alt="Icon" className={styles.icon} />
-            )}
+            ) : image ? (
+              // Covers arrive from MinIO as a plain path, and next/image needs
+              // the intrinsic size for those — a bare string src throws and
+              // takes the whole list down with it. CSS still drives the size.
+              <Image
+                src={image as StaticImageData | string}
+                alt={title}
+                width={160}
+                height={160}
+                unoptimized={typeof image === 'string'}
+                className={styles.icon}
+              />
+            ) : null}
           </div>
           {isBonus && <span className={styles.bonusBadge}>{tc('bonus')}</span>}
         </div>
@@ -73,8 +84,17 @@ export const Card = ({
             {label} {String(level).padStart(2, '0')}
           </span>
           <h3 className={styles.title}>{title}</h3>
-          <span className={styles.xp}>
-            {xp} {tc('xp')}
+          {/*
+            A card without a reward keeps the XP slot, empty and hidden: the
+            info column is centred against the icon, so dropping the row
+            outright would push the level and the title lower than on the
+            cards next to it.
+          */}
+          <span
+            className={cn(styles.xp, { [styles.xpEmpty]: xp === undefined })}
+            aria-hidden={xp === undefined}
+          >
+            {xp !== undefined ? `${xp} ${tc('xp')}` : '\u00A0'}
           </span>
         </div>
       </div>

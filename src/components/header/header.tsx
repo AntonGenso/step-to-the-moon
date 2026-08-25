@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 
 import Logo from '@/public/images/svg/logo-en.svg';
 import LogoCosmos from '@/public/images/svg/uzcosmos_logo_white.svg';
+import LogoIshonch from '@/public/images/svg/ishonch.svg';
 import ExitIcon from '@/public/images/header/exit-icon.svg';
 import Inoman from '@/public/images/header/inoman.svg';
 import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
@@ -26,18 +27,26 @@ const Header = () => {
   return (
     <header className={styles.custom}>
       <nav className={styles.navContent}>
-        <div className="flex items-center justify-between gap-10">
+        <div className="flex items-center justify-between gap-4 tablet:gap-10">
           <Link href="/">
             <Logo className={styles.logo} />
           </Link>
           <a href="https://uzspace.uz/ru" target="_blank" rel="noopener noreferrer">
             <LogoCosmos className={styles.logoCosmos} />
           </a>
+          <a
+            href="https://ishonchsavdo.uz/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ishonch Savdo"
+          >
+            <LogoIshonch className={styles.logoIshonch} />
+          </a>
         </div>
 
         <ul className={styles.navLinks}>
           <li>
-            <Link href="/">{t('stepToMoon')}</Link>
+            <Link href="/">{t('missionMoon')}</Link>
           </li>
         </ul>
 

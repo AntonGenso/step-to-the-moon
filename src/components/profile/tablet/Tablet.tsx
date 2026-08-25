@@ -10,6 +10,8 @@ import Test from '../tests/Tests';
 import Leaderboard from '../leaderboard/leaderboard';
 import Missions from '../missions/Missions';
 import { Skin } from '../../skin/Skin';
+import { resolveGameLink } from '@/src/services/gameLink';
+import { missionProgressKey, parseCardId } from '@/src/services/missionService';
 import { useAuth } from '@/src/context/AuthContext';
 // import ExitIcon from '@/public/images/header/exit-icon.svg';
 import { useTranslations } from 'next-intl';
@@ -45,13 +47,17 @@ export const Tablet = () => {
       const { score } = event.data as { score: unknown };
       if (typeof score !== 'number' || score < 0) return;
 
-      const missionId = searchParams.get('missionId');
-      if (!missionId) return;
+      // The route carries the card id ("27", "27-bonus"); the score belongs to
+      // the mission behind it.
+      const cardId = searchParams.get('missionId');
+      if (!cardId) return;
+      const { id } = parseCardId(cardId);
+      if (!id) return;
 
       await fetch('/api/submit-score', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mission: `mission_${missionId}`, score }),
+        body: JSON.stringify({ mission: missionProgressKey(id), score }),
       });
 
       await refreshProfile();
@@ -67,9 +73,10 @@ export const Tablet = () => {
   // };
 
   if (isGameOpen) {
-    const resolvedGameLink = gameLink
-      .replace('USER_ID', nickname ?? '')
-      .replace('https://your-platform.com', window.location.origin);
+    const resolvedGameLink = resolveGameLink(gameLink, {
+      nickname,
+      origin: window.location.origin,
+    });
 
     return (
       <div className={styles.gameOverlay}>

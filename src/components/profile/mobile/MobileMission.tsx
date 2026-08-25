@@ -1,8 +1,14 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useRouter } from '@/src/i18n/navigation';
 import Image from 'next/image';
-import { missionData } from '@/src/components/utils/missionData';
+import { useLocale } from 'next-intl';
+import {
+  getMissionCards,
+  missionProgressKey,
+  type MissionView,
+} from '@/src/services/missionService';
 import styles from './MobileMission.module.scss';
 import { GlassFrame } from '@/src/uikit/glass-frame/GlassFrame';
 import { useAuth } from '@/src/context/AuthContext';
@@ -14,6 +20,23 @@ export const MobileMission = () => {
   const router = useRouter();
   const t = useTranslations('mission');
   const tc = useTranslations('common');
+  const locale = useLocale();
+
+  const [missions, setMissions] = useState<MissionView[]>([]);
+
+  useEffect(() => {
+    let active = true;
+    getMissionCards(locale)
+      .then((cards) => {
+        if (active) setMissions(cards);
+      })
+      .catch(() => {
+        if (active) setMissions([]);
+      });
+    return () => {
+      active = false;
+    };
+  }, [locale]);
 
   return (
     <div className={styles.container}>
@@ -21,17 +44,23 @@ export const MobileMission = () => {
       <p className={styles.subtitle}>{t('subtitle')}</p>
       <GlassFrame>
         <div className={styles.cardList}>
-          {missionData.map((mission) => {
-            const Icon = mission.icon as string;
-            const isDone = profile?.missions?.[`mission_${mission.id}`]?.status === 'done';
+          {missions.map((mission) => {
+            const cover = mission.icon;
+            // The bonus card shares the mission row and is not graded, so it
+            // never inherits the mission's "done" state.
+            const isDone =
+              mission.type === 'current' &&
+              profile?.missions?.[missionProgressKey(mission.id)]?.status === 'done';
 
-            const isLocked = !mission.isAtive;
+            // A mission with no game yet still opens: the video and the
+            // handout are worth reaching.
+            const isLocked = false;
 
             return (
               <div
-                key={mission.id}
+                key={mission.cardId}
                 className={`${styles.card} ${isLocked ? styles.cardLocked : ''} ${mission?.type === 'bonus' ? styles.bonuseBorderGradient : ''} ${!isDone ? styles.notDoneBorderGradient : ''}`}
-                onClick={() => !isLocked && router.push(`/mission/${mission.id}`)}
+                onClick={() => !isLocked && router.push(`/mission/${mission.cardId}`)}
               >
                 <div
                   className={`from-bg-card-light to-bg-card shadow-inner-card relative flex h-full w-full gap-4 rounded-[16px] bg-gradient-to-r p-[20px_30px]`}
@@ -39,10 +68,17 @@ export const MobileMission = () => {
                   <div
                     className={`${styles.iconRing} ${isLocked ? styles.iconRingLocked : ''} ${isDone && styles.iconRingDone} ${mission?.type === 'bonus' ? styles.iconRingBonus : ''}`}
                   >
-                    {isLocked ? (
+                    {isLocked || !cover ? (
                       <Image src={lockedImg} alt="Locked" className={styles.lockedImage} fill />
                     ) : (
-                      <Image src={Icon} alt="Icon" className={styles.iconSvg} />
+                      <Image
+                        src={cover}
+                        alt={mission.title}
+                        width={120}
+                        height={120}
+                        unoptimized
+                        className={styles.iconSvg}
+                      />
                     )}
                   </div>
                   <div className="flex w-full flex-col justify-between">
@@ -54,10 +90,12 @@ export const MobileMission = () => {
                         <span className={styles.missionTitle}>{mission.title}</span>
                       </div>
 
-                      <div className={styles.xpBadge}>
-                        <span className={styles.xpValue}>{mission.xp}</span>
-                        <span className={styles.xpUnit}>{tc('xp').toLowerCase()}</span>
-                      </div>
+                      {mission.xp !== undefined && (
+                        <div className={styles.xpBadge}>
+                          <span className={styles.xpValue}>{mission.xp}</span>
+                          <span className={styles.xpUnit}>{tc('xp').toLowerCase()}</span>
+                        </div>
+                      )}
                     </div>
 
                     <div

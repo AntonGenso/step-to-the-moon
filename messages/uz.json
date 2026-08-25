@@ -20,21 +20,22 @@
     "placeholder": {
       "nickname": "Taxallus",
       "pin": "4 raqamli PIN",
-      "nicknameHint": "2–16 belgi: harflar, raqamlar, _",
+      "nicknameHint": "{min}–{max} belgi: harflar, raqamlar, _, bo'sh joy",
       "confirmPin": "PIN takrorlang",
       "classCode": "masalan Z4EZZJY"
     }
   },
   "validation": {
     "enterNickname": "Taxallus kiriting",
-    "nicknameTooShort": "Taxallus kamida 2 belgidan iborat bo'lishi kerak",
-    "nicknameTooLong": "Taxallus ko'pi bilan 16 belgidan iborat bo'lishi kerak",
-    "nicknameChars": "Faqat harflar, raqamlar va pastki chiziq ruxsat etiladi",
+    "nicknameTooShort": "Taxallus kamida {min} belgidan iborat bo'lishi kerak",
+    "nicknameTooLong": "Taxallus ko'pi bilan {max} belgidan iborat bo'lishi kerak",
+    "nicknameChars": "Faqat lotin yoki kirill harflari, raqamlar, pastki chiziq va so'zlar orasidagi bitta bo'sh joy ruxsat etiladi",
+    "nicknameProfanity": "Taxallusda nomaqbul so'zlar bor",
     "enterPin": "PIN kodni kiriting",
     "pinFormat": "PIN aynan 4 raqamdan iborat bo'lishi kerak"
   },
   "header": {
-    "stepToMoon": "Oyga qadam",
+    "missionMoon": "Mission Moon",
     "logIn": "Kirish",
     "confirmLogout": "Chiqishni tasdiqlang",
     "confirmMessage": "Haqiqatan ham tizimdan chiqmoqchimisiz?",

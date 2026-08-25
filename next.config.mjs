@@ -2,6 +2,9 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin();
 
+/** Where MinIO actually listens; same address the backend signs links for. */
+const MINIO_URL = process.env.MINIO_PUBLIC_URL ?? 'http://94.141.81.82:9000';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
@@ -20,6 +23,22 @@ const nextConfig = {
         as: '*.js',
       },
     },
+  },
+
+  /**
+   * Mission covers and videos live in MinIO, which the backend hands out as
+   * `/uploads/...` paths (MINIO_BROWSER_PREFIX). The admin panel proxies that
+   * prefix through nginx; the game needs the same door. Host must stay the
+   * MinIO one — a SigV4 signature covers it, and a mismatch answers 403 —
+   * which is what a rewrite to an absolute URL does.
+   */
+  async rewrites() {
+    return [
+      {
+        source: '/uploads/:path*',
+        destination: `${MINIO_URL}/:path*`,
+      },
+    ];
   },
 
   images: {

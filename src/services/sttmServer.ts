@@ -9,15 +9,6 @@
 
 const BASE_URL = process.env.STTM_API_URL ?? 'http://sttm-server-dev:5000';
 
-/**
- * The game's `missionData` is 0-based; `missions.id` in the DB is 1-based
- * (a 0 primary key is awkward in MySQL). So the front-end mission id `n` maps to
- * server mission id `n + MISSION_ID_OFFSET`. Applied at the BFF boundary only —
- * the game code stays 0-based, the DB stays 1-based. Tests are 1-based on both
- * sides and need no offset.
- */
-export const MISSION_ID_OFFSET = 1;
-
 export type Roles = string[];
 
 export interface SttmUser {
@@ -54,6 +45,57 @@ export interface GameProfile {
   leaderboard: { stars: number; score: number; total: number };
   missions: ProgressItem[];
   tests: ProgressItem[];
+}
+
+/** One row of the mission catalog, as `GET /missions` returns it. */
+export interface MissionListItem {
+  id: number;
+  name: string;
+  label: string | null;
+  xp: number;
+  /** Number shown on the card ("Миссия 07"); also the order of the list. */
+  level: number;
+  type: string;
+  is_active: number;
+  game_link: string | null;
+  bonus_xp: number;
+  cover_url: string | null;
+  video_url: string | null;
+  video: { ru: string | null; uz: string | null };
+  /** Whether the student handout exists; the file itself needs `GET /missions/:id`. */
+  has_document: boolean;
+}
+
+/** One "interesting fact" of a mission: text from the database, picture from MinIO. */
+export interface MissionFactPayload {
+  id: number;
+  position: number;
+  title: { ru: string; uz: string | null };
+  description: { ru: string; uz: string | null };
+  image_url: string | null;
+}
+
+/** Localized asset as the mission endpoints hand it out. */
+export interface MissionAsset {
+  url: string | null;
+  name?: string | null;
+}
+
+/** Full mission card from `GET /missions/:id` — document links are signed. */
+export interface MissionDetail {
+  id: number;
+  name: string;
+  label: string | null;
+  xp: number;
+  level: number;
+  type: string;
+  is_active: number;
+  game_link: string | null;
+  bonus_xp: number;
+  cover_url: string | null;
+  video: { ru: MissionAsset; uz: MissionAsset };
+  documents: { ru: MissionAsset; uz: MissionAsset };
+  facts: MissionFactPayload[];
 }
 
 export interface LeaderboardRow {
@@ -148,6 +190,16 @@ export const revokeSession = (refreshToken: string): Promise<unknown> =>
     method: 'POST',
     body: { refreshToken },
   });
+
+/* ───────────────────────── Missions ───────────────────────── */
+
+/** The catalog is public: no token, and every caller sees the same list. */
+export const getMissions = (): Promise<MissionListItem[]> =>
+  request<MissionListItem[]>('/missions');
+
+/** Signed handout links are issued here, so this one needs the student token. */
+export const getMission = (token: string, id: number): Promise<MissionDetail> =>
+  request<MissionDetail>('/missions/' + id, { token });
 
 /* ───────────────────────── Game ───────────────────────── */
 

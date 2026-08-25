@@ -4,11 +4,14 @@ import React, { useState } from 'react';
 import { Link, useRouter } from '@/src/i18n/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import {
-  validateNickname,
+  NICKNAME_MAX_LENGTH,
+  NICKNAME_MIN_LENGTH,
+  validateNewNickname,
   validatePin,
 } from '@/src/services/validators';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
 
 import styles from '../login/logIn.module.scss';
 
@@ -29,9 +32,14 @@ export default function SignupPage() {
     e.preventDefault();
     setError('');
 
-    const nicknameError = validateNickname(nickname);
+    const nicknameError = validateNewNickname(nickname);
     if (nicknameError) {
-      setError(tv(nicknameError));
+      setError(
+        tv(nicknameError, {
+          min: NICKNAME_MIN_LENGTH,
+          max: NICKNAME_MAX_LENGTH,
+        }),
+      );
       return;
     }
 
@@ -54,7 +62,7 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const err = await signup(nickname, pin, classCode.trim().toUpperCase());
+      const err = await signup(nickname.trim(), pin, classCode.trim().toUpperCase());
       if (err) {
         setError(err);
       } else {
@@ -69,6 +77,10 @@ export default function SignupPage() {
 
   return (
     <div className={styles.loginPage}>
+      <div className={styles.langSwitcher}>
+        <LanguageSwitcher />
+      </div>
+
       <div className={styles.logos}>
         <Image
           src="/images/svg/logo-en.svg"
@@ -94,11 +106,14 @@ export default function SignupPage() {
         <div className={styles.inputGroup}>
           <input
             type="text"
-            placeholder={t('placeholder.nicknameHint')}
+            placeholder={t('placeholder.nicknameHint', {
+              min: NICKNAME_MIN_LENGTH,
+              max: NICKNAME_MAX_LENGTH,
+            })}
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             autoComplete="username"
-            maxLength={16}
+            maxLength={NICKNAME_MAX_LENGTH}
           />
         </div>
 

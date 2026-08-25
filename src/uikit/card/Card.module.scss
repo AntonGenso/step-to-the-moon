@@ -159,6 +159,11 @@
   white-space: nowrap;
 }
 
+/* Placeholder that keeps the row's height without showing a reward. */
+.xpEmpty {
+  visibility: hidden;
+}
+
 .xp {
   margin-top: var(--xp-mt, 4px);
   padding: var(--xp-pad, 6px 18px);

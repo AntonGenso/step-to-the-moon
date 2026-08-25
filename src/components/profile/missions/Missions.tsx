@@ -1,15 +1,20 @@
 'use client';
 
 import styles from './Mission.module.scss';
-import { IMissionData, missionData } from '../../utils/missionData';
 import { Card } from '@/src/uikit/card/Card';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Mission } from '../mission/Mission';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from '@/src/i18n/navigation';
+import { useLocale } from 'next-intl';
 // import { Heading } from '@/src/uikit/heading/Heading';
 // import { useTranslations } from 'next-intl';
 import { useAuth } from '@/src/context/AuthContext';
+import {
+  getMissionCards,
+  missionProgressKey,
+  type MissionView,
+} from '@/src/services/missionService';
 
 interface IMissionProps {
   setIsGameOpen: (value: boolean) => void;
@@ -17,64 +22,65 @@ interface IMissionProps {
 }
 
 const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
-  const [activeMission, setActiveMission] = useState<IMissionData | null>(null);
   // const tn = useTranslations('nav');
   const { profile } = useAuth();
+  const locale = useLocale();
 
   const serchParams = useSearchParams();
   const router = useRouter();
-  const mission = serchParams.get('missionId');
+  const activeCardId = serchParams.get('missionId');
 
-  const sortedMissions = [...missionData].sort((a, b) => a.id - b.id);
-
-  const handleActiveMision = useCallback(
-    (value: number) => {
-      const mission = sortedMissions.find((item) => item.id === value);
-      if (mission) {
-        setActiveMission(mission);
-        router.push(`/?activeTab=mission&missionId=${value}`);
-      }
-      return;
-    },
-    [router]
-  );
+  const [missions, setMissions] = useState<MissionView[]>([]);
 
   useEffect(() => {
-    if (mission) {
-      handleActiveMision(Number(mission));
-    } else {
-      setActiveMission(null);
-    }
-  }, [mission, handleActiveMision]);
+    let active = true;
+    getMissionCards(locale)
+      .then((cards) => {
+        if (active) setMissions(cards);
+      })
+      .catch(() => {
+        if (active) setMissions([]);
+      });
+    return () => {
+      active = false;
+    };
+  }, [locale]);
 
   return (
     <div className={`${styles.contentWrapper} custom-scroll`}>
-      {activeMission === null && !mission ? (
+      {activeCardId ? (
+        <div className="relative h-full w-[80%]">
+          <Mission setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
+        </div>
+      ) : (
         <>
           {/* <Heading title={tn('missions')} /> */}
           <ul className={`${styles.tabletList} custom-scroll`}>
-            {sortedMissions.map((item) => (
-              <li key={item.id} className={`${styles.tabletItem}`}>
+            {missions.map((item) => (
+              <li key={item.cardId} className={`${styles.tabletItem}`}>
                 <Card
-                  status={item.isAtive}
-                  image={item.icon}
+                  status
+                  image={item.icon ?? ''}
                   title={item.title}
                   level={item.level}
                   xp={item.xp}
-                  setActiveMission={() => handleActiveMision(item.id)}
+                  setActiveMission={() =>
+                    router.push(`/?activeTab=mission&missionId=${item.cardId}`)
+                  }
                   label="level"
                   type={item.type}
-                  isDone={profile?.missions?.[`mission_${item.id}`]?.status === 'done'}
+                  // The bonus card has no score of its own: it shares the
+                  // mission row, and the handout is not graded in the game.
+                  isDone={
+                    item.type === 'current' &&
+                    profile?.missions?.[missionProgressKey(item.id)]?.status === 'done'
+                  }
                 />
               </li>
             ))}
           </ul>
         </>
-      ) : activeMission ? (
-        <div className="relative h-full w-[80%]">
-          <Mission setIsGameOpen={setIsGameOpen} setGameLink={setGameLink} />
-        </div>
-      ) : null}
+      )}
     </div>
   );
 };

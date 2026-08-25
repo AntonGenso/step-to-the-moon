@@ -3,12 +3,15 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/src/context/AuthContext';
 import {
+  NICKNAME_MAX_LENGTH,
+  NICKNAME_MIN_LENGTH,
   validateNickname,
   validatePin,
 } from '@/src/services/validators';
 import { Link, useRouter } from '@/src/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
 
 import styles from './logIn.module.scss';
 
@@ -29,7 +32,12 @@ export default function LoginPage() {
 
     const nicknameError = validateNickname(nickname);
     if (nicknameError) {
-      setError(tv(nicknameError));
+      setError(
+        tv(nicknameError, {
+          min: NICKNAME_MIN_LENGTH,
+          max: NICKNAME_MAX_LENGTH,
+        }),
+      );
       return;
     }
 
@@ -42,7 +50,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const err = await login(nickname, pin);
+      const err = await login(nickname.trim(), pin);
       if (err) {
         setError(err);
       } else {
@@ -57,6 +65,10 @@ export default function LoginPage() {
 
   return (
     <div className={styles.loginPage}>
+      <div className={styles.langSwitcher}>
+        <LanguageSwitcher />
+      </div>
+
       <div className={styles.logos}>
         <Image
           src="/images/svg/logo-en.svg"
@@ -88,7 +100,7 @@ export default function LoginPage() {
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             autoComplete="username"
-            maxLength={16}
+            maxLength={NICKNAME_MAX_LENGTH}
           />
         </div>
 
