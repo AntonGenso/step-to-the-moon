@@ -5,7 +5,8 @@ import Image, { StaticImageData } from 'next/image';
 import styles from './Card.module.scss';
 import cn from 'classnames';
 import lockedImg from '@/public/images/profile/mission/lockd-mission.webp';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { formatOpensAt, isMissionOpen } from '@/src/services/missionSchedule';
 
 interface ICardProps {
   image: ElementType | StaticImageData | string;
@@ -18,6 +19,11 @@ interface ICardProps {
   label: string;
   type?: 'current' | 'bonus';
   isDone?: boolean;
+  /**
+   * Opening date of the mission, UTC ISO 8601. Until it passes the card is
+   * shown closed — cover and reward stay readable, the card just does not open.
+   */
+  opensAt?: string | null;
 }
 
 export const Card = ({
@@ -30,25 +36,34 @@ export const Card = ({
   label = 'level',
   type = 'current',
   isDone = false,
+  opensAt = null,
 }: ICardProps) => {
   const tc = useTranslations('common');
+  const locale = useLocale();
   const isComponent = typeof image === 'function';
   const Icon = isComponent ? (image as ElementType) : null;
 
   const isLocked = !status;
-  const isBonus = !isLocked && type === 'bonus';
-  const isCurrent = !isLocked && !isBonus && !isDone;
+  // Scheduled for later: unlike `locked`, the mission is fully set up and the
+  // student can see what is coming — it simply cannot be entered yet.
+  const isUpcoming = !isLocked && !isMissionOpen(opensAt);
+  // The badge follows the card's kind; the colours follow its state, which a
+  // pending opening date overrides.
+  const isBonusCard = type === 'bonus';
+  const isBonus = !isLocked && !isUpcoming && isBonusCard;
+  const isCurrent = !isLocked && !isUpcoming && !isBonus && !isDone;
 
   return (
     <button
       type="button"
       className={cn(styles.card, {
         [styles.cardLocked]: isLocked,
+        [styles.cardUpcoming]: isUpcoming,
         [styles.cardBonus]: isBonus,
         [styles.cardCurrent]: isCurrent,
       })}
       onClick={() => setActiveMission(level)}
-      disabled={isLocked}
+      disabled={isLocked || isUpcoming}
     >
       <div className={styles.top}>
         <div className={styles.iconWrap}>
@@ -77,7 +92,7 @@ export const Card = ({
               />
             ) : null}
           </div>
-          {isBonus && <span className={styles.bonusBadge}>{tc('bonus')}</span>}
+          {!isLocked && isBonusCard && <span className={styles.bonusBadge}>{tc('bonus')}</span>}
         </div>
         <div className={styles.info}>
           <span className={styles.label}>
@@ -100,13 +115,19 @@ export const Card = ({
       </div>
       <div
         className={cn(styles.action, {
-          [styles.actionLocked]: isLocked,
-          [styles.actionDone]: !isLocked && isDone,
+          [styles.actionLocked]: isLocked || isUpcoming,
+          [styles.actionDone]: !isLocked && !isUpcoming && isDone,
           [styles.actionBonus]: isBonus && !isDone,
           [styles.actionCurrent]: isCurrent,
         })}
       >
-        {isLocked ? tc('locked') : isDone ? tc('done') : tc('start')}
+        {isLocked
+          ? tc('locked')
+          : isUpcoming
+            ? tc('opensAt', { date: formatOpensAt(opensAt as string, locale) })
+            : isDone
+              ? tc('done')
+              : tc('start')}
       </div>
     </button>
   );

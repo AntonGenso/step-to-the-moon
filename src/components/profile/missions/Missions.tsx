@@ -15,6 +15,8 @@ import {
   missionProgressKey,
   type MissionView,
 } from '@/src/services/missionService';
+import { isMissionOpen } from '@/src/services/missionSchedule';
+import lockedImg from '@/public/images/profile/mission/lockd-mission.webp';
 
 interface IMissionProps {
   setIsGameOpen: (value: boolean) => void;
@@ -56,28 +58,35 @@ const Missions = ({ setIsGameOpen, setGameLink }: IMissionProps) => {
         <>
           {/* <Heading title={tn('missions')} /> */}
           <ul className={`${styles.tabletList} custom-scroll`}>
-            {missions.map((item) => (
-              <li key={item.cardId} className={`${styles.tabletItem}`}>
-                <Card
-                  status
-                  image={item.icon ?? ''}
-                  title={item.title}
-                  level={item.level}
-                  xp={item.xp}
-                  setActiveMission={() =>
-                    router.push(`/?activeTab=mission&missionId=${item.cardId}`)
-                  }
-                  label="level"
-                  type={item.type}
-                  // The bonus card has no score of its own: it shares the
-                  // mission row, and the handout is not graded in the game.
-                  isDone={
-                    item.type === 'current' &&
-                    profile?.missions?.[missionProgressKey(item.id)]?.status === 'done'
-                  }
-                />
-              </li>
-            ))}
+            {missions.map((item) => {
+              // Scheduled for later: the card is shown closed, and the cover
+              // gives way to the padlock rather than teasing the subject.
+              const isUpcoming = !isMissionOpen(item.opensAt);
+
+              return (
+                <li key={item.cardId} className={`${styles.tabletItem}`}>
+                  <Card
+                    status
+                    image={isUpcoming ? lockedImg : (item.icon ?? '')}
+                    title={item.title}
+                    level={item.level}
+                    xp={item.xp}
+                    setActiveMission={() =>
+                      router.push(`/?activeTab=mission&missionId=${item.cardId}`)
+                    }
+                    label="level"
+                    type={item.type}
+                    opensAt={item.opensAt}
+                    // The bonus card has no score of its own: it shares the
+                    // mission row, and the handout is not graded in the game.
+                    isDone={
+                      item.type === 'current' &&
+                      profile?.missions?.[missionProgressKey(item.id)]?.status === 'done'
+                    }
+                  />
+                </li>
+              );
+            })}
           </ul>
         </>
       )}

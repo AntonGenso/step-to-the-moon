@@ -57,6 +57,8 @@ export interface MissionListItem {
   level: number;
   type: string;
   is_active: number;
+  /** When the mission opens, UTC ISO 8601; null — open from the start. */
+  opens_at: string | null;
   game_link: string | null;
   bonus_xp: number;
   cover_url: string | null;
@@ -90,12 +92,49 @@ export interface MissionDetail {
   level: number;
   type: string;
   is_active: number;
+  opens_at: string | null;
   game_link: string | null;
   bonus_xp: number;
   cover_url: string | null;
   video: { ru: MissionAsset; uz: MissionAsset };
   documents: { ru: MissionAsset; uz: MissionAsset };
   facts: MissionFactPayload[];
+}
+
+/** One row of the test catalog, as `GET /tests` returns it. */
+export interface TestListItem {
+  id: number;
+  name: string;
+  label: string | null;
+  /** Ten points per question, derived by the server. */
+  xp: number;
+  /** Number shown on the card («Тест 07»); unique, also the order of the list. */
+  level: number;
+  question_count: number;
+  is_active: number;
+  /** When the test opens, UTC ISO 8601; null — open from the start. */
+  opens_at: string | null;
+  cover_url: string | null;
+}
+
+/** Text carried in both locales; `uz` empty means "show the Russian one". */
+export interface LocalizedText {
+  ru: string;
+  uz: string | null;
+}
+
+/** One question of a test, with the option the quiz marks as right. */
+export interface TestQuestionPayload {
+  id: number;
+  position: number;
+  text: LocalizedText;
+  options: Record<'A' | 'B' | 'C' | 'D', LocalizedText>;
+  correct_option: 'A' | 'B' | 'C' | 'D';
+}
+
+/** Full test from `GET /tests/:id/play` — published tests only. */
+export interface TestDetail extends TestListItem {
+  questions: TestQuestionPayload[];
 }
 
 export interface LeaderboardRow {
@@ -202,6 +241,20 @@ export const getMission = (token: string, id: number): Promise<MissionDetail> =>
   request<MissionDetail>('/missions/' + id, { token });
 
 /* ───────────────────────── Game ───────────────────────── */
+
+/* ───────────────────────── Tests ───────────────────────── */
+
+/** The catalog needs a session: unlike missions, `GET /tests` is not public. */
+export const getTests = (token: string): Promise<TestListItem[]> =>
+  request<TestListItem[]>('/tests', { token });
+
+/**
+ * The test as the game plays it. The `/play` route is the student-facing one:
+ * it refuses a hidden test or one whose opening date has not come, while the
+ * panel's `/tests/:id` stays staff-only.
+ */
+export const getTestForPlay = (token: string, id: number): Promise<TestDetail> =>
+  request<TestDetail>(`/tests/${id}/play`, { token });
 
 export const getProfile = (token: string): Promise<GameProfile> =>
   request<GameProfile>('/game/profile', { token });

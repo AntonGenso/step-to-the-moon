@@ -120,7 +120,8 @@
     "test": "test",
     "pts": "ball",
     "retry": "QAYTA",
-    "bonus": "BONUS"
+    "bonus": "BONUS",
+    "opensAt": "{date} DA OCHILADI"
   },
   "facts": {
     "earth": {

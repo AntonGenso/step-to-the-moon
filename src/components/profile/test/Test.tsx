@@ -18,7 +18,11 @@ interface TestProps {
   current: number;
   total: number;
   title?: string;
-  icon?: StaticImageData;
+  /**
+   * Covers now come from MinIO as a plain path, so a bare string is the usual
+   * case; the imported-asset form is kept for callers that still pass one.
+   */
+  icon?: StaticImageData | string;
   onAnswer: (option: string) => void;
   onBack?: () => void;
 }
@@ -54,7 +58,15 @@ const Test: React.FC<TestProps> = ({ question, current, total, title, icon, onAn
             </div>
             {icon ? (
               <div className={styles.decorIcon}>
-                <Image src={icon} alt="" className={styles.decorSvg} />
+                {/* next/image needs the intrinsic size for a string src. */}
+                <Image
+                  src={icon}
+                  alt=""
+                  width={80}
+                  height={80}
+                  unoptimized={typeof icon === 'string'}
+                  className={styles.decorSvg}
+                />
               </div>
             ) : (
               <div className={styles.decorIcon} />

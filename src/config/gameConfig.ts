@@ -1,15 +1,11 @@
-import { testData } from '@/src/components/utils/testData';
-
 /** Points per correct answer in a test */
 export const POINTS_PER_QUESTION = 10;
 
-/** Max score for each test = number of questions * points per question */
-export const TEST_MAX_SCORES: Record<string, number> = Object.fromEntries(
-  testData.map((t) => [`test_${t.id}`, t.questionCount * POINTS_PER_QUESTION]),
-);
-
-/** Test IDs from the data */
-export const TEST_IDS = testData.map((t) => `test_${t.id}`);
-
-/** Total max XP for the progress bar */
+/**
+ * Total max XP for the progress bar.
+ *
+ * A fixed target rather than a sum over the catalog: missions and tests are
+ * edited in the admin panel now, so summing them would make the bar's meaning
+ * shift under a player whenever staff add content mid-term.
+ */
 export const MAX_XP = 2600;

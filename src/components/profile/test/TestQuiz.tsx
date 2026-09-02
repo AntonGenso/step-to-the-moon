@@ -1,32 +1,24 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from '@/src/i18n/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import { submitTestScore } from '@/src/services/userService';
 import { POINTS_PER_QUESTION } from '@/src/config/gameConfig';
-import { testData } from '@/src/components/utils/testData';
+import {
+  getTestCard,
+  getTestCards,
+  testProgressKey,
+  type TestView,
+} from '@/src/services/testService';
 import { MobileBottomNav } from '@/src/components/profile/mobile/MobileBottomNav';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import Test from './Test';
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
 import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
 import styles from './TestQuiz.module.scss';
 import testStyles from './test.module.scss';
-
-interface LocalizedQuestion {
-  text: string;
-  A: string;
-  B: string;
-  C: string;
-  D: string;
-}
-
-interface LocalizedTest {
-  title: string;
-  [key: string]: LocalizedQuestion | string;
-}
 
 interface TestQuizProps {
   testId: number;
@@ -36,22 +28,54 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
   const router = useRouter();
   const { nickname, refreshProfile } = useAuth();
   const t = useTranslations('test');
-  const tData = useTranslations('testData');
+  const locale = useLocale();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const scoreSaved = useRef(false);
 
-  const testBase = testData.find((t) => t.id === testId);
+  /** The test itself; `null` while loading, and after a test that cannot be played. */
+  const [test, setTest] = useState<TestView | null>(null);
+  const [notFound, setNotFound] = useState(false);
+  /** The test that follows this one, for the "next" button on the result screen. */
+  const [nextTest, setNextTest] = useState<TestView | null>(null);
 
-  if (!testBase) {
-    router.replace('/');
-    return null;
-  }
+  useEffect(() => {
+    let active = true;
 
-  const localTest = tData.raw(`t${testId}`) as LocalizedTest;
-  const total = testBase.questionCount;
+    // A hidden test, or one whose date has not come, answers 404 here — the
+    // player is sent back rather than shown an empty quiz.
+    getTestCard(testId, locale)
+      .then((loaded) => {
+        if (!active) return;
+        if (loaded) setTest(loaded);
+        else setNotFound(true);
+      })
+      .catch(() => {
+        if (active) setNotFound(true);
+      });
+
+    getTestCards(locale)
+      .then((cards) => {
+        if (!active) return;
+        const index = cards.findIndex((card) => card.id === testId);
+        setNextTest(index >= 0 ? (cards[index + 1] ?? null) : null);
+      })
+      .catch(() => {
+        if (active) setNextTest(null);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [testId, locale]);
+
+  useEffect(() => {
+    if (notFound) router.replace('/?activeSlide=tests');
+  }, [notFound, router]);
+
+  const total = test?.questions.length ?? 0;
 
   const resetQuiz = () => {
     setCurrentQuestion(0);
@@ -60,9 +84,6 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
     setShowResult(false);
     scoreSaved.current = false;
   };
-
-  const currentIndex = testData.findIndex((t) => t.id === testId);
-  const nextTest = testData[currentIndex + 1];
 
   const goBack = () => {
     router.push('/?activeSlide=tests');
@@ -76,10 +97,13 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
     }
   };
 
+  // Still loading, or on the way out after a 404.
+  if (!test) return null;
+
   if (showResult) {
     if (!scoreSaved.current && nickname && score > 0) {
       scoreSaved.current = true;
-      submitTestScore(nickname, `test_${testId}`, score).then(() => {
+      submitTestScore(nickname, testProgressKey(testId), score).then(() => {
         refreshProfile();
       });
     }
@@ -96,11 +120,18 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
                 <BackIcon className={testStyles.backIcon} />
               </button>
               <div className={testStyles.titleBadge}>
-                <span>{localTest.title as string}</span>
+                <span>{test.title}</span>
               </div>
-              {testBase.icon ? (
+              {test.icon ? (
                 <div className={testStyles.decorIcon}>
-                  <Image src={testBase.icon} alt="" className={testStyles.decorSvg} />
+                  <Image
+                    src={test.icon}
+                    alt=""
+                    width={80}
+                    height={80}
+                    unoptimized
+                    className={testStyles.decorSvg}
+                  />
                 </div>
               ) : (
                 <div className={testStyles.decorIcon} />
@@ -142,11 +173,13 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
     );
   }
 
-  const lq = localTest[`q${currentQuestion}`] as LocalizedQuestion;
+  const current = test.questions[currentQuestion];
+  if (!current) return null;
+
   const question = {
-    question: lq.text,
-    options: { A: lq.A, B: lq.B, C: lq.C, D: lq.D },
-    answer: testBase.answers[currentQuestion],
+    question: current.text,
+    options: current.options,
+    answer: current.answer,
   };
 
   return (
@@ -160,11 +193,11 @@ export const TestQuiz = ({ testId }: TestQuizProps) => {
           question={question}
           current={currentQuestion + 1}
           total={total}
-          title={localTest.title as string}
-          icon={testBase.icon}
+          title={test.title}
+          icon={test.icon}
           onBack={goBack}
           onAnswer={(option) => {
-            const isCorrect = option === testBase.answers[currentQuestion];
+            const isCorrect = option === current.answer;
             if (isCorrect) {
               setScore((prev) => prev + POINTS_PER_QUESTION);
               setCorrectCount((prev) => prev + 1);

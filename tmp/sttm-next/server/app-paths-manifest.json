@@ -1,0 +1,23 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/auth/session/route": "app/api/auth/session/route.js",
+  "/api/leaderboard/route": "app/api/leaderboard/route.js",
+  "/api/missions/[id]/route": "app/api/missions/[id]/route.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/skin/route": "app/api/skin/route.js",
+  "/api/auth/signup/route": "app/api/auth/signup/route.js",
+  "/api/submit-test/route": "app/api/submit-test/route.js",
+  "/api/tests/[id]/route": "app/api/tests/[id]/route.js",
+  "/api/tests/route": "app/api/tests/route.js",
+  "/api/profile/route": "app/api/profile/route.js",
+  "/api/submit-score/route": "app/api/submit-score/route.js",
+  "/api/missions/route": "app/api/missions/route.js",
+  "/[locale]/intro/page": "app/[locale]/intro/page.js",
+  "/[locale]/(auth)/admin/page": "app/[locale]/(auth)/admin/page.js",
+  "/[locale]/(auth)/signup/page": "app/[locale]/(auth)/signup/page.js",
+  "/[locale]/(auth)/login/page": "app/[locale]/(auth)/login/page.js",
+  "/[locale]/(profile)/mission/[id]/page": "app/[locale]/(profile)/mission/[id]/page.js",
+  "/[locale]/(profile)/test/[id]/page": "app/[locale]/(profile)/test/[id]/page.js",
+  "/[locale]/(profile)/page": "app/[locale]/(profile)/page.js"
+}

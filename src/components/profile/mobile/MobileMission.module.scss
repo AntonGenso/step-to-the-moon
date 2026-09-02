@@ -202,6 +202,14 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+/* Scheduled card — opens later, so it is shown greyed out and inert */
+.cardUpcoming {
+  opacity: 0.78;
+  filter: saturate(0.85);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 /* Locked card */
 .cardLocked {
   border-color: rgba(100, 100, 100, 0.3);

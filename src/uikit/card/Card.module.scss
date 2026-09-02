@@ -51,6 +51,15 @@
   }
 }
 
+/* ── Scheduled — opens later, so it is shown but greyed out ── */
+.cardUpcoming {
+  opacity: 0.78;
+  filter: saturate(0.85);
+  cursor: not-allowed;
+  box-shadow: none;
+  border-color: rgba(0, 200, 200, 0.35);
+}
+
 /* ── Locked ── */
 .cardLocked {
   opacity: 0.5;

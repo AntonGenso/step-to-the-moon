@@ -37,6 +37,11 @@ export interface MissionView {
   level: number;
   /** Bonus cards carry no reward, so their XP is not set and not shown. */
   xp?: number;
+  /**
+   * When the mission opens, UTC ISO 8601; null — open from the start. The
+   * bonus card shares the mission row, so it opens on the same date.
+   */
+  opensAt: string | null;
   /** Cover uploaded in the admin panel. */
   icon: string | null;
   gameLink: string;
@@ -95,6 +100,7 @@ const toCards = (missions: MissionListItem[], locale: string): MissionView[] => 
       title,
       level: mission.level,
       xp: mission.xp,
+      opensAt: mission.opens_at,
       icon,
       gameLink: mission.game_link ?? '',
       videoLink: pickLocalized(mission.video, locale),
@@ -108,8 +114,10 @@ const toCards = (missions: MissionListItem[], locale: string): MissionView[] => 
         id: mission.id,
         type: 'bonus',
         title,
-        // The bonus belongs to the same mission, so it repeats its number.
+        // The bonus belongs to the same mission, so it repeats its number
+        // and its opening date.
         level: mission.level,
+        opensAt: mission.opens_at,
         icon,
         gameLink: '',
         videoLink: '',
@@ -171,6 +179,7 @@ export const getMissionCard = async (
     title: detail.label ?? detail.name,
     level: detail.level,
     xp: isBonus ? undefined : detail.xp,
+    opensAt: detail.opens_at,
     icon: toAssetUrl(detail.cover_url) || null,
     gameLink: isBonus ? '' : (detail.game_link ?? ''),
     videoLink: isBonus

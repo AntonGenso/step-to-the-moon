@@ -120,7 +120,8 @@
     "test": "test",
     "pts": "pts",
     "retry": "RETRY",
-    "bonus": "BONUS"
+    "bonus": "BONUS",
+    "opensAt": "ОТКРОЕТСЯ {date}"
   },
   "facts": {
     "earth": {

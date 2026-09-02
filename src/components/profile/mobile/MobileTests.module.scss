@@ -205,6 +205,14 @@
 }
 
 /* Locked card */
+/* Scheduled card — opens later, so it is shown dimmed and inert */
+.cardUpcoming {
+  opacity: 0.78;
+  filter: saturate(0.85);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 .cardLocked {
   border-color: rgba(100, 100, 100, 0.3);
   background: linear-gradient(135deg, rgba(20, 20, 25, 0.9), rgba(30, 30, 35, 0.85));

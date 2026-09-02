@@ -14,6 +14,7 @@ import { GlassFrame } from '@/src/uikit/glass-frame/GlassFrame';
 import { useAuth } from '@/src/context/AuthContext';
 import { useTranslations } from 'next-intl';
 import lockedImg from '@/public/images/profile/mission/lockd-mission.webp';
+import { formatOpensAt, isMissionOpen } from '@/src/services/missionSchedule';
 
 export const MobileMission = () => {
   const { profile } = useAuth();
@@ -56,11 +57,17 @@ export const MobileMission = () => {
             // handout are worth reaching.
             const isLocked = false;
 
+            // Scheduled for later: the card stays on the list, greyed out, and
+            // shows the date instead of the call to action.
+            const isUpcoming = !isMissionOpen(mission.opensAt);
+
             return (
               <div
                 key={mission.cardId}
-                className={`${styles.card} ${isLocked ? styles.cardLocked : ''} ${mission?.type === 'bonus' ? styles.bonuseBorderGradient : ''} ${!isDone ? styles.notDoneBorderGradient : ''}`}
-                onClick={() => !isLocked && router.push(`/mission/${mission.cardId}`)}
+                className={`${styles.card} ${isLocked ? styles.cardLocked : ''} ${isUpcoming ? styles.cardUpcoming : ''} ${mission?.type === 'bonus' ? styles.bonuseBorderGradient : ''} ${!isDone ? styles.notDoneBorderGradient : ''}`}
+                onClick={() =>
+                  !isLocked && !isUpcoming && router.push(`/mission/${mission.cardId}`)
+                }
               >
                 <div
                   className={`from-bg-card-light to-bg-card shadow-inner-card relative flex h-full w-full gap-4 rounded-[16px] bg-gradient-to-r p-[20px_30px]`}
@@ -68,7 +75,7 @@ export const MobileMission = () => {
                   <div
                     className={`${styles.iconRing} ${isLocked ? styles.iconRingLocked : ''} ${isDone && styles.iconRingDone} ${mission?.type === 'bonus' ? styles.iconRingBonus : ''}`}
                   >
-                    {isLocked || !cover ? (
+                    {isLocked || isUpcoming || !cover ? (
                       <Image src={lockedImg} alt="Locked" className={styles.lockedImage} fill />
                     ) : (
                       <Image
@@ -99,9 +106,17 @@ export const MobileMission = () => {
                     </div>
 
                     <div
-                      className={`${styles.actionBtn} ${isLocked ? styles.actionBtnLocked : isDone ? styles.actionBtnDone : styles.actionBtnPlay} ${mission.type === 'bonus' ? 'bg-black' : ''}`}
+                      className={`${styles.actionBtn} ${isLocked || isUpcoming ? styles.actionBtnLocked : isDone ? styles.actionBtnDone : styles.actionBtnPlay} ${mission.type === 'bonus' && !isUpcoming ? 'bg-black' : ''}`}
                     >
-                      {isLocked ? tc('locked') : isDone ? tc('done') : tc('start')}
+                      {isLocked
+                        ? tc('locked')
+                        : isUpcoming
+                          ? tc('opensAt', {
+                              date: formatOpensAt(mission.opensAt as string, locale),
+                            })
+                          : isDone
+                            ? tc('done')
+                            : tc('start')}
                     </div>
                   </div>
                   {mission?.type === 'bonus' && (
