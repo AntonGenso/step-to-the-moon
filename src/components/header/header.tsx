@@ -27,7 +27,7 @@ const Header = () => {
   return (
     <header className={styles.custom}>
       <nav className={styles.navContent}>
-        <div className="flex items-center justify-between gap-4 tablet:gap-10">
+        <div className="tablet:gap-10 flex items-center justify-between gap-4">
           <Link href="/">
             <Logo className={styles.logo} />
           </Link>
@@ -61,9 +61,6 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link href="/">
-                <Inoman />
-              </Link>
               <LanguageSwitcher />
               <button onClick={() => setShowConfirm(true)}>
                 <ExitIcon />

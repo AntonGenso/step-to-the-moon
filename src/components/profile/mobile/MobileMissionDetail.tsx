@@ -12,6 +12,7 @@ import GameIcon from '@/public/images/svg/mobile/other/game.svg';
 import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
 import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
 import { resolveGameLink } from '@/src/services/gameLink';
+import { useFullscreen } from '@/src/hooks/useFullscreen';
 
 interface Props {
   mission: MissionView;
@@ -29,6 +30,14 @@ export const MobileMissionDetail = ({ mission }: Props) => {
   const [activeOverlay, setActiveOverlay] = useState<'video' | 'game' | null>(null);
   const [openFactId, setOpenFactId] = useState<number | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const {
+    isSupported: canFullscreen,
+    isFullscreen,
+    enter: enterFullscreen,
+    exit: exitFullscreen,
+    toggle: toggleFullscreen,
+  } = useFullscreen(overlayRef);
 
   useEffect(() => {
     setOrigin(window.location.origin);
@@ -40,6 +49,28 @@ export const MobileMissionDetail = ({ mission }: Props) => {
     if (index < 0) return;
     carouselRef.current.scrollLeft = index * carouselRef.current.clientWidth;
   }, [openFactId, mission.facts]);
+
+  // Игра открывается сразу на весь экран — на вид как отдельная вкладка, но в
+  // том же документе, иначе её `postMessage` некому будет принять. У видео свои
+  // контролы с полноэкранным режимом, его не трогаем.
+  useEffect(() => {
+    if (activeOverlay !== 'game') return;
+
+    void enterFullscreen();
+    return () => {
+      void exitFullscreen();
+    };
+  }, [activeOverlay, enterFullscreen, exitFullscreen]);
+
+  /**
+   * Закрытие оверлея. Из полноэкранного режима выходим здесь, пока оверлей ещё
+   * в DOM: cleanup эффекта отрабатывает уже после того, как React снял `ref`, и
+   * сам по себе оставил бы страницу развёрнутой до нажатия Esc.
+   */
+  const closeOverlay = () => {
+    void exitFullscreen();
+    setActiveOverlay(null);
+  };
 
   // Listen for score submissions from game iframe via postMessage
   useEffect(() => {
@@ -67,10 +98,17 @@ export const MobileMissionDetail = ({ mission }: Props) => {
   return (
     <div className={styles.page}>
       {activeOverlay ? (
-        <div className={styles.overlay}>
-          <button className={styles.overlayClose} onClick={() => setActiveOverlay(null)}>
-            {tc('close')}
-          </button>
+        <div className={styles.overlay} ref={overlayRef}>
+          <div className={styles.overlayControls}>
+            {activeOverlay === 'game' && canFullscreen && (
+              <button className={styles.overlayClose} onClick={toggleFullscreen}>
+                {isFullscreen ? tc('exitFullscreen') : tc('fullscreen')}
+              </button>
+            )}
+            <button className={styles.overlayClose} onClick={closeOverlay}>
+              {tc('close')}
+            </button>
+          </div>
           {activeOverlay === 'video' && mission.videoLink ? (
             <video src={mission.videoLink} className={styles.overlayMedia} controls autoPlay />
           ) : (

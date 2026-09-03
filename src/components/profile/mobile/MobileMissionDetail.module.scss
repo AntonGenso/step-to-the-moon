@@ -438,9 +438,29 @@
   min-height: 0;
 }
 
-.overlayClose {
+.overlayControls {
+  display: flex;
   flex-shrink: 0;
   align-self: flex-end;
+  gap: 8px;
+}
+
+/* Полноэкранный оверлей — корень слоя: он больше не растягивается флексом
+   страницы, и фон страницы за ним не виден. */
+.overlay:fullscreen {
+  height: 100%;
+  padding: 12px 16px;
+  background: var(--color-bg-base);
+}
+
+.overlay:-webkit-full-screen {
+  height: 100%;
+  padding: 12px 16px;
+  background: var(--color-bg-base);
+}
+
+.overlayClose {
+  flex-shrink: 0;
   padding: 6px 20px;
   border-radius: 10px;
   border: 1.5px solid rgba(0, 200, 200, 0.4);

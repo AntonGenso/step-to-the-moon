@@ -114,6 +114,8 @@
     "locked": "LOCKED",
     "done": "DONE",
     "close": "CLOSE",
+    "fullscreen": "НА ВЕСЬ ЭКРАН",
+    "exitFullscreen": "СВЕРНУТЬ",
     "logout": "Logout",
     "xp": "XP",
     "level": "level",

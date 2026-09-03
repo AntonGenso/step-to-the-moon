@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './Tablet.module.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Root, List, Trigger, Content } from '@radix-ui/react-tabs';
 import { tabletButtons } from './tabletButtons/tabletButtons';
 import { useSearchParams } from 'next/navigation';
@@ -13,6 +13,7 @@ import { Skin } from '../../skin/Skin';
 import { resolveGameLink } from '@/src/services/gameLink';
 import { missionProgressKey, parseCardId } from '@/src/services/missionService';
 import { useAuth } from '@/src/context/AuthContext';
+import { useFullscreen } from '@/src/hooks/useFullscreen';
 // import ExitIcon from '@/public/images/header/exit-icon.svg';
 import { useTranslations } from 'next-intl';
 
@@ -28,6 +29,14 @@ export const Tablet = () => {
   const isMissionDetail = missionIdParam !== null;
   const [isGameOpen, setIsGameOpen] = useState(false);
   const [gameLink, setGameLink] = useState('');
+  const gameOverlayRef = useRef<HTMLDivElement>(null);
+  const {
+    isSupported: canFullscreen,
+    isFullscreen,
+    enter: enterFullscreen,
+    exit: exitFullscreen,
+    toggle: toggleFullscreen,
+  } = useFullscreen(gameOverlayRef);
   const [activeTab, setActiveTab] = useState(activeTabParam || 'mission');
 
   const handleSetActiveParam = (value: string) => {
@@ -35,6 +44,27 @@ export const Tablet = () => {
     params.set('activeTab', value);
     router.replace(`/?${params.toString()}`, { scroll: false });
     setActiveTab(value);
+  };
+
+  // Игра открывается сразу на весь экран — как отдельная вкладка на вид, но
+  // внутри того же документа, иначе её `postMessage` некому будет принять.
+  useEffect(() => {
+    if (!isGameOpen) return;
+
+    void enterFullscreen();
+    return () => {
+      void exitFullscreen();
+    };
+  }, [isGameOpen, enterFullscreen, exitFullscreen]);
+
+  /**
+   * Закрытие игры. Из полноэкранного режима выходим здесь, пока оверлей ещё в
+   * DOM: cleanup эффекта отрабатывает уже после того, как React снял `ref`, и
+   * сам по себе оставил бы страницу развёрнутой до нажатия Esc.
+   */
+  const closeGame = () => {
+    void exitFullscreen();
+    setIsGameOpen(false);
   };
 
   // Listen for score submissions from game iframes via postMessage
@@ -79,10 +109,17 @@ export const Tablet = () => {
     });
 
     return (
-      <div className={styles.gameOverlay}>
-        <button className={styles.gameCloseBtn} onClick={() => setIsGameOpen(false)}>
-          {t('close')}
-        </button>
+      <div className={styles.gameOverlay} ref={gameOverlayRef}>
+        <div className={styles.gameControls}>
+          {canFullscreen && (
+            <button className={styles.gameCloseBtn} onClick={toggleFullscreen}>
+              {isFullscreen ? t('exitFullscreen') : t('fullscreen')}
+            </button>
+          )}
+          <button className={styles.gameCloseBtn} onClick={closeGame}>
+            {t('close')}
+          </button>
+        </div>
         <iframe src={resolvedGameLink} className={styles.gameIframe} allowFullScreen />
       </div>
     );

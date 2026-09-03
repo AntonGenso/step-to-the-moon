@@ -162,8 +162,23 @@
   background: var(--color-bg-base);
 }
 
-.gameCloseBtn {
+.gameControls {
+  display: flex;
   align-self: flex-end;
+  gap: 12px;
+}
+
+/* В полноэкранном режиме оверлей — корень слоя, и фон страницы за ним уже не
+   виден: браузер подставляет свой чёрный. Красим сами. */
+.gameOverlay:fullscreen {
+  background: var(--color-bg-base);
+}
+
+.gameOverlay:-webkit-full-screen {
+  background: var(--color-bg-base);
+}
+
+.gameCloseBtn {
   padding: 8px 24px;
   border-radius: 12px;
   border: 1.5px solid rgba(0, 200, 200, 0.4);

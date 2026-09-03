@@ -114,6 +114,8 @@
     "locked": "YOPIQ",
     "done": "BAJARILDI",
     "close": "YOPISH",
+    "fullscreen": "TO'LIQ EKRAN",
+    "exitFullscreen": "KICHRAYTIRISH",
     "logout": "Chiqish",
     "xp": "XP",
     "level": "daraja",
