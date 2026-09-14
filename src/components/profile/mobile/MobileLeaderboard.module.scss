@@ -188,3 +188,97 @@
   font-weight: 700 !important;
   color: rgba(47, 228, 211, 1);
 }
+
+/* Filters — name search + "my class" toggle */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(0, 200, 200, 0.35);
+  background: rgba(0, 200, 200, 0.05);
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 16px;
+  color: #fff;
+  outline: none;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  &:focus {
+    border-color: #2fe4d3;
+  }
+}
+
+.filterButton {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(0, 200, 200, 0.35);
+  background: rgba(0, 200, 200, 0.05);
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2fe4d3;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.filterButtonActive {
+  border-color: #ff7b1d;
+  background: rgba(255, 123, 29, 0.12);
+  color: #ff7b1d;
+}
+
+/* Empty search result */
+.empty {
+  padding: 20px 0;
+  text-align: center;
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Pagination */
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.pagerButton {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(0, 200, 200, 0.35);
+  background: rgba(0, 200, 200, 0.05);
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2fe4d3;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+.pagerCounter {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  min-width: 60px;
+  text-align: center;
+}

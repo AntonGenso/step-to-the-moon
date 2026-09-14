@@ -59,7 +59,14 @@
     "stars": "Stars",
     "score": "Score",
     "total": "Total",
-    "you": "YOU"
+    "you": "YOU",
+    "searchPlaceholder": "Поиск по имени",
+    "myClass": "Мой класс",
+    "allPlayers": "Все игроки",
+    "nothingFound": "Никого не нашлось",
+    "prev": "Назад",
+    "next": "Вперёд",
+    "pageOf": "{page} из {pages}"
   },
   "mission": {
     "title": "MISSION",

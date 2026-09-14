@@ -143,6 +143,27 @@ export interface LeaderboardRow {
   stars: number;
   score: number;
   total: number;
+  /** Place on the unfiltered board, so a name search still shows the real rank. */
+  position: number;
+}
+
+/** One page of the board, as `GET /game/leaderboard` returns it. */
+export interface LeaderboardPage {
+  entries: LeaderboardRow[];
+  page: number;
+  pageSize: number;
+  /** Rows matching the current scope and search, across every page. */
+  total: number;
+  totalPages: number;
+}
+
+export interface LeaderboardQuery {
+  page?: number;
+  pageSize?: number;
+  /** Name fragment; empty means no name filter. */
+  search?: string;
+  /** 'class' narrows the board to the caller's own class. */
+  scope?: 'class';
 }
 
 /** Error carrying the HTTP status, so route handlers can mirror it back. */
@@ -280,7 +301,16 @@ export const updateSkin = (token: string, headId: number, suitId: number) =>
     body: { headId, suitId },
   });
 
-export const getLeaderboard = (token: string, classId?: number): Promise<LeaderboardRow[]> =>
-  request<LeaderboardRow[]>('/game/leaderboard' + (classId ? `?classId=${classId}` : ''), {
-    token,
-  });
+export const getLeaderboard = (
+  token: string,
+  query: LeaderboardQuery = {}
+): Promise<LeaderboardPage> => {
+  const params = new URLSearchParams();
+  if (query.page) params.set('page', String(query.page));
+  if (query.pageSize) params.set('pageSize', String(query.pageSize));
+  if (query.search) params.set('search', query.search);
+  if (query.scope) params.set('scope', query.scope);
+
+  const qs = params.toString();
+  return request<LeaderboardPage>(`/game/leaderboard${qs ? `?${qs}` : ''}`, { token });
+};

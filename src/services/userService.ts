@@ -31,6 +31,27 @@ export interface LeaderboardEntry {
   stars: number;
   score: number;
   total: number;
+  /** Place on the unfiltered board — a name search doesn't renumber the rows. */
+  position: number;
+}
+
+/** One page of the board, as `/api/leaderboard` returns it. */
+export interface LeaderboardPage {
+  entries: LeaderboardEntry[];
+  page: number;
+  pageSize: number;
+  /** Rows matching the current scope and search, across every page. */
+  total: number;
+  totalPages: number;
+}
+
+export interface LeaderboardQuery {
+  page?: number;
+  pageSize?: number;
+  /** Name fragment; empty means no name filter. */
+  search?: string;
+  /** True narrows the board to the classmates of the logged-in student. */
+  myClassOnly?: boolean;
 }
 
 /* ───── Profile ───── */
@@ -95,21 +116,33 @@ export const updateUserSkin = async (
 const LEADERBOARD_POLL_MS = 15_000;
 
 /**
- * Subscribe to the leaderboard. sttm-server has no realtime channel, so this
- * polls `/api/leaderboard` on an interval and reports the latest snapshot.
- * Returns an unsubscribe function, matching the previous realtime API.
+ * Subscribe to one page of the leaderboard. sttm-server has no realtime
+ * channel, so this polls `/api/leaderboard` on an interval and reports the
+ * latest snapshot. Returns an unsubscribe function, matching the previous
+ * realtime API.
+ *
+ * The query is baked into the subscription: changing page or filters means
+ * unsubscribing and subscribing again, which is what the hook does.
  */
-export const subscribeTopUsers = (
-  callback: (entries: LeaderboardEntry[]) => void,
+export const subscribeLeaderboard = (
+  query: LeaderboardQuery,
+  callback: (page: LeaderboardPage) => void
 ): (() => void) => {
   let active = true;
 
+  const params = new URLSearchParams();
+  if (query.page) params.set('page', String(query.page));
+  if (query.pageSize) params.set('pageSize', String(query.pageSize));
+  if (query.search) params.set('search', query.search);
+  if (query.myClassOnly) params.set('scope', 'class');
+  const qs = params.toString();
+
   const tick = async () => {
     try {
-      const res = await fetch('/api/leaderboard', { cache: 'no-store' });
+      const res = await fetch(`/api/leaderboard${qs ? `?${qs}` : ''}`, { cache: 'no-store' });
       if (!res.ok) return;
-      const entries = (await res.json()) as LeaderboardEntry[];
-      if (active) callback(entries);
+      const page = (await res.json()) as LeaderboardPage;
+      if (active) callback(page);
     } catch {
       /* ignore transient errors; the next tick retries */
     }

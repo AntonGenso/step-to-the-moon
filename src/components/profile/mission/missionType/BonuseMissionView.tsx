@@ -2,6 +2,7 @@ import styles from './MissionType.module.scss';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { SHOW_BONUS_UPLOAD } from '@/src/config/featureFlags';
 
 interface IBonusMissionProps {
   handleDownload: () => void;
@@ -71,52 +72,54 @@ export const BonuseMissionView = ({ handleDownload, handleUpload }: IBonusMissio
         <span className={styles.activityHint}>{t('playNotGame')}</span>
       </button>
 
-      {/* Upload card */}
-      <button
-        type="button"
-        className={`${styles.bonusCard} ${styles.uploadCard}`}
-        onClick={triggerFileInput}
-        disabled={isUploading}
-      >
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/png,image/jpeg,image/jpg"
-          onChange={handleFileUpload}
-          className="hidden"
-        />
+      {/* Upload card — временно скрыт, см. SHOW_BONUS_UPLOAD */}
+      {SHOW_BONUS_UPLOAD && (
+        <button
+          type="button"
+          className={`${styles.bonusCard} ${styles.uploadCard}`}
+          onClick={triggerFileInput}
+          disabled={isUploading}
+        >
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/png,image/jpeg,image/jpg"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
 
-        {uploadedImage ? (
-          <div className={styles.uploadPreview}>
-            <Image src={uploadedImage} alt="Uploaded" fill className={styles.uploadPreviewImg} />
-            <span className={styles.uploadPreviewText}>{t('uploadAnother')}</span>
-          </div>
-        ) : isUploading ? (
-          <>
-            <div className={styles.bonusIconCircle}>
-              <span className={styles.spinner} />
+          {uploadedImage ? (
+            <div className={styles.uploadPreview}>
+              <Image src={uploadedImage} alt="Uploaded" fill className={styles.uploadPreviewImg} />
+              <span className={styles.uploadPreviewText}>{t('uploadAnother')}</span>
             </div>
-            <span className={styles.activityLabel}>{t('uploading')}</span>
-          </>
-        ) : (
-          <>
-            <div className={styles.bonusIconCircle}>
-              <svg width="44%" height="44%" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                <path
-                  d="M24 32V16M24 16L16 24M24 16L32 24"
-                  stroke="#fff"
-                  strokeWidth="3.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path d="M10 36h28" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
-              </svg>
-            </div>
-            <span className={styles.activityLabel}>{t('uploadFile')}</span>
-            <span className={styles.activityHint}>{t('sendUsFile')}</span>
-          </>
-        )}
-      </button>
+          ) : isUploading ? (
+            <>
+              <div className={styles.bonusIconCircle}>
+                <span className={styles.spinner} />
+              </div>
+              <span className={styles.activityLabel}>{t('uploading')}</span>
+            </>
+          ) : (
+            <>
+              <div className={styles.bonusIconCircle}>
+                <svg width="44%" height="44%" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                  <path
+                    d="M24 32V16M24 16L16 24M24 16L32 24"
+                    stroke="#fff"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path d="M10 36h28" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
+                </svg>
+              </div>
+              <span className={styles.activityLabel}>{t('uploadFile')}</span>
+              <span className={styles.activityHint}>{t('sendUsFile')}</span>
+            </>
+          )}
+        </button>
+      )}
     </div>
   );
 };

@@ -13,6 +13,7 @@ import BackIcon from '@/public/images/svg/mobile/other/arrow.svg';
 import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
 import { resolveGameLink } from '@/src/services/gameLink';
 import { useFullscreen } from '@/src/hooks/useFullscreen';
+import { SHOW_BONUS_UPLOAD } from '@/src/config/featureFlags';
 
 interface Props {
   mission: MissionView;
@@ -197,28 +198,30 @@ export const MobileMissionDetail = ({ mission }: Props) => {
                   </button>
                 </section>
 
-                {/* Upload section */}
-                <section className={styles.section}>
-                  <h3 className={styles.sectionTitle}>{t('yourResults')}</h3>
-                  <p className={styles.sectionSub}>{t('letsCheck')}</p>
+                {/* Upload section — временно скрыта, см. SHOW_BONUS_UPLOAD */}
+                {SHOW_BONUS_UPLOAD && (
+                  <section className={styles.section}>
+                    <h3 className={styles.sectionTitle}>{t('yourResults')}</h3>
+                    <p className={styles.sectionSub}>{t('letsCheck')}</p>
 
-                  <div className={`${styles.bonusCard} ${styles.uploadCard}`}>
-                    <div className={styles.bonusIconCircle}>
-                      <svg width="44%" height="44%" viewBox="0 0 48 48" fill="none">
-                        <path
-                          d="M24 32V16M24 16L16 24M24 16L32 24"
-                          stroke="#fff"
-                          strokeWidth="3.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path d="M10 36h28" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
-                      </svg>
+                    <div className={`${styles.bonusCard} ${styles.uploadCard}`}>
+                      <div className={styles.bonusIconCircle}>
+                        <svg width="44%" height="44%" viewBox="0 0 48 48" fill="none">
+                          <path
+                            d="M24 32V16M24 16L16 24M24 16L32 24"
+                            stroke="#fff"
+                            strokeWidth="3.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path d="M10 36h28" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
+                        </svg>
+                      </div>
+                      <span className={styles.activityLabel}>{t('uploadFile')}</span>
+                      <span className={styles.activityHint}>{t('sendUsFile')}</span>
                     </div>
-                    <span className={styles.activityLabel}>{t('uploadFile')}</span>
-                    <span className={styles.activityHint}>{t('sendUsFile')}</span>
-                  </div>
-                </section>
+                  </section>
+                )}
               </>
             ) : (
               /* Activities */

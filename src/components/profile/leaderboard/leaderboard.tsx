@@ -10,7 +10,17 @@ import StarIcon from '@/public/images/svg/mobile/other/star.svg';
 import Image from 'next/image';
 
 export default function Leaderboard() {
-  const players = useLeaderboard();
+  const {
+    players,
+    page,
+    totalPages,
+    loading,
+    search,
+    myClassOnly,
+    setPage,
+    setSearch,
+    setMyClassOnly,
+  } = useLeaderboard();
   const { nickname } = useAuth();
   const t = useTranslations('leaderboard');
   const tc = useTranslations('common');
@@ -21,6 +31,25 @@ export default function Leaderboard() {
       <p className={styles.subtitle}>{t('subtitle')}</p>
 
       <div className="w-[70%] rounded-lg p-4">
+        <div className={styles.filters}>
+          <input
+            type="search"
+            className={styles.searchInput}
+            placeholder={t('searchPlaceholder')}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            aria-label={t('searchPlaceholder')}
+          />
+          <button
+            type="button"
+            className={`${styles.filterButton} ${myClassOnly ? styles.filterButtonActive : ''}`}
+            onClick={() => setMyClassOnly(!myClassOnly)}
+            aria-pressed={myClassOnly}
+          >
+            {myClassOnly ? t('allPlayers') : t('myClass')}
+          </button>
+        </div>
+
         {/* <div className={styles.headerRow}>
           <span className={styles.colHash}>{t('hash')}</span>
           <span className={styles.colName}>{t('name')}</span>
@@ -30,15 +59,16 @@ export default function Leaderboard() {
         </div> */}
 
         <div className={`${styles.playerList}`}>
-          {players.map((p, i) => {
+          {players.map((p) => {
             const isMe = p.nickname === nickname;
-            const rankClass = [styles.rank1, styles.rank2, styles.rank3][i] ?? '';
+            // Top-3 styling follows the real place, so page 2 has no podium.
+            const rankClass = [styles.rank1, styles.rank2, styles.rank3][p.position - 1] ?? '';
             return (
               <div
                 key={p.nickname}
                 className={`${styles.playerRow} ${rankClass} ${isMe ? styles.playerRowMe : ''}`}
               >
-                <span className={styles.colHash}>{i + 1}</span>
+                <span className={styles.colHash}>{p.position}</span>
                 <div className={styles.colName}>
                   <div className={styles.avatar}>
                     <Image
@@ -72,7 +102,31 @@ export default function Leaderboard() {
               </div>
             );
           })}
+
+          {!players.length && !loading && <p className={styles.empty}>{t('nothingFound')}</p>}
         </div>
+
+        {totalPages > 1 && (
+          <div className={styles.pager}>
+            <button
+              type="button"
+              className={styles.pagerButton}
+              onClick={() => setPage(page - 1)}
+              disabled={page <= 1}
+            >
+              {t('prev')}
+            </button>
+            <span className={styles.pagerCounter}>{t('pageOf', { page, pages: totalPages })}</span>
+            <button
+              type="button"
+              className={styles.pagerButton}
+              onClick={() => setPage(page + 1)}
+              disabled={page >= totalPages}
+            >
+              {t('next')}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

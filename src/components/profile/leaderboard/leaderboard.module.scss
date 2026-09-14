@@ -275,3 +275,110 @@
   font-weight: 800;
   color: #fff;
 }
+
+/* Filters — name search + "my class" toggle */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px 16px;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(0, 200, 200, 0.35);
+  background: rgba(0, 200, 200, 0.05);
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 18px;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  &:focus {
+    border-color: var(--color-cyan);
+  }
+}
+
+.filterButton {
+  flex-shrink: 0;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(0, 200, 200, 0.35);
+  background: rgba(0, 200, 200, 0.05);
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-cyan);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--color-cyan);
+  }
+}
+
+.filterButtonActive {
+  border-color: var(--color-orange-bright);
+  background: rgba(255, 123, 29, 0.12);
+  color: var(--color-orange-bright);
+}
+
+/* Empty search result */
+.empty {
+  padding: 24px 0;
+  text-align: center;
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Pagination */
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.pagerButton {
+  padding: 8px 20px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(0, 200, 200, 0.35);
+  background: rgba(0, 200, 200, 0.05);
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-cyan);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    border-color: var(--color-cyan);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+.pagerCounter {
+  font-family: var(--font-alumni), sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  min-width: 70px;
+  text-align: center;
+}

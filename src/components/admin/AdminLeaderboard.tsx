@@ -13,21 +13,21 @@ const FADE_FROM = 8;
 const VISIBLE_PLAYERS = 10;
 
 export const AdminLeaderboard = () => {
-  const players = useLeaderboard();
+  // The widget shows a fixed top-N, so it asks the board for exactly one page
+  // of that size and offers neither paging nor the filters.
+  const { players } = useLeaderboard({ pageSize: VISIBLE_PLAYERS });
   const { nickname } = useAuth();
   const t = useTranslations('leaderboard');
   const tc = useTranslations('common');
   const ta = useTranslations('admin');
 
-  const topPlayers = players.slice(0, VISIBLE_PLAYERS);
-
-  if (!topPlayers.length) {
+  if (!players.length) {
     return <p className={styles.empty}>{ta('emptyLeaderboard')}</p>;
   }
 
   return (
     <div className={`${styles.list} custom-scroll`}>
-      {topPlayers.map((p, i) => {
+      {players.map((p, i) => {
         const isMe = p.nickname === nickname;
         const rankClass = [styles.rank1, styles.rank2, styles.rank3][i] ?? '';
 

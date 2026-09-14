@@ -59,7 +59,14 @@
     "stars": "Yulduzlar",
     "score": "Ball",
     "total": "Jami",
-    "you": "SIZ"
+    "you": "SIZ",
+    "searchPlaceholder": "Ism boʻyicha qidirish",
+    "myClass": "Mening sinfim",
+    "allPlayers": "Barcha oʻyinchilar",
+    "nothingFound": "Hech kim topilmadi",
+    "prev": "Orqaga",
+    "next": "Oldinga",
+    "pageOf": "{pages} dan {page}"
   },
   "mission": {
     "title": "MISSIYA",
