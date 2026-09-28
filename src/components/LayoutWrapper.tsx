@@ -3,6 +3,7 @@
 import { usePathname } from '@/src/i18n/navigation';
 import Header from '@/src/components/header/header';
 import Footer from '@/src/components/footer/footer';
+import { LegalGate } from '@/src/components/legal/LegalGate';
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -21,6 +22,9 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
       )}
       <main className="min-h-0 flex-1">{children}</main>
       {!hideLayout && !hideFooter && <Footer />}
+
+      {/* Поверх всего: пока согласие не дано, играть нельзя. */}
+      <LegalGate />
     </div>
   );
 }

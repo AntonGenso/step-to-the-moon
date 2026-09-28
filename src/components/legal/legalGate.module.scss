@@ -1,0 +1,76 @@
+/* Блокирующее окно согласия: поверх всего, закрыть нельзя. */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.window {
+  display: flex;
+  width: 100%;
+  max-width: 520px;
+  flex-direction: column;
+  gap: 1.1rem;
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  border-radius: 1rem;
+  background: rgba(7, 21, 42, 0.97);
+  padding: 1.75rem;
+  color: #fff;
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 1.05rem;
+    opacity: 0.8;
+  }
+
+  button {
+    border-radius: 999px;
+    background: linear-gradient(135deg, #00e5ff, #00b8a9);
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+  }
+}
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  cursor: pointer;
+  line-height: 1.35;
+
+  input {
+    margin-top: 0.2rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  a {
+    color: #00e5ff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.error {
+  color: #ff6b6b;
+}

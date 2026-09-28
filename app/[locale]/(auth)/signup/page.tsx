@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useRouter } from '@/src/i18n/navigation';
 import { useAuth } from '@/src/context/AuthContext';
 import {
@@ -10,6 +10,7 @@ import {
   validatePin,
 } from '@/src/services/validators';
 import { useTranslations } from 'next-intl';
+import type { LegalConfig } from '@/src/services/sttmServer';
 import Image from 'next/image';
 import { LanguageSwitcher } from '@/src/components/LanguageSwitcher';
 
@@ -25,8 +26,22 @@ export default function SignupPage() {
   const [pin, setPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
   const [classCode, setClassCode] = useState('');
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  /**
+   * Правила участия и политика конфиденциальности. Документов ещё нет: пока на
+   * сервере не заданы их адреса, приходит `enabled: false`, и галочка не
+   * показывается вовсе. Появятся — включится сама, без выкатки игры.
+   */
+  const [legal, setLegal] = useState<LegalConfig | null>(null);
+  useEffect(() => {
+    fetch('/api/legal')
+      .then((res) => (res.ok ? res.json() : null))
+      .then(setLegal)
+      .catch(() => {});
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,15 +69,22 @@ export default function SignupPage() {
       return;
     }
 
-    if (!classCode.trim()) {
-      setError(t('classCodeRequired'));
+    // Код класса необязателен: ребёнок может прийти раньше, чем учитель раздаст
+    // код. Без него аккаунт заводится вне класса, войти в класс можно позже.
+    if (legal?.enabled && !termsAccepted) {
+      setError(t('termsRequired'));
       return;
     }
 
     setLoading(true);
 
     try {
-      const err = await signup(nickname.trim(), pin, classCode.trim().toUpperCase());
+      const err = await signup(
+        nickname.trim(),
+        pin,
+        classCode.trim().toUpperCase(),
+        termsAccepted,
+      );
       if (err) {
         setError(err);
       } else {
@@ -149,7 +171,9 @@ export default function SignupPage() {
           />
         </div>
 
-        <label className={styles.label}>{t('classCode')}</label>
+        {/* Необязательно: без кода ученик регистрируется вне класса и войдёт
+            в него позже, когда учитель раздаст код. */}
+        <label className={styles.label}>{t('classCodeOptional')}</label>
         <div className={styles.inputGroup}>
           <input
             type="text"
@@ -165,12 +189,33 @@ export default function SignupPage() {
           />
         </div>
 
+        {/* Появится само, когда документы опубликуют. */}
+        {legal?.enabled && (
+          <label className={styles.terms}>
+            <input
+              type="checkbox"
+              checked={termsAccepted}
+              onChange={(e) => setTermsAccepted(e.target.checked)}
+            />
+            <span>
+              {t('termsPrefix')}{' '}
+              <a href={legal.terms_url ?? '#'} target="_blank" rel="noopener noreferrer">
+                {t('termsLink')}
+              </a>{' '}
+              {t('termsAnd')}{' '}
+              <a href={legal.privacy_url ?? '#'} target="_blank" rel="noopener noreferrer">
+                {t('privacyLink')}
+              </a>
+            </span>
+          </label>
+        )}
+
         {error && <p className={styles.error}>{error}</p>}
 
         <button
           type="submit"
           className={styles.startBtn}
-          disabled={loading}
+          disabled={loading || (legal?.enabled === true && !termsAccepted)}
         >
           {loading ? t('signingUp') : t('signUp')}
         </button>

@@ -23,7 +23,18 @@
       "nicknameHint": "{min}–{max} belgi: harflar, raqamlar, _, bo'sh joy",
       "confirmPin": "PIN takrorlang",
       "classCode": "masalan Z4EZZJY"
-    }
+    },
+    "classCodeOptional": "Sinf kodi (majburiy emas)",
+    "termsPrefix": "Men tanishdim va roziman:",
+    "termsLink": "ishtirok qoidalari",
+    "termsAnd": "va",
+    "privacyLink": "maxfiylik siyosati",
+    "termsRequired": "Hujjatlar bilan rozilikni tasdiqlash kerak",
+    "legalTitle": "Ishtirok qoidalari",
+    "legalIntro": "O'yinni davom ettirish uchun hujjatlar bilan tanishganingni tasdiqla.",
+    "legalAccept": "Tasdiqlayman",
+    "legalAccepting": "Saqlanmoqda…",
+    "legalError": "Saqlab bo'lmadi. Qayta urinib ko'r."
   },
   "validation": {
     "enterNickname": "Taxallus kiriting",

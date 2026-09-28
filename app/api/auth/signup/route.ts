@@ -5,7 +5,7 @@ import { setSession } from '@/src/services/session';
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { nickname, pin, classCode } = await req.json();
+    const { nickname, pin, classCode, termsAccepted } = await req.json();
 
     if (validateNewNickname(nickname ?? '')) {
       return NextResponse.json({ error: 'Invalid nickname' }, { status: 400 });
@@ -13,11 +13,18 @@ export const POST = async (req: NextRequest) => {
     if (validatePin(pin ?? '')) {
       return NextResponse.json({ error: 'Invalid PIN' }, { status: 400 });
     }
-    if (typeof classCode !== 'string' || !classCode.trim()) {
-      return NextResponse.json({ error: 'Class code is required' }, { status: 400 });
-    }
 
-    const { user, token, refreshToken } = await registerStudent(nickname, pin, classCode);
+    // Код класса необязателен: без него ученик регистрируется вне класса и
+    // войдёт в него позже. Непустой, но неверный код сервер по-прежнему
+    // отклоняет — иначе опечатка молча оставляла бы ребёнка без класса.
+    const code = typeof classCode === 'string' && classCode.trim() ? classCode.trim() : null;
+
+    const { user, token, refreshToken } = await registerStudent(
+      nickname,
+      pin,
+      code,
+      termsAccepted === true,
+    );
 
     const response = NextResponse.json({ ok: true, nickname: user.name });
     setSession(response, token, refreshToken);

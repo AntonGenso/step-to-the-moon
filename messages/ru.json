@@ -23,7 +23,18 @@
       "nicknameHint": "{min}–{max} chars: letters, digits, _, space",
       "confirmPin": "Repeat PIN",
       "classCode": "e.g. Z4EZZJY"
-    }
+    },
+    "classCodeOptional": "Код класса (необязательно)",
+    "termsPrefix": "Я ознакомлен и согласен с",
+    "termsLink": "правилами участия",
+    "termsAnd": "и",
+    "privacyLink": "политикой конфиденциальности",
+    "termsRequired": "Нужно подтвердить согласие с документами",
+    "legalTitle": "Правила участия",
+    "legalIntro": "Чтобы продолжить играть, подтверди, что ознакомился с документами.",
+    "legalAccept": "Подтверждаю",
+    "legalAccepting": "Сохраняем…",
+    "legalError": "Не получилось сохранить. Попробуй ещё раз."
   },
   "validation": {
     "enterNickname": "Enter your nickname",

@@ -16,12 +16,26 @@ export interface SttmUser {
   name: string;
   phone: string | null;
   roles: Roles;
+  /** null — зарегистрировался без кода класса и пока ни в каком не состоит. */
   class?: {
     id: number;
     grade: number;
     letter: string;
     school_name: string;
-  };
+  } | null;
+  /**
+   * Принял ли действующую редакцию правил. Пока документы не опубликованы,
+   * приходит true у всех — механизм выключен.
+   */
+  termsAccepted?: boolean;
+}
+
+/** Правила участия и политика конфиденциальности. */
+export interface LegalConfig {
+  enabled: boolean;
+  version: string | null;
+  terms_url: string | null;
+  privacy_url: string | null;
 }
 
 export interface AuthResult {
@@ -220,15 +234,34 @@ const request = async <T>(path: string, options: FetchOptions = {}): Promise<T> 
 
 /* ───────────────────────── Auth ───────────────────────── */
 
+/**
+ * Код класса необязателен: ребёнок может прийти в игру раньше, чем учитель
+ * раздаст код. Без него аккаунт заводится вне класса — играть можно, в отчёт
+ * учителя он попадёт, когда войдёт по коду.
+ *
+ * `termsAccepted` отправляется всегда; пока документы не опубликованы, сервер
+ * его игнорирует.
+ */
 export const registerStudent = (
   nickname: string,
   pin: string,
-  classCode: string
+  classCode: string | null,
+  termsAccepted: boolean
 ): Promise<AuthResult> =>
   request<AuthResult>('/auth/student/register', {
     method: 'POST',
-    body: { nickname, pin, classCode },
+    body: { nickname, pin, classCode: classCode || undefined, termsAccepted },
   });
+
+/** Публично: экран регистрации показывает ссылки ещё до входа. */
+export const getLegal = (): Promise<LegalConfig> => request<LegalConfig>('/legal');
+
+export const acceptLegal = (token: string): Promise<{ accepted: boolean }> =>
+  request<{ accepted: boolean }>('/legal/accept', { method: 'POST', token });
+
+/** Профиль текущей сессии — отсюда игра узнаёт, дано ли согласие. */
+export const getMe = (token: string): Promise<SttmUser> =>
+  request<SttmUser>('/users/me', { token });
 
 /** The game logs in with the nickname as `name` and the PIN as `password`. */
 export const login = (nickname: string, pin: string): Promise<AuthResult> =>
